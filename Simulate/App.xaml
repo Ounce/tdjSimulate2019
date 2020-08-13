@@ -1,7 +1,7 @@
-﻿<Application x:Class="tdjSimulate2019.App"
+﻿<Application x:Class="Simulate.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:tdjSimulate2019"
+             xmlns:local="clr-namespace:Simulate"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
