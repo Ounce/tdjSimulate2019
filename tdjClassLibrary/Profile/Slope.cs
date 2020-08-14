@@ -4,7 +4,7 @@ using System.Text;
 
 namespace tdjClassLibrary.Profile
 {
-    public interface ISection
+    public interface ISlope
     {
         double Length { get; set; }
         double Grade { get; set; }
@@ -29,7 +29,7 @@ namespace tdjClassLibrary.Profile
         }
     }
 
-    public class Section : ISection
+    public class Slope : ISlope
     {
         public double Length { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double Grade { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

@@ -6,5 +6,7 @@ namespace tdjClassLibrary.Profile
 {
     class Profile
     {
+        public List<Slope> Slopes { get; set; }
+
     }
 }
