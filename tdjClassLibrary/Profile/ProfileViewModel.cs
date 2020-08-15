@@ -7,6 +7,6 @@ namespace tdjClassLibrary.Profile
 {
     class ProfileViewModel : NotifyPropertyChanged
     {
-        public ObservableCollection<Slope> Slopes;
+        public ObservableCollection<SlopeViewModel> Slopes;
     }
 }
