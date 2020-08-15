@@ -9,6 +9,6 @@
 
 类在tdjClassLibrary内定义。
 
-界面在相应的项目中。
+界面在相应的项目中。同事项目专用类在项目的Model文件夹内定义。
 
 各类由NotifyPropertyChanged派生，而此类由接口INotifyPropertyChanged派生。
