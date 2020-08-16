@@ -7,7 +7,6 @@ namespace tdjClassLibrary.Profile
     public class Slope : ISlope
     {
         public double Length { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Radii { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double Grade { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

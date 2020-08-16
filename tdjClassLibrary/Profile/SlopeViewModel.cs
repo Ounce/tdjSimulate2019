@@ -35,20 +35,6 @@ namespace tdjClassLibrary.Profile
         }
         private double _grade;
 
-        public double Radii
-        {
-            get { return _radii; }
-            set
-            {
-                if (value != _radii)
-                {
-                    _radii = value;
-                    OnPropertyChanged("Radii");
-                }
-            }
-        }
-        private double _radii;
-
         public double? BeginAltitude
         {
             get { return _beginAltitude; }
