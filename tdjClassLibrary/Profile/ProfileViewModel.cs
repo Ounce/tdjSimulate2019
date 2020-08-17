@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 
 namespace tdjClassLibrary.Profile
@@ -40,6 +41,39 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// Slopes改变时，处理函数。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SlopesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Slope属性改变处理函数。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "EndAltitude":
+                    break;
+            }
+        }
+
+        public ProfileViewModel()
+        {
+            Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+        }
     }
 
 
