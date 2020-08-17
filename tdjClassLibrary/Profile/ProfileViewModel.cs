@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Text;
+using System.Windows.Shapes;
+
+
 
 namespace tdjClassLibrary.Profile
 {
@@ -41,6 +45,28 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
+        public Polyline Polyline { get; set; }
+
+        public Point FirstPoint
+        {
+            get { return firstPoint; }
+            set
+            {
+                if (value != firstPoint)
+                {
+                    firstPoint = value;
+                    OnPropertyChanged("FirstPoint");
+                }
+            }
+        }
+        private Point firstPoint;
+
+        public ProfileViewModel()
+        {
+            Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+        }
+
         /// <summary>
         /// Slopes改变时，处理函数。
         /// </summary>
@@ -70,10 +96,6 @@ namespace tdjClassLibrary.Profile
             }
         }
 
-        public ProfileViewModel()
-        {
-            Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
-        }
     }
 
 

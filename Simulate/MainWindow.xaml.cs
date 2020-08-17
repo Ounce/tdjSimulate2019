@@ -23,6 +23,7 @@ namespace Simulate
         public MainWindow()
         {
             InitializeComponent();
+            Polyline a;
         }
     }
 }
