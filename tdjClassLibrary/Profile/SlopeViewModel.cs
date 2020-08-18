@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
@@ -90,5 +91,12 @@ namespace tdjClassLibrary.Profile
             }
         }
         private double? _endMileage;
+
+        public Point Point { get; set; }
+
+        public SlopeViewModel()
+        {
+
+        }
     }
 }

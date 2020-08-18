@@ -13,6 +13,9 @@
     <Reference Include="PresentationFramework">
       <HintPath>PresentationFramework.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows">
+      <HintPath>System.Windows.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
