@@ -9,4 +9,10 @@
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="PresentationFramework">
+      <HintPath>PresentationFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
