@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
@@ -12,9 +13,6 @@
   <ItemGroup>
     <Reference Include="PresentationFramework">
       <HintPath>PresentationFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows">
-      <HintPath>System.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
 
