@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 
 namespace tdjClassLibrary.Profile
 {
@@ -18,5 +19,7 @@ namespace tdjClassLibrary.Profile
         /// 图形底部对应的高程。
         /// </summary>
         public double BottomAltitude { get; set; }
+
+
     }
 }

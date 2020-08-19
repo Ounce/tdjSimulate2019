@@ -33,7 +33,7 @@ namespace tdjClassLibrary.Profile
         private double _hScale;
 
         /// <summary>
-        /// 垂直比例
+        /// 垂直比例，应根据具体应用自行定义。
         /// </summary>
         public double VerticalScale
         {
