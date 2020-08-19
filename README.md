@@ -31,7 +31,7 @@ Point类使用了System.Drawing中的类。但这个类中的X、Y，为int，Po
 - 比例图（Ployline）
 - MileageTable：里程表
 
-## 视图类ViewModel的结构（第二种）
+## 视图类ViewModel的结构（第二种 multiDrawingClass分支）
 
 视图类分成数据和控件两类。
 
