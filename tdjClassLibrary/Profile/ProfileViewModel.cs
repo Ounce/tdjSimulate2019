@@ -30,6 +30,16 @@ namespace tdjClassLibrary.Profile
         public bool FixBeginOrEndAltitude { get; set; }
 
         /// <summary>
+        /// 最大高程。
+        /// </summary>
+        public double MaxAltitude { get; set; }
+
+        /// <summary>
+        /// 最小高程。
+        /// </summary>
+        public double MinAltitude { get; set; }
+
+        /// <summary>
         /// 纵断面全长。
         /// </summary>
         public double Length
@@ -96,6 +106,25 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// 计算最大和最小高程。
+        /// </summary>
+        /// <returns></returns>
+        public void SetMaxMinAltitude()
+        {
+            double min, max;
+            min = max = Slopes[0].BeginAltitude;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                if (s.EndAltitude > max)
+                    max = s.EndAltitude;
+                if (s.EndAltitude < min)
+                    min = s.EndAltitude;
+            }
+            MaxAltitude = max;
+            MinAltitude = min;
+            return;
+        }
     }
 
 

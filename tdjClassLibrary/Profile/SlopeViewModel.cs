@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -37,7 +38,7 @@ namespace tdjClassLibrary.Profile
         }
         private double _grade;
 
-        public double? BeginAltitude
+        public double BeginAltitude
         {
             get { return _beginAltitude; }
             set
@@ -49,9 +50,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _beginAltitude;
+        private double _beginAltitude;
 
-        public double? EndAltitude
+        public double EndAltitude
         {
             get { return _endAltitude; }
             set
@@ -63,9 +64,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _endAltitude;
+        private double _endAltitude;
 
-        public double? BeginMileage
+        public double BeginMileage
         {
             get { return _beginMileage; }
             set
@@ -77,9 +78,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _beginMileage;
+        private double _beginMileage;
 
-        public double? EndMileage
+        public double EndMileage
         {
             get { return _endMileage; }
             set
@@ -91,7 +92,7 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _endMileage;
+        private double _endMileage;
 
         public PointF BeginPoint
         {
@@ -127,5 +128,10 @@ namespace tdjClassLibrary.Profile
         {
 
         }
+    }
+
+    public class Slopes : ObservableCollection<SlopeViewModel>
+    {
+
     }
 }
