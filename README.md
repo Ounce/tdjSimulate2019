@@ -18,7 +18,7 @@
 
 ## tdjClassLibrary的命名空间
 
-tdjClassLibrary是库项目，PresentationFramework.dll是手动添加的，这个dll包含了System.Windows.Shapes命名空间，Polyline在这个命名空间里。
+tdjClassLibrary是库项目。
 
 Point类使用了System.Drawing中的类。但这个类中的X、Y，为int，PointF的为float。
 
