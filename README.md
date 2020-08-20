@@ -37,6 +37,8 @@ Point类使用了System.Drawing中的类。但这个类中的X、Y，为int，Po
 
 视图类分成数据和控件两类。
 
+图形类是将图形绘制在指定的Canvas上。
+
 ### ProfileViewModel的结构
 
 - Slopes
