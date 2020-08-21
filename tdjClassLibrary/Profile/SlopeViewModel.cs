@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace tdjClassLibrary.Profile
@@ -94,33 +94,33 @@ namespace tdjClassLibrary.Profile
         }
         private double _endMileage;
 
-        public PointF BeginPoint
+        public Point BeginPolylinePoint
         {
-            get { return _beginPoint; }
+            get { return _beginPolylinePoint; }
             set
             {
-                if (value != _beginPoint)
+                if (value != _beginPolylinePoint)
                 {
-                    _beginPoint = value;
-                    OnPropertyChanged("BeginPoint");
+                    _beginPolylinePoint = value;
+                    OnPropertyChanged("BeginPolylinePoint");
                 }
             }
         }
-        private PointF _beginPoint;
+        private Point _beginPolylinePoint;
 
-        public PointF EndPoint
+        public Point EndPolylinePoint
         {
-            get { return _endPoint; }
+            get { return _endPolylinePoint; }
             set
             {
-                if (value != _endPoint)
+                if (value != _endPolylinePoint)
                 {
-                    _endPoint = value;
-                    OnPropertyChanged("EndPoint");
+                    _endPolylinePoint = value;
+                    OnPropertyChanged("EndPolylinePoint");
                 }
             }
         }
-        private PointF _endPoint;
+        private Point _endPolylinePoint;
 
         public Canvas Canvas { get; set; }
 
