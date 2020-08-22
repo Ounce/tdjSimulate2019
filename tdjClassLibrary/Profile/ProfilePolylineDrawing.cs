@@ -59,8 +59,6 @@ namespace tdjClassLibrary.Profile
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Profile.Slopes[e.NewStartingIndex].HorizontalScale = HorizontalScale;
-                    Profile.Slopes[e.NewStartingIndex].VerticalScale = VerticalScale;
                     Profile.Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (e.NewStartingIndex == 0)
                         Polyline.Points.Add(Profile.Slopes[0].BeginPolylinePoint);

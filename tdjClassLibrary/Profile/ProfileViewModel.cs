@@ -10,6 +10,9 @@ using System.Windows.Shapes;
 
 namespace tdjClassLibrary.Profile
 {
+    /// <summary>
+    /// Profile的视图模型类，除Profile的基本参数属性外，还定义了显示在Polyline等控件上需要的参数。
+    /// </summary>
     public class ProfileViewModel : NotifyPropertyChanged, IScale
     {
         public ObservableCollection<SlopeViewModel> Slopes;
@@ -97,9 +100,6 @@ namespace tdjClassLibrary.Profile
         }
         private double _vScale;
 
-        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
-        public Polyline Polyline { get; set; }
-
         public ProfileViewModel()
         {
             GradeUnit = 1000;
@@ -117,6 +117,8 @@ namespace tdjClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    Slopes[e.NewStartingIndex].HorizontalScale = HorizontalScale;
+                    Slopes[e.NewStartingIndex].VerticalScale = VerticalScale;
                     break;
             }
         }
