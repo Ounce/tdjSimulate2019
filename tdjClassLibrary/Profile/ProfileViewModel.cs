@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace tdjClassLibrary.Profile
 {
-    public class ProfileViewModel : NotifyPropertyChanged
+    public class ProfileViewModel : NotifyPropertyChanged, IScale
     {
         public ObservableCollection<SlopeViewModel> Slopes;
 
@@ -60,6 +60,42 @@ namespace tdjClassLibrary.Profile
                 return l;
             }
         }
+
+        public double HorizontalScale
+        {
+            get { return _hScale; }
+            set
+            {
+                if (value != _hScale)
+                {
+                    _hScale = value;
+                    foreach (SlopeViewModel slope in Slopes)
+                    {
+                        slope.HorizontalScale = _hScale;
+                    }
+                    OnPropertyChanged("HorizontalScale");
+                }
+            }
+        }
+        private double _hScale;
+
+        public double VerticalScale
+        {
+            get { return _vScale; }
+            set
+            {
+                if (value != _vScale)
+                {
+                    _vScale = value;
+                    foreach (SlopeViewModel slope in Slopes)
+                    {
+                        slope.VerticalScale = _vScale;
+                    }
+                    OnPropertyChanged("VerticalScale");
+                }
+            }
+        }
+        private double _vScale;
 
         // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
         public Polyline Polyline { get; set; }

@@ -59,6 +59,8 @@ namespace tdjClassLibrary.Profile
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Profile.Slopes[e.NewStartingIndex].HorizontalScale = HorizontalScale;
+                    Profile.Slopes[e.NewStartingIndex].VerticalScale = VerticalScale;
                     Profile.Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (e.NewStartingIndex == 0)
                         Polyline.Points.Add(Profile.Slopes[0].BeginPolylinePoint);
@@ -88,10 +90,7 @@ namespace tdjClassLibrary.Profile
             switch (e.PropertyName)
             {
                 case "EndAltitude":
-                    UpdateEndPolylinePointY(position);
-                    break;
-                case "EndMileage":
-                    UpdateEndPolylinePointX(position);
+
                     break;
             }
         }
@@ -101,53 +100,14 @@ namespace tdjClassLibrary.Profile
             switch (e.PropertyName)
             {
                 case "HorizontalScale":
-                    if (Profile.Count > 0)
-                        UpdateBeginPolylinePointX(0);
-                    for (int i = 0; i < Profile.Count; i++)
-                    {
-                        UpdateEndPolylinePointX(i);
-                    }
-                    break;
+
                 case "VerticalScale":
-                    if (Profile.Count > 0)
-                        UpdateBeginPolylinePointY(0);
-                    for (int i = 0; i < Profile.Count; i++)
-                    {
-                        UpdateEndPolylinePointY(i);
-                    }
+
                     break;
             }
         }
 
-        private void UpdateBeginPolylinePointX(int index)
-        {
-            Profile.Slopes[index].BeginPolylinePoint.X = Profile.Slopes[index].BeginMileage * HorizontalScale;
-        }
 
-        private void UpdateBeginPolylinePointY(int index)
-        {
-            Profile.Slopes[index].BeginPolylinePoint.Y = (Profile.Slopes[index].BeginAltitude - BottomAltitude) * VerticalScale;
-        }
-
-        private void UpdateBeginPolylinePoint(int index)
-        {
-            UpdateBeginPolylinePointX(index);
-            UpdateBeginPolylinePointY(index);
-        }
-
-        private void UpdateEndPolylinePointX(int index)
-        {
-            Profile.Slopes[index].EndPolylinePoint.X = Profile.Slopes[index].EndMileage * HorizontalScale;
-        }
-
-        private void UpdateEndPolylinePointY(int index)
-        {
-            Profile.Slopes[index].EndPolylinePoint.Y = (Profile.Slopes[index].EndAltitude - BottomAltitude) * VerticalScale;
-        }
-        private void UpdateEndPolylinePoint(int index)
-        {
-            UpdateEndPolylinePointX(index);
-            UpdateEndPolylinePointY(index);
         }
 
     }
