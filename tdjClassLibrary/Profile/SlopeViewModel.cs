@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace tdjClassLibrary.Profile
 {
-    public class SlopeViewModel : NotifyPropertyChanged, ISlope
+    public class SlopeViewModel : NotifyPropertyChanged, ISlope, IScale
     {
         private double _length;
         public double Length
@@ -94,35 +94,21 @@ namespace tdjClassLibrary.Profile
         }
         private double _endMileage;
 
-        public Point BeginPolylinePoint
-        {
-            get { return _beginPolylinePoint; }
-            set
-            {
-                if (value != _beginPolylinePoint)
-                {
-                    _beginPolylinePoint = value;
-                    OnPropertyChanged("BeginPolylinePoint");
-                }
-            }
-        }
-        private Point _beginPolylinePoint;
+        public Point BeginPolylinePoint;
 
-        public Point EndPolylinePoint
-        {
-            get { return _endPolylinePoint; }
-            set
-            {
-                if (value != _endPolylinePoint)
-                {
-                    _endPolylinePoint = value;
-                    OnPropertyChanged("EndPolylinePoint");
-                }
-            }
-        }
-        private Point _endPolylinePoint;
+        public Point EndPolylinePoint;
 
         public Canvas Canvas { get; set; }
+
+        /// <summary>
+        /// 水平比例。单位：图形单位/长度单位。
+        /// </summary>
+        public double HorizontalScale { get; set; }
+
+        /// <summary>
+        /// 垂直比例，高程与图形单位之间的比例，单位：图形单位/高程单位。
+        /// </summary>
+        public double VerticalScale { get; set; }
 
         public SlopeViewModel()
         {
