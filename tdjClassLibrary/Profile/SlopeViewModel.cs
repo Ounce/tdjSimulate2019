@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Accessibility;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace tdjClassLibrary.Profile
@@ -46,6 +47,7 @@ namespace tdjClassLibrary.Profile
                 if (value != _beginAltitude)
                 {
                     _beginAltitude = value;
+    
                     OnPropertyChanged("BeginAltitude");
                 }
             }
@@ -94,40 +96,16 @@ namespace tdjClassLibrary.Profile
         }
         private double _endMileage;
 
-        public PointF BeginPoint
-        {
-            get { return _beginPoint; }
-            set
-            {
-                if (value != _beginPoint)
-                {
-                    _beginPoint = value;
-                    OnPropertyChanged("BeginPoint");
-                }
-            }
-        }
-        private PointF _beginPoint;
-
-        public PointF EndPoint
-        {
-            get { return _endPoint; }
-            set
-            {
-                if (value != _endPoint)
-                {
-                    _endPoint = value;
-                    OnPropertyChanged("EndPoint");
-                }
-            }
-        }
-        private PointF _endPoint;
-
-        public Canvas Canvas { get; set; }
-
         public SlopeViewModel()
         {
 
         }
+
+    }
+
+    public class Slopes : ObservableCollection<SlopeViewModel>
+    {
+
     }
 
     public class Slopes : ObservableCollection<SlopeViewModel>
