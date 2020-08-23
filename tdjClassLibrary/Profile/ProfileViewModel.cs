@@ -13,7 +13,7 @@ namespace tdjClassLibrary.Profile
     /// <summary>
     /// Profile的视图模型类，除Profile的基本参数属性外，还定义了显示在Polyline等控件上需要的参数。
     /// </summary>
-    public class ProfileViewModel : NotifyPropertyChanged, IScale
+    public class ProfileViewModel : NotifyPropertyChanged
     {
         public ObservableCollection<SlopeViewModel> Slopes;
 
