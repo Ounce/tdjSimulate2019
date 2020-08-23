@@ -44,7 +44,15 @@
 ```
 ### 属性
 
-#### ObservableCollection<SlopeViewModel> Slopes：纵断面数据。基于SlopeViewModel的视图模型。
+#### ObservableCollection\<SlopeViewModel> Slopes：纵断面数据。基于SlopeViewModel的视图模型。
+
+#### HorizontalScale
+
+#### VertialScale
+
+### 方法
+
+#### public void SetMaxMinAltitude()
 
 
 
