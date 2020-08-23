@@ -15,12 +15,6 @@ namespace tdjClassLibrary.Profile
         /// <summary>
         /// 垂直比例，应根据具体应用自行定义。
         /// </summary>
-<<<<<<< HEAD:tdjClassLibrary/Profile/ScaleDrawing.cs
-        public double BottomAltitude { get; set; }
-
-
-=======
         public double VerticalScale { get; set; }
->>>>>>> multiDrawingClass:tdjClassLibrary/Profile/IScale.cs
     }
 }
