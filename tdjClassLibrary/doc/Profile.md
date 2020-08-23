@@ -46,9 +46,11 @@
 
 #### ObservableCollection\<SlopeViewModel> Slopes：纵断面数据。基于SlopeViewModel的视图模型。
 
+#### Polyline：根据Slopes数据，与HorizontalScale或VertialScale计算Polyline的各个点的位置，并及时更新。
+
 #### HorizontalScale
 
-#### VertialScale
+#### VerticalScale
 
 ### 方法
 
