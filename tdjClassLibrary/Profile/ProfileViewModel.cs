@@ -64,42 +64,6 @@ namespace tdjClassLibrary.Profile
             }
         }
 
-        public double HorizontalScale
-        {
-            get { return _hScale; }
-            set
-            {
-                if (value != _hScale)
-                {
-                    _hScale = value;
-                    foreach (SlopeViewModel slope in Slopes)
-                    {
-                        slope.HorizontalScale = _hScale;
-                    }
-                    OnPropertyChanged("HorizontalScale");
-                }
-            }
-        }
-        private double _hScale;
-
-        public double VerticalScale
-        {
-            get { return _vScale; }
-            set
-            {
-                if (value != _vScale)
-                {
-                    _vScale = value;
-                    foreach (SlopeViewModel slope in Slopes)
-                    {
-                        slope.VerticalScale = _vScale;
-                    }
-                    OnPropertyChanged("VerticalScale");
-                }
-            }
-        }
-        private double _vScale;
-
         public ProfileViewModel()
         {
             GradeUnit = 1000;
@@ -117,8 +81,7 @@ namespace tdjClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
-                    Slopes[e.NewStartingIndex].HorizontalScale = HorizontalScale;
-                    Slopes[e.NewStartingIndex].VerticalScale = VerticalScale;
+
                     break;
             }
         }

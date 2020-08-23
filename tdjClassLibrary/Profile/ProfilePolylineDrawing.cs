@@ -27,7 +27,7 @@ namespace tdjClassLibrary.Profile
         /// <summary>
         /// 这个折线按照水平和垂直比例计算纵断面在Canvas中的位置。并将其添加到Canvas中。
         /// </summary>
-        private Polyline Polyline { get; set; }
+        public Polyline Polyline { get; set; }
 
         /// <summary>
         /// 构造函数进行一部分初始化工作，将Polyline添加到Canvas中。并将Profile处理函数进行绑定。
@@ -39,13 +39,13 @@ namespace tdjClassLibrary.Profile
             Canvas = canvas;
             Profile = profile;
             Polyline = new Polyline();
-            Canvas.Children.Add(Polyline);
-            if (Profile.Count > 0)
-            Polyline.Points.Add(Profile.Slopes[0].BeginPolylinePoint);
+            if (Profile.Slopes.Count > 0)
+                Polyline.Points.Add(new Point(Profile.Slopes[0].BeginMileage * HorizontalScale, Profile.Slopes[0].BeginAltitude * VerticalScale));
             foreach (var s in Profile.Slopes)
             {
-                Polyline.Points.Add(s.EndPolylinePoint);
+                Polyline.Points.Add(new Point(s.EndMileage * HorizontalScale, s.EndAltitude * VerticalScale));
             }
+            Canvas.Children.Add(Polyline);
             Profile.Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 
@@ -59,10 +59,9 @@ namespace tdjClassLibrary.Profile
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Profile.Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
-                    if (e.NewStartingIndex == 0)
-                        Polyline.Points.Add(Profile.Slopes[0].BeginPolylinePoint);
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, Profile.Slopes[e.NewStartingIndex].EndPolylinePoint);
+                    if (Polyline.Points.Count == 0)
+                        Polyline.Points.Add(new Point(Profile.Slopes[0].BeginMileage * HorizontalScale, Profile.Slopes[0].BeginAltitude * VerticalScale));
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Profile.Slopes[e.NewStartingIndex].BeginMileage * HorizontalScale, Profile.Slopes[e.NewStartingIndex].BeginAltitude * VerticalScale));
                     break;
             }
         }
@@ -87,8 +86,19 @@ namespace tdjClassLibrary.Profile
             if (position == -1) return;
             switch (e.PropertyName)
             {
+                case "BeginMileage":
+                    if (position == 0)
+                        UpdateFirstPolylineX();
+                    break;
+                case "BeginAltitude":
+                    if (position == 0)
+                        UpdateFirstPolylineY();
+                    break;
+                case "EndMileage":
+                    UpdateEndPolylineX(position);
+                    break;
                 case "EndAltitude":
-
+                    UpdateEndPolylineY(position);
                     break;
             }
         }
@@ -105,8 +115,24 @@ namespace tdjClassLibrary.Profile
             }
         }
 
-
+        private void UpdateFirstPolylineX()
+        {
+            Polyline.Points[0] = new Point(Profile.Slopes[0].BeginMileage * HorizontalScale, Polyline.Points[0].Y);
         }
 
+        private void UpdateFirstPolylineY()
+        {
+            Polyline.Points[0] = new Point(Polyline.Points[0].X, Profile.Slopes[0].BeginAltitude * VerticalScale);
+        }
+
+        private void UpdateEndPolylineX(int position)
+        {
+            Polyline.Points[position + 1] = new Point(Profile.Slopes[position].EndMileage * HorizontalScale, Polyline.Points[position + 1].Y);
+        }
+
+        private void UpdateEndPolylineY(int position)
+        {
+            Polyline.Points[position + 1] = new Point(Polyline.Points[position + 1].X, Profile.Slopes[position].EndAltitude * VerticalScale);
+        }
     }
 }
