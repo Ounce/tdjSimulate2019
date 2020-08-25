@@ -108,8 +108,4 @@ namespace tdjClassLibrary.Profile
 
     }
 
-    public class Slopes : ObservableCollection<SlopeViewModel>
-    {
-
-    }
 }
