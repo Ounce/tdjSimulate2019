@@ -10,10 +10,15 @@ using System.Windows.Shapes;
 namespace tdjClassLibrary.Profile
 {
     /// <summary>
-    /// 纵断面比例图。高程比例与里程比例不同。此图形是将Profile绘制在Canvas上。
+    /// 纵断面比例图。高程比例与里程比例不同。此图形是将Profile形成Polyline，可Add在Canvas上。
     /// </summary>
-    public class ProfilePolylineDrawing : BaseProfileDrawing
+    public class ProfilePolyline : BaseProfileDrawing
     {
+        /// <summary>
+        /// 这个折线按照水平和垂直比例计算纵断面在Canvas中的位置。并将其添加到Canvas中。
+        /// </summary>
+        public Polyline Polyline { get; set; }
+
         /// <summary>
         /// 图形顶端对应的高程。
         /// </summary>
@@ -25,18 +30,12 @@ namespace tdjClassLibrary.Profile
         public double BottomAltitude { get; set; }
 
         /// <summary>
-        /// 这个折线按照水平和垂直比例计算纵断面在Canvas中的位置。并将其添加到Canvas中。
-        /// </summary>
-        public Polyline Polyline { get; set; }
-
-        /// <summary>
         /// 构造函数进行一部分初始化工作，将Polyline添加到Canvas中。并将Profile处理函数进行绑定。
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="profile"></param>
-        public ProfilePolylineDrawing(ref Canvas canvas, ref ProfileViewModel profile)
+        public ProfilePolyline(ref ProfileViewModel profile)
         {
-            Canvas = canvas;
             Profile = profile;
             Polyline = new Polyline();
             if (Profile.Slopes.Count > 0)
@@ -45,7 +44,6 @@ namespace tdjClassLibrary.Profile
             {
                 Polyline.Points.Add(new Point(s.EndMileage * HorizontalScale, s.EndAltitude * VerticalScale));
             }
-            Canvas.Children.Add(Polyline);
             Profile.Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 

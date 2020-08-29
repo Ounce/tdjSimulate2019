@@ -75,9 +75,9 @@ namespace ProfileDesigner
 
         public double Length;
 
-        public ProfilePolylineDrawing DesignPolylineDrawing { get; set; }
+        public ProfilePolyline DesignPolylineDrawing { get; set; }
 
-        public ProfilePolylineDrawing ExistPolylineDrawing { get; set; }
+        public ProfilePolyline ExistPolylineDrawing { get; set; }
 
         /// <summary>
         /// 设置在Canvas全部显示Profile时的比例。
