@@ -20,8 +20,6 @@ namespace ProfileDesigner
                 if (value != _canvas)
                 {
                     _canvas = value;
-                    DesignPolylineDrawing.Canvas = _canvas;
-                    ExistPolylineDrawing.Canvas = _canvas;
                 }
             }
         }
@@ -98,7 +96,6 @@ namespace ProfileDesigner
                 VerticalScale = v;
                 HotizontialScale = v / VerticalHorizontalScale;
             }
-
         }
 
         private void SetLength()
