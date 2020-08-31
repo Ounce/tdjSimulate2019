@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows.Controls;
 
-namespace tdjClassLibrary.Profile
+namespace tdjWpfClassLibrary.Profile
 {
     public class SlopeViewModel : NotifyPropertyChanged, ISlope
     {
@@ -37,7 +37,7 @@ namespace tdjClassLibrary.Profile
         }
         private double _grade;
 
-        public double? BeginAltitude
+        public double BeginAltitude
         {
             get { return _beginAltitude; }
             set
@@ -49,9 +49,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _beginAltitude;
+        private double _beginAltitude;
 
-        public double? EndAltitude
+        public double EndAltitude
         {
             get { return _endAltitude; }
             set
@@ -63,9 +63,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _endAltitude;
+        private double _endAltitude;
 
-        public double? BeginMileage
+        public double BeginMileage
         {
             get { return _beginMileage; }
             set
@@ -77,9 +77,9 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _beginMileage;
+        private double _beginMileage;
 
-        public double? EndMileage
+        public double EndMileage
         {
             get { return _endMileage; }
             set
@@ -91,7 +91,7 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private double? _endMileage;
+        private double _endMileage;
 
         public PointF BeginPoint
         {
@@ -107,7 +107,7 @@ namespace tdjClassLibrary.Profile
         }
         private PointF _beginPoint;
 
-        public PointF EndPoint
+        public Point EndPoint
         {
             get { return _endPoint; }
             set
@@ -119,7 +119,7 @@ namespace tdjClassLibrary.Profile
                 }
             }
         }
-        private PointF _endPoint;
+        private Point _endPoint;
 
         public Canvas Canvas { get; set; }
 

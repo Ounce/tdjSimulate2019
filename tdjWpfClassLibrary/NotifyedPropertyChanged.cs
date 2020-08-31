@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace tdjClassLibrary
+namespace tdjWpfClassLibrary
 {
     public class NotifyPropertyChanged : INotifyPropertyChanged
     {

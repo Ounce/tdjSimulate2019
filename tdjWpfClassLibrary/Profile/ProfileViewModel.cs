@@ -7,21 +7,42 @@ using System.Text;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+using Point = System.Windows.Point;
 
 
-namespace tdjClassLibrary.Profile
+namespace tdjWpfClassLibrary.Profile
 {
+    /// <summary>
+    /// 纵断面显示模型。
+    /// 内置Slopes。
+    /// 提供Polyline和Points。
+    /// 需要HorizontalScale和VertialScale。
+    /// </summary>
     public class ProfileViewModel : NotifyPropertyChanged
     {
-        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
+        #region 输出属性
+
+        /// <summary>
+        /// 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
+        /// </summary>
         public Polyline Polyline { get; set; }
 
         /// <summary>
         /// Polyline的Points。该类动态改变这个列表。可将该列表赋值给Polyline的Points。
         /// </summary>
-        public PointCollection PolylinePoints;
+        public PointCollection PolylinePoints
+        {
+            get { return Polyline.Points; }
+        }
+
+        #endregion
 
         public ObservableCollection<SlopeViewModel> Slopes;
+
+        /// <summary>
+        /// 坡度单位。1000 = ‰；100 = % 。
+        /// </summary>
+        public double GradeUnit { get; set; }
 
         public int Count
         {
@@ -55,6 +76,24 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// 最大高程。
+        /// </summary>
+        public double MaxAltitude
+        {
+            get { return _maxAltitude; }
+        }
+        public double _maxAltitude;
+
+        /// <summary>
+        /// 最小高程。
+        /// </summary>
+        public double MinAltitude
+        {
+            get { return _minAltitude; }
+        }
+        public double _minAltitude;
+
         public Point FirstPoint
         {
             get { return firstPoint; }
@@ -69,10 +108,44 @@ namespace tdjClassLibrary.Profile
         }
         private Point firstPoint;
 
+        /// <summary>
+        /// 水平比例。
+        /// </summary>
+        public double HorizontalScale
+        {
+            get { return _hScale; }
+            set
+            {
+                if (value != _hScale)
+                {
+                    _hScale = value;
+                    OnPropertyChanged("HorizontalScale");
+                }
+            }
+        }
+        private double _hScale;
+
+        /// <summary>
+        /// 垂直比例，应根据具体应用自行定义。
+        /// </summary>
+        public double VerticalScale
+        {
+            get { return _vScale; }
+            set
+            {
+                if (value != _vScale)
+                {
+                    _vScale = value;
+                    OnPropertyChanged("VerticalScale");
+                }
+            }
+        }
+        private double _vScale;
+
         public ProfileViewModel()
         {
+            GradeUnit = 1000;
             Polyline = new Polyline();
-            PolylinePoints = Polyline.Points;
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 
@@ -87,6 +160,9 @@ namespace tdjClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    if (Polyline.Points.Count == 0)
+                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale));
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].BeginMileage * HorizontalScale, Slopes[e.NewStartingIndex].BeginAltitude * VerticalScale));
                     break;
             }
         }
@@ -105,6 +181,40 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        #region 数据计算方法
+
+        /// <summary>
+        /// 计算最大和最小高程。
+        /// </summary>
+        /// <returns></returns>
+        public void UpdateMaxMinAltitude()
+        {
+            double min, max;
+            min = max = Slopes[0].BeginAltitude;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                if (s.EndAltitude > max)
+                    max = s.EndAltitude;
+                if (s.EndAltitude < min)
+                    min = s.EndAltitude;
+            }
+            _maxAltitude = max;
+            _minAltitude = min;
+            return;
+        }
+
+        public void UpdateMileage()
+        {
+            double m = 0;
+            foreach (var s in Slopes)
+            {
+                s.BeginMileage = m;
+                m += s.Length;
+                s.EndMileage = m;
+            }
+        }
+
+        #endregion
     }
 
 

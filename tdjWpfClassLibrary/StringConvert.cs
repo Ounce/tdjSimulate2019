@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tdjClassLibrary
+namespace tdjWpfClassLibrary
 {
     public static class StringConvert
     {
