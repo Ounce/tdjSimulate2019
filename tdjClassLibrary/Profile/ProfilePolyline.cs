@@ -30,13 +30,13 @@ namespace tdjClassLibrary.Profile
         public double BottomAltitude { get; set; }
 
         /// <summary>
-        /// 构造函数进行一部分初始化工作，将Polyline添加到Canvas中。并将Profile处理函数进行绑定。
+        /// 构造函数进行一部分初始化工作。并将Profile处理函数进行绑定。
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="profile"></param>
-        public ProfilePolyline(ref ProfileViewModel profile)
+        public ProfilePolyline()
         {
-            Profile = profile;
+            Profile = new ProfileViewModel();
             Polyline = new Polyline();
             if (Profile.Slopes.Count > 0)
                 Polyline.Points.Add(new Point(Profile.Slopes[0].BeginMileage * HorizontalScale, Profile.Slopes[0].BeginAltitude * VerticalScale));

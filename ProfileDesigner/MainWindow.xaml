@@ -22,16 +22,16 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Height="17" LastChildFill="True" Margin="0,0,0,0" VerticalAlignment="Top" >
             <Menu x:Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0">
                 <MenuItem Header="文件(_F)">
-                    <MenuItem Header="打开(_O)..."  Click="OpenFile_Click">
+                    <MenuItem Name="OpenFile" Header="打开(_O)..."  Click="OpenFile_Click">
                         <MenuItem.Icon>
                             <Image Source="/Images/OpenFolder_16x.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="导入纵断面(_I)..." Click="ImportExist_Click"/>
-                    <MenuItem Header="导出纵断面到DXF格式(_E)..." Click="ExportDXF_Click"/>
+                    <MenuItem Header="导入纵断面(_I)..." />
+                    <MenuItem Header="导出纵断面到DXF格式(_E)..." />
                     <Separator/>
-                    <MenuItem Header="保存(_S)" Click="Save_Click">
+                    <MenuItem Header="保存(_S)" >
                         <MenuItem.Icon>
                             <Image Source="/Images/Save_16x.png"/>
                         </MenuItem.Icon>
@@ -42,7 +42,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="退出(_X)" Click="Exit_Click"/>
+                    <MenuItem Header="退出(_X)" Click="Exit" />
                 </MenuItem>
                 <MenuItem Header="编辑(_E)">
                     <MenuItem Header="编辑既有纵断面(_I)..." Click="EditExist_Click"/>
@@ -53,8 +53,9 @@
         </DockPanel>
         <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="2,2,0,0" VerticalAlignment="Top" Width="400" Grid.RowSpan="2">
             <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
-                <Button Click="OpenFile_Click" ToolTip="打开项目文件" Height="34" Width="26">
-                    <Image Source="/Images/OpenFolder_16x.png"/>
+ 
+                <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Click="OpenFile_Click">
+                <Image Source="/Images/OpenFolder_16x.png"/>
                 </Button>
                 <Button Click="Save_Click" ToolTip="保存" Height="34" Width="26">
                     <Image Source="/Images/Save_16x.png"/>
@@ -76,6 +77,9 @@
                 <ToggleButton ToolTip="移动" Name="MouseMoveButton" IsThreeState="False" Height="34" Width="26">
                     <Image Source="/Images/MoveGlyph_16x.png"/>
                 </ToggleButton>
+                <Button x:Name="ExitButtom" Height="34" Width="26" Click="Exit">
+                    
+                </Button>
             </ToolBar>
             <ToolBar  VerticalAlignment="Top" Margin="0,0,0,0" d:LayoutOverrides="Width">
                 <Button Name="SplitButton" IsEnabled="True" ToolTip="拆分" Click="Split_Click" Height="34" Width="26">

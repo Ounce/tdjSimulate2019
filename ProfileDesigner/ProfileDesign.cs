@@ -77,6 +77,11 @@ namespace ProfileDesigner
 
         public ProfilePolyline ExistPolylineDrawing { get; set; }
 
+        public ProfileDesign()
+        {
+            DesignPolylineDrawing = new ProfilePolyline();
+            ExistPolylineDrawing = new ProfilePolyline();
+        }
         /// <summary>
         /// 设置在Canvas全部显示Profile时的比例。
         /// </summary>
