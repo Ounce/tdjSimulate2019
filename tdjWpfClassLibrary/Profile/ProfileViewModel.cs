@@ -16,17 +16,10 @@ namespace tdjClassLibrary.Profile
         // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
         public Polyline Polyline { get; set; }
 
-        public PointCollection Points
-        {
-            get { return Polyline.Points; }
-            set
-            {
-                if (value != Polyline.Points)
-                {
-                    Polyline.Points = value;
-                }
-            }
-        }
+        /// <summary>
+        /// Polyline的Points。该类动态改变这个列表。可将该列表赋值给Polyline的Points。
+        /// </summary>
+        public PointCollection PolylinePoints;
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
@@ -78,6 +71,8 @@ namespace tdjClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            Polyline = new Polyline();
+            PolylinePoints = Polyline.Points;
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 
