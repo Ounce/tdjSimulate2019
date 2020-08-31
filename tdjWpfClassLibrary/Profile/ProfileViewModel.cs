@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,7 +16,17 @@ namespace tdjClassLibrary.Profile
         // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
         public Polyline Polyline { get; set; }
 
-       // public PointCollection points { get; set; }
+        public PointCollection Points
+        {
+            get { return Polyline.Points; }
+            set
+            {
+                if (value != Polyline.Points)
+                {
+                    Polyline.Points = value;
+                }
+            }
+        }
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
