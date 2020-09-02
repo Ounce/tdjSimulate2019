@@ -93,7 +93,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _endMileage;
 
-        public PointF BeginPoint
+        public Point BeginPoint
         {
             get { return _beginPoint; }
             set
@@ -105,7 +105,7 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-        private PointF _beginPoint;
+        private Point _beginPoint;
 
         public Point EndPoint
         {

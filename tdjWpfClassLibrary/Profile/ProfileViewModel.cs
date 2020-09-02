@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
+using System.Xml;
 using Point = System.Windows.Point;
 
 
@@ -214,6 +214,37 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        #endregion
+
+        #region Files IO
+
+        public void ReadXML(XmlElement xmlElement)
+        {
+            XmlNodeList xmlNodeList = xmlElement.ChildNodes;
+            double m = 0;
+            Slopes.Clear();
+            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
+            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+            if (xmlElement.GetAttribute("GradeUnit") == null)
+                GradeUnit = 1000;
+            else
+                GradeUnit = Convert.ToDouble(xmlElement.GetAttribute("GradeUnit"));
+            foreach (XmlNode xmlNode in xmlNodeList)
+            {
+                SlopeViewModel slope = new SlopeViewModel();
+                Slopes.Add(slope);
+                slope.BeginMileage = m;
+                slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
+                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
+                slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
+                //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
+                m += slope.Length;
+                //slope.EndMileage = m;
+            }
+            // Slopes.Add会改变profile.FixAltitudePosition。
+        }
+
+        
         #endregion
     }
 
