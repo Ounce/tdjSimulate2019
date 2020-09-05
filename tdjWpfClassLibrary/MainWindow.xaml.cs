@@ -32,6 +32,7 @@ namespace tdjWpfClassLibrary
         {
             InitializeComponent();
             Profile = new ProfileViewModel();
+            label.DataContext = Profile;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

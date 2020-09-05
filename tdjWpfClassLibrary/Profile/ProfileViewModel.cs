@@ -269,6 +269,7 @@ namespace tdjWpfClassLibrary.Profile
                 m += slope.Length;
                 //slope.EndMileage = m;
             }
+            OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
 
