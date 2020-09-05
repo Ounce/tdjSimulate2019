@@ -161,8 +161,8 @@ namespace tdjWpfClassLibrary.Profile
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (Polyline.Points.Count == 0)
-                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale));
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].BeginMileage * HorizontalScale, Slopes[e.NewStartingIndex].BeginAltitude * VerticalScale));
+                        Polyline.Points.Add(Slopes[0].BeginPoint);
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, Slopes[e.NewStartingIndex].EndPoint);
                     break;
             }
         }
@@ -173,12 +173,23 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
+        {            
             switch (e.PropertyName)
             {
                 case "EndAltitude":
+                   
                     break;
             }
+        }
+
+        private SlopeViewModel getSlope(object sender)
+        {
+            foreach(SlopeViewModel s in Slopes)
+            {
+                if (s.Equals(sender))
+                    return s;
+            }
+            return null;
         }
 
         #region 数据计算方法
@@ -214,10 +225,26 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// 水平、垂直比例改变后应调用此函数，更新有关属性。
+        /// 更新：Slopes的BeginPoint、EndPoint。
+        /// </summary>
+        public void SetHorizontalVerticalScale()
+        {
+            foreach (SlopeViewModel s in Slopes)
+            {
+                s.BeginPoint = new Point(s.BeginMileage * HorizontalScale, s.BeginAltitude * VerticalScale);
+                s.EndPoint = new Point(s.EndMileage * HorizontalScale, s.EndAltitude * VerticalScale);
+            }
+        }
         #endregion
 
         #region Files IO
 
+        /// <summary>
+        /// 读取XML格式的数据。
+        /// </summary>
+        /// <param name="xmlElement">XML包含Profile数据的节点</param>
         public void ReadXML(XmlElement xmlElement)
         {
             XmlNodeList xmlNodeList = xmlElement.ChildNodes;

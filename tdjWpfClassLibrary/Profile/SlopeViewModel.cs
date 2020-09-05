@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace tdjWpfClassLibrary.Profile
@@ -121,11 +121,77 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point _endPoint;
 
-        public Canvas Canvas { get; set; }
+        /// <summary>
+        /// 水平比例。
+        /// </summary>
+        public double HorizontalScale
+        {
+            get { return _hScale; }
+            set
+            {
+                if (value != _hScale)
+                {
+                    _hScale = value;
+                    OnPropertyChanged("HorizontalScale");
+                }
+            }
+        }
+        private double _hScale;
+
+        /// <summary>
+        /// 垂直比例，应根据具体应用自行定义。
+        /// </summary>
+        public double VerticalScale
+        {
+            get { return _vScale; }
+            set
+            {
+                if (value != _vScale)
+                {
+                    _vScale = value;
+                    OnPropertyChanged("VerticalScale");
+                }
+            }
+        }
+        private double _vScale;
+
 
         public SlopeViewModel()
         {
+            BeginPoint = new Point(0, 0);
+            EndPoint = new Point(0, 0);
 
         }
+
+        private void UpdateBeginPoint()
+        {
+            BeginPoint = new Point(BeginMileage * HorizontalScale, BeginAltitude * VerticalScale);
+        }
+
+        private void UpdateBeginPointX()
+        {
+            BeginPoint = new Point(BeginMileage * HorizontalScale, BeginPoint.Y);
+        }
+
+        private void UpdateBeginPointY()
+        {
+            BeginPoint = new Point(BeginPoint.X, BeginAltitude * VerticalScale);
+        }
+
+        private void UpdateEndPoint()
+        {
+            EndPoint = new Point(EndMileage * HorizontalScale, EndAltitude * VerticalScale);
+        }
+
+        private void UpdateEndPointX()
+        {
+            EndPoint = new Point(EndMileage * HorizontalScale, EndPoint.Y);
+        }
+
+        private void UpdateEndPointY()
+        {
+            EndPoint = new Point(EndPoint.X, EndAltitude * VerticalScale);
+        }
+
     }
 }
