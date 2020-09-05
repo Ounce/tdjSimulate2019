@@ -132,6 +132,8 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _hScale)
                 {
                     _hScale = value;
+                    UpdateBeginPointX();
+                    UpdateEndPointX();
                     OnPropertyChanged("HorizontalScale");
                 }
             }
@@ -149,48 +151,54 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _vScale)
                 {
                     _vScale = value;
+                    UpdateBeginPointY();
+                    UpdateEndPointY();
                     OnPropertyChanged("VerticalScale");
                 }
             }
         }
         private double _vScale;
 
-
         public SlopeViewModel()
         {
             BeginPoint = new Point(0, 0);
             EndPoint = new Point(0, 0);
-
         }
 
         private void UpdateBeginPoint()
         {
-            BeginPoint = new Point(BeginMileage * HorizontalScale, BeginAltitude * VerticalScale);
+            UpdateBeginPointX();
+            UpdateBeginPointY();
         }
 
         private void UpdateBeginPointX()
         {
-            BeginPoint = new Point(BeginMileage * HorizontalScale, BeginPoint.Y);
+            _beginPoint.X = BeginMileage * HorizontalScale;
+            OnPropertyChanged("BeginPoint");
         }
 
         private void UpdateBeginPointY()
         {
-            BeginPoint = new Point(BeginPoint.X, BeginAltitude * VerticalScale);
+            _beginPoint.Y = BeginAltitude * VerticalScale;
+            OnPropertyChanged("BeginPoint");
         }
 
         private void UpdateEndPoint()
         {
-            EndPoint = new Point(EndMileage * HorizontalScale, EndAltitude * VerticalScale);
+            UpdateEndPointX();
+            UpdateEndPointY();
         }
 
         private void UpdateEndPointX()
         {
-            EndPoint = new Point(EndMileage * HorizontalScale, EndPoint.Y);
+            _endPoint.X = EndMileage * HorizontalScale;
+            OnPropertyChanged("EndPoint");
         }
 
         private void UpdateEndPointY()
         {
-            EndPoint = new Point(EndPoint.X, EndAltitude * VerticalScale);
+            _endPoint.Y = EndAltitude * VerticalScale;
+            OnPropertyChanged("EndPoint");
         }
 
     }
