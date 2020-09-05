@@ -227,10 +227,26 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         /// <summary>
+        /// 设置水平、垂直比例。并更新Slope的相关参数。
+        /// </summary>
+        /// <param name="horizontalScale"></param>
+        /// <param name="verticalScale"></param>
+        public void SetHorizontalVerticalScale(double horizontalScale, double verticalScale)
+        {
+            _hScale = HorizontalScale;
+            _vScale = VerticalScale;
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.HorizontalScale = _hScale;
+                slope.VerticalScale = _vScale;
+            }
+        }
+
+        /// <summary>
         /// 水平、垂直比例改变后应调用此函数，更新有关属性。
         /// 更新：Slopes的BeginPoint、EndPoint。
         /// </summary>
-        public void SetHorizontalVerticalScale()
+        public void UpdateHorizontalVerticalScale()
         {
             foreach (SlopeViewModel s in Slopes)
             {
@@ -267,7 +283,7 @@ namespace tdjWpfClassLibrary.Profile
                 slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
                 //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
                 m += slope.Length;
-                //slope.EndMileage = m;
+                slope.EndMileage = m;
             }
             OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。

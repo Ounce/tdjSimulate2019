@@ -27,12 +27,19 @@ namespace tdjWpfClassLibrary
         XmlElement root;
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
+
         ProfileViewModel Profile;
+
+        private double VerticalHorizontalScale;
+        private double VerticalScale;
+        private double HorizontalScale;
+
         public MainWindow()
         {
             InitializeComponent();
             Profile = new ProfileViewModel();
             label.DataContext = Profile;
+            PolylineCanvas.Children.Add(Profile.Polyline);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -48,6 +55,28 @@ namespace tdjWpfClassLibrary
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
                 Profile.ReadXML((XmlElement)xmlDesignNode);
+                Profile.UpdateMaxMinAltitude();
+                SetScale();
+                Profile.SetHorizontalVerticalScale(HorizontalScale, VerticalScale);
+            }
+        }
+
+        /// <summary>
+        /// 设置在Canvas全部显示Profile时的比例。
+        /// </summary>
+        public void SetScale()
+        {
+            double v = (Profile.MaxAltitude - Profile.MinAltitude) / PolylineCanvas.ActualHeight;
+            double h = Profile.Length / PolylineCanvas.ActualWidth;
+            if (h * VerticalHorizontalScale < v)
+            {
+                HorizontalScale = h;
+                VerticalScale = h * VerticalHorizontalScale;
+            }
+            else
+            {
+                VerticalScale = v;
+                HorizontalScale = v / VerticalHorizontalScale;
             }
         }
     }
