@@ -146,6 +146,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             GradeUnit = 1000;
             Polyline = new Polyline();
+            Slopes = new ObservableCollection<SlopeViewModel>();
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 

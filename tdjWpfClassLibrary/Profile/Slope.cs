@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tdjClassLibrary.Profile
+namespace tdjWpfClassLibrary.Profile
 {
     public class Slope : ISlope
     {
