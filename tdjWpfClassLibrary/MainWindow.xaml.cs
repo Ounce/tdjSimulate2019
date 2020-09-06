@@ -34,6 +34,9 @@ namespace tdjWpfClassLibrary
         private double VerticalScale;
         private double HorizontalScale;
 
+        private VerticalAlignment ProfileVerticalAlignment = VerticalAlignment.Center;
+        private double DrawingTop, DrawingBottom;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -58,7 +61,9 @@ namespace tdjWpfClassLibrary
                 Profile.UpdateMaxMinAltitude();
                 SetScale();
                 ExistPolylineTranslate.X = 0;
+
                 ExistPolylineTranslate.Y = - Profile.MaxAltitude * VerticalScale +400; 
+
                 Profile.SetHorizontalVerticalScale(HorizontalScale, VerticalScale);
             }
         }
@@ -81,6 +86,27 @@ namespace tdjWpfClassLibrary
                 HorizontalScale = v / VerticalHorizontalScale;
             }
         }
+
+        /// <summary>
+        /// 设置纵断面图 顶部 的坐标
+        /// </summary>
+        /// <returns></returns>
+        public bool SetVBase(double DrawingHeight)
+        {
+            switch (ProfileVerticalAlignment)
+            {
+                case VerticalAlignment.Top:
+                    break;
+                case VerticalAlignment.Center:
+                    DrawingTop = (DrawingHeight - (Profile.MaxAltitude - Profile.MinAltitude) * VerticalScale) * 0.5;
+                    DrawingBottom = DrawingHeight - DrawingTop;
+                    break;
+                case VerticalAlignment.Bottom:
+                    break;
+            }
+            return true;
+        }
+
 
     }
 }
