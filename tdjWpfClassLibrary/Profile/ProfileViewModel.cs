@@ -233,8 +233,8 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="verticalScale"></param>
         public void SetHorizontalVerticalScale(double horizontalScale, double verticalScale)
         {
-            _hScale = HorizontalScale;
-            _vScale = VerticalScale;
+            _hScale = horizontalScale;
+            _vScale = verticalScale;
             foreach (SlopeViewModel slope in Slopes)
             {
                 slope.HorizontalScale = _hScale;

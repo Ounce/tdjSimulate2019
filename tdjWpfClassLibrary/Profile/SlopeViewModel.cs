@@ -45,6 +45,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _beginAltitude)
                 {
                     _beginAltitude = value;
+                    EndAltitude = _beginAltitude - _grade * _length;
                     OnPropertyChanged("BeginAltitude");
                 }
             }

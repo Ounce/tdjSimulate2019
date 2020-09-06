@@ -30,7 +30,7 @@ namespace tdjWpfClassLibrary
 
         ProfileViewModel Profile;
 
-        private double VerticalHorizontalScale;
+        private double VerticalHorizontalScale = 50;
         private double VerticalScale;
         private double HorizontalScale;
 
