@@ -39,7 +39,7 @@ namespace tdjWpfClassLibrary
             InitializeComponent();
             Profile = new ProfileViewModel();
             label.DataContext = Profile;
-            PolylineCanvas.Children.Add(Profile.Polyline);
+            ExistPolyline.Points = Profile.PolylinePoints;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -66,8 +66,8 @@ namespace tdjWpfClassLibrary
         /// </summary>
         public void SetScale()
         {
-            double v = (Profile.MaxAltitude - Profile.MinAltitude) / PolylineCanvas.ActualHeight;
-            double h = Profile.Length / PolylineCanvas.ActualWidth;
+            double v = PolylineCanvas.ActualHeight / (Profile.MaxAltitude - Profile.MinAltitude);
+            double h = PolylineCanvas.ActualWidth / Profile.Length;
             if (h * VerticalHorizontalScale < v)
             {
                 HorizontalScale = h;
@@ -79,5 +79,6 @@ namespace tdjWpfClassLibrary
                 HorizontalScale = v / VerticalHorizontalScale;
             }
         }
+
     }
 }

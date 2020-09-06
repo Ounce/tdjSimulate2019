@@ -9,6 +9,12 @@
     <Grid>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click"/>
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="246,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407"/>
-        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0"/>
+        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0">
+            <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
+                <Polyline.RenderTransform>
+                    <TranslateTransform x:Name="ExistPolylineTranslate"/>
+                </Polyline.RenderTransform>
+            </Polyline>
+        </Canvas>
     </Grid>
 </Window>

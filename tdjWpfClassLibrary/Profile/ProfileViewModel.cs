@@ -144,6 +144,9 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            // 临时设定 比例
+            HorizontalScale = 1;
+            VerticalScale = 20;
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
@@ -162,8 +165,8 @@ namespace tdjWpfClassLibrary.Profile
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (Polyline.Points.Count == 0)
-                        Polyline.Points.Add(Slopes[0].BeginPoint);
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, Slopes[e.NewStartingIndex].EndPoint);
+                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale));
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].EndMileage * HorizontalScale, Slopes[e.NewStartingIndex].EndAltitude * VerticalScale));
                     break;
             }
         }
@@ -174,24 +177,52 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {            
+        {
+
+            int p;
             switch (e.PropertyName)
             {
+                case "BeginMileage":
+                    p = GetPosition(sender);
+                    if (p < 0) break;
+                    PolylinePoints[p] = new Point(Slopes[p].BeginMileage * HorizontalScale, PolylinePoints[p].Y);
+                    break;
+                case "BeginAltitude":
+                    p = GetPosition(sender);
+                    if (p != 0) break;
+                    PolylinePoints[p] = new Point(PolylinePoints[0].X, Slopes[p].BeginAltitude * VerticalScale);
+                    break;
+                case "EndMileage":
+                    p = GetPosition(sender);
+                    if (p < 0) break;
+                    PolylinePoints[p] = new Point(Slopes[p].EndMileage * HorizontalScale, PolylinePoints[p].Y);
+                    break;
                 case "EndAltitude":
-                   
+                    p = GetPosition(sender);
+                    if (p < 0) break;
+                    PolylinePoints[p] = new Point(PolylinePoints[p].X, Slopes[p].EndAltitude * VerticalScale);
                     break;
             }
         }
 
-        private SlopeViewModel getSlope(object sender)
+        /// <summary>
+        /// 获得sender代表的Slope在Slopes中的位置。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
+        private int GetPosition(object sender)
         {
-            foreach(SlopeViewModel s in Slopes)
+
+            for (int i = 0; i < Slopes.Count; i++)
             {
-                if (s.Equals(sender))
-                    return s;
+                if (Slopes[i].Equals(sender))
+                {
+                    return i;
+                }
             }
-            return null;
+            return -1;
         }
+
 
         #region 数据计算方法
 
@@ -235,11 +266,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             _hScale = horizontalScale;
             _vScale = verticalScale;
-            foreach (SlopeViewModel slope in Slopes)
-            {
-                slope.HorizontalScale = _hScale;
-                slope.VerticalScale = _vScale;
-            }
+            UpdateHorizontalVerticalScale();
         }
 
         /// <summary>
@@ -248,10 +275,10 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public void UpdateHorizontalVerticalScale()
         {
-            foreach (SlopeViewModel s in Slopes)
+            PolylinePoints[0] = new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale);
+            for(int i = 0; i < Slopes.Count; i++)
             {
-                s.BeginPoint = new Point(s.BeginMileage * HorizontalScale, s.BeginAltitude * VerticalScale);
-                s.EndPoint = new Point(s.EndMileage * HorizontalScale, s.EndAltitude * VerticalScale);
+                PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * HorizontalScale, Slopes[i].EndAltitude * VerticalScale);
             }
         }
         #endregion
@@ -276,7 +303,6 @@ namespace tdjWpfClassLibrary.Profile
             foreach (XmlNode xmlNode in xmlNodeList)
             {
                 SlopeViewModel slope = new SlopeViewModel();
-                Slopes.Add(slope);
                 slope.BeginMileage = m;
                 slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
                 slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
@@ -284,6 +310,7 @@ namespace tdjWpfClassLibrary.Profile
                 //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
                 m += slope.Length;
                 slope.EndMileage = m;
+                Slopes.Add(slope);
             }
             OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
