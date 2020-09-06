@@ -57,6 +57,8 @@ namespace tdjWpfClassLibrary
                 Profile.ReadXML((XmlElement)xmlDesignNode);
                 Profile.UpdateMaxMinAltitude();
                 SetScale();
+                ExistPolylineTranslate.X = 0;
+                ExistPolylineTranslate.Y = - Profile.MaxAltitude * VerticalScale +400; 
                 Profile.SetHorizontalVerticalScale(HorizontalScale, VerticalScale);
             }
         }

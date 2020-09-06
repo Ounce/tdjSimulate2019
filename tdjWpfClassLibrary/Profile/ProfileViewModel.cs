@@ -178,19 +178,18 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
             int p;
             switch (e.PropertyName)
             {
                 case "BeginMileage":
                     p = GetPosition(sender);
-                    if (p < 0) break;
-                    PolylinePoints[p] = new Point(Slopes[p].BeginMileage * HorizontalScale, PolylinePoints[p].Y);
+                    if (p == 0) 
+                        PolylinePoints[p] = new Point(Slopes[p].BeginMileage * HorizontalScale, PolylinePoints[p].Y);
                     break;
                 case "BeginAltitude":
                     p = GetPosition(sender);
-                    if (p != 0) break;
-                    PolylinePoints[p] = new Point(PolylinePoints[0].X, Slopes[p].BeginAltitude * VerticalScale);
+                    if (p == 0)
+                        PolylinePoints[p] = new Point(PolylinePoints[0].X, Slopes[p].BeginAltitude * VerticalScale);
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -203,6 +202,17 @@ namespace tdjWpfClassLibrary.Profile
                     PolylinePoints[p] = new Point(PolylinePoints[p].X, Slopes[p].EndAltitude * VerticalScale);
                     break;
             }
+        }
+
+        /// <summary>
+        /// 折算altitude对应的Y轴坐标。
+        /// </summary>
+        /// <param name="altitude">折算高程</param>
+        /// <returns>高程Y轴坐标</returns>
+        public double GetY(double altitude)
+        {
+            return 0;
+          //  return (TopAltitude - altitude) * VerticalScale;
         }
 
         /// <summary>
