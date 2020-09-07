@@ -68,44 +68,8 @@ namespace tdjWpfClassLibrary
             }
         }
 
-        /// <summary>
-        /// 设置在Canvas全部显示Profile时的比例。
-        /// </summary>
-        public void SetScale()
-        {
-            double v = PolylineCanvas.ActualHeight / (Profile.MaxAltitude - Profile.MinAltitude);
-            double h = PolylineCanvas.ActualWidth / Profile.Length;
-            if (h * VerticalHorizontalScale < v)
-            {
-                HorizontalScale = h;
-                VerticalScale = h * VerticalHorizontalScale;
-            }
-            else
-            {
-                VerticalScale = v;
-                HorizontalScale = v / VerticalHorizontalScale;
-            }
-        }
 
-        /// <summary>
-        /// 设置纵断面图 顶部 的坐标
-        /// </summary>
-        /// <returns></returns>
-        public bool SetVBase(double DrawingHeight)
-        {
-            switch (ProfileVerticalAlignment)
-            {
-                case VerticalAlignment.Top:
-                    break;
-                case VerticalAlignment.Center:
-                    DrawingTop = (DrawingHeight - (Profile.MaxAltitude - Profile.MinAltitude) * VerticalScale) * 0.5;
-                    DrawingBottom = DrawingHeight - DrawingTop;
-                    break;
-                case VerticalAlignment.Bottom:
-                    break;
-            }
-            return true;
-        }
+
 
 
     }

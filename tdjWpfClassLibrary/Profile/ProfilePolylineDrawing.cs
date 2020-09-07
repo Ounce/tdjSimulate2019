@@ -30,6 +30,18 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public ProfileViewModel Profile { get; set; }
 
+        public ProfilePolylineDrawing()
+        {
+            Profile = new ProfileViewModel();
+            Scale = new Scale();
+        }
+
+        /// <summary>
+        /// 设置图形顶部对应的高程。
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="maxAltitude">纵断面的最大高程</param>
+        /// <param name="minAltitude">纵断面最小高程</param>
         public void SetTopAltitude(double height, double maxAltitude, double minAltitude)
         {
             switch (VerticalAlignment)
