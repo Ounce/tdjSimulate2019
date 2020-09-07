@@ -108,45 +108,11 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point firstPoint;
 
-        /// <summary>
-        /// 水平比例。
-        /// </summary>
-        public double HorizontalScale
-        {
-            get { return _hScale; }
-            set
-            {
-                if (value != _hScale)
-                {
-                    _hScale = value;
-                    OnPropertyChanged("HorizontalScale");
-                }
-            }
-        }
-        private double _hScale;
-
-        /// <summary>
-        /// 垂直比例，应根据具体应用自行定义。
-        /// </summary>
-        public double VerticalScale
-        {
-            get { return _vScale; }
-            set
-            {
-                if (value != _vScale)
-                {
-                    _vScale = value;
-                    OnPropertyChanged("VerticalScale");
-                }
-            }
-        }
-        private double _vScale;
+        public Scale Scale;
 
         public ProfileViewModel()
         {
-            // 临时设定 比例
-            HorizontalScale = 1;
-            VerticalScale = 20;
+            Scale = new Scale();
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
@@ -165,8 +131,8 @@ namespace tdjWpfClassLibrary.Profile
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (Polyline.Points.Count == 0)
-                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale));
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].EndMileage * HorizontalScale, Slopes[e.NewStartingIndex].EndAltitude * VerticalScale));
+                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * Scale.Horizontal, Slopes[0].BeginAltitude * Scale.Vertical));
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].EndMileage * Scale.Horizontal, Slopes[e.NewStartingIndex].EndAltitude * Scale.Vertical));
                     break;
             }
         }
@@ -184,22 +150,22 @@ namespace tdjWpfClassLibrary.Profile
                 case "BeginMileage":
                     p = GetPosition(sender);
                     if (p == 0) 
-                        PolylinePoints[p] = new Point(Slopes[p].BeginMileage * HorizontalScale, PolylinePoints[p].Y);
+                        PolylinePoints[p] = new Point(Slopes[p].BeginMileage * Scale.Horizontal, PolylinePoints[p].Y);
                     break;
                 case "BeginAltitude":
                     p = GetPosition(sender);
                     if (p == 0)
-                        PolylinePoints[p] = new Point(PolylinePoints[0].X, Slopes[p].BeginAltitude * VerticalScale);
+                        PolylinePoints[p] = new Point(PolylinePoints[0].X, - Slopes[p].BeginAltitude * Scale.Vertical);
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
                     if (p < 0) break;
-                    PolylinePoints[p] = new Point(Slopes[p].EndMileage * HorizontalScale, PolylinePoints[p].Y);
+                    PolylinePoints[p] = new Point(Slopes[p].EndMileage * Scale.Horizontal, PolylinePoints[p].Y);
                     break;
                 case "EndAltitude":
                     p = GetPosition(sender);
                     if (p < 0) break;
-                    PolylinePoints[p] = new Point(PolylinePoints[p].X, Slopes[p].EndAltitude * VerticalScale);
+                    PolylinePoints[p] = new Point(PolylinePoints[p].X, - Slopes[p].EndAltitude * Scale.Vertical);
                     break;
             }
         }
@@ -272,10 +238,9 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         /// <param name="horizontalScale"></param>
         /// <param name="verticalScale"></param>
-        public void SetHorizontalVerticalScale(double horizontalScale, double verticalScale)
+        public void SetHorizontalVerticalScale(Scale scale)
         {
-            _hScale = horizontalScale;
-            _vScale = verticalScale;
+            Scale = scale;
             UpdateHorizontalVerticalScale();
         }
 
@@ -285,10 +250,10 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public void UpdateHorizontalVerticalScale()
         {
-            PolylinePoints[0] = new Point(Slopes[0].BeginMileage * HorizontalScale, Slopes[0].BeginAltitude * VerticalScale);
+            PolylinePoints[0] = new Point(Slopes[0].BeginMileage * Scale.Horizontal, Slopes[0].BeginAltitude * Scale.Vertical);
             for(int i = 0; i < Slopes.Count; i++)
             {
-                PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * HorizontalScale, Slopes[i].EndAltitude * VerticalScale);
+                PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * Scale.Horizontal, Slopes[i].EndAltitude * Scale.Vertical);
             }
         }
         #endregion

@@ -28,21 +28,16 @@ namespace tdjWpfClassLibrary
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
-        ProfileViewModel Profile;
+        ProfilePolylineDrawing ProfileDrawing;
 
-        private double VerticalHorizontalScale = 50;
-        private double VerticalScale;
-        private double HorizontalScale;
-
-
-        private double DrawingTop, DrawingBottom;
+        public Scale Scale;
 
         public MainWindow()
         {
             InitializeComponent();
-            Profile = new ProfileViewModel();
-            label.DataContext = Profile;
-            ExistPolyline.Points = Profile.PolylinePoints;
+            ProfileDrawing = new ProfilePolylineDrawing();
+            label.DataContext = ProfileDrawing.Profile;
+            ExistPolyline.Points = ProfileDrawing.Profile.PolylinePoints;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -57,14 +52,16 @@ namespace tdjWpfClassLibrary
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-                Profile.ReadXML((XmlElement)xmlDesignNode);
-                Profile.UpdateMaxMinAltitude();
-                SetScale();
+                ProfileDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
+                ProfileDrawing.Profile.UpdateMaxMinAltitude();
+                ProfileDrawing.SetMaxMinAltitude(ProfileDrawing.Profile);
+                ProfileDrawing.SetScale(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                ProfileDrawing.Profile.SetHorizontalVerticalScale(Scale);                
                 ExistPolylineTranslate.X = 0;
 
-                ExistPolylineTranslate.Y = - Profile.MaxAltitude * VerticalScale +400; 
+                ExistPolylineTranslate.Y = - ProfileDrawing.MaxAltitude * ProfileDrawing.Scale.Vertical + 400;
 
-                Profile.SetHorizontalVerticalScale(HorizontalScale, VerticalScale);
+
             }
         }
 
