@@ -34,7 +34,7 @@ namespace tdjWpfClassLibrary
         private double VerticalScale;
         private double HorizontalScale;
 
-        private VerticalAlignment ProfileVerticalAlignment = VerticalAlignment.Center;
+
         private double DrawingTop, DrawingBottom;
 
         public MainWindow()
