@@ -301,16 +301,6 @@ namespace tdjWpfClassLibrary.Profile
         #region 图形
 
         /// <summary>
-        /// 垂直对齐。默认为中心对齐。
-        /// </summary>
-        public VerticalAlignment VerticalAlignment = VerticalAlignment.Center;
-
-        /// <summary>
-        /// 水平对齐。默认为中心对齐。
-        /// </summary>
-        public HorizontalAlignment HorizontalAlignment = HorizontalAlignment.Center;
-
-        /// <summary>
         /// 设置图形为充满画布（全尺寸）。并重新计算TranslateTransform的X,Y值。参考Alignment。
         /// </summary>
         /// <param name="height"></param>
