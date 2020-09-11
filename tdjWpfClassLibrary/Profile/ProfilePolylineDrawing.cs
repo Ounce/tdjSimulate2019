@@ -15,6 +15,28 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public VerticalAlignment VerticalAlignment = VerticalAlignment.Center;
 
+        public double MaxAltitude, MinAltitude;
+
+        /// <summary>
+        /// 将profile的MaxAltitude、MinAltitude赋值给MaxAltitude和MinAltitude。
+        /// </summary>
+        /// <param name="profile"></param>
+        public void SetMaxMinAltitude(ProfileViewModel profile)
+        {
+            MaxAltitude = profile.MaxAltitude;
+            MinAltitude = profile.MinAltitude;
+        }
+
+        /// <summary>
+        /// 将MaxAltitude和MinAltitude与profile的进行比较，后更新。
+        /// </summary>
+        /// <param name="profile"></param>
+        public void UpdateMaxMinAltitude(ProfileViewModel profile)
+        {
+            if (profile.MaxAltitude > MaxAltitude) MaxAltitude = profile.MaxAltitude;
+            if (profile.MinAltitude < MinAltitude) MinAltitude = profile.MinAltitude;
+        }
+
         /// <summary>
         /// 图形顶端对应的Altitude。
         /// </summary>
@@ -34,6 +56,11 @@ namespace tdjWpfClassLibrary.Profile
         {
             Profile = new ProfileViewModel();
             Scale = new Scale();
+        }
+
+        public void SetScale(double height, double width)
+        {
+            Scale.SetScale(height, width, MaxAltitude, MinAltitude, Profile.Length);
         }
 
         /// <summary>

@@ -141,6 +141,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            Scale = new Scale();
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
@@ -183,7 +184,7 @@ namespace tdjWpfClassLibrary.Profile
                 case "BeginAltitude":
                     p = GetPosition(sender);
                     if (p == 0)
-                        PolylinePoints[p] = new Point(PolylinePoints[0].X, Slopes[p].BeginAltitude * Scale.Vertical);
+                        PolylinePoints[p] = new Point(PolylinePoints[0].X, - Slopes[p].BeginAltitude * Scale.Vertical);
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -297,6 +298,39 @@ namespace tdjWpfClassLibrary.Profile
             return -1;
         }
 
+        #region 图形
+
+        /// <summary>
+        /// 垂直对齐。默认为中心对齐。
+        /// </summary>
+        public VerticalAlignment VerticalAlignment = VerticalAlignment.Center;
+
+        /// <summary>
+        /// 水平对齐。默认为中心对齐。
+        /// </summary>
+        public HorizontalAlignment HorizontalAlignment = HorizontalAlignment.Center;
+
+        /// <summary>
+        /// 设置图形为充满画布（全尺寸）。并重新计算TranslateTransform的X,Y值。参考Alignment。
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        public void SetFullSize(double height, double width)
+        {
+
+        }
+
+        /// <summary>
+        /// 根据纵断面起点在图中的坐标、图形顶端对应的高程计算和比例计算Points的坐标。不考虑Alignment。
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        public void SetPoints(double x, double TopAltitude, Scale scale)
+        {
+
+        }
+
+        #endregion
 
         #region 数据计算方法
 
@@ -336,10 +370,9 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         /// <param name="horizontalScale"></param>
         /// <param name="verticalScale"></param>
-        public void SetHorizontalVerticalScale(double horizontalScale, double verticalScale)
+        public void SetHorizontalVerticalScale(Scale scale)
         {
-            Scale.Horizontal = horizontalScale;
-            Scale.Vertical = verticalScale;
+            Scale = scale;
             UpdateHorizontalVerticalScale();
         }
 
