@@ -53,13 +53,10 @@ namespace tdjWpfClassLibrary
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
                 ProfileDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
-                ProfileDrawing.Profile.UpdateMaxMinAltitude();
-                ProfileDrawing.SetMaxMinAltitude(ProfileDrawing.Profile);
-                ProfileDrawing.SetScale(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
-                ProfileDrawing.Profile.SetHorizontalVerticalScale(Scale);                
-                ExistPolylineTranslate.X = 0;
+                ProfileDrawing.Profile.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                ExistPolylineTranslate.X = ProfileDrawing.Profile.OriginPoint.X;
 
-                ExistPolylineTranslate.Y = - ProfileDrawing.MaxAltitude * ProfileDrawing.Scale.Vertical + 400;
+                ExistPolylineTranslate.Y = - ProfileDrawing.Profile.OriginPoint.Y;
 
 
             }

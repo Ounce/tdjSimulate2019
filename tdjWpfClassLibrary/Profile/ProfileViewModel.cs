@@ -278,7 +278,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <returns></returns>
         private Point GetPoint(double mileage, double altitude)
         {
-            return new Point(mileage * Scale.Horizontal, altitude * Scale.Vertical);
+            return new Point(mileage * Scale.Horizontal, - altitude * Scale.Vertical);
         }
 
         /// <summary>
