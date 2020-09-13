@@ -35,13 +35,15 @@ namespace tdjWpfClassLibrary.Profile
             get { return Polyline.Points; }
         }
 
+        public Scale Scale;
+
         public HorizontalAlignment HorizontalAlignment
         {
             set 
             {
                 if (value != _horizontalAlignment)
                 {
-                    SetHorizontalAlignment();
+                    SetOriginPointX();
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
@@ -55,7 +57,7 @@ namespace tdjWpfClassLibrary.Profile
             { 
                 if (value != _verticalAlignment)
                 {
-                    SetVerticalAlignment();
+                    SetOriginPointY();
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -137,8 +139,6 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point firstPoint;
 
-        public Scale Scale;
-
         public ProfileViewModel()
         {
             Scale = new Scale();
@@ -212,11 +212,14 @@ namespace tdjWpfClassLibrary.Profile
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
             UpdatePoints();
-            SetHorizontalAlignment();
-            SetVerticalAlignment();
+            SetOriginPointX();
+            SetOriginPointY();
         }
 
-        private void SetHorizontalAlignment()
+        /// <summary>
+        /// 设置图形左上方原点 X 坐标。
+        /// </summary>
+        private void SetOriginPointX()
         {
             switch (_horizontalAlignment)
             {
@@ -232,7 +235,10 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
-        private void SetVerticalAlignment()
+        /// <summary>
+        /// 设置图形左上方原点 Y 坐标。
+        /// </summary>
+        private void SetOriginPointY()
         {
             switch (_verticalAlignment)
             {
@@ -240,7 +246,13 @@ namespace tdjWpfClassLibrary.Profile
                     OriginPoint.Y = - MaxAltitude * Scale.Vertical;
                     break;
                 case VerticalAlignment.Center:
-                    OriginPoint.Y = -(MaxAltitude - MinAltitude) * Scale.Vertical;
+                    //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
+                    //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
+                    //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
+                    OriginPoint.Y = 0.5 * (- canvasHeight + (MaxAltitude + MinAltitude) * Scale.Vertical);
+                    break;
+                case VerticalAlignment.Bottom:
+                    OriginPoint.Y = - canvasHeight - MinAltitude * Scale.Vertical;
                     break;
             }
         }
@@ -270,17 +282,6 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         /// <summary>
-        /// 折算altitude对应的Y轴坐标。
-        /// </summary>
-        /// <param name="altitude">折算高程</param>
-        /// <returns>高程Y轴坐标</returns>
-        public double GetY(double altitude)
-        {
-            return 0;
-          //  return (TopAltitude - altitude) * VerticalScale;
-        }
-
-        /// <summary>
         /// 获得sender代表的Slope在Slopes中的位置。
         /// </summary>
         /// <param name="sender"></param>
@@ -299,16 +300,6 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         #region 图形
-
-        /// <summary>
-        /// 设置图形为充满画布（全尺寸）。并重新计算TranslateTransform的X,Y值。参考Alignment。
-        /// </summary>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        public void SetFullSize(double height, double width)
-        {
-
-        }
 
         /// <summary>
         /// 根据纵断面起点在图中的坐标、图形顶端对应的高程计算和比例计算Points的坐标。不考虑Alignment。
