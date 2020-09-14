@@ -43,6 +43,7 @@ namespace tdjWpfClassLibrary.Profile
             {
                 if (value != _horizontalAlignment)
                 {
+                    _horizontalAlignment = value;
                     SetOriginPointX();
                     OnPropertyChanged("HorizontalAlignment");
                 }
@@ -51,12 +52,13 @@ namespace tdjWpfClassLibrary.Profile
         }
         private HorizontalAlignment _horizontalAlignment;
 
-        public VerticalAlignment VerticalAlignment
+        public VerticalAlignment PolylineVerticalAlignment
         {
             set 
             { 
                 if (value != _verticalAlignment)
                 {
+                    _verticalAlignment = value;
                     SetOriginPointY();
                     OnPropertyChanged("VerticalAlignment");
                 }
@@ -142,6 +144,7 @@ namespace tdjWpfClassLibrary.Profile
         public ProfileViewModel()
         {
             Scale = new Scale();
+            PolylineVerticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
@@ -249,7 +252,7 @@ namespace tdjWpfClassLibrary.Profile
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
                     //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
                     //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
-                    OriginPoint.Y = 0.5 * (- canvasHeight + (MaxAltitude + MinAltitude) * Scale.Vertical);
+                    OriginPoint.Y = 0.5 * (- canvasHeight - (MaxAltitude + MinAltitude) * Scale.Vertical);
                     break;
                 case VerticalAlignment.Bottom:
                     OriginPoint.Y = - canvasHeight - MinAltitude * Scale.Vertical;
