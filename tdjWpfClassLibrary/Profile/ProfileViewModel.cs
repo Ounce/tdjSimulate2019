@@ -188,7 +188,7 @@ namespace tdjWpfClassLibrary.Profile
                 case "BeginAltitude":
                     p = GetPosition(sender);
                     if (p == 0)
-                        PolylinePoints[p] = new Point(PolylinePoints[0].X, - Slopes[p].BeginAltitude * Scale.Vertical);
+                        PolylinePoints[p] = new Point(PolylinePoints[0].X, GetPointY(Slopes[p].BeginAltitude));
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -198,7 +198,7 @@ namespace tdjWpfClassLibrary.Profile
                 case "EndAltitude":
                     p = GetPosition(sender);
                     if (p < 0) break;
-                    PolylinePoints[p] = new Point(PolylinePoints[p].X, Slopes[p].EndAltitude * Scale.Vertical);
+                    PolylinePoints[p] = new Point(PolylinePoints[p].X, GetPointY(Slopes[p].EndAltitude));
                     break;
             }
         }
@@ -282,7 +282,12 @@ namespace tdjWpfClassLibrary.Profile
         /// <returns></returns>
         private Point GetPoint(double mileage, double altitude)
         {
-            return new Point(mileage * Scale.Horizontal, - altitude * Scale.Vertical);
+            return new Point(mileage * Scale.Horizontal, GetPointY(altitude));
+        }
+
+        private double GetPointY(double altitude)
+        {
+            return -altitude * Scale.Vertical;
         }
 
         /// <summary>
