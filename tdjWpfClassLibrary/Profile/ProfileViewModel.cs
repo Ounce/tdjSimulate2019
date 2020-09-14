@@ -145,7 +145,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             Scale = new Scale();
             _horizontalAlignment = HorizontalAlignment.Center;
-            _verticalAlignment = VerticalAlignment.Center;
+            _verticalAlignment = VerticalAlignment.Bottom;
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
@@ -247,7 +247,7 @@ namespace tdjWpfClassLibrary.Profile
             switch (_verticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    OriginPoint.Y = - MaxAltitude * Scale.Vertical;
+                    OriginPoint.Y = GetPointY(MaxAltitude);
                     break;
                 case VerticalAlignment.Center:
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
@@ -256,7 +256,7 @@ namespace tdjWpfClassLibrary.Profile
                     OriginPoint.Y = 0.5 * (GetPointY(MaxAltitude) + GetPointY(MinAltitude) - canvasHeight);
                     break;
                 case VerticalAlignment.Bottom:
-                    OriginPoint.Y = - canvasHeight - MinAltitude * Scale.Vertical;
+                    OriginPoint.Y = GetPointY(MinAltitude) - canvasHeight;
                     break;
             }
         }
