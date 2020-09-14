@@ -164,8 +164,8 @@ namespace tdjWpfClassLibrary.Profile
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     if (Polyline.Points.Count == 0)
-                        Polyline.Points.Add(new Point(Slopes[0].BeginMileage * Scale.Horizontal, Slopes[0].BeginAltitude * Scale.Vertical));
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, new Point(Slopes[e.NewStartingIndex].EndMileage * Scale.Horizontal, Slopes[e.NewStartingIndex].EndAltitude * Scale.Vertical));
+                        Polyline.Points.Add(GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude));
+                    Polyline.Points.Insert(e.NewStartingIndex + 1, GetPoint(Slopes[e.NewStartingIndex].EndMileage, Slopes[e.NewStartingIndex].EndAltitude));
                     break;
             }
         }
@@ -253,7 +253,7 @@ namespace tdjWpfClassLibrary.Profile
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
                     //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
                     //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
-                    OriginPoint.Y = 0.5 * (- canvasHeight - (MaxAltitude + MinAltitude) * Scale.Vertical);
+                    OriginPoint.Y = 0.5 * (GetPointY(MaxAltitude) + GetPointY(MinAltitude) - canvasHeight);
                     break;
                 case VerticalAlignment.Bottom:
                     OriginPoint.Y = - canvasHeight - MinAltitude * Scale.Vertical;
