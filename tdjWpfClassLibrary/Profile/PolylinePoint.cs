@@ -9,12 +9,12 @@ namespace tdjWpfClassLibrary.Profile
     {
         public static Point GetPoint(double mileage, double altitude, Scale scale)
         {
-            return new Point(mileage * scale.Horizontal, GetPointY(altitude, scale));
+            return new Point(mileage * scale.Horizontal, GetPointY(altitude, scale.Vertical));
         }
 
-        public static double GetPointY(double altitude, Scale scale)
+        public static double GetPointY(double altitude, double verticalScale)
         {
-            return - altitude * scale.Vertical;
+            return - altitude * verticalScale;
         }
     }
 }
