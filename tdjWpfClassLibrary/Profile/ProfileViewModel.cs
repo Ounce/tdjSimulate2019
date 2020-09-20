@@ -247,7 +247,7 @@ namespace tdjWpfClassLibrary.Profile
             switch (_verticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    OriginPoint.Y = GetPointY(MaxAltitude);
+                    OriginPoint.Y = PolylinePoint.GetPointY(MaxAltitude, Scale);
                     break;
                 case VerticalAlignment.Center:
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
@@ -264,13 +264,13 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 以现有参数更新Points中各点的坐标。
         /// </summary>
-        private void UpdatePoints()
+        public void UpdatePoints()
         {
             if (PolylinePoints.Count < 1) return;
-            PolylinePoints[0] = GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude);
+            PolylinePoints[0] = PolylinePoint.GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude, Scale);
             for (int i = 0; i < Slopes.Count; i++)
             {
-                PolylinePoints[i + 1] = GetPoint(Slopes[i].EndMileage, Slopes[i].EndAltitude);
+                PolylinePoints[i + 1] = PolylinePoint.GetPoint(Slopes[i].EndMileage, Slopes[i].EndAltitude, Scale);
             }
         }
 
