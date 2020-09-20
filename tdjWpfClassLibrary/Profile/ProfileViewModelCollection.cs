@@ -46,7 +46,9 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
-        public Point OriginPoint = new Point(0, 0);
+        public PolylineOriginPoint OriginPoint;
+
+        public double canvasWidth, canvasHeight;
 
         public HorizontalAlignment HorizontalAlignment
         {
@@ -55,7 +57,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    SetOriginPointX();
+                    OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
@@ -70,7 +72,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    SetOriginPointY();
+                    OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -80,6 +82,8 @@ namespace tdjWpfClassLibrary.Profile
         public ProfileViewModelCollection()
         {
             Items = new ObservableCollection<ProfileViewModel>();
+            Scale = new Scale();
+            OriginPoint = new PolylineOriginPoint();
         }
 
         /// <summary>
@@ -112,49 +116,8 @@ namespace tdjWpfClassLibrary.Profile
                 i.Scale = Scale;
                 i.UpdatePoints();
             }
-            SetOriginPointX(width);
-            SetOriginPointY(height);
-        }
-
-        /// <summary>
-        /// 设置图形左上方原点 X 坐标。
-        /// </summary>
-        private void SetOriginPointX(double width)
-        {
-            switch (_horizontalAlignment)
-            {
-                case HorizontalAlignment.Left:
-                    OriginPoint.X = 0;
-                    break;
-                case HorizontalAlignment.Center:
-                    OriginPoint.X = (width - Length * Scale.Horizontal) * 0.5;
-                    break;
-                case HorizontalAlignment.Right:
-                    OriginPoint.X = width - Length * Scale.Horizontal;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// 设置图形左上方原点 Y 坐标。
-        /// </summary>
-        private void SetOriginPointY(double height)
-        {
-            switch (_verticalAlignment)
-            {
-                case VerticalAlignment.Top:
-                    OriginPoint.Y = Items[0].GetPointY(MaxAltitude);
-                    break;
-                case VerticalAlignment.Center:
-                    //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
-                    //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
-                    //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
-                    OriginPoint.Y = 0.5 * (GetPointY(MaxAltitude) + GetPointY(MinAltitude) - height);
-                    break;
-                case VerticalAlignment.Bottom:
-                    OriginPoint.Y = GetPointY(MinAltitude) - height;
-                    break;
-            }
+            OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale);
+            OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale);
         }
     }
 }

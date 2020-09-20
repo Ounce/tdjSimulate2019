@@ -44,7 +44,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    SetOriginPointX();
+                    OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
@@ -59,7 +59,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    SetOriginPointY();
+                    OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -68,7 +68,7 @@ namespace tdjWpfClassLibrary.Profile
 
         private double canvasHeight, canvasWidth;
 
-        public Point OriginPoint = new Point(0, 0);
+        public PolylineOriginPoint OriginPoint = new PolylineOriginPoint(0, 0);
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
@@ -216,8 +216,8 @@ namespace tdjWpfClassLibrary.Profile
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
             UpdatePoints();
-            SetOriginPointX();
-            SetOriginPointY();
+            OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale);
+            OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale);
         }
 
         /// <summary>
