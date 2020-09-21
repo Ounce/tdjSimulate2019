@@ -116,8 +116,8 @@ namespace tdjWpfClassLibrary.Profile
                 i.Scale = Scale;
                 i.UpdatePoints();
             }
-            OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
-            OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
+            OriginPoint.SetX(_horizontalAlignment, width, Length, Scale.Horizontal);
+            OriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude, Scale.Vertical);
         }
     }
 }

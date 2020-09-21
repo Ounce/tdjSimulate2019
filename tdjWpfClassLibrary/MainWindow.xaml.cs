@@ -28,16 +28,25 @@ namespace tdjWpfClassLibrary
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
-        ProfilePolylineDrawing ProfileDrawing;
+        //ProfilePolylineDrawing ProfileDrawing;
+
+        ProfileViewModelCollection Profiles;
 
         public Scale Scale;
 
         public MainWindow()
         {
             InitializeComponent();
+            /*
             ProfileDrawing = new ProfilePolylineDrawing();
             label.DataContext = ProfileDrawing.Profile;
             ExistPolyline.Points = ProfileDrawing.Profile.PolylinePoints;
+            */
+            Profiles = new ProfileViewModelCollection();
+            ProfileViewModel profile = new ProfileViewModel();
+            label.DataContext = profile;
+            Profiles.Items.Add(profile);
+            ExistPolyline.Points = profile.PolylinePoints;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -52,19 +61,18 @@ namespace tdjWpfClassLibrary
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
+                /*
                 ProfileDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
                 ProfileDrawing.Profile.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 ExistPolylineTranslate.X = ProfileDrawing.Profile.OriginPoint.X;
-
                 ExistPolylineTranslate.Y = - ProfileDrawing.Profile.OriginPoint.Y;
-
-
+                */
+                Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
+                Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
+                Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                ExistPolylineTranslate.X = Profiles.OriginPoint.X;
+                ExistPolylineTranslate.Y = -Profiles.OriginPoint.Y;
             }
         }
-
-
-
-
-
     }
 }
