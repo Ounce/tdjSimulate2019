@@ -61,12 +61,13 @@ namespace tdjWpfClassLibrary
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-                /*
+                /*   使用 Profile的函数
                 ProfileDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
                 ProfileDrawing.Profile.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 ExistPolylineTranslate.X = ProfileDrawing.Profile.OriginPoint.X;
                 ExistPolylineTranslate.Y = - ProfileDrawing.Profile.OriginPoint.Y;
                 */
+                //  使用 ProfileViewModelCollection的函数。
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
                 Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
                 Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
