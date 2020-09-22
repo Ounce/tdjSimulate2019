@@ -46,7 +46,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
-        public PolylineOriginPoint OriginPoint;
+        public PolylineOriginPoint PolylineOriginPoint;
 
         public double canvasWidth, canvasHeight;
 
@@ -57,7 +57,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    OriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
+                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
@@ -72,7 +72,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    OriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
+                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -83,7 +83,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             Items = new ObservableCollection<ProfileViewModel>();
             Scale = new Scale();
-            OriginPoint = new PolylineOriginPoint();
+            PolylineOriginPoint = new PolylineOriginPoint();
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace tdjWpfClassLibrary.Profile
                 i.Scale = Scale;
                 i.UpdatePoints();
             }
-            OriginPoint.SetX(_horizontalAlignment, width, Length, Scale.Horizontal);
-            OriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude, Scale.Vertical);
+            PolylineOriginPoint.SetX(_horizontalAlignment, width, Length, Scale.Horizontal);
+            PolylineOriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude, Scale.Vertical);
         }
     }
 }
