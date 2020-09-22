@@ -145,7 +145,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             Scale = new Scale();
             _horizontalAlignment = HorizontalAlignment.Center;
-            _verticalAlignment = VerticalAlignment.Bottom;
+            _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
