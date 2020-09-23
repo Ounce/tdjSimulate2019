@@ -4,49 +4,25 @@ using System.Text;
 
 namespace tdjWpfClassLibrary.Profile
 {
-    public class Scale : NotifyPropertyChanged
+    public static class Scale 
     {
         /// <summary>
         /// 水平比例。
         /// </summary>
-        public double Horizontal
-        {
-            get { return _hScale; }
-            set
-            {
-                if (value != _hScale)
-                {
-                    _hScale = value;
-                    OnPropertyChanged("Horizontal");
-                }
-            }
-        }
-        private double _hScale;
+        public static double Horizontal;
 
         /// <summary>
         /// 垂直比例，应根据具体应用自行定义。
         /// </summary>
-        public double Vertical
-        {
-            get { return _vScale; }
-            set
-            {
-                if (value != _vScale)
-                {
-                    _vScale = value;
-                    OnPropertyChanged("Vertical");
-                }
-            }
-        }
-        private double _vScale;
+        public static double Vertical;
 
-        public double VerticalHorizontalScale;
+        public static double VerticalHorizontalScale;
 
-        public Scale()
+        static Scale()
         {
-            _hScale = 1;
-            _vScale = 1;
-            VerticalHorizontalScale = 50;
+            Horizontal = 50;
+            Vertical = 1;
+            VerticalHorizontalScale = Horizontal * Vertical;
         }
 
         /// <summary>
@@ -57,7 +33,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="maxAltitude">最大高程</param>
         /// <param name="minAltitude">最大高程</param>
         /// <param name="length">纵断面的长度</param>
-        public void SetScale(double height, double width, double maxAltitude, double minAltitude, double length)
+        public static void SetScale(double height, double width, double maxAltitude, double minAltitude, double length)
         {
             double v = height / (maxAltitude - minAltitude);
             double h = width / length;

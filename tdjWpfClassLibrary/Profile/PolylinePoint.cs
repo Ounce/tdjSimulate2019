@@ -6,10 +6,10 @@ using System.Windows;
 namespace tdjWpfClassLibrary.Profile
 {
     public static class PolylinePoint
-    {
-        public static Point GetPoint(double mileage, double altitude, Scale scale)
+    { 
+        public static Point GetPoint(double mileage, double altitude)
         {
-            return new Point(mileage * scale.Horizontal, GetPointY(altitude, scale.Vertical));
+            return new Point(mileage * Scale.Horizontal, GetPointY(altitude, Scale.Vertical));
         }
 
         public static double GetPointY(double altitude, double verticalScale)

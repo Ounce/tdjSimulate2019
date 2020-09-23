@@ -32,7 +32,7 @@ namespace tdjWpfClassLibrary
 
         ProfileViewModelCollection Profiles;
 
-        public Scale Scale;
+        //public Scale Scale;
 
         public MainWindow()
         {

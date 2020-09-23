@@ -43,11 +43,6 @@ namespace tdjWpfClassLibrary.Profile
         public double TopAltitude { get; set; }
 
         /// <summary>
-        /// 纵断面显示比例。
-        /// </summary>
-        public Scale Scale { get; set; }
-
-        /// <summary>
         /// 原始Profile，派生类可定义其他Profile。
         /// </summary>
         public ProfileViewModel Profile { get; set; }
@@ -55,7 +50,6 @@ namespace tdjWpfClassLibrary.Profile
         public ProfilePolylineDrawing()
         {
             Profile = new ProfileViewModel();
-            Scale = new Scale();
         }
 
         public void SetScale(double height, double width)

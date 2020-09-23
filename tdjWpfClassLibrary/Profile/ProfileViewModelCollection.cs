@@ -10,8 +10,6 @@ namespace tdjWpfClassLibrary.Profile
     {
         public ObservableCollection<ProfileViewModel> Items;
 
-        public Scale Scale;
-
         /// <summary>
         /// 最大高程。
         /// </summary>
@@ -57,7 +55,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
+                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
@@ -72,7 +70,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
+                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -82,7 +80,6 @@ namespace tdjWpfClassLibrary.Profile
         public ProfileViewModelCollection()
         {
             Items = new ObservableCollection<ProfileViewModel>();
-            Scale = new Scale();
             PolylineOriginPoint = new PolylineOriginPoint();
         }
 
@@ -113,11 +110,10 @@ namespace tdjWpfClassLibrary.Profile
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
             foreach (var i in Items)
             {
-                i.Scale = Scale;
                 i.UpdatePoints();
             }
-            PolylineOriginPoint.SetX(_horizontalAlignment, width, Length, Scale.Horizontal);
-            PolylineOriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude, Scale.Vertical);
+            PolylineOriginPoint.SetX(_horizontalAlignment, width, Length);
+            PolylineOriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude);
         }
     }
 }

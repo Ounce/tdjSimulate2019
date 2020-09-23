@@ -35,8 +35,6 @@ namespace tdjWpfClassLibrary.Profile
             get { return Polyline.Points; }
         }
 
-        public Scale Scale;
-
         public HorizontalAlignment HorizontalAlignment
         {
             set 
@@ -44,11 +42,10 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
+                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
-            
         }
         private HorizontalAlignment _horizontalAlignment;
 
@@ -59,7 +56,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
+                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -143,7 +140,6 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
-            Scale = new Scale();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
@@ -216,8 +212,8 @@ namespace tdjWpfClassLibrary.Profile
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
             UpdatePoints();
-            PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length, Scale.Horizontal);
-            PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude, Scale.Vertical);
+            PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
+            PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
         }
 
         /// <summary>
@@ -226,10 +222,10 @@ namespace tdjWpfClassLibrary.Profile
         public void UpdatePoints()
         {
             if (PolylinePoints.Count < 1) return;
-            PolylinePoints[0] = PolylinePoint.GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude, Scale);
+            PolylinePoints[0] = PolylinePoint.GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude);
             for (int i = 0; i < Slopes.Count; i++)
             {
-                PolylinePoints[i + 1] = PolylinePoint.GetPoint(Slopes[i].EndMileage, Slopes[i].EndAltitude, Scale);
+                PolylinePoints[i + 1] = PolylinePoint.GetPoint(Slopes[i].EndMileage, Slopes[i].EndAltitude);
             }
         }
 
@@ -267,20 +263,6 @@ namespace tdjWpfClassLibrary.Profile
             return -1;
         }
 
-        #region 图形
-
-        /// <summary>
-        /// 根据纵断面起点在图中的坐标、图形顶端对应的高程计算和比例计算Points的坐标。不考虑Alignment。
-        /// </summary>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        public void SetPoints(double x, double TopAltitude, Scale scale)
-        {
-
-        }
-
-        #endregion
-
         #region 数据计算方法
 
         /// <summary>
@@ -312,17 +294,6 @@ namespace tdjWpfClassLibrary.Profile
                 m += s.Length;
                 s.EndMileage = m;
             }
-        }
-
-        /// <summary>
-        /// 设置水平、垂直比例。并更新Slope的相关参数。
-        /// </summary>
-        /// <param name="horizontalScale"></param>
-        /// <param name="verticalScale"></param>
-        public void SetHorizontalVerticalScale(Scale scale)
-        {
-            Scale = scale;
-            UpdateHorizontalVerticalScale();
         }
 
         /// <summary>
