@@ -15,6 +15,8 @@
                     <TranslateTransform x:Name="ExistPolylineTranslate"/>
                 </Polyline.RenderTransform>
             </Polyline>
+            <Button x:Name="button1" Content="Button" Canvas.Left="425" Canvas.Top="220" Click="button1_Click"/>
+            <Button x:Name="button2" Content="Button" Canvas.Left="425" Canvas.Top="274" Click="button2_Click"/>
         </Canvas>
     </Grid>
 </Window>

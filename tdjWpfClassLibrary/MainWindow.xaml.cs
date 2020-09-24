@@ -32,7 +32,7 @@ namespace tdjWpfClassLibrary
 
         ProfileViewModelCollection Profiles;
 
-        //public Scale Scale;
+        Point a;
 
         public MainWindow()
         {
@@ -74,6 +74,17 @@ namespace tdjWpfClassLibrary
                 ExistPolylineTranslate.X = Profiles.PolylineOriginPoint.X;
                 ExistPolylineTranslate.Y = -Profiles.PolylineOriginPoint.Y;
             }
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            a = PolylinePoint.GetPoint(Profiles.Items[0].Slopes[2].BeginMileage + 20, Profiles.Items[0].Slopes[2].BeginAltitude);
+            ExistPolyline.Points.Insert(3, a);
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            a.X = a.X + 50;
         }
     }
 }
