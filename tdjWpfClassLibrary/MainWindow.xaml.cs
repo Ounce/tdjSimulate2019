@@ -80,11 +80,19 @@ namespace tdjWpfClassLibrary
         {
             a = PolylinePoint.GetPoint(Profiles.Items[0].Slopes[2].BeginMileage + 20, Profiles.Items[0].Slopes[2].BeginAltitude);
             ExistPolyline.Points.Insert(3, a);
+            ExistPolyline.Points[3] = a;
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             a.X = a.X + 50;
+            
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            SlopeLines lines = new SlopeLines();
+            ItemsControl1.DataContext = lines;
         }
     }
 }

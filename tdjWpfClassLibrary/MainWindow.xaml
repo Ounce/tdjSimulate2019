@@ -17,6 +17,15 @@
             </Polyline>
             <Button x:Name="button1" Content="Button" Canvas.Left="425" Canvas.Top="220" Click="button1_Click"/>
             <Button x:Name="button2" Content="Button" Canvas.Left="425" Canvas.Top="274" Click="button2_Click"/>
+            <Button x:Name="button3" Content="添加" Canvas.Left="425" Canvas.Top="300" Click="button3_Click"/>
+            <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding X1}" X2="{Binding X2}" Y1="{Binding Y1}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="2" ></Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Line X1="10" Y1="10" X2="200" Y2="20" Stroke="Red" StrokeThickness="2"></Line>
         </Canvas>
     </Grid>
 </Window>
