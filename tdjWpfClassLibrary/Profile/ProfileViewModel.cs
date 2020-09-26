@@ -74,6 +74,8 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public double GradeUnit { get; set; }
 
+        public ProfileViewModelOption ProfileOption;
+
         public int Count
         {
             get { return Slopes.Count; }
@@ -214,6 +216,18 @@ namespace tdjWpfClassLibrary.Profile
             UpdatePoints();
             PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
             PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
+        }
+
+        public void SetSlopeTablePosition(double top, double height)
+        {
+            double gradeTop, lengthTop;
+            gradeTop = top + ProfileOption.SlopeTableBorderWidth;
+            lengthTop = ProfileOption.SlopeTableHeight * 0.5 + ProfileOption.SlopeTableLineWidth + ProfileOption.SlopeTableBorderWidth;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                s.BeginLine.Y1 = top;
+                s.BeginLine.Y2 = top + ProfileOption.SlopeTableHeight;
+            }
         }
 
         /// <summary>
