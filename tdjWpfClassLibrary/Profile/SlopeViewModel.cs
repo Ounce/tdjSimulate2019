@@ -204,6 +204,11 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+            GradeLabel = new Label();
+            LengthLabel = new Label();
+            BeginLine = new Line();
+            EndLine = new Line();
+            GradeLine = new Line();
             GradeLabel.VerticalContentAlignment = VerticalAlignment.Center;
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
         }

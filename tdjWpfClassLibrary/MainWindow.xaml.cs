@@ -71,8 +71,20 @@ namespace tdjWpfClassLibrary
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
                 Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
                 Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+
+                //测试 SlopeTable
+                /*
                 ExistPolylineTranslate.X = Profiles.PolylineOriginPoint.X;
                 ExistPolylineTranslate.Y = -Profiles.PolylineOriginPoint.Y;
+                */
+
+                // 测试 SlopeTable
+                Profiles.Items[0].SlopeTableTop = 100;
+                Profiles.Items[0].SlopeTableBottom = 200;
+                foreach (SlopeViewModel s in Profiles.Items[0].Slopes)
+                {
+                    PolylineCanvas.Children.Add(s.BeginLine);
+                }
             }
         }
 
