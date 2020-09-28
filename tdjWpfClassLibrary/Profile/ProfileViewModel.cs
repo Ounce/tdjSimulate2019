@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -139,6 +140,58 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private Point firstPoint;
+
+        public double SlopeTableTop
+        {
+            get { return _slopeTableTop; }
+            set
+            {
+                if(value != _slopeTableTop)
+                {
+                    _slopeTableTop = value;
+                    foreach (SlopeViewModel s in Slopes)
+                    {
+                        s.SlopeTableTop = _slopeTableTop;
+                    }
+                    OnPropertyChanged("SlopeTableTop");
+                }
+            }
+        }
+        private double _slopeTableTop;
+
+        public double SlopeTableHeight
+        {
+            get { return _slopeTableHeight; }
+            set
+            {
+                if (value != _slopeTableHeight)
+                {
+                    _slopeTableHeight = value;
+                    SlopeTableBottom = _slopeTableTop + _slopeTableHeight;
+                    OnPropertyChanged("SlopeTableHeight");
+                }
+            }
+        }
+        private double _slopeTableHeight;
+
+        public double SlopeTableBottom
+        {
+            get { return _slopeTableBottom; }
+            set
+            {
+                if (value != _slopeTableBottom)
+                {
+                    _slopeTableBottom = value;
+                    SlopeTableHeight = _slopeTableBottom - _slopeTableTop;
+                    foreach (SlopeViewModel s in Slopes)
+                    {
+                        s.SlopeTableBottom = _slopeTableBottom;
+                    }
+                    OnPropertyChanged("SlopeTableBottom");
+                }
+            }
+        }
+        private double _slopeTableBottom;
 
         public ProfileViewModel()
         {

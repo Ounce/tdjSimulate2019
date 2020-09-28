@@ -54,6 +54,7 @@ namespace tdjWpfClassLibrary.Profile
                         GradeLabel.HorizontalContentAlignment = HorizontalAlignment.Right;
                         LengthLabel.HorizontalContentAlignment = HorizontalAlignment.Left;
                     }
+                    SetGradeLineY();
                     OnPropertyChanged("Grade");
                 }
             }
@@ -159,26 +160,47 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _slopeTableTop = value;
                     BeginLine.Y1 = EndLine.Y1 = _slopeTableTop;
-                    BeginLine.Y2 = EndLine.Y2 = _slopeTableTop + _slopeTableHeight;
+                    //SlopeTableBottom = _slopeTableHeight + _slopeTableTop;
+                    SetGradeLineY();
                     OnPropertyChanged("SlopeTableTop");
                 }
             }
         }
         private double _slopeTableTop;
-
+        
+        // 在 SlopeViewModel 类中，不考虑Height，及其与其他参数的相互关联，这个问题在ProfileViewModel类中考虑。
+        /*
         public double SlopeTableHeight
         {
+            get { return _slopeTableHeight; }
             set
             {
                 if (value != _slopeTableHeight)
                 {
                     _slopeTableHeight = value;
-                    BeginLine.Y2 = EndLine.Y2 = BeginLine.Y1 + _slopeTableHeight;
+                    SlopeTableBottom = BeginLine.Y1 + _slopeTableHeight;
                     OnPropertyChanged("SlopeTableHeight");
                 }
             }
         }
         private double _slopeTableHeight;
+        */
+
+        public double SlopeTableBottom
+        {
+            get { return _slopeTableBottom; }
+            set
+            {
+                if (value != _slopeTableBottom)
+                {
+                    _slopeTableBottom = value;
+                    BeginLine.Y2 = EndLine.Y2 = _slopeTableBottom;
+                    SetGradeLineY();
+                    OnPropertyChanged("SlopeTableBottom");
+                }
+            }
+        }
+        private double _slopeTableBottom;
 
         public SlopeViewModel()
         {
@@ -186,18 +208,22 @@ namespace tdjWpfClassLibrary.Profile
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
         }
 
-        private double GetY1(double grade, double top, double bottom)
+        private void SetGradeLineY()
         {
-            if (grade > 0.01) return top;
-            else if (grade < -0.01) return bottom;
-            else return 0.5 * (top + bottom);
-        }
-
-        private double GetY2(double grade, double top, double bottom)
-        {
-            if (_grade > 0.01) return bottom;
-            else if (grade < -0.01) return top;
-            else return 0.5 * (top + bottom);
+            if (_grade > 0.01)
+            {
+                GradeLine.Y1 = _slopeTableTop;
+                GradeLine.Y2 = _slopeTableBottom;
+            }
+            else if (_grade < -0.01)
+            {
+                GradeLine.Y1 = _slopeTableBottom;
+                GradeLine.Y2 = _slopeTableTop;
+            }
+            else
+            {
+                GradeLine.Y1 = GradeLine.Y2 = 0.5 * (_slopeTableTop + _slopeTableBottom);
+            }
         }
 
     }
