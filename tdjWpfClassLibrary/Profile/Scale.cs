@@ -20,8 +20,8 @@ namespace tdjWpfClassLibrary.Profile
 
         static Scale()
         {
-            Horizontal = 50;
-            Vertical = 1;
+            Horizontal = 1;
+            Vertical = 50;
             VerticalHorizontalScale = Horizontal * Vertical;
         }
 

@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace tdjWpfClassLibrary.Profile
@@ -211,6 +212,9 @@ namespace tdjWpfClassLibrary.Profile
             GradeLine = new Line();
             GradeLabel.VerticalContentAlignment = VerticalAlignment.Center;
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
+            BeginLine.StrokeThickness = 1;
+            BeginLine.Stroke = Brushes.Blue;
+            BeginLine.X1 = 100;
         }
 
         private void SetGradeLineY()
