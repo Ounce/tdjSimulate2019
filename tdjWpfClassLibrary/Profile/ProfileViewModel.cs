@@ -141,6 +141,41 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point firstPoint;
 
+        public double RectangleLineWidth;
+        public Brush SlopeTableLineColor
+        {
+            get { return _slopeTableLineColor; }
+            set
+            {
+                if (value != _slopeTableLineColor)
+                {
+                    _slopeTableLineColor = value;
+                    foreach (SlopeViewModel s in Slopes)
+                    {
+                        s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = _slopeTableLineColor;
+                    }
+                }
+            }
+        }
+        private Brush _slopeTableLineColor;
+
+        public double SlopeTableLineWidth
+        {
+            get { return _slopeTableLineWidth; }
+            set
+            {
+                if (value != _slopeTableLineWidth)
+                {
+                    _slopeTableLineWidth = value;
+                    foreach (SlopeViewModel s in Slopes)
+                    {
+                        s.BeginLine.Width = s.EndLine.Width = s.GradeLine.Width = _slopeTableLineWidth;
+                    }
+                }
+            }
+        }
+        private double _slopeTableLineWidth;
+
         public double SlopeTableTop
         {
             get { return _slopeTableTop; }

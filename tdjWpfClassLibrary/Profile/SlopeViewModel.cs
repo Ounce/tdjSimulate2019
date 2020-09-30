@@ -212,9 +212,8 @@ namespace tdjWpfClassLibrary.Profile
             GradeLine = new Line();
             GradeLabel.VerticalContentAlignment = VerticalAlignment.Center;
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
-            BeginLine.StrokeThickness = 1;
-            BeginLine.Stroke = Brushes.Blue;
-            BeginLine.X1 = 100;
+            BeginLine.StrokeThickness = EndLine.StrokeThickness = GradeLine.StrokeThickness = 1;
+            BeginLine.Stroke = EndLine.Stroke = GradeLine.Stroke = Brushes.Blue;
         }
 
         private void SetGradeLineY()
