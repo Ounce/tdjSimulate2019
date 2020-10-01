@@ -216,7 +216,7 @@ namespace tdjWpfClassLibrary.Profile
             BeginLine.Stroke = EndLine.Stroke = GradeLine.Stroke = Brushes.Blue;
         }
 
-        private void SetGradeLineY()
+        public void SetGradeLineY()
         {
             if (_grade > 0.01)
             {

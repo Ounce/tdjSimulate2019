@@ -75,8 +75,6 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public double GradeUnit { get; set; }
 
-        public ProfileViewModelOption ProfileOption;
-
         public int Count
         {
             get { return Slopes.Count; }
@@ -141,40 +139,53 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point firstPoint;
 
-        public double RectangleLineWidth;
-        public Brush SlopeTableLineColor
+
+        public ProfileViewModelOption ProfileOption;
+
+        public double SlopeTableBorderWidth
         {
-            get { return _slopeTableLineColor; }
+            get { return ProfileOption.SlopeTableBorderWidth; }
             set
             {
-                if (value != _slopeTableLineColor)
+                if (value != ProfileOption.SlopeTableBorderWidth)
                 {
-                    _slopeTableLineColor = value;
+                    ProfileOption.SlopeTableBorderWidth = value;
+                    // Todo 添加SlopeTableBorderWidtgh对GradeLine的影响。
+                }
+            }
+        }
+
+        public Brush SlopeTableColor
+        {
+            get { return ProfileOption.SlopeTableColor; }
+            set
+            {
+                if (value != ProfileOption.SlopeTableColor)
+                {
+                    ProfileOption.SlopeTableColor = value;
                     foreach (SlopeViewModel s in Slopes)
                     {
-                        s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = _slopeTableLineColor;
+                        s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = ProfileOption.SlopeTableColor;
                     }
                 }
             }
         }
-        private Brush _slopeTableLineColor;
 
         public double SlopeTableLineWidth
         {
-            get { return _slopeTableLineWidth; }
+            get { return ProfileOption.SlopeTableLineWidth; }
             set
             {
-                if (value != _slopeTableLineWidth)
+                if (value != ProfileOption.SlopeTableLineWidth)
                 {
-                    _slopeTableLineWidth = value;
+                    ProfileOption.SlopeTableLineWidth = value;
                     foreach (SlopeViewModel s in Slopes)
                     {
-                        s.BeginLine.Width = s.EndLine.Width = s.GradeLine.Width = _slopeTableLineWidth;
+                        s.BeginLine.Width = s.EndLine.Width = s.GradeLine.Width = ProfileOption.SlopeTableLineWidth;
                     }
                 }
             }
         }
-        private double _slopeTableLineWidth;
 
         public double SlopeTableTop
         {
@@ -230,6 +241,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            ProfileOption = new ProfileViewModelOption();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
@@ -306,15 +318,15 @@ namespace tdjWpfClassLibrary.Profile
             PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
         }
 
-        public void SetSlopeTablePosition(double top, double height)
+        public void SetSlopeTable()
         {
             double gradeTop, lengthTop;
-            gradeTop = top + ProfileOption.SlopeTableBorderWidth;
+            gradeTop = _slopeTableTop + ProfileOption.SlopeTableBorderWidth;
             lengthTop = ProfileOption.SlopeTableHeight * 0.5 + ProfileOption.SlopeTableLineWidth + ProfileOption.SlopeTableBorderWidth;
             foreach (SlopeViewModel s in Slopes)
             {
-                s.BeginLine.Y1 = top;
-                s.BeginLine.Y2 = top + ProfileOption.SlopeTableHeight;
+                s.BeginLine.Y1 = _slopeTableTop;
+                s.BeginLine.Y2 = _slopeTableTop + ProfileOption.SlopeTableHeight;
             }
         }
 
@@ -365,8 +377,6 @@ namespace tdjWpfClassLibrary.Profile
             return -1;
         }
 
-        #region 数据计算方法
-
         /// <summary>
         /// 计算最大和最小高程。
         /// </summary>
@@ -410,7 +420,20 @@ namespace tdjWpfClassLibrary.Profile
                 PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * Scale.Horizontal, Slopes[i].EndAltitude * Scale.Vertical);
             }
         }
-        #endregion
+
+        public void UpdateSlopeTable()
+        {
+            foreach (SlopeViewModel s in Slopes)
+            {
+                s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = ProfileOption.SlopeTableColor;
+                s.BeginLine.StrokeThickness = s.EndLine.StrokeThickness = ProfileOption.SlopeTableLineWidth;
+                s.BeginLine.Y1 = s.EndLine.Y1 = _slopeTableTop;
+                s.BeginLine.Y2 = s.EndLine.Y2 = _slopeTableBottom;
+                s.SlopeTableTop = SlopeTableTop;
+                s.SlopeTableBottom = SlopeTableBottom;
+                s.SetGradeLineY();
+            }
+        }
 
         #region Files IO
 
