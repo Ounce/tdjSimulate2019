@@ -47,6 +47,7 @@ namespace tdjWpfClassLibrary
             label.DataContext = profile;
             Profiles.Items.Add(profile);
             ExistPolyline.Points = profile.PolylinePoints;
+            profile.SlopeTableRectange = SlopeRectange;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

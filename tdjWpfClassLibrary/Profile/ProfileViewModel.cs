@@ -239,6 +239,8 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableBottom;
 
+        public System.Windows.Shapes.Rectangle SlopeTableRectange;
+
         public ProfileViewModel()
         {
             ProfileOption = new ProfileViewModelOption();
