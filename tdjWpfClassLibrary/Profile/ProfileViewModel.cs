@@ -247,9 +247,11 @@ namespace tdjWpfClassLibrary.Profile
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
+            ProfileOption = new ProfileViewModelOption();
             Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            this.PropertyChanged += ProfilePropertyChanged;
         }
 
         /// <summary>
@@ -299,6 +301,15 @@ namespace tdjWpfClassLibrary.Profile
                     p = GetPosition(sender);
                     if (p < 0) break;
                     PolylinePoints[p] = new Point(PolylinePoints[p].X, GetPointY(Slopes[p].EndAltitude));
+                    break;
+            }
+        }
+
+        private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "SlopeTableOption":
                     break;
             }
         }

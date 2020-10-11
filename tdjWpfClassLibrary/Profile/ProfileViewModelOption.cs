@@ -12,6 +12,6 @@ namespace tdjWpfClassLibrary.Profile
         public double SlopeTableLineWidth = 1;
         public double SlopeTableFont = 12;
         public double SlopeTableHeight = 27;
-        public Brush SlopeTableColor = Brushes.Black;
+        public Brush SlopeTableColor = Brushes.Red;
     }
 }
