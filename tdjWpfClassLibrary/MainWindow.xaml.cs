@@ -49,6 +49,7 @@ namespace tdjWpfClassLibrary
             ExistPolyline.Points = profile.PolylinePoints;
             profile.SlopeTableRectange = SlopeRectange;
             SlopeRectange.DataContext = profile.ProfileOption;
+            
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
         }
 

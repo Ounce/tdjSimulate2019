@@ -8,10 +8,10 @@ namespace tdjWpfClassLibrary.Profile
 {
     public class ProfileViewModelOption
     {
-        public double SlopeTableBorderWidth = 2;
-        public double SlopeTableLineWidth = 1;
-        public double SlopeTableFont = 12;
-        public double SlopeTableHeight = 27;
-        public Brush SlopeTableColor = Brushes.Red;
+        public double SlopeTableBorderWidth { get; set; } = 2;
+        public double SlopeTableLineWidth { get; set; } = 1;
+        public double SlopeTableFont { get; set; } = 12;
+        public double SlopeTableHeight { get; set; } = 27;
+        public Brush SlopeTableColor { get; set; } = Brushes.Red;
     }
 }
