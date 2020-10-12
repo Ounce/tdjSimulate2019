@@ -31,6 +31,7 @@ namespace tdjWpfClassLibrary
         //ProfilePolylineDrawing ProfileDrawing;
 
         ProfileViewModelCollection Profiles;
+        ProfileViewModel profile;
 
         Point a;
 
@@ -43,7 +44,7 @@ namespace tdjWpfClassLibrary
             ExistPolyline.Points = ProfileDrawing.Profile.PolylinePoints;
             */
             Profiles = new ProfileViewModelCollection();
-            ProfileViewModel profile = new ProfileViewModel();
+            profile = new ProfileViewModel();
             label.DataContext = profile;
             Profiles.Items.Add(profile);
             ExistPolyline.Points = profile.PolylinePoints;
@@ -109,6 +110,11 @@ namespace tdjWpfClassLibrary
         {
             SlopeLines lines = new SlopeLines();
             ItemsControl1.DataContext = lines;
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            profile.ProfileOption.SlopeTableColor = Brushes.Yellow;
         }
     }
 }
