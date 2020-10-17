@@ -33,6 +33,7 @@ namespace tdjWpfClassLibrary
         ProfileViewModelCollection Profiles;
         ProfileViewModel profile;
 
+
         Point a;
 
         public MainWindow()
@@ -43,7 +44,9 @@ namespace tdjWpfClassLibrary
             label.DataContext = ProfileDrawing.Profile;
             ExistPolyline.Points = ProfileDrawing.Profile.PolylinePoints;
             */
+            
             Profiles = new ProfileViewModelCollection();
+            
             profile = new ProfileViewModel();
             label.DataContext = profile;
             Profiles.Items.Add(profile);
@@ -51,7 +54,10 @@ namespace tdjWpfClassLibrary
             profile.SlopeTableRectange = SlopeRectange;
             SlopeRectange.DataContext = profile.ProfileOption;
             
+
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
+
+            ItemsControl1.ItemsSource = profile.SlopeTableLines;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -72,6 +78,7 @@ namespace tdjWpfClassLibrary
                 ExistPolylineTranslate.X = ProfileDrawing.Profile.OriginPoint.X;
                 ExistPolylineTranslate.Y = - ProfileDrawing.Profile.OriginPoint.Y;
                 */
+
                 //  使用 ProfileViewModelCollection的函数。
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
                 Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
@@ -88,7 +95,7 @@ namespace tdjWpfClassLibrary
                 Profiles.Items[0].SlopeTableBottom = 200;
                 foreach (SlopeViewModel s in Profiles.Items[0].Slopes)
                 {
-                    PolylineCanvas.Children.Add(s.BeginLine);
+                    profile.SlopeTableLines.Add(s.BeginLine);
                 }
             }
         }
