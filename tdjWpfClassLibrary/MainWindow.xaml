@@ -32,15 +32,22 @@
             <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
             <Rectangle x:Name="SlopeRectangle" Height="100" StrokeThickness="{Binding SlopeTableBorderWidth}" Stroke="{Binding SlopeTableColor}" Canvas.Top="288" Width="{Binding ActualWidth, ElementName=PolylineCanvas}"/>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
+
+
+
+            <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="0" Y2="20" Stroke="Red" StrokeThickness="2"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas>
-        <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}" Grid.Row="1" Grid.Column="1">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="0" Y2="20" Stroke="Red" StrokeThickness="2" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+
     </Grid>
 </Window>
