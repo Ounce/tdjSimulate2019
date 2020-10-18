@@ -36,8 +36,6 @@ namespace tdjWpfClassLibrary.Profile
             get { return Polyline.Points; }
         }
 
-        public LineCollection SlopeTableLines { get; set; }
-
         public HorizontalAlignment HorizontalAlignment
         {
             set 
@@ -246,7 +244,6 @@ namespace tdjWpfClassLibrary.Profile
         public ProfileViewModel()
         {
             ProfileOption = new ProfileViewModelOption();
-            SlopeTableLines = new LineCollection();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;

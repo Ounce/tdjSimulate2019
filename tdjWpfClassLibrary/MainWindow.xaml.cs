@@ -33,6 +33,7 @@ namespace tdjWpfClassLibrary
         ProfileViewModelCollection Profiles;
         ProfileViewModel profile;
 
+        public double SlopeTableTop, SlopeTableBottom;
 
         Point a;
 
@@ -51,13 +52,15 @@ namespace tdjWpfClassLibrary
             label.DataContext = profile;
             Profiles.Items.Add(profile);
             ExistPolyline.Points = profile.PolylinePoints;
-            profile.SlopeTableRectange = SlopeRectange;
-            SlopeRectange.DataContext = profile.ProfileOption;
+            profile.SlopeTableRectange = SlopeRectangle;
+            SlopeTableTop = Canvas.GetTop(SlopeRectangle);
+            SlopeTableBottom = SlopeTableTop + SlopeRectangle.Height;
+            SlopeRectangle.DataContext = profile.ProfileOption;
             
 
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
 
-            ItemsControl1.ItemsSource = profile.SlopeTableLines;
+            ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -93,10 +96,7 @@ namespace tdjWpfClassLibrary
                 // 测试 SlopeTable
                 Profiles.Items[0].SlopeTableTop = 100;
                 Profiles.Items[0].SlopeTableBottom = 200;
-                foreach (SlopeViewModel s in Profiles.Items[0].Slopes)
-                {
-                    profile.SlopeTableLines.Add(s.BeginLine);
-                }
+
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security.Permissions;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,6 +102,7 @@ namespace tdjWpfClassLibrary.Profile
                     _beginMileage = value;
                     EndMileage = _beginMileage + _length;
                     double poistion = _beginMileage * Scale.Horizontal;
+                    SlopeTableItem.X1 = poistion;
                     GradeLine.X1 = poistion;
                     BeginLine.X1 = BeginLine.X2 = poistion;
                     Canvas.SetLeft(GradeLabel, poistion);
@@ -120,6 +122,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _endMileage = value;
                     double position = _endMileage * Scale.Horizontal;
+                    X1 = SlopeTableItem.X2 = position;
                     GradeLine.X2 = position;
                     EndLine.X1 = EndLine.X2 = position;
                     OnPropertyChanged("EndMileage");
@@ -128,6 +131,33 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _endMileage;
 
+        public double X1
+        {
+            get { return _x1; }
+            set
+            {
+                if (value != _x1)
+                {
+                    _x1 = value;
+                    OnPropertyChanged("X1");
+                }
+            }
+        }
+        private double _x1;
+
+        public SlopeTableItem SlopeTableItem
+        {
+            get { return _slopeTableItem; }
+            set
+            {
+                if (value != _slopeTableItem)
+                {
+                    _slopeTableItem = value;
+                    OnPropertyChanged("SlopeTableItem");
+                }
+            }
+        }
+        private SlopeTableItem _slopeTableItem;
         /// <summary>
         /// 坡段表中的坡度线
         /// </summary>
@@ -205,6 +235,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+            SlopeTableItem = new SlopeTableItem();
             GradeLabel = new Label();
             LengthLabel = new Label();
             BeginLine = new Line();
@@ -212,7 +243,7 @@ namespace tdjWpfClassLibrary.Profile
             GradeLine = new Line();
             GradeLabel.VerticalContentAlignment = VerticalAlignment.Center;
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
-            BeginLine.StrokeThickness = EndLine.StrokeThickness = GradeLine.StrokeThickness = 1;
+            BeginLine.StrokeThickness = EndLine.StrokeThickness = GradeLine.StrokeThickness = 4;
             BeginLine.Stroke = EndLine.Stroke = GradeLine.Stroke = Brushes.Blue;
         }
 
