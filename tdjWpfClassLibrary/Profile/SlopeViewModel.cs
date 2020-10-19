@@ -274,6 +274,8 @@ namespace tdjWpfClassLibrary.Profile
             LengthLabel.VerticalContentAlignment = VerticalAlignment.Center;
             BeginLine.StrokeThickness = EndLine.StrokeThickness = GradeLine.StrokeThickness = 4;
             BeginLine.Stroke = EndLine.Stroke = GradeLine.Stroke = Brushes.Blue;
+            SlopeTableTop = 288;
+            SlopeTableBottom = 388;
         }
 
         public void SetGradeLineY()

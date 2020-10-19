@@ -9,16 +9,16 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="124*"/>
-            <RowDefinition Height="21*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="121*"/>
             <ColumnDefinition Width="279*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click"/>
-        <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1"/>
-        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
+        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,67" Grid.Row="0" Grid.RowSpan="2">
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
                 <Polyline.RenderTransform>
                     <TranslateTransform x:Name="ExistPolylineTranslate"/>
@@ -29,23 +29,36 @@
             <Button x:Name="button3" Content="添加" Canvas.Left="425" Canvas.Top="300" Click="button3_Click"/>
             <Line X1="10" Y1="100" X2="200" Y2="200" Stroke="Red" StrokeThickness="2"></Line>
             <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
-            <Rectangle x:Name="SlopeRectangle" Height="100" StrokeThickness="{Binding SlopeTableBorderWidth}" Stroke="{Binding SlopeTableColor}" Canvas.Top="288" Width="{Binding ActualWidth, ElementName=PolylineCanvas}"/>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
+            <Rectangle x:Name="SlopeRectangle" Height="100" StrokeThickness="{Binding SlopeTableBorderWidth}" Stroke="{Binding SlopeTableColor}" Width="{Binding ActualWidth, ElementName=PolylineCanvas}">
+            </Rectangle>
         </Canvas>
-        <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}">
+        <Rectangle Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="auto" Width="Auto"/>
+        <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Grid.Row="0"/>
+                    <Canvas Grid.Row="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Name="pnlText" Orientation="Horizontal" Width="{Binding ActualWidth, ElementName=PolylineCanvas}">
-                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="{Binding SlopeTableTop}" Y2="{Binding SlopeTableBottom}" Stroke="Red" StrokeThickness="2"/>
-                        <Line X1="{Binding X1}" Y1="288" X2="{Binding X2}" Y2="388"  Stroke="Yellow" StrokeThickness="2"/>
-                    </StackPanel>
+                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="{Binding SlopeTableTop}" Y2="50" Stroke="Red" StrokeThickness="2" Margin="0"/>
                 </DataTemplate>
-                
+
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+        <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Grid.Row="1"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                        <Line X1="{Binding X1}" Y1="0" X2="{Binding X2}" Y2="100"  Stroke="Red" StrokeThickness="2"/>
+                </DataTemplate>
+
             </ItemsControl.ItemTemplate>
 
         </ItemsControl>

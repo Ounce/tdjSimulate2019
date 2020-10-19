@@ -55,14 +55,15 @@ namespace tdjWpfClassLibrary
             profile.SlopeTableRectange = SlopeRectangle;
             SlopeTableTop = Canvas.GetTop(SlopeRectangle);
             SlopeTableBottom = SlopeTableTop + SlopeRectangle.Height;
-            Profiles.Items[0].SlopeTableTop = SlopeTableTop;
-            Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
+            Profiles.Items[0].SlopeTableTop = 0;
+            Profiles.Items[0].SlopeTableBottom = 100;
             SlopeRectangle.DataContext = profile.ProfileOption;
             
 
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
 
             ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
+            ItemsControl2.ItemsSource = Profiles.Items[0].Slopes;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

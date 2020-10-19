@@ -228,7 +228,6 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _slopeTableBottom)
                 {
                     _slopeTableBottom = value;
-                    SlopeTableHeight = _slopeTableBottom - _slopeTableTop;
                     foreach (SlopeViewModel s in Slopes)
                     {
                         s.SlopeTableBottom = _slopeTableBottom;
@@ -475,7 +474,9 @@ namespace tdjWpfClassLibrary.Profile
             foreach (XmlNode xmlNode in xmlNodeList)
             {
                 SlopeViewModel slope = new SlopeViewModel();
-                SetSlopeTable(slope);
+                //SetSlopeTable(slope);
+                slope.SlopeTableTop = SlopeTableTop;
+                slope.SlopeTableBottom = SlopeTableBottom;
                 slope.BeginMileage = m;
                 slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
                 slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
