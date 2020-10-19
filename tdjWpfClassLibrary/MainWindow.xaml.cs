@@ -55,6 +55,8 @@ namespace tdjWpfClassLibrary
             profile.SlopeTableRectange = SlopeRectangle;
             SlopeTableTop = Canvas.GetTop(SlopeRectangle);
             SlopeTableBottom = SlopeTableTop + SlopeRectangle.Height;
+            Profiles.Items[0].SlopeTableTop = SlopeTableTop;
+            Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
             SlopeRectangle.DataContext = profile.ProfileOption;
             
 

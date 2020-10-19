@@ -35,14 +35,14 @@
         <ItemsControl x:Name="ItemsControl1" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas Grid.Row="0"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Name="pnlText" Orientation="Horizontal" Width="750">
-                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="288" Y2="388" Stroke="Red" StrokeThickness="2"/>
-                        <Line X1="12" Y1="34" X2="200" Y2="40"  Stroke="Black" StrokeThickness="2"/>
+                    <StackPanel Name="pnlText" Orientation="Horizontal" Width="{Binding ActualWidth, ElementName=PolylineCanvas}">
+                        <Line X1="{Binding X1}" X2="{Binding X1}" Y1="{Binding SlopeTableTop}" Y2="{Binding SlopeTableBottom}" Stroke="Red" StrokeThickness="2"/>
+                        <Line X1="{Binding X1}" Y1="288" X2="{Binding X2}" Y2="388"  Stroke="Yellow" StrokeThickness="2"/>
                     </StackPanel>
                 </DataTemplate>
                 

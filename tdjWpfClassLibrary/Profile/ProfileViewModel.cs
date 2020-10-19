@@ -265,6 +265,7 @@ namespace tdjWpfClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    SetSlopeTable(Slopes[e.NewStartingIndex]);
                     if (Polyline.Points.Count == 0)
                         Polyline.Points.Add(GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude));
                     Polyline.Points.Insert(e.NewStartingIndex + 1, GetPoint(Slopes[e.NewStartingIndex].EndMileage, Slopes[e.NewStartingIndex].EndAltitude));
@@ -341,6 +342,12 @@ namespace tdjWpfClassLibrary.Profile
                 s.BeginLine.Y1 = _slopeTableTop;
                 s.BeginLine.Y2 = _slopeTableTop + ProfileOption.SlopeTableHeight;
             }
+        }
+
+        public void SetSlopeTable(SlopeViewModel slope)
+        {
+            slope.SlopeTableTop = _slopeTableTop;
+            slope.SlopeTableBottom = _slopeTableBottom;
         }
 
         /// <summary>
@@ -468,6 +475,7 @@ namespace tdjWpfClassLibrary.Profile
             foreach (XmlNode xmlNode in xmlNodeList)
             {
                 SlopeViewModel slope = new SlopeViewModel();
+                SetSlopeTable(slope);
                 slope.BeginMileage = m;
                 slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
                 slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;

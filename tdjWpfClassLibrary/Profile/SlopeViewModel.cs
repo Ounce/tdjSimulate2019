@@ -158,6 +158,35 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private SlopeTableItem _slopeTableItem;
+
+        public double GradeLineY1
+        {
+            get { return _gradeLineY1; }
+            set
+            {
+                if (value != _gradeLineY1)
+                {
+                    _gradeLineY1 = value;
+                    OnPropertyChanged("GradeLineY1");
+                }
+            }
+        }
+        private double _gradeLineY1;
+
+        public double GradeLineY2
+        {
+            get { return _gradeLineY2; }
+            set
+            {
+                if (value != _gradeLineY2)
+                {
+                    _gradeLineY2 = value;
+                    OnPropertyChanged("GradeLineY2");
+                }
+            }
+        }
+        private double _gradeLineY2;
+
         /// <summary>
         /// 坡段表中的坡度线
         /// </summary>
@@ -249,19 +278,19 @@ namespace tdjWpfClassLibrary.Profile
 
         public void SetGradeLineY()
         {
-            if (_grade > 0.01)
+            if (_grade > 0.00001)
             {
-                GradeLine.Y1 = _slopeTableTop;
-                GradeLine.Y2 = _slopeTableBottom;
+                GradeLineY1 = _slopeTableTop;
+                GradeLineY2 = _slopeTableBottom;
             }
-            else if (_grade < -0.01)
+            else if (_grade < -0.00001)
             {
-                GradeLine.Y1 = _slopeTableBottom;
-                GradeLine.Y2 = _slopeTableTop;
+                GradeLineY1 = _slopeTableBottom;
+                GradeLineY2 = _slopeTableTop;
             }
             else
             {
-                GradeLine.Y1 = GradeLine.Y2 = 0.5 * (_slopeTableTop + _slopeTableBottom);
+                GradeLineY1 = GradeLineY2 = 0.5 * (_slopeTableTop + _slopeTableBottom);
             }
         }
 
