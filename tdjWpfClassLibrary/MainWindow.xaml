@@ -56,7 +56,18 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                        <Line X1="{Binding X1}" Y1="0" X2="{Binding X2}" Y2="100"  Stroke="Red" StrokeThickness="2"/>
+                    <Path Stroke="Red" StrokeThickness="2">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure StartPoint="1,24" IsClosed="True">
+                                    <LineSegment Point="35,58"/>
+                                    <ArcSegment Size="55,20" Point="59,48" SweepDirection="Clockwise"/>
+                                    <LineSegment Point="59,1"/>
+                                    <ArcSegment Size="80,80" Point="1,24" SweepDirection="Counterclockwise"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
                 </DataTemplate>
 
             </ItemsControl.ItemTemplate>
