@@ -43,27 +43,26 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-            
-                         <Path Stroke="Red" StrokeThickness="2">
-                            <Path.Data>
-                                <GeometryGroup FillRule="EvenOdd">
-                                    <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
-                                    <LineGeometry StartPoint="{Binding SlopeTableLeftTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
-                                </GeometryGroup>
-                            </Path.Data>
-                        </Path>
+                     <Path Stroke="Red" StrokeThickness="2">
+                        <Path.Data>
+                            <GeometryGroup FillRule="EvenOdd">
+                                <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
+                                <LineGeometry StartPoint="{Binding SlopeTableLeftTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
+                            </GeometryGroup>
+                        </Path.Data>
+                    </Path>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Grid.Row="1"/>
+                    <StackPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding X2}" HorizontalContentAlignment="Right" Width="{Binding Width}" Margin="{Binding X1}"/>
+                    <Label Content="{Binding X2}" HorizontalContentAlignment="Right" Width="{Binding Width}" HorizontalAlignment="Left"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
