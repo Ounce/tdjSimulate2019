@@ -23,7 +23,7 @@ namespace tdjWpfClassLibrary.Profile
                     _length = value;
                     EndMileage = _beginMileage + _length;
                     EndAltitude = _beginAltitude + _grade * _length;
-                    GradeLabel.Width = _length * Scale.Horizontal;
+                    Width = GradeLabel.Width = _length * Scale.Horizontal;
                     LengthLabel.Width = GradeLabel.Width;
                     LengthLabel.Content = _length;
                     OnPropertyChanged("Length");
@@ -102,6 +102,7 @@ namespace tdjWpfClassLibrary.Profile
                     _beginMileage = value;
                     EndMileage = _beginMileage + _length;
                     double poistion = _beginMileage * Scale.Horizontal;
+                    X1 = poistion;
                     SlopeTableItem.X1 = poistion;
                     GradeLine.X1 = poistion;
                     BeginLine.X1 = BeginLine.X2 = poistion;
@@ -122,7 +123,8 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _endMileage = value;
                     double position = _endMileage * Scale.Horizontal;
-                    X1 = SlopeTableItem.X2 = position;
+                    X2 = position;
+                    SlopeTableItem.X2 = position;
                     GradeLine.X2 = position;
                     EndLine.X1 = EndLine.X2 = position;
                     OnPropertyChanged("EndMileage");
@@ -140,10 +142,42 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _x1 = value;
                     OnPropertyChanged("X1");
+                    SlopeTableLeftTop = new Point(_x1, 0);
+                    SlopeTableLeftBottom = new Point(_x1, 100);
                 }
             }
         }
         private double _x1;
+
+        public double X2
+        {
+            get { return _x2; }
+            set
+            {
+                if (value != _x2)
+                {
+                    _x2 = value;
+                    OnPropertyChanged("X2");
+                    SlopeTableRightTop = new Point(_x2, 0);
+                    SlopeTableRightBottom = new Point(_x2, 100);
+                }
+            }
+        }
+        private double _x2;
+
+        public double Width
+        {
+            get { return _width; }
+            set
+            {
+                if (value != _width)
+                {
+                    _width = value;
+                    OnPropertyChanged("Width");
+                }
+            }
+        }
+        private double _width;
 
         public SlopeTableItem SlopeTableItem
         {
@@ -261,6 +295,63 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _slopeTableBottom;
+        public Point SlopeTableLeftTop
+        {
+            get { return _slopeTableLeftTop; }
+            set
+            {
+                if (value != _slopeTableLeftTop)
+                {
+                    _slopeTableLeftTop = value;
+                    OnPropertyChanged("SlopeTableLeft");
+                }
+            }
+        }
+        private Point _slopeTableLeftTop;
+
+        public Point SlopeTableLeftBottom
+        {
+            get { return _slopeTableLeftBottom; }
+            set
+            {
+                if (value != _slopeTableLeftBottom)
+                {
+                    _slopeTableLeftBottom = value;
+                    OnPropertyChanged("SlopeTableLeftBottom");
+                }
+            }
+        }
+        private Point _slopeTableLeftBottom;
+
+
+
+        public Point SlopeTableRightTop
+        {
+            get { return _slopeTableRightTop; }
+            set
+            {
+                if (value != _slopeTableRightTop)
+                {
+                    _slopeTableRightTop = value;
+                    OnPropertyChanged("SlopeTableRightTop");
+                }
+            }
+        }
+        private Point _slopeTableRightTop;
+
+        public Point SlopeTableRightBottom
+        {
+            get { return _slopeTableRightBottom; }
+            set
+            {
+                if (value != _slopeTableRightBottom)
+                {
+                    _slopeTableRightBottom = value;
+                    OnPropertyChanged("SlopeTableRightBottom");
+                }
+            }
+        }
+        private Point _slopeTableRightBottom;
 
         public SlopeViewModel()
         {

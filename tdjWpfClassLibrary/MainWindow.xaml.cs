@@ -62,8 +62,9 @@ namespace tdjWpfClassLibrary
 
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
 
-            ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
+            //ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
             ItemsControl2.ItemsSource = Profiles.Items[0].Slopes;
+            ItemsControl3.ItemsSource = Profiles.Items[0].Slopes;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -97,8 +98,8 @@ namespace tdjWpfClassLibrary
                 */
 
                 // 测试 SlopeTable
-                Profiles.Items[0].SlopeTableTop = 100;
-                Profiles.Items[0].SlopeTableBottom = 200;
+                Profiles.Items[0].SlopeTableTop = 0;
+                Profiles.Items[0].SlopeTableBottom = 100;
 
             }
         }
@@ -119,7 +120,7 @@ namespace tdjWpfClassLibrary
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             SlopeLines lines = new SlopeLines();
-            ItemsControl1.DataContext = lines;
+            //ItemsControl1.DataContext = lines;
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
