@@ -30,11 +30,16 @@
             <Line X1="10" Y1="100" X2="200" Y2="200" Stroke="Red" StrokeThickness="2"></Line>
             <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
+            <!--
             <Rectangle x:Name="SlopeRectangle" Height="100" StrokeThickness="{Binding SlopeTableBorderWidth}" Stroke="{Binding SlopeTableColor}" Width="{Binding ActualWidth, ElementName=PolylineCanvas}">
             </Rectangle>
-            <Label Content="TTT" Canvas.Top="100" Canvas.Left="200"/>
+            -->
         </Canvas>
-        <Rectangle Name="SlopeTableRectangle" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
+        
+        <!-- 坡度表的 外框-->
+        <Rectangle Name="SlopeRectangle" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
+        
+        <!-- 坡度表的 分割线 和 坡度线 线段-->
         <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -54,6 +59,8 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        
+        <!-- 坡度表的 坡度 标签-->
         <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -72,6 +79,8 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        
+        <!--坡度表的 长度 标签-->
         <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
