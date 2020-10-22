@@ -58,13 +58,17 @@ namespace tdjWpfClassLibrary
             Profiles.Items[0].SlopeTableTop = 0;
             Profiles.Items[0].SlopeTableBottom = 100;
             SlopeRectangle.DataContext = profile.ProfileOption;
-            
+
 
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
 
             //ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
+            GradeGrid.DataContext = Profiles.Items[0].Slopes;
+            /*
             ItemsControl2.ItemsSource = Profiles.Items[0].Slopes;
             ItemsControl3.ItemsSource = Profiles.Items[0].Slopes;
+            ItemsControl4.ItemsSource = Profiles.Items[0].Slopes;
+            */
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

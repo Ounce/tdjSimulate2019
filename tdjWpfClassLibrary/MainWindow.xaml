@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid>
+    <Grid x:Name="GradeGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
@@ -34,7 +34,7 @@
             </Rectangle>
             <Label Content="TTT" Canvas.Top="100" Canvas.Left="200"/>
         </Canvas>
-        <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="auto" Width="Auto"/>
+        <Rectangle Name="SlopeTableRectangle" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
         <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -57,12 +57,36 @@
         <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel/>
+                    <Canvas Grid.Row="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
+                    <Setter Property="Canvas.Top" Value="0" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding X2}" HorizontalContentAlignment="Right" Width="{Binding Width}" HorizontalAlignment="Left"/>
+                    <Label Content="{Binding X1}" HorizontalContentAlignment="Right" Width="{Binding Width}" Margin="0"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Grid.Row="1"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
+                    <Setter Property="Canvas.Top" Value="0" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding X2}" Height="100" HorizontalContentAlignment="Left" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
