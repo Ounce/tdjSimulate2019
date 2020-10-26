@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tdjWpfClassLibrary"
+        xmlns:localp="clr-namespace:tdjWpfClassLibrary.Profile"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
+    <Window.Resources>
+        <localp:SlopeTableGradeStartPointConverter x:Key="StartPoint"/>
+        <localp:SlopeTableGradeEndPointConverter x:Key="EndPoint"/>
+    </Window.Resources>
     <Grid x:Name="GradeGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -51,8 +55,24 @@
                      <Path Stroke="Red" StrokeThickness="2">
                         <Path.Data>
                             <GeometryGroup FillRule="EvenOdd">
-                                <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
-                                <LineGeometry StartPoint="{Binding SlopeTableLeftTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
+                                <LineGeometry>
+                                    <LineGeometry.StartPoint>
+                                        <MultiBinding Converter="{StaticResource StartPoint}">
+                                            <Binding Path="Grade"/>
+                                            <Binding Path="X1"/>
+                                            <Binding Path="Height" ElementName="SlopeRectangle"/>
+                                        </MultiBinding>
+                                    </LineGeometry.StartPoint>
+                                    <LineGeometry.EndPoint>
+                                        <MultiBinding Converter="{StaticResource EndPoint}">
+                                             <Binding Path="Grade"/>
+                                             <Binding Path="X2"/>
+                                             <Binding Path="Height" ElementName="SlopeRectangle"/>
+                                        </MultiBinding>
+                                    </LineGeometry.EndPoint>
+                                </LineGeometry> 
+                                <LineGeometry StartPoint="{Binding SlopeTableRightTop}" 
+                                              EndPoint="{Binding SlopeTableRightBottom}"/>
                             </GeometryGroup>
                         </Path.Data>
                     </Path>
