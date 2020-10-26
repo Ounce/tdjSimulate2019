@@ -63,6 +63,11 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _grade;
 
+        public double GradeShowValue
+        {
+            get { return Grade * Option.GradeUnit; }
+        }
+
         public double BeginAltitude
         {
             get { return _beginAltitude; }

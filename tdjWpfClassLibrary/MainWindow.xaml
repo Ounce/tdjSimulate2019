@@ -97,7 +97,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
+                    <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
