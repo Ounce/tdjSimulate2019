@@ -137,4 +137,42 @@ namespace tdjWpfClassLibrary.Profile
             return null;
         }
     }
+
+    class SlopeTableGradeLabelAlignmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return DependencyProperty.UnsetValue;
+            double g;
+            g = System.Convert.ToDouble(value);
+            if (g < -0.00001) return HorizontalAlignment.Left;
+            else if (g > 0.00001) return HorizontalAlignment.Right;
+            else return HorizontalAlignment.Center;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
+    class SlopeTableLengthLabelAlignmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return DependencyProperty.UnsetValue;
+            double g;
+            g = System.Convert.ToDouble(value);
+            if (g < -0.00001) return HorizontalAlignment.Right;
+            else if (g > 0.00001) return HorizontalAlignment.Left;
+            else return HorizontalAlignment.Center;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
 }
