@@ -147,8 +147,9 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _x1 = value;
                     OnPropertyChanged("X1");
-                    SlopeTableLeftTop = new Point(_x1, 0);
-                    SlopeTableLeftBottom = new Point(_x1, 100);
+                    OnPropertyChanged("SlopeTableLeftTop");
+                    OnPropertyChanged("SlopeTableLeftCenter");
+                    OnPropertyChanged("SlopeTableLeftBottom");
                 }
             }
         }
@@ -163,8 +164,9 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _x2 = value;
                     OnPropertyChanged("X2");
-                    SlopeTableRightTop = new Point(_x2, 0);
-                    SlopeTableRightBottom = new Point(_x2, 100);
+                    OnPropertyChanged("SlopeTableRightTop");
+                    OnPropertyChanged("SlopeTableRightCenter");
+                    OnPropertyChanged("SlopeTableRightBottom");
                 }
             }
         }
@@ -253,6 +255,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public double SlopeTableTop
         {
+            get { return _slopeTableTop; }
             set
             {
                 if (value != _slopeTableTop)
@@ -262,6 +265,10 @@ namespace tdjWpfClassLibrary.Profile
                     //SlopeTableBottom = _slopeTableHeight + _slopeTableTop;
                     SetGradeLineY();
                     OnPropertyChanged("SlopeTableTop");
+                    OnPropertyChanged("SlopeTableLeftTop");
+                    OnPropertyChanged("SlopeTableLeftCenter");
+                    OnPropertyChanged("SlopeTableRightTop");
+                    OnPropertyChanged("SlopeTableRightCenter");
                 }
             }
         }
@@ -302,61 +309,47 @@ namespace tdjWpfClassLibrary.Profile
         private double _slopeTableBottom;
         public Point SlopeTableLeftTop
         {
-            get { return _slopeTableLeftTop; }
-            set
-            {
-                if (value != _slopeTableLeftTop)
-                {
-                    _slopeTableLeftTop = value;
-                    OnPropertyChanged("SlopeTableLeft");
-                }
-            }
+            get { return new Point(_x1, _slopeTableTop); }
         }
-        private Point _slopeTableLeftTop;
 
         public Point SlopeTableLeftBottom
         {
-            get { return _slopeTableLeftBottom; }
-            set
-            {
-                if (value != _slopeTableLeftBottom)
-                {
-                    _slopeTableLeftBottom = value;
-                    OnPropertyChanged("SlopeTableLeftBottom");
-                }
-            }
+            get { return new Point(_x1, _slopeTableBottom); }
         }
-        private Point _slopeTableLeftBottom;
-
-
 
         public Point SlopeTableRightTop
         {
-            get { return _slopeTableRightTop; }
-            set
-            {
-                if (value != _slopeTableRightTop)
-                {
-                    _slopeTableRightTop = value;
-                    OnPropertyChanged("SlopeTableRightTop");
-                }
-            }
+            get { return new Point(_x2, _slopeTableTop); }
         }
-        private Point _slopeTableRightTop;
 
         public Point SlopeTableRightBottom
         {
-            get { return _slopeTableRightBottom; }
-            set
-            {
-                if (value != _slopeTableRightBottom)
-                {
-                    _slopeTableRightBottom = value;
-                    OnPropertyChanged("SlopeTableRightBottom");
-                }
-            }
+            get { return new Point(_x2, _slopeTableBottom); }
         }
         private Point _slopeTableRightBottom;
+
+        public Point SlopeTableLeftCenter
+        {
+            get
+            {
+                return _slopeTableLeftCenter;
+            }
+        }
+        private Point _slopeTableLeftCenter;
+
+        public Point SlopeTableGradeLineStartPoint
+        {
+            get
+            {
+                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                {
+                    case 1: return SlopeTableLeftTop;
+                    case -1: return SlopeTableLeftBottom;
+                    case 0: return SlopeTableLeftCenter;
+                }
+                return new Point(0, 0);
+            }
+        }
 
         public SlopeViewModel()
         {

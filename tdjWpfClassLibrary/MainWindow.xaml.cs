@@ -69,6 +69,9 @@ namespace tdjWpfClassLibrary
             ItemsControl3.ItemsSource = Profiles.Items[0].Slopes;
             ItemsControl4.ItemsSource = Profiles.Items[0].Slopes;
             */
+
+            Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
+            Profiles.Items[0].SlopeTableTop = SlopeTableTop;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
