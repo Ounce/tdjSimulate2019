@@ -113,9 +113,9 @@ namespace tdjWpfClassLibrary
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            a = PolylinePoint.GetPoint(Profiles.Items[0].Slopes[2].BeginMileage + 20, Profiles.Items[0].Slopes[2].BeginAltitude);
-            ExistPolyline.Points.Insert(3, a);
-            ExistPolyline.Points[3] = a;
+            Profiles.Items[0].Slopes[3].Length += 20;
+
+
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
