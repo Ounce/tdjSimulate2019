@@ -19,10 +19,10 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="121*"/>
-            <ColumnDefinition Width="279*"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click"/>
+        <Button x:Name="b111" Content="B1111" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click" RenderTransformOrigin="0.441,0.512"/>
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,67" Grid.Row="0" Grid.RowSpan="2">
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
@@ -36,15 +36,16 @@
             <Line X1="10" Y1="100" X2="200" Y2="200" Stroke="Red" StrokeThickness="2"></Line>
             <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
-            <Rectangle Name="SlopeRectangle" Canvas.Top="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
 
-            <!--
+            <!--        
+
             <Rectangle x:Name="SlopeRectangle" Height="100" StrokeThickness="{Binding SlopeTableBorderWidth}" Stroke="{Binding SlopeTableColor}" Width="{Binding ActualWidth, ElementName=PolylineCanvas}">
             </Rectangle>
             -->
         </Canvas>
-        
+
         <!-- 坡度表的 外框-->
+        <Rectangle Name="SlopeRectangle" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
         
         <!-- 坡度表的 分割线 和 坡度线 线段-->
         <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
@@ -55,7 +56,6 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <!--
                      <Path Stroke="Red" StrokeThickness="2">
                         <Path.Data>
                             <GeometryGroup FillRule="EvenOdd">
@@ -80,8 +80,6 @@
                             </GeometryGroup>
                         </Path.Data>
                     </Path>
-                    -->
-                    <Line X1="{Binding SlopeTableItem.X1}" Y1="0" X2="{Binding SlopeTableItem.X2}" Y2="100" Stroke="Red" StrokeThickness="2"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

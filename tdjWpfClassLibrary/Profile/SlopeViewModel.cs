@@ -23,10 +23,11 @@ namespace tdjWpfClassLibrary.Profile
                     _length = value;
                     EndMileage = _beginMileage + _length;
                     EndAltitude = _beginAltitude + _grade * _length;
-                    Width = GradeLabel.Width = _length * Scale.Horizontal;
+                    GradeLabel.Width = _length * Scale.Horizontal;
                     LengthLabel.Width = GradeLabel.Width;
                     LengthLabel.Content = _length;
                     OnPropertyChanged("Length");
+                    OnPropertyChanged("Width");
                 }
             }
         }
@@ -58,6 +59,8 @@ namespace tdjWpfClassLibrary.Profile
                     }
                     SetGradeLineY();
                     OnPropertyChanged("Grade");
+                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
+                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
@@ -150,6 +153,8 @@ namespace tdjWpfClassLibrary.Profile
                     OnPropertyChanged("SlopeTableLeftTop");
                     OnPropertyChanged("SlopeTableLeftCenter");
                     OnPropertyChanged("SlopeTableLeftBottom");
+                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
+                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
@@ -167,24 +172,20 @@ namespace tdjWpfClassLibrary.Profile
                     OnPropertyChanged("SlopeTableRightTop");
                     OnPropertyChanged("SlopeTableRightCenter");
                     OnPropertyChanged("SlopeTableRightBottom");
+                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
+                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
         private double _x2;
 
+        /// <summary>
+        /// 坡度表、高程表的宽度。
+        /// </summary>
         public double Width
         {
-            get { return _width; }
-            set
-            {
-                if (value != _width)
-                {
-                    _width = value;
-                    OnPropertyChanged("Width");
-                }
-            }
+            get { return _length * Scale.Horizontal; }
         }
-        private double _width;
 
         public SlopeTableItem SlopeTableItem
         {
@@ -269,6 +270,8 @@ namespace tdjWpfClassLibrary.Profile
                     OnPropertyChanged("SlopeTableLeftCenter");
                     OnPropertyChanged("SlopeTableRightTop");
                     OnPropertyChanged("SlopeTableRightCenter");
+                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
+                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
@@ -303,10 +306,17 @@ namespace tdjWpfClassLibrary.Profile
                     BeginLine.Y2 = EndLine.Y2 = _slopeTableBottom;
                     SetGradeLineY();
                     OnPropertyChanged("SlopeTableBottom");
+                    OnPropertyChanged("SlopeTableLeftBottom");
+                    OnPropertyChanged("SlopeTableLeftCenter");
+                    OnPropertyChanged("SlopeTableRightBottom");
+                    OnPropertyChanged("SlopeTableRightCenter");
+                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
+                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
         private double _slopeTableBottom;
+
         public Point SlopeTableLeftTop
         {
             get { return new Point(_x1, _slopeTableTop); }
@@ -345,6 +355,20 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     case 1: return SlopeTableLeftTop;
                     case -1: return SlopeTableLeftBottom;
+                    case 0: return SlopeTableLeftCenter;
+                }
+                return new Point(0, 0);
+            }
+        }
+
+        public Point SlopeTableGradeLineEndPoint
+        {
+            get
+            {
+                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                {
+                    case -1: return SlopeTableLeftTop;
+                    case 1: return SlopeTableLeftBottom;
                     case 0: return SlopeTableLeftCenter;
                 }
                 return new Point(0, 0);

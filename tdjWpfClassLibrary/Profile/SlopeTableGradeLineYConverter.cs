@@ -19,7 +19,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
             if (values == null || values.Length == 0)
                 throw new ArgumentNullException("values can not be null");
@@ -34,7 +34,7 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         //目标属性传给源属性时，调用此方法ConvertBack
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture)
         {
             return null;
         }
@@ -51,7 +51,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
             if (values == null || values.Length == 0)
                 throw new ArgumentNullException("values can not be null");
@@ -66,7 +66,7 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         //目标属性传给源属性时，调用此方法ConvertBack
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture)
         {
             return null;
         }
@@ -83,7 +83,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
             if (values == null || values.Length == 0)
                 throw new ArgumentNullException("values can not be null");
@@ -99,7 +99,7 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         //目标属性传给源属性时，调用此方法ConvertBack
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture)
         {
             return null;
         }
@@ -116,7 +116,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
             if (values == null || values.Length == 0)
                 throw new ArgumentNullException("values can not be null");
@@ -132,7 +132,7 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         //目标属性传给源属性时，调用此方法ConvertBack
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture)
         {
             return null;
         }
@@ -140,7 +140,7 @@ namespace tdjWpfClassLibrary.Profile
 
     class SlopeTableGradeLabelAlignmentConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             if (value == null)
                 return DependencyProperty.UnsetValue;
@@ -151,7 +151,7 @@ namespace tdjWpfClassLibrary.Profile
             else return HorizontalAlignment.Center;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             return DependencyProperty.UnsetValue;
         }
@@ -159,18 +159,18 @@ namespace tdjWpfClassLibrary.Profile
 
     class SlopeTableLengthLabelAlignmentConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
+            double g;
             if (value == null)
                 return DependencyProperty.UnsetValue;
-            double g;
             g = System.Convert.ToDouble(value);
             if (g < -0.00001) return HorizontalAlignment.Right;
             else if (g > 0.00001) return HorizontalAlignment.Left;
             else return HorizontalAlignment.Center;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             return DependencyProperty.UnsetValue;
         }

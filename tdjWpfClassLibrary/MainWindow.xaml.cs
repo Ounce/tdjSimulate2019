@@ -53,7 +53,8 @@ namespace tdjWpfClassLibrary
             Profiles.Items.Add(profile);
             ExistPolyline.Points = profile.PolylinePoints;
             profile.SlopeTableRectange = SlopeRectangle;
-            SlopeTableTop = Canvas.GetTop(SlopeRectangle);
+            //SlopeTableTop = Canvas.GetTop(SlopeRectangle);
+            SlopeTableTop = 0;
             SlopeTableBottom = SlopeTableTop + SlopeRectangle.Height;
             Profiles.Items[0].SlopeTableTop = 0;
             Profiles.Items[0].SlopeTableBottom = 100;
@@ -96,7 +97,7 @@ namespace tdjWpfClassLibrary
                 //  使用 ProfileViewModelCollection的函数。
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
                 Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
-                Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
 
                 //测试 SlopeTable
                 /*
