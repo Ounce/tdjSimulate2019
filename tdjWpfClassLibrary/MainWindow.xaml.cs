@@ -106,8 +106,7 @@ namespace tdjWpfClassLibrary
                 */
 
                 // 测试 SlopeTable
-                Profiles.Items[0].SlopeTableTop = 0;
-                Profiles.Items[0].SlopeTableBottom = 100;
+
 
             }
         }

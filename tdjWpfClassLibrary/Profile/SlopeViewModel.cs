@@ -342,10 +342,18 @@ namespace tdjWpfClassLibrary.Profile
         {
             get
             {
-                return _slopeTableLeftCenter;
+                return new Point(_x1, 0.5 * (_slopeTableTop + _slopeTableBottom));
             }
         }
         private Point _slopeTableLeftCenter;
+
+        public Point SlopeTableRightCenter
+        {
+            get
+            {
+                return new Point(_x2, 0.5 * (_slopeTableTop + _slopeTableBottom));
+            }
+        }
 
         public Point SlopeTableGradeLineStartPoint
         {
@@ -367,9 +375,9 @@ namespace tdjWpfClassLibrary.Profile
             {
                 switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
                 {
-                    case -1: return SlopeTableLeftTop;
-                    case 1: return SlopeTableLeftBottom;
-                    case 0: return SlopeTableLeftCenter;
+                    case -1: return SlopeTableRightTop;
+                    case 1: return SlopeTableRightBottom;
+                    case 0: return SlopeTableRightCenter;
                 }
                 return new Point(0, 0);
             }

@@ -59,6 +59,7 @@
                      <Path Stroke="Red" StrokeThickness="2">
                         <Path.Data>
                             <GeometryGroup FillRule="EvenOdd">
+                                <!--
                                 <LineGeometry>
                                     <LineGeometry.StartPoint>
                                         <MultiBinding Converter="{StaticResource StartPoint}">
@@ -75,6 +76,8 @@
                                         </MultiBinding>
                                     </LineGeometry.EndPoint>
                                 </LineGeometry> 
+                                -->
+                                <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
                                 <LineGeometry StartPoint="{Binding SlopeTableRightTop}" 
                                               EndPoint="{Binding SlopeTableRightBottom}"/>
                             </GeometryGroup>
