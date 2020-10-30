@@ -113,7 +113,7 @@ namespace tdjWpfClassLibrary
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            Profiles.Items[0].Slopes[3].Length += 20;
+            Profiles.Items[0].Slopes[3].Grade = -Profiles.Items[0].Slopes[3].Grade;
 
 
         }

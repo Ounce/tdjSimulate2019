@@ -154,7 +154,7 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-
+        /*
         public Brush SlopeTableColor
         {
             get { return ProfileOption.SlopeTableColor; }
@@ -170,7 +170,7 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-
+        
         public double SlopeTableLineWidth
         {
             get { return ProfileOption.SlopeTableLineWidth; }
@@ -186,7 +186,7 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-
+        */
         public double SlopeTableTop
         {
             get { return _slopeTableTop; }
@@ -331,6 +331,7 @@ namespace tdjWpfClassLibrary.Profile
             PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
         }
 
+        /*
         public void SetSlopeTable()
         {
             double gradeTop, lengthTop;
@@ -342,6 +343,7 @@ namespace tdjWpfClassLibrary.Profile
                 s.BeginLine.Y2 = _slopeTableTop + ProfileOption.SlopeTableHeight;
             }
         }
+        */
 
         public void SetSlopeTable(SlopeViewModel slope)
         {
@@ -423,7 +425,7 @@ namespace tdjWpfClassLibrary.Profile
             {
                 s.BeginMileage = m;
                 m += s.Length;
-                s.EndMileage = m;
+                s.EndMileage = m;//如果删除这句，程序变慢。
             }
         }
 
@@ -439,7 +441,7 @@ namespace tdjWpfClassLibrary.Profile
                 PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * Scale.Horizontal, Slopes[i].EndAltitude * Scale.Vertical);
             }
         }
-
+        /*
         public void UpdateSlopeTable()
         {
             foreach (SlopeViewModel s in Slopes)
@@ -453,7 +455,7 @@ namespace tdjWpfClassLibrary.Profile
                 s.SetGradeLineY();
             }
         }
-
+        */
         #region Files IO
 
         /// <summary>
@@ -475,15 +477,17 @@ namespace tdjWpfClassLibrary.Profile
             {
                 SlopeViewModel slope = new SlopeViewModel();
                 //SetSlopeTable(slope);
-                slope.SlopeTableTop = SlopeTableTop;
-                slope.SlopeTableBottom = SlopeTableBottom;
+
+                //已经在SlopesCollectionChanged中通过调用SetSlopeTable设置。
+                //slope.SlopeTableTop = SlopeTableTop;
+                //slope.SlopeTableBottom = SlopeTableBottom;
                 slope.BeginMileage = m;
                 slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
                 slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
                 slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
                 //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
                 m += slope.Length;
-                slope.EndMileage = m;
+                //slope.EndMileage = m;
                 Slopes.Add(slope);
             }
             OnPropertyChanged("Count");

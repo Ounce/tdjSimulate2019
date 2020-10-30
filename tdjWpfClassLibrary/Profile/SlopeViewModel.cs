@@ -23,9 +23,11 @@ namespace tdjWpfClassLibrary.Profile
                     _length = value;
                     EndMileage = _beginMileage + _length;
                     EndAltitude = _beginAltitude + _grade * _length;
+                    /*
                     GradeLabel.Width = _length * Scale.Horizontal;
                     LengthLabel.Width = GradeLabel.Width;
                     LengthLabel.Content = _length;
+                    */
                     OnPropertyChanged("Length");
                     OnPropertyChanged("Width");
                 }
@@ -41,6 +43,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _grade = value;
                     EndAltitude = _beginAltitude + _grade * _length;
+                    /*
                     GradeLabel.Content = _grade * Option.GradeUnit;
                     if (_grade < 0.01 && _grade > -0.01)
                     {
@@ -58,9 +61,12 @@ namespace tdjWpfClassLibrary.Profile
                         LengthLabel.HorizontalContentAlignment = HorizontalAlignment.Left;
                     }
                     SetGradeLineY();
+                    */
                     OnPropertyChanged("Grade");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
                     OnPropertyChanged("SlopeTableGradeLineEndPoint");
+                    OnPropertyChanged("SlopeTableLengthLabelHorizontalAlignment");
+                    OnPropertyChanged("SlopeTableGradeLabelHorizontalAlignment");
                 }
             }
         }
@@ -109,13 +115,15 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _beginMileage = value;
                     EndMileage = _beginMileage + _length;
-                    double poistion = _beginMileage * Scale.Horizontal;
-                    X1 = poistion;
+                    //double poistion = _beginMileage * Scale.Horizontal;
+                    X1 = _beginMileage * Scale.Horizontal;
+                    /*
                     SlopeTableItem.X1 = poistion;
                     GradeLine.X1 = poistion;
                     BeginLine.X1 = BeginLine.X2 = poistion;
                     Canvas.SetLeft(GradeLabel, poistion);
                     Canvas.SetLeft(LengthLabel, poistion);
+                    */
                     OnPropertyChanged("BeginMileage");
                 }
             }
@@ -130,11 +138,13 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _endMileage)
                 {
                     _endMileage = value;
-                    double position = _endMileage * Scale.Horizontal;
-                    X2 = position;
+                    //double position = _endMileage * Scale.Horizontal;
+                    X2 = _endMileage * Scale.Horizontal; 
+                    /*
                     SlopeTableItem.X2 = position;
                     GradeLine.X2 = position;
                     EndLine.X1 = EndLine.X2 = position;
+                    */
                     OnPropertyChanged("EndMileage");
                 }
             }
@@ -187,6 +197,7 @@ namespace tdjWpfClassLibrary.Profile
             get { return _length * Scale.Horizontal; }
         }
 
+        /*
         public SlopeTableItem SlopeTableItem
         {
             get { return _slopeTableItem; }
@@ -253,6 +264,7 @@ namespace tdjWpfClassLibrary.Profile
         /// 坡段表中的长度标签
         /// </summary>
         public Label LengthLabel { get; set; }
+        */
 
         public double SlopeTableTop
         {
@@ -262,9 +274,9 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _slopeTableTop)
                 {
                     _slopeTableTop = value;
-                    BeginLine.Y1 = EndLine.Y1 = _slopeTableTop;
+                    //BeginLine.Y1 = EndLine.Y1 = _slopeTableTop;
                     //SlopeTableBottom = _slopeTableHeight + _slopeTableTop;
-                    SetGradeLineY();
+                    //SetGradeLineY();
                     OnPropertyChanged("SlopeTableTop");
                     OnPropertyChanged("SlopeTableLeftTop");
                     OnPropertyChanged("SlopeTableLeftCenter");
@@ -303,8 +315,8 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _slopeTableBottom)
                 {
                     _slopeTableBottom = value;
-                    BeginLine.Y2 = EndLine.Y2 = _slopeTableBottom;
-                    SetGradeLineY();
+                    //BeginLine.Y2 = EndLine.Y2 = _slopeTableBottom;
+                    //SetGradeLineY();
                     OnPropertyChanged("SlopeTableBottom");
                     OnPropertyChanged("SlopeTableLeftBottom");
                     OnPropertyChanged("SlopeTableLeftCenter");
@@ -411,6 +423,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+            /*
             SlopeTableItem = new SlopeTableItem();
             GradeLabel = new Label();
             LengthLabel = new Label();
@@ -423,8 +436,10 @@ namespace tdjWpfClassLibrary.Profile
             BeginLine.Stroke = EndLine.Stroke = GradeLine.Stroke = Brushes.Blue;
             SlopeTableTop = 288;
             SlopeTableBottom = 388;
+            */
         }
 
+        /*
         public void SetGradeLineY()
         {
             if (_grade > 0.00001)
@@ -442,6 +457,6 @@ namespace tdjWpfClassLibrary.Profile
                 GradeLineY1 = GradeLineY2 = 0.5 * (_slopeTableTop + _slopeTableBottom);
             }
         }
-
+        */
     }
 }
