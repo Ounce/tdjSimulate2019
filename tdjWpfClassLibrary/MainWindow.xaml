@@ -102,7 +102,10 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <!--
                     <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
+                    -->
+                    <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -122,7 +125,10 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <!--
                     <Label Content="{Binding Length}" Height="100" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource LengthAlignment}}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
+                    -->
+                    <Label Content="{Binding Length}" Height="100" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

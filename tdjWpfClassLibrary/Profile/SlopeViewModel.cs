@@ -383,6 +383,32 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        public HorizontalAlignment SlopeTableGradeLabelHorizontalAlignment
+        {
+            get
+            {
+                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                {
+                    case 1: return HorizontalAlignment.Right;
+                    case 0: return HorizontalAlignment.Center;
+                    default: return HorizontalAlignment.Left;
+                }
+            }
+        }
+
+        public HorizontalAlignment SlopeTableLengthLabelHorizontalAlignment
+        {
+            get
+            {
+                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                {
+                    case 1: return HorizontalAlignment.Left;
+                    case 0: return HorizontalAlignment.Center;
+                    default: return HorizontalAlignment.Right;
+                }
+            }
+        }
+
         public SlopeViewModel()
         {
             SlopeTableItem = new SlopeTableItem();
