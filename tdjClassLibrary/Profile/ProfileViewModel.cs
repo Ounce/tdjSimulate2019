@@ -1,26 +1,25 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell.Interop;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Text;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 
 
 namespace tdjClassLibrary.Profile
 {
-    /// <summary>
-    /// Profile的视图模型类，除Profile的基本参数属性外，还定义了显示在Polyline等控件上需要的参数。
-    /// </summary>
     public class ProfileViewModel : NotifyPropertyChanged
     {
-        public ObservableCollection<SlopeViewModel> Slopes;
+        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
+        public Polyline Polyline { get; set; }
 
-        /// <summary>
-        /// 坡度单位。‰或%，‰对应GradeUnit：1000；%对应GradeUnit为100；
-        /// </summary>
-        public double GradeUnit { get; set; }
+       // public PointCollection points { get; set; }
+
+        public ObservableCollection<SlopeViewModel> Slopes;
 
         public int Count
         {
@@ -39,17 +38,7 @@ namespace tdjClassLibrary.Profile
         public bool FixBeginOrEndAltitude { get; set; }
 
         /// <summary>
-        /// 最大高程。
-        /// </summary>
-        public double MaxAltitude { get; set; }
-
-        /// <summary>
-        /// 最小高程。
-        /// </summary>
-        public double MinAltitude { get; set; }
-
-        /// <summary>
-        /// 纵断面全长。通过循环计算。
+        /// 纵断面全长。
         /// </summary>
         public double Length
         {
@@ -64,9 +53,22 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        public Point FirstPoint
+        {
+            get { return firstPoint; }
+            set
+            {
+                if (value != firstPoint)
+                {
+                    firstPoint = value;
+                    OnPropertyChanged("FirstPoint");
+                }
+            }
+        }
+        private Point firstPoint;
+
         public ProfileViewModel()
         {
-            GradeUnit = 1000;
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 
@@ -81,7 +83,6 @@ namespace tdjClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
-
                     break;
             }
         }
@@ -93,17 +94,6 @@ namespace tdjClassLibrary.Profile
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // 获得在Slopes中的位置。
-            int position = -1;
-            for (int i = 0; i < Slopes.Count; i++)
-            {
-                if (Slopes[i].Equals(sender))
-                {
-                    position = i;
-                    break;
-                }
-            }
-            if (position == -1) return;
             switch (e.PropertyName)
             {
                 case "EndAltitude":
@@ -111,25 +101,6 @@ namespace tdjClassLibrary.Profile
             }
         }
 
-        /// <summary>
-        /// 计算最大和最小高程。
-        /// </summary>
-        /// <returns></returns>
-        public void SetMaxMinAltitude()
-        {
-            double min, max;
-            min = max = Slopes[0].BeginAltitude;
-            foreach (SlopeViewModel s in Slopes)
-            {
-                if (s.EndAltitude > max)
-                    max = s.EndAltitude;
-                if (s.EndAltitude < min)
-                    min = s.EndAltitude;
-            }
-            MaxAltitude = max;
-            MinAltitude = min;
-            return;
-        }
     }
 
 
