@@ -263,11 +263,13 @@ namespace tdjWpfClassLibrary.Profile
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    //Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
+                    /*
                     if (Polyline.Points.Count == 0)
                         Polyline.Points.Add(GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude));
                     Polyline.Points.Insert(e.NewStartingIndex + 1, GetPoint(Slopes[e.NewStartingIndex].EndMileage, Slopes[e.NewStartingIndex].EndAltitude));
+                    */
                     break;
             }
         }

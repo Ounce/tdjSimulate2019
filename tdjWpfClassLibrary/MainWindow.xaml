@@ -45,6 +45,22 @@
             </Rectangle>
             -->
         </Canvas>
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Grid.Row="0"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3">
+                    <Line.RenderTransform>
+                        <TranslateTransform x:Name="ExistPolylineTranslate"/>
+                    </Line.RenderTransform>
+                    </Line>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
         <!-- 坡度表的 外框-->
         <Rectangle Name="SlopeRectangle" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>

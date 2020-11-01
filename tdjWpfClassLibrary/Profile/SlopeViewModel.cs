@@ -87,6 +87,7 @@ namespace tdjWpfClassLibrary.Profile
                     _beginAltitude = value;
                     EndAltitude = _beginAltitude - _grade * _length;
                     OnPropertyChanged("BeginAltitude");
+                    OnPropertyChanged("Y1");
                 }
             }
         }
@@ -101,6 +102,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _endAltitude = value;
                     OnPropertyChanged("EndAltitude");
+                    OnPropertyChanged("Y2");
                 }
             }
         }
@@ -188,6 +190,16 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _x2;
+
+        public double Y1
+        {
+            get { return  - BeginAltitude * Scale.Vertical; }
+        }
+
+        public double Y2
+        {
+            get { return -EndAltitude * Scale.Vertical; }
+        }
 
         /// <summary>
         /// 坡度表、高程表的宽度。

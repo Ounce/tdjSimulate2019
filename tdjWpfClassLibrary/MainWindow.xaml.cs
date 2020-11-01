@@ -90,14 +90,14 @@ namespace tdjWpfClassLibrary
                 /*   使用 Profile的函数
                 ProfileDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
                 ProfileDrawing.Profile.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
-                ExistPolylineTranslate.X = ProfileDrawing.Profile.OriginPoint.X;
-                ExistPolylineTranslate.Y = - ProfileDrawing.Profile.OriginPoint.Y;
-                */
 
+                */
                 //  使用 ProfileViewModelCollection的函数。
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
-                Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
+                //Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
                 //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                ExistPolylineTranslate.X = 0;
+                ExistPolylineTranslate.Y = 5500;// - Profiles.Items[0].MaxAltitude * Scale.Vertical;
 
                 //测试 SlopeTable
                 /*
@@ -126,7 +126,7 @@ namespace tdjWpfClassLibrary
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            SlopeLines lines = new SlopeLines();
+            //SlopeLines lines = new SlopeLines();
             //ItemsControl1.DataContext = lines;
         }
 
