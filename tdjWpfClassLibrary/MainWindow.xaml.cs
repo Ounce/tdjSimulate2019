@@ -97,7 +97,7 @@ namespace tdjWpfClassLibrary
                 //Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
                 //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 ExistPolylineTranslate.X = 0;
-                ExistPolylineTranslate.Y = 5500;// - Profiles.Items[0].MaxAltitude * Scale.Vertical;
+                ExistPolylineTranslate.Y = 5200;// - Profiles.Items[0].MaxAltitude * Scale.Vertical;
 
                 //测试 SlopeTable
                 /*

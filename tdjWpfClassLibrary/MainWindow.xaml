@@ -28,14 +28,16 @@
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,67" Grid.Row="0" Grid.RowSpan="2">
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
-                <Polyline.RenderTransform>
-                    <TranslateTransform x:Name="ExistPolylineTranslate"/>
-                </Polyline.RenderTransform>
+
             </Polyline>
             <Button x:Name="button1" Content="B1" Canvas.Left="425" Canvas.Top="220" Click="button1_Click"/>
             <Button x:Name="button2" Content="Button" Canvas.Left="425" Canvas.Top="274" Click="button2_Click"/>
             <Button x:Name="button3" Content="添加" Canvas.Left="425" Canvas.Top="300" Click="button3_Click"/>
-            <Line X1="10" Y1="100" X2="200" Y2="200" Stroke="Red" StrokeThickness="2"></Line>
+            <Line X1="10" Y1="-5100" X2="200" Y2="-5100" Stroke="Red" StrokeThickness="2">
+                <Line.RenderTransform>
+                    <TranslateTransform x:Name="ExistPolylineTranslate"/>
+                </Line.RenderTransform>
+            </Line>
             <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
 
@@ -53,10 +55,10 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3">
-                    <Line.RenderTransform>
-                        <TranslateTransform x:Name="ExistPolylineTranslate"/>
-                    </Line.RenderTransform>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3" >
+                        <Line.RenderTransform>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                        </Line.RenderTransform>
                     </Line>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
