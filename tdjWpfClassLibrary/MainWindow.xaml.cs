@@ -95,8 +95,9 @@ namespace tdjWpfClassLibrary
                 //  使用 ProfileViewModelCollection的函数。
                 Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
                 //Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
-                Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
-                //Profiles.SetPolylineOriginPoint(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                Profiles.UpdateMaxMinAltitude();
+                Profiles.SetPolylineOriginPoint(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 ExistPolylineTranslate.X = Profiles.PolylineOriginPoint.X;
                 ExistPolylineTranslate.Y = -Profiles.PolylineOriginPoint.Y;
 
