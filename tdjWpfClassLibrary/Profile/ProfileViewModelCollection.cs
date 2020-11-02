@@ -104,6 +104,11 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// 按照height和width，将纵断面全尺寸显示。
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
         public void SetPolylineFullSize(double height, double width)
         {
             UpdateMaxMinAltitude();
@@ -112,6 +117,11 @@ namespace tdjWpfClassLibrary.Profile
             {
                 i.UpdatePoints();
             }
+            SetPolylineOriginPoint(height, width);
+        }
+
+        public void SetPolylineOriginPoint(double height, double width)
+        {
             PolylineOriginPoint.SetX(_horizontalAlignment, width, Length);
             PolylineOriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude);
         }
