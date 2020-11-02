@@ -113,10 +113,6 @@ namespace tdjWpfClassLibrary.Profile
         {
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
-            foreach (var i in Items)
-            {
-                i.UpdatePoints();
-            }
             SetPolylineOriginPoint(height, width);
         }
 

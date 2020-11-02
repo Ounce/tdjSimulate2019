@@ -29,16 +29,16 @@ namespace tdjWpfClassLibrary.Profile
             switch (verticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    Y = PolylinePoint.GetPointY(maxAltitude, Scale.Vertical);
+                    Y = PolylinePoint.GetPointY(maxAltitude);
                     break;
                 case VerticalAlignment.Center:
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
                     //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
                     //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
-                    Y = 0.5 * (PolylinePoint.GetPointY(maxAltitude + minAltitude, Scale.Vertical) - height);
+                    Y = 0.5 * (PolylinePoint.GetPointY(maxAltitude + minAltitude) - height);
                     break;
                 case VerticalAlignment.Bottom:
-                    Y = PolylinePoint.GetPointY(minAltitude, Scale.Vertical) - height;
+                    Y = PolylinePoint.GetPointY(minAltitude) - height;
                     break;
             }
         }

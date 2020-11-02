@@ -23,19 +23,6 @@ namespace tdjWpfClassLibrary.Profile
     /// </summary>
     public class ProfileViewModel : NotifyPropertyChanged
     {
-        /// <summary>
-        /// 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
-        /// </summary>
-        public Polyline Polyline { get; set; }
-
-        /// <summary>
-        /// Polyline的Points。该类动态改变这个列表。可将该列表赋值给Polyline的Points。
-        /// </summary>
-        public PointCollection PolylinePoints
-        {
-            get { return Polyline.Points; }
-        }
-
         public HorizontalAlignment HorizontalAlignment
         {
             set 
@@ -154,39 +141,7 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-        /*
-        public Brush SlopeTableColor
-        {
-            get { return ProfileOption.SlopeTableColor; }
-            set
-            {
-                if (value != ProfileOption.SlopeTableColor)
-                {
-                    ProfileOption.SlopeTableColor = value;
-                    foreach (SlopeViewModel s in Slopes)
-                    {
-                        s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = ProfileOption.SlopeTableColor;
-                    }
-                }
-            }
-        }
-        
-        public double SlopeTableLineWidth
-        {
-            get { return ProfileOption.SlopeTableLineWidth; }
-            set
-            {
-                if (value != ProfileOption.SlopeTableLineWidth)
-                {
-                    ProfileOption.SlopeTableLineWidth = value;
-                    foreach (SlopeViewModel s in Slopes)
-                    {
-                        s.BeginLine.Width = s.EndLine.Width = s.GradeLine.Width = ProfileOption.SlopeTableLineWidth;
-                    }
-                }
-            }
-        }
-        */
+    
         public double SlopeTableTop
         {
             get { return _slopeTableTop; }
@@ -247,7 +202,6 @@ namespace tdjWpfClassLibrary.Profile
             _verticalAlignment = VerticalAlignment.Center;
             GradeUnit = 1000;
             ProfileOption = new ProfileViewModelOption();
-            Polyline = new Polyline();
             Slopes = new ObservableCollection<SlopeViewModel>();
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
             this.PropertyChanged += ProfilePropertyChanged;
@@ -265,11 +219,6 @@ namespace tdjWpfClassLibrary.Profile
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
-                    /*
-                    if (Polyline.Points.Count == 0)
-                        Polyline.Points.Add(GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude));
-                    Polyline.Points.Insert(e.NewStartingIndex + 1, GetPoint(Slopes[e.NewStartingIndex].EndMileage, Slopes[e.NewStartingIndex].EndAltitude));
-                    */
                     break;
             }
         }
@@ -318,24 +267,9 @@ namespace tdjWpfClassLibrary.Profile
             canvasWidth = width;
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
-            UpdatePoints();
             PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
             PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
         }
-
-        /*
-        public void SetSlopeTable()
-        {
-            double gradeTop, lengthTop;
-            gradeTop = _slopeTableTop + ProfileOption.SlopeTableBorderWidth;
-            lengthTop = ProfileOption.SlopeTableHeight * 0.5 + ProfileOption.SlopeTableLineWidth + ProfileOption.SlopeTableBorderWidth;
-            foreach (SlopeViewModel s in Slopes)
-            {
-                s.BeginLine.Y1 = _slopeTableTop;
-                s.BeginLine.Y2 = _slopeTableTop + ProfileOption.SlopeTableHeight;
-            }
-        }
-        */
 
         /// <summary>
         /// 为Slope设置用于绘制SlopeTable所需必要参数。
@@ -345,19 +279,6 @@ namespace tdjWpfClassLibrary.Profile
         {
             slope.SlopeTableTop = _slopeTableTop;
             slope.SlopeTableBottom = _slopeTableBottom;
-        }
-
-        /// <summary>
-        /// 以现有参数更新Points中各点的坐标。
-        /// </summary>
-        public void UpdatePoints()
-        {
-            if (PolylinePoints.Count < 1) return;
-            PolylinePoints[0] = PolylinePoint.GetPoint(Slopes[0].BeginMileage, Slopes[0].BeginAltitude);
-            for (int i = 0; i < Slopes.Count; i++)
-            {
-                PolylinePoints[i + 1] = PolylinePoint.GetPoint(Slopes[i].EndMileage, Slopes[i].EndAltitude);
-            }
         }
 
         /// <summary>
@@ -425,33 +346,6 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
-        /// <summary>
-        /// 水平、垂直比例改变后应调用此函数，更新有关属性。
-        /// 更新：Slopes的BeginPoint、EndPoint。
-        /// </summary>
-        public void UpdateHorizontalVerticalScale()
-        {
-            PolylinePoints[0] = new Point(Slopes[0].BeginMileage * Scale.Horizontal, Slopes[0].BeginAltitude * Scale.Vertical);
-            for(int i = 0; i < Slopes.Count; i++)
-            {
-                PolylinePoints[i + 1] = new Point(Slopes[i].EndMileage * Scale.Horizontal, Slopes[i].EndAltitude * Scale.Vertical);
-            }
-        }
-        /*
-        public void UpdateSlopeTable()
-        {
-            foreach (SlopeViewModel s in Slopes)
-            {
-                s.BeginLine.Stroke = s.EndLine.Stroke = s.GradeLine.Stroke = ProfileOption.SlopeTableColor;
-                s.BeginLine.StrokeThickness = s.EndLine.StrokeThickness = ProfileOption.SlopeTableLineWidth;
-                s.BeginLine.Y1 = s.EndLine.Y1 = _slopeTableTop;
-                s.BeginLine.Y2 = s.EndLine.Y2 = _slopeTableBottom;
-                s.SlopeTableTop = SlopeTableTop;
-                s.SlopeTableBottom = SlopeTableBottom;
-                s.SetGradeLineY();
-            }
-        }
-        */
         #region Files IO
 
         /// <summary>

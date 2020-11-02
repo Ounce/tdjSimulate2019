@@ -51,7 +51,6 @@ namespace tdjWpfClassLibrary
             profile = new ProfileViewModel();
             label.DataContext = profile;
             Profiles.Items.Add(profile);
-            ExistPolyline.Points = profile.PolylinePoints;
             profile.SlopeTableRectange = SlopeRectangle;
             //SlopeTableTop = Canvas.GetTop(SlopeRectangle);
             SlopeTableTop = 0;
