@@ -116,14 +116,12 @@ namespace tdjWpfClassLibrary
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Profiles.Items[0].Slopes[3].Grade = -Profiles.Items[0].Slopes[3].Grade;
-
-
+            return;
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            a.X = a.X + 50;
-            
+            Profiles.Items[0].Slopes[3].Length += 50;
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)

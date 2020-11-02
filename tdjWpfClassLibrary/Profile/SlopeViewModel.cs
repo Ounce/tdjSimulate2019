@@ -22,7 +22,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _length = value;
                     EndMileage = _beginMileage + _length;
-                    EndAltitude = _beginAltitude + _grade * _length;
+                    EndAltitude = _beginAltitude - _grade * _length;
                     /*
                     GradeLabel.Width = _length * Scale.Horizontal;
                     LengthLabel.Width = GradeLabel.Width;
@@ -42,7 +42,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (value != _grade)
                 {
                     _grade = value;
-                    EndAltitude = _beginAltitude + _grade * _length;
+                    EndAltitude = _beginAltitude - _grade * _length;
                     /*
                     GradeLabel.Content = _grade * Option.GradeUnit;
                     if (_grade < 0.01 && _grade > -0.01)
@@ -63,6 +63,7 @@ namespace tdjWpfClassLibrary.Profile
                     SetGradeLineY();
                     */
                     OnPropertyChanged("Grade");
+                    OnPropertyChanged("GradeShowValue");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
                     OnPropertyChanged("SlopeTableGradeLineEndPoint");
                     OnPropertyChanged("SlopeTableLengthLabelHorizontalAlignment");
@@ -193,7 +194,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public double Y1
         {
-            get { return  - BeginAltitude * Scale.Vertical; }
+            get { return -BeginAltitude * Scale.Vertical; }
         }
 
         public double Y2

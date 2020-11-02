@@ -263,7 +263,7 @@ namespace tdjWpfClassLibrary.Profile
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    //Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
                     /*
                     if (Polyline.Points.Count == 0)
@@ -284,25 +284,15 @@ namespace tdjWpfClassLibrary.Profile
             int p;
             switch (e.PropertyName)
             {
-                case "BeginMileage":
-                    p = GetPosition(sender);
-                    if (p == 0)
-                        PolylinePoints[p] = new Point(Slopes[p].BeginMileage * Scale.Horizontal, PolylinePoints[p].Y);
-                    break;
-                case "BeginAltitude":
-                    p = GetPosition(sender);
-                    if (p == 0)
-                        PolylinePoints[p] = new Point(PolylinePoints[0].X, GetPointY(Slopes[p].BeginAltitude));
-                    break;
                 case "EndMileage":
                     p = GetPosition(sender);
-                    if (p < 0) break;
-                    PolylinePoints[p] = new Point(Slopes[p].EndMileage * Scale.Horizontal, PolylinePoints[p].Y);
+                    if (p < 0 || p > Slopes.Count - 2) break;
+                    Slopes[p + 1].BeginMileage = Slopes[p].EndMileage;
                     break;
                 case "EndAltitude":
                     p = GetPosition(sender);
-                    if (p < 0) break;
-                    PolylinePoints[p] = new Point(PolylinePoints[p].X, GetPointY(Slopes[p].EndAltitude));
+                    if (p < 0 || p > Slopes.Count - 2) break;
+                    Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
                     break;
             }
         }
@@ -347,6 +337,10 @@ namespace tdjWpfClassLibrary.Profile
         }
         */
 
+        /// <summary>
+        /// 为Slope设置用于绘制SlopeTable所需必要参数。
+        /// </summary>
+        /// <param name="slope"></param>
         public void SetSlopeTable(SlopeViewModel slope)
         {
             slope.SlopeTableTop = _slopeTableTop;
