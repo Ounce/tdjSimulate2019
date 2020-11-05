@@ -197,6 +197,8 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            _maxAltitude = StaticClass.Altitude.InitMax;
+            _minAltitude = StaticClass.Altitude.InitMin;
             ProfileOption = new ProfileViewModelOption();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
@@ -218,6 +220,8 @@ namespace tdjWpfClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].BeginAltitude);
+                    UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].EndAltitude);
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
                     break;
             }
@@ -233,12 +237,16 @@ namespace tdjWpfClassLibrary.Profile
             int p;
             switch (e.PropertyName)
             {
+                case "BeginAltitude":
+                    UpdateMaxMinAltitude(((SlopeViewModel)sender).BeginAltitude);
+                    break;
                 case "EndMileage":
                     p = GetPosition(sender);
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginMileage = Slopes[p].EndMileage;
                     break;
                 case "EndAltitude":
+                    UpdateMaxMinAltitude(((SlopeViewModel)sender).EndAltitude);
                     p = GetPosition(sender);
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
@@ -330,9 +338,43 @@ namespace tdjWpfClassLibrary.Profile
                 if (s.EndAltitude < min)
                     min = s.EndAltitude;
             }
-            _maxAltitude = max;
-            _minAltitude = min;
+            if (_maxAltitude != max)
+                SetMaxAltitude(max);
+            if (_minAltitude != min)
+                SetMinAltitude(min);
             return;
+        }
+
+        /// <summary>
+        /// 使用value更新MaxAltitude或MinAltitude.
+        /// </summary>
+        /// <param name="value"></param>
+        public void UpdateMaxMinAltitude(double value)
+        {
+            if (value > _maxAltitude)
+            {
+                SetMaxAltitude(value);
+                //return;
+            }
+            else if (value < _minAltitude)
+            {
+                SetMinAltitude(value);
+                //return;
+            }
+            else
+                UpdateMaxMinAltitude();
+        }
+
+        private void SetMaxAltitude(double altitude)
+        {
+            _maxAltitude = altitude;
+            OnPropertyChanged("MaxAltitude");
+        }
+
+        private void SetMinAltitude(double altitude)
+        {
+            _minAltitude = altitude;
+            OnPropertyChanged("MinAltitude");
         }
 
         public void UpdateMileage()

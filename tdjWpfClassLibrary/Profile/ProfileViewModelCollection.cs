@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 
@@ -79,8 +80,45 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModelCollection()
         {
+            _maxAltitude = StaticClass.Altitude.InitMax;
+            _minAltitude = StaticClass.Altitude.InitMin;
             Items = new ObservableCollection<ProfileViewModel>();
+            Items.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ItemsCollectionChanged);
             PolylineOriginPoint = new PolylineOriginPoint();
+        }
+
+        private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Items[e.NewStartingIndex].PropertyChanged += ProfilePropertyChanged;
+                    if (Items[e.NewStartingIndex].MaxAltitude > MaxAltitude)
+                        SetMaxAltitude(Items[e.NewStartingIndex].MaxAltitude);
+                    if (Items[e.NewStartingIndex].MinAltitude < MinAltitude)
+                        SetMinAltitude(Items[e.NewStartingIndex].MinAltitude);
+                    break;
+            }
+        }
+
+        private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            int p;
+            switch (e.PropertyName)
+            {
+                case "MaxAltitude":
+                    if (((ProfileViewModel)sender).MaxAltitude > _maxAltitude)
+                        SetMaxAltitude(((ProfileViewModel)sender).MaxAltitude);
+                    else
+                        UpdateMaxMinAltitude();
+                    break;
+                case "MinAltitude":
+                    if (((ProfileViewModel)sender).MinAltitude > _minAltitude)
+                        SetMinAltitude(((ProfileViewModel)sender).MinAltitude);
+                    else
+                        UpdateMaxMinAltitude();
+                    break;
+             }
         }
 
         /// <summary>
@@ -88,20 +126,36 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public void UpdateMaxMinAltitude()
         {
-            for (int i = 0; i < Items.Count; i++)
+            double max, min;
+            if (Items.Count > 0)
             {
-                Items[i].UpdateMaxMinAltitude();
-                if (i == 0)
+                max = Items[0].MaxAltitude;
+                min = Items[0].MinAltitude;
+                for (int i = 0; i < Items.Count; i++)
                 {
-                    _maxAltitude = Items[0]._maxAltitude;
-                    _minAltitude = Items[0]._minAltitude;
+                    //Items[i].UpdateMaxMinAltitude();
+                    if (max < Items[i]._maxAltitude)
+                        max = Items[i]._maxAltitude;
+                    if (min > Items[i]._minAltitude)
+                        min = Items[i]._minAltitude;
                 }
-                else
-                {
-                    if (_maxAltitude < Items[i]._maxAltitude) _maxAltitude = Items[i]._maxAltitude;
-                    if (_minAltitude > Items[i]._minAltitude) _minAltitude = Items[i]._minAltitude;
-                }
+                if (_maxAltitude != max)
+                    SetMaxAltitude(max);
+                if (_minAltitude != min)
+                    SetMinAltitude(min);
             }
+        }
+
+        private void SetMaxAltitude(double value)
+        {
+            _maxAltitude = value;
+            OnPropertyChanged("MaxAltitude");
+        }
+
+        private void SetMinAltitude(double value)
+        {
+            _minAltitude = value;
+            OnPropertyChanged("MinAltitude");
         }
 
         /// <summary>
