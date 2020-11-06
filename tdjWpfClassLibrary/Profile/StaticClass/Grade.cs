@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tdjWpfClassLibrary.Profile
+namespace tdjWpfClassLibrary.Profile.StaticClass
 {
     /// <summary>
     /// 与坡度有关的静态类。

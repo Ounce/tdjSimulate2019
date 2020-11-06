@@ -35,8 +35,6 @@ namespace tdjWpfClassLibrary
 
         public double SlopeTableTop, SlopeTableBottom;
 
-        Point a;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -97,6 +95,8 @@ namespace tdjWpfClassLibrary
                 //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 //Profiles.UpdateMaxMinAltitude();
                 Profiles.SetPolylineOriginPoint(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
+                Canvas.SetLeft(FrameRectangle, 0);
+                Canvas.SetTop(FrameRectangle, Profiles.PolylineOriginPoint.Y);
                 ExistPolylineTranslate.X = Profiles.PolylineOriginPoint.X;
                 ExistPolylineTranslate.Y = -Profiles.PolylineOriginPoint.Y;
 

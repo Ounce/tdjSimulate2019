@@ -9,6 +9,8 @@ namespace tdjWpfClassLibrary.Profile
     {
         public double X;
         public double Y;
+        public double Altitude = 0;
+        public double Mileage = 0;
 
         public PolylineOriginPoint()
         {
@@ -30,19 +32,21 @@ namespace tdjWpfClassLibrary.Profile
             {
                 case VerticalAlignment.Top:
                     Y = PolylinePoint.GetPointY(maxAltitude);
+                    Altitude = maxAltitude;
                     break;
                 case VerticalAlignment.Center:
                     //（- TopAltitude + MaxAltitude）* Scale.Vertical = (canvasHeight + (MaxAltitude - MinAltitude) * Scale.Vertical) * 0.5
                     //- TopAltitude * Scale.Vertical + MaxAltitude * Scale.Vertical = 0.5 * canvasHeight + 0.5 * (MaxAltitude - MinAltitude) * Scale.Vertical
                     //- OriginPoint.Y = 0.5 * canvasHeight + 0.5 * MaxAltitude * Scale.Verrtical + 0.5 * MinAltitude * Scale.Vertical
                     Y = 0.5 * (PolylinePoint.GetPointY(maxAltitude + minAltitude) - height);
+                    Altitude = 0.5 * (height / Scale.Vertical + (maxAltitude + minAltitude));
                     break;
                 case VerticalAlignment.Bottom:
                     Y = PolylinePoint.GetPointY(minAltitude) - height;
+                    Altitude = height / Scale.Vertical + minAltitude;
                     break;
             }
         }
-
 
         /// <summary>
         /// 设置图形左上方原点 X 坐标。

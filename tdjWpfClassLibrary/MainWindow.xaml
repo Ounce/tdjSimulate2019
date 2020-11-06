@@ -22,11 +22,14 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="239*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="b111" Content="B1111" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click" RenderTransformOrigin="0.441,0.512"/>
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
-        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,67" Grid.Row="0" Grid.RowSpan="2">
+        <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
+
+        </Rectangle>
+        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="1">
             <!--
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
 
@@ -49,7 +52,7 @@
             </Rectangle>
             -->
         </Canvas>
-        <ItemsControl ItemsSource="{Binding}">
+        <ItemsControl ItemsSource="{Binding}" Margin="0,0,0,100" Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Grid.Row="0"/>
@@ -67,8 +70,8 @@
         </ItemsControl>
 
         <!-- 坡度表的 外框-->
-        <Rectangle Name="SlopeRectangle" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
-        
+        <Rectangle Name="SlopeRectangle" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" StrokeThickness="2" Stroke="Red" Height="100" Width="Auto"/>
+
         <!-- 坡度表的 分割线 和 坡度线 线段-->
         <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
@@ -78,7 +81,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                     <Path Stroke="Red" StrokeThickness="2">
+                    <Path Stroke="Red" StrokeThickness="2">
                         <Path.Data>
                             <GeometryGroup FillRule="EvenOdd">
                                 <!--
@@ -108,7 +111,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
         <!-- 坡度表的 坡度 标签-->
         <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
@@ -131,7 +134,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
         <!--坡度表的 长度 标签-->
         <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}" Grid.Row="1">
             <ItemsControl.ItemsPanel>

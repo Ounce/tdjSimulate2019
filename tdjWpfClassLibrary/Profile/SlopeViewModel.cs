@@ -253,7 +253,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             get
             {
-                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                switch (StaticClass.Grade.Direction(_grade))
                 {
                     case 1: return SlopeTableLeftTop;
                     case -1: return SlopeTableLeftBottom;
@@ -266,7 +266,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             get
             {
-                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                switch (StaticClass.Grade.Direction(_grade))
                 {
                     case -1: return SlopeTableRightTop;
                     case 1: return SlopeTableRightBottom;
@@ -279,7 +279,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             get
             {
-                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                switch (StaticClass.Grade.Direction(_grade))
                 {
                     case 1: return HorizontalAlignment.Right;
                     case 0: return HorizontalAlignment.Center;
@@ -292,7 +292,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             get
             {
-                switch (tdjWpfClassLibrary.Profile.Grade.Direction(_grade))
+                switch (StaticClass.Grade.Direction(_grade))
                 {
                     case 1: return HorizontalAlignment.Left;
                     case 0: return HorizontalAlignment.Center;
