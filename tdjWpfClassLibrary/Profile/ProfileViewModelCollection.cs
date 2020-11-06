@@ -82,6 +82,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             _maxAltitude = StaticClass.Altitude.InitMax;
             _minAltitude = StaticClass.Altitude.InitMin;
+            _verticalAlignment = VerticalAlignment.Center;
             Items = new ObservableCollection<ProfileViewModel>();
             Items.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ItemsCollectionChanged);
             PolylineOriginPoint = new PolylineOriginPoint();

@@ -27,9 +27,11 @@
         <Button x:Name="b111" Content="B1111" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click" RenderTransformOrigin="0.441,0.512"/>
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,67" Grid.Row="0" Grid.RowSpan="2">
+            <!--
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
 
             </Polyline>
+            -->
             <Button x:Name="button1" Content="B1" Canvas.Left="425" Canvas.Top="220" Click="button1_Click"/>
             <Button x:Name="button2" Content="Button" Canvas.Left="425" Canvas.Top="274" Click="button2_Click"/>
             <Button x:Name="button3" Content="添加" Canvas.Left="425" Canvas.Top="300" Click="button3_Click"/>
