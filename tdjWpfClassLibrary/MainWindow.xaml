@@ -26,9 +26,6 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="b111" Content="B1111" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="161,217,0,0" VerticalAlignment="Top" Width="34" Click="button_Click" RenderTransformOrigin="0.441,0.512"/>
         <Label x:Name="label" Content="{Binding Path=Count}" HorizontalAlignment="Left" Margin="4,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,2.407" Grid.Column="1" Height="10" Width="10"/>
-        <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
-
-        </Rectangle>
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="1">
             <!--
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
@@ -52,6 +49,24 @@
             </Rectangle>
             -->
         </Canvas>
+        <!--图框-->
+        <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
+        </Rectangle>
+        <!--垂直刻度-->
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Black" StrokeThickness="1"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <!--坡度线-->
         <ItemsControl ItemsSource="{Binding}" Margin="0,0,0,100" Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
