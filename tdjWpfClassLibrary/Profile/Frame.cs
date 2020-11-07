@@ -42,7 +42,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 大刻度的数值
         /// </summary>
-        public ObservableCollection<Label> SliceValues { get; set; }
+        public ObservableCollection<CanvasLabel> SliceValues { get; set; }
 
         public ObservableCollection<Slice> Slices { get; set; }
     }
