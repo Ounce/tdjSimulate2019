@@ -10,6 +10,9 @@ namespace tdjWpfClassLibrary
     public class CanvasLabel : NotifyPropertyChanged
     {
         private string _text;
+        /// <summary>
+        /// Content of Label.
+        /// </summary>
         public string Text
         {
             get => _text;
@@ -38,7 +41,7 @@ namespace tdjWpfClassLibrary
                 }
             }
         }
-        public double HorizontalCenter
+        public double CenterHorizontal
         {
             set
             {
@@ -49,7 +52,6 @@ namespace tdjWpfClassLibrary
                 }
             }
         }
-
         public double Right
         {
             set
@@ -74,8 +76,7 @@ namespace tdjWpfClassLibrary
                 }
             }
         }
-
-        public double VerticalCenter
+        public double CenterVertical
         {
             set
             {
@@ -86,7 +87,6 @@ namespace tdjWpfClassLibrary
                 }
             }
         }
-
         public double Bottom
         {
             set
