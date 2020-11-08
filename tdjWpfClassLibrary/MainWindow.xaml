@@ -40,7 +40,7 @@
                     <TranslateTransform x:Name="ExistPolylineTranslate"/>
                 </Line.RenderTransform>
             </Line>
-            <Line X1="10" Y1="200" X2="200" Y2="300" Stroke="Red" StrokeThickness="2"></Line>
+            <Line X1="10" Y1="200" X2="200" Y2="600" Stroke="Red" StrokeThickness="2"></Line>
             <Button x:Name="button4" Content="Button" Canvas.Left="575" Canvas.Top="217" Click="button4_Click"/>
 
             <!--        
