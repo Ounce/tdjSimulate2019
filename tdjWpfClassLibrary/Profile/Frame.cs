@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection.Emit;
 using System.Text;
+using System.Windows;
 
 namespace tdjWpfClassLibrary.Profile
 {
+    public enum AxisDirection {Horizontal, Vertical}
+
+    public static double[] SliceUnits = { 0.001, 0.01, 0.1, 1, 10, 100, 1000 };
+
     public class Frame : NotifyPropertyChanged
     {
         public Axis XAxis;
@@ -47,7 +52,23 @@ namespace tdjWpfClassLibrary.Profile
         public ObservableCollection<Slice> Slices { get; set; }
     }
 
-    public class Slice : NotifyPropertyChanged
+    public class Slice : ObservableCollection<SliceLine>
+    {
+        /// <summary>
+        /// 刻度线高度。
+        /// </summary>
+        public double Height { get; set; }
+
+        /// <summary>
+        /// 刻度单位（间隔）。根据显示比例计算。
+        /// </summary>
+        public double Unit { get; set; }
+    }
+
+    /// <summary>
+    /// 刻度线
+    /// </summary>
+    public class SliceLine : NotifyPropertyChanged
     {
         private double _x1, _x2, _y1, _y2;
         public double X1
@@ -99,6 +120,25 @@ namespace tdjWpfClassLibrary.Profile
                     _y2 = value;
                     OnPropertyChanged("Y2");
                 }
+            }
+        }
+
+        /// <summary>
+        /// 起点，只读，可通过X1,Y1设置。
+        /// </summary>
+        public Point StartPoint
+        {
+            get
+            {
+                return new Point(_x1, _y1);
+            }
+        }
+
+        public Point EndPoint
+        {
+            get
+            {
+                return new Point(_x2, _y2);
             }
         }
     }
