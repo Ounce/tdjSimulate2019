@@ -25,6 +25,24 @@ namespace tdjWpfClassLibrary.Draw
 
     class NumberAxis : NotifyPropertyChanged
     {
+        public double BigDivide;
+        public double SmallDivide;
+        public TickMark LongMark;
+        public TickMark ShortMark;
 
+        protected double[] units;
+
+        public void SetUnit(double maxLength)
+        {
+            SmallDivide = BigDivide = 0;
+            foreach (double longUnit in units)
+            {
+                if (longUnit < maxLength)
+                {
+                    SmallDivide = BigDivide;
+                    BigDivide = longUnit;
+                }
+            }
+        }
     }
 }
