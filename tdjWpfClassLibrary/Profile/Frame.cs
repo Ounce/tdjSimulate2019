@@ -7,9 +7,6 @@ using System.Windows;
 
 namespace tdjWpfClassLibrary.Profile
 {
-    public enum AxisDirection {Horizontal, Vertical}
-
-    public static double[] SliceUnits = { 0.001, 0.01, 0.1, 1, 10, 100, 1000 };
 
     public class Frame : NotifyPropertyChanged
     {
