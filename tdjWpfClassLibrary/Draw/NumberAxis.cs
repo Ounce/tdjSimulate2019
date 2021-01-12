@@ -12,7 +12,7 @@ namespace tdjWpfClassLibrary.Draw
     /// <summary>
     /// 标尺的方向。刻度线的方向与此垂直。
     /// </summary>
-    public enum SliceDirection { Horizontal, Vertical }
+    public enum AxisDirection { Horizontal, Vertical }
 
     /// <summary>
     /// 刻度线类。
