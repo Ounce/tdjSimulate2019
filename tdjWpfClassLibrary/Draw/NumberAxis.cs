@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace tdjWpfClassLibrary.Draw
 {
-    /// <summary>
-    /// 单位制。
-    /// </summary>
-    public enum Measure { Metric, British }
-
     /// <summary>
     /// 标尺的方向。刻度线的方向与此垂直。
     /// </summary>
@@ -19,12 +15,27 @@ namespace tdjWpfClassLibrary.Draw
     /// </summary>
     public class TickMark
     {
+        public string Number;
         public double Length;
         double X1, X2, Y1, Y2;
     }
 
     class NumberAxis : NotifyPropertyChanged
     {
+        public string Title;
+        public AxisDirection Direction;
+        public ObservableCollection<TickMark> Ticks;
+        /// <summary>
+        /// 数轴原点的位置。
+        /// </summary>
+        public double X, Y;
+
+        /// <summary>
+        /// 数轴的显示部分的最大和最小值。
+        /// </summary>
+        public double MinValue, MaxValue;
+
+
         public double BigDivide;
         public double SmallDivide;
         public TickMark LongMark;
