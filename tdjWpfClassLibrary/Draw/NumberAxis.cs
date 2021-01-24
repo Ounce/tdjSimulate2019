@@ -17,43 +17,98 @@ namespace tdjWpfClassLibrary.Draw
     {
         public string Number;
         public double Length;
-        double X1, X2, Y1, Y2;
+        public double X1, X2, Y1, Y2;
+    }
+
+    public class TickMarks : ObservableCollection<TickMark>
+    {
+        public AxisDirection Direction;
+        public double Length
+        {
+            get { return _length; }
+            set
+            {
+                switch (Direction)
+                {
+                    case AxisDirection.Horizontal:
+                        foreach (var i in this)
+                        {
+                            i.X2 = i.X1 + value;
+                        }
+                        break;
+                    case AxisDirection.Vertical:
+                        foreach (var i in this)
+                        {
+                            i.Y2 = i.Y1 - value;
+                        }
+                        break;
+                }
+            }
+        }
+        private double _length;
     }
 
     class NumberAxis : NotifyPropertyChanged
     {
         public string Title;
-        public AxisDirection Direction;
-        public ObservableCollection<TickMark> Ticks;
+        public AxisDirection Direction
+        {
+            get { return _direction; }
+            set
+            {
+                if (value != _direction)
+                {
+                    _direction = value;
+                    OnPropertyChanged("Direction");
+                    switch (_direction)
+                    {
+                        case AxisDirection.Horizontal:
+                            BigTicks.Direction = SmallTicks.Direction = AxisDirection.Vertical;
+                            break;
+                        case AxisDirection.Vertical:
+                            BigTicks.Direction = SmallTicks.Direction = AxisDirection.Horizontal;
+                            break;
+                    }
+                }
+            }
+        }
+        private AxisDirection _direction;
+        public TickMarks BigTicks;
+        public TickMarks SmallTicks;
+
         /// <summary>
         /// 数轴原点的位置。
         /// </summary>
         public double X, Y;
 
-        /// <summary>
-        /// 数轴的显示部分的最大和最小值。
-        /// </summary>
-        public double MinValue, MaxValue;
-
-
-        public double BigDivide;
-        public double SmallDivide;
-        public TickMark LongMark;
-        public TickMark ShortMark;
-
-        protected double[] units;
-
-        public void SetUnit(double maxLength)
+        public double BigDivide
         {
-            SmallDivide = BigDivide = 0;
-            foreach (double longUnit in units)
+            get { return _bigDivide; }
+            set
             {
-                if (longUnit < maxLength)
+                if (value != _bigDivide)
                 {
-                    SmallDivide = BigDivide;
-                    BigDivide = longUnit;
+                    value = _bigDivide;
+                    OnPropertyChanged("BigDivide");
+                    foreach(var i in BigTicks)
+                    {
+                        switch (Direction)
+                        {
+                            case AxisDirection.Horizontal:
+                                i.Y2 = i.Y1 + value;
+                                break;
+                            case AxisDirection.Vertical:
+                                i.X2 = i.X1 + value;
+                                break;
+                        }
+                    }
                 }
             }
         }
+        public double SmallDivide;
+        private double _smallDivide, _bigDivide;
+        public TickMark LongMark;
+        public TickMark ShortMark;
+
     }
 }
