@@ -22,6 +22,9 @@ namespace tdjWpfClassLibrary.Draw
 
     public class TickMarks : ObservableCollection<TickMark>
     {
+        /// <summary>
+        /// 刻度线方向，与数轴方向垂直。
+        /// </summary>
         public AxisDirection Direction;
         public double Length
         {
@@ -46,10 +49,37 @@ namespace tdjWpfClassLibrary.Draw
             }
         }
         private double _length;
+
+        /// <summary>
+        /// 添加刻度线，x，y为刻度线在坐标轴上的位置。length为刻度线的长度（像素）。
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="length">刻度线的长度（像素）</param>
+        public void Add(double x, double y, double length)
+        {
+            TickMark tick = new TickMark();
+            switch (Direction)
+            {
+                case AxisDirection.Horizontal:
+                    tick.X1 = x;
+                    tick.X2 = x + length;
+                    tick.Y1 = tick.Y2 = y;
+                    break;
+                case AxisDirection.Vertical:
+                    tick.X1 = tick.X2 = x;
+                    tick.Y1 = y;
+                    tick.Y2 = y - length;
+                    break;
+            }
+        }
     }
 
     class NumberAxis : NotifyPropertyChanged
     {
+        /// <summary>
+        /// 数轴名称。
+        /// </summary>
         public string Title;
         public AxisDirection Direction
         {
@@ -109,6 +139,7 @@ namespace tdjWpfClassLibrary.Draw
         private double _smallDivide, _bigDivide;
         public TickMark LongMark;
         public TickMark ShortMark;
+
 
     }
 }
