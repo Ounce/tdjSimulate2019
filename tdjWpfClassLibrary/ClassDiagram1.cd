@@ -3,7 +3,21 @@
   <Class Name="tdjWpfClassLibrary.Draw.NumberAxis">
     <Position X="3.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAQAEABACCAAAAAAAQIAAAAAABIAAEAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAAACAAAAAAAAAAAAIAQAEAAAAAYAA=</HashCode>
+      <FileName>Draw\NumberAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="tdjWpfClassLibrary.Draw.TickMarks">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAICAAAABAAAAAAAAABAAAAAAAYAA=</HashCode>
+      <FileName>Draw\NumberAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="tdjWpfClassLibrary.Draw.TickMark">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAAADAAAAAIABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Draw\NumberAxis.cs</FileName>
     </TypeIdentifier>
   </Class>
