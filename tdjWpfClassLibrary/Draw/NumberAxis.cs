@@ -173,7 +173,7 @@ namespace tdjWpfClassLibrary.Draw
         }
     }
 
-    class NumberAxis : NotifyPropertyChanged
+    public class NumberAxis : NotifyPropertyChanged
     {
         /// <summary>
         /// 数轴名称。
@@ -223,5 +223,21 @@ namespace tdjWpfClassLibrary.Draw
             MultiTicks.Add(tickMarks);
         }
 
+    }
+
+    public class HorizontalAxis : NumberAxis
+    {
+        public HorizontalAxis(string title):base(AxisDirection.Horizontal, title)
+        {
+            Y = 0;
+        }
+    }
+
+    public class VerticalAxis : NumberAxis
+    {
+        public VerticalAxis(string title):base(AxisDirection.Vertical, title) 
+        {
+            X = 0;
+        }
     }
 }
