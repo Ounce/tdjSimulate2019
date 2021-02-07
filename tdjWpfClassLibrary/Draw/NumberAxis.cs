@@ -138,14 +138,12 @@ namespace tdjWpfClassLibrary.Draw
         /// </summary>
         /// <param name="direction">刻度线的方向。</param>
         /// <param name="length">刻度线的长度。</param>
-        /// <param name="x">数轴在画布上X轴的坐标。</param>
-        /// <param name="y">数轴在画布上Y轴的坐标。</param>
-        public TickMarks(AxisDirection direction, double length, double x, double y)
+        /// <param name="unit">该刻度的单位。</param>
+        public TickMarks(AxisDirection direction, double length, double unit)
         {
             Length = length;
             Direction = direction;
-            X = x;
-            Y = y;
+            Unit = unit;
         }
 
         /// <summary>
@@ -176,9 +174,19 @@ namespace tdjWpfClassLibrary.Draw
     public class NumberAxis : NotifyPropertyChanged
     {
         /// <summary>
-        /// 数轴名称。
+        /// 数轴名称，例如：米，秒等。
         /// </summary>
-        private string Title;   //数轴单位名，例如：米，秒等。初始化时确定，其后不得更改。
+        public string Title;   
+        
+        /// <summary>
+        /// 数轴起点对应的数值。
+        /// </summary>
+        public double StartValue;
+
+        /// <summary>
+        /// 数轴终点对应的数值。
+        /// </summary>
+        public double EndValue;
 
         private AxisDirection Direction; //数轴方向，初始化时确定，其后不得更改。
         private AxisDirection TickDirection;
@@ -186,9 +194,9 @@ namespace tdjWpfClassLibrary.Draw
         /// <summary>
         /// 刻度线数组，内有多个刻度线。初始化时确定，其后不得修改。
         /// </summary>
-        public ObservableCollection<TickMarks> MultiTicks;  
+        public ObservableCollection<TickMarks> MultiTicks;
 
-        public NumberAxis(AxisDirection direction, string title)
+        protected NumberAxis(AxisDirection direction, string title)
         {
             Title = title;
             Direction = direction;
@@ -196,25 +204,31 @@ namespace tdjWpfClassLibrary.Draw
         }
 
         /// <summary>
-        /// 数轴原点在画布上的X方向的坐标。
+        /// 计算数轴上的刻度值。
         /// </summary>
-        public double X
+        /// <param name="startValue"></param>
+        /// <param name="endValue"></param>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        public List<double> GetTickValues(double startValue, double endValue, double unit)
         {
-            get => default;
-            set
+            List<double> values = new List<double>();
+            double start = startValue % unit + startValue;
+            string a = start.ToString();
+            int l = a.Length - a.IndexOf(".") - 1;
+            for (double i = start; i < endValue; i += unit)
             {
+                values.Add(Math.Round(i, l, MidpointRounding.AwayFromZero));
             }
+            return values;
         }
 
-        /// <summary>
-        /// 数轴原点在画布上的Y方向坐标。
-        /// </summary>
-        public double Y
+        public void SetValue(double startValue, double endValue)
         {
-            get => default;
-            set
-            {
-            }
+            StartValue = startValue;
+            EndValue = endValue;
+
+
         }
 
         public void AddTickMarks(TickMarks tickMarks)
@@ -227,17 +241,16 @@ namespace tdjWpfClassLibrary.Draw
 
     public class HorizontalAxis : NumberAxis
     {
-        public HorizontalAxis(string title):base(AxisDirection.Horizontal, title)
+        public HorizontalAxis(string title):base(AxisDirection.Horizontal, title){ }
+
+        public void AddTicks(string title, double unit, double length)
         {
-            Y = 0;
+            TickMarks tickMarks = new TickMarks(AxisDirection.Horizontal, length, unit);
         }
     }
 
     public class VerticalAxis : NumberAxis
     {
-        public VerticalAxis(string title):base(AxisDirection.Vertical, title) 
-        {
-            X = 0;
-        }
+        public VerticalAxis(string title) : base(AxisDirection.Vertical, title) { }
     }
 }
