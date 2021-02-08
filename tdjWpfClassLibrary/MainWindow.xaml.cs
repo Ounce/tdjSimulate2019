@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using tdjWpfClassLibrary.Profile;
+using tdjWpfClassLibrary.Draw;
 
 namespace tdjWpfClassLibrary
 {
@@ -70,6 +71,11 @@ namespace tdjWpfClassLibrary
 
             Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
             Profiles.Items[0].SlopeTableTop = SlopeTableTop;
+
+            TickMarks ts = new TickMarks(AxisDirection.Vertical, 200, 10);
+            ts.Add(10);
+            ts.Add(20);
+            Ticks.ItemsSource = ts;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

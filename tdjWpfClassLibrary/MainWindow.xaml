@@ -57,7 +57,7 @@
         <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
         </Rectangle>
         <!--垂直刻度-->
-        <ItemsControl ItemsSource="{Binding}">
+        <ItemsControl x:Name="Ticks" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />

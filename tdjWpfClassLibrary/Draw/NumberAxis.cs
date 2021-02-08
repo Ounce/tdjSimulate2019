@@ -168,6 +168,23 @@ namespace tdjWpfClassLibrary.Draw
                     tick.Y2 = Y - Length;
                     break;
             }
+            Add(tick);
+        }
+
+        public void Add(List<double> p, double scale)
+        {
+            foreach (double i in p)
+            {
+                Add(i * scale);
+            }
+        }
+
+        public void Forexample()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                TickMark t = new TickMark();
+            }
         }
     }
 
