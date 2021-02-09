@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using tdjWpfClassLibrary.Draw;
+
 namespace axis
 {
     /// <summary>
@@ -23,6 +25,10 @@ namespace axis
         public MainWindow()
         {
             InitializeComponent();
+            VerticalAxis axis = new VerticalAxis("高程（米）");
+            axis.AddTickMarks(10, 1);
+            axis.SetValue(0, 100, 10);
+            grid.DataContext = axis.MultiTicks[0];
         }
     }
 }

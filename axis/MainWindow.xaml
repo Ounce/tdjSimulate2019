@@ -6,7 +6,22 @@
         xmlns:local="clr-namespace:axis"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Grid x:Name="grid">
+        <!--图框-->
+        <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
+        </Rectangle>
+        <!--垂直刻度-->
+        <ItemsControl x:Name="Ticks" ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="1"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

@@ -18,7 +18,7 @@ namespace tdjWpfClassLibrary.Draw
         private double _x1, _x2, _y1, _y2;
         public double X1
         {
-            get => default;
+            get => _x1;
             set
             {
                 if (value != _x1)
@@ -31,7 +31,7 @@ namespace tdjWpfClassLibrary.Draw
 
         public double X2
         {
-            get => default;
+            get => _x2;
             set
             {
                 if (value != _x2)
@@ -44,7 +44,7 @@ namespace tdjWpfClassLibrary.Draw
 
         public double Y1
         {
-            get => default;
+            get => _y1;
             set
             {
                 if (value != _y1)
@@ -57,7 +57,7 @@ namespace tdjWpfClassLibrary.Draw
 
         public double Y2
         {
-            get => default;
+            get => _y2;
             set
             {
                 if (value != _y2)
@@ -92,20 +92,24 @@ namespace tdjWpfClassLibrary.Draw
             get { return _length; }
             set
             {
-                switch (Direction)
+                if (value != _length)
                 {
-                    case AxisDirection.Horizontal:
-                        foreach (var i in this)
-                        {
-                            i.X2 = i.X1 + value;
-                        }
-                        break;
-                    case AxisDirection.Vertical:
-                        foreach (var i in this)
-                        {
-                            i.Y2 = i.Y1 - value;
-                        }
-                        break;
+                    _length = value;
+                    switch (Direction)
+                    {
+                        case AxisDirection.Horizontal:
+                            foreach (var i in this)
+                            {
+                                i.X2 = i.X1 + value;
+                            }
+                            break;
+                        case AxisDirection.Vertical:
+                            foreach (var i in this)
+                            {
+                                i.Y2 = i.Y1 - value;
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -171,9 +175,14 @@ namespace tdjWpfClassLibrary.Draw
             Add(tick);
         }
 
-        public void Add(List<double> p, double scale)
+        /// <summary>
+        /// 按照 positionList 包含的坐标值添加刻度线。scale为比例，每个单位对应的像素数量。
+        /// </summary>
+        /// <param name="positionList">坐标值数组。</param>
+        /// <param name="scale">比例，每个单位对应的像素数量。</param>
+        public void Add(List<double> positionList, double scale)
         {
-            foreach (double i in p)
+            foreach (double i in positionList)
             {
                 Add(i * scale);
             }
@@ -218,6 +227,7 @@ namespace tdjWpfClassLibrary.Draw
             Title = title;
             Direction = direction;
             TickDirection = Converter.DirectionChange(direction);
+            MultiTicks = new ObservableCollection<TickMarks>();
         }
 
         /// <summary>
@@ -240,18 +250,19 @@ namespace tdjWpfClassLibrary.Draw
             return values;
         }
 
-        public void SetValue(double startValue, double endValue)
+        public void SetValue(double startValue, double endValue, double scale)
         {
             StartValue = startValue;
             EndValue = endValue;
-
-
+            foreach (var i in MultiTicks)
+            {
+                i.Add(GetTickValues(startValue, endValue, i.Unit), scale);
+            }
         }
 
-        public void AddTickMarks(TickMarks tickMarks)
+        public void AddTickMarks(double tickLength, double unit)
         {
-            tickMarks.Direction = TickDirection;
-            MultiTicks.Add(tickMarks);
+            MultiTicks.Add(new TickMarks(TickDirection, tickLength, unit));
         }
 
     }
@@ -262,7 +273,7 @@ namespace tdjWpfClassLibrary.Draw
 
         public void AddTicks(string title, double unit, double length)
         {
-            TickMarks tickMarks = new TickMarks(AxisDirection.Horizontal, length, unit);
+            TickMarks tickMarks = new TickMarks(AxisDirection.Vertical, length, unit);
         }
     }
 
