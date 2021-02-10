@@ -184,15 +184,7 @@ namespace tdjWpfClassLibrary.Draw
         {
             foreach (double i in positionList)
             {
-                Add(i * scale);
-            }
-        }
-
-        public void Forexample()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                TickMark t = new TickMark();
+                Add(-i * scale);
             }
         }
     }

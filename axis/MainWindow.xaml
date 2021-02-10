@@ -4,12 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:axis"
+        xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <local1:ConverterPlus x:Key="ValuePlus"/>
+        <sys:Double x:Key="TickLength">-20</sys:Double>
+    </Window.Resources>
+    
     <Grid x:Name="grid">
+        <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" />
         <!--图框-->
         <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">
         </Rectangle>
+        <Line X1="10" Y1="-1000" X2="200" Y2="-1000" Stroke="Red" StrokeThickness="2">
+            <Line.RenderTransform>
+                <TranslateTransform x:Name="ExistPolylineTranslate"/>
+            </Line.RenderTransform>
+        </Line>
         <!--垂直刻度-->
         <ItemsControl x:Name="Ticks" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
@@ -19,7 +32,18 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="1"/>
+                    <Line X1="{Binding X1}" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding X2}"  Stroke="red" StrokeThickness="2">
+                        <Line.Y2>
+                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                                <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
+                                <Binding Source="{StaticResource TickLength}" />
+                            </MultiBinding>
+                            
+                        </Line.Y2>
+                        <Line.RenderTransform>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                        </Line.RenderTransform>
+                    </Line>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

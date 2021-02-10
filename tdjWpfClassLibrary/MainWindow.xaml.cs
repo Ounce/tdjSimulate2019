@@ -71,11 +71,6 @@ namespace tdjWpfClassLibrary
 
             Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
             Profiles.Items[0].SlopeTableTop = SlopeTableTop;
-
-            TickMarks ts = new TickMarks(AxisDirection.Vertical, 200, 10);
-            ts.Add(10);
-            ts.Add(20);
-            Ticks.ItemsSource = ts;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
