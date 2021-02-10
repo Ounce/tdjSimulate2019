@@ -24,4 +24,20 @@ namespace tdjWpfClassLibrary.Draw
             return null;
         }
     }
+
+    public class ConverterNegate : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return DependencyProperty.UnsetValue;
+            double douValue = (double)value;
+            return -douValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

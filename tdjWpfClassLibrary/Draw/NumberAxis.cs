@@ -72,107 +72,20 @@ namespace tdjWpfClassLibrary.Draw
     /// <summary>
     /// 刻度，同样长度、单位的一组刻度线。
     /// </summary>
-    public class TickMarks : ObservableCollection<TickMark>
+    public class TickMarks : ObservableCollection<double>
     {
-        /// <summary>
-        /// 刻度线方向，与数轴方向垂直。
-        /// </summary>
-        public AxisDirection Direction;
-
         /// <summary>
         /// 刻度线的相对于数轴单位的单位值。
         /// </summary>
         public double Unit;
 
         /// <summary>
-        /// 刻度线的长度（像素）；
+        /// 构造函数需定义刻度线的单位。
         /// </summary>
-        public double Length
-        {
-            get { return _length; }
-            set
-            {
-                if (value != _length)
-                {
-                    _length = value;
-                    switch (Direction)
-                    {
-                        case AxisDirection.Horizontal:
-                            foreach (var i in this)
-                            {
-                                i.X2 = i.X1 + value;
-                            }
-                            break;
-                        case AxisDirection.Vertical:
-                            foreach (var i in this)
-                            {
-                                i.Y2 = i.Y1 - value;
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-        private double _length;
-
-        /// <summary>
-        /// 数轴原点在画布上X轴坐标。
-        /// </summary>
-        public double X
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        /// <summary>
-        /// 数轴原点在画布上Y轴坐标。
-        /// </summary>
-        public double Y
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        /// <summary>
-        /// 构造函数需定义刻度线的方向、长度，并提供数轴原点的坐标。
-        /// </summary>
-        /// <param name="direction">刻度线的方向。</param>
-        /// <param name="length">刻度线的长度。</param>
         /// <param name="unit">该刻度的单位。</param>
-        public TickMarks(AxisDirection direction, double length, double unit)
+        public TickMarks(double unit)
         {
-            Length = length;
-            Direction = direction;
             Unit = unit;
-        }
-
-        /// <summary>
-        /// 添加刻度线，p为刻度线在坐标轴上的坐标值。length为刻度线的长度（像素）。
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="length">刻度线的长度（像素）</param>
-        public void Add(double p)
-        {
-            TickMark tick = new TickMark();
-            switch (Direction)
-            {
-                case AxisDirection.Horizontal:
-                    tick.X1 = X;
-                    tick.X2 = X + Length;
-                    tick.Y1 = tick.Y2 = p;
-                    break;
-                case AxisDirection.Vertical:
-                    tick.X1 = tick.X2 = p;
-                    tick.Y1 = Y;
-                    tick.Y2 = Y - Length;
-                    break;
-            }
-            Add(tick);
         }
 
         /// <summary>
@@ -184,7 +97,7 @@ namespace tdjWpfClassLibrary.Draw
         {
             foreach (double i in positionList)
             {
-                Add(-i * scale);
+                Add(i * scale);
             }
         }
     }
@@ -214,11 +127,9 @@ namespace tdjWpfClassLibrary.Draw
         /// </summary>
         public ObservableCollection<TickMarks> MultiTicks;
 
-        protected NumberAxis(AxisDirection direction, string title)
+        public NumberAxis(string title)
         {
             Title = title;
-            Direction = direction;
-            TickDirection = Converter.DirectionChange(direction);
             MultiTicks = new ObservableCollection<TickMarks>();
         }
 
@@ -252,25 +163,11 @@ namespace tdjWpfClassLibrary.Draw
             }
         }
 
-        public void AddTickMarks(double tickLength, double unit)
+        public void AddTickMarks(double unit)
         {
-            MultiTicks.Add(new TickMarks(TickDirection, tickLength, unit));
+            MultiTicks.Add(new TickMarks(unit));
         }
 
     }
 
-    public class HorizontalAxis : NumberAxis
-    {
-        public HorizontalAxis(string title):base(AxisDirection.Horizontal, title){ }
-
-        public void AddTicks(string title, double unit, double length)
-        {
-            TickMarks tickMarks = new TickMarks(AxisDirection.Vertical, length, unit);
-        }
-    }
-
-    public class VerticalAxis : NumberAxis
-    {
-        public VerticalAxis(string title) : base(AxisDirection.Vertical, title) { }
-    }
 }

@@ -32,13 +32,12 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="{Binding X1}" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding X2}"  Stroke="red" StrokeThickness="2">
+                    <Line X1="{Binding }" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding}"  Stroke="red" StrokeThickness="2">
                         <Line.Y2>
                             <MultiBinding Converter="{StaticResource ValuePlus}">
                                 <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
                                 <Binding Source="{StaticResource TickLength}" />
                             </MultiBinding>
-                            
                         </Line.Y2>
                         <Line.RenderTransform>
                             <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>

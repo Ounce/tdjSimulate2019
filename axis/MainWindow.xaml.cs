@@ -25,13 +25,12 @@ namespace axis
         public MainWindow()
         {
             InitializeComponent();
-            HorizontalAxis axis = new HorizontalAxis("高程（米）");
-            //axis.Y = 500;
-            axis.AddTickMarks(10, 1);
+            NumberAxis axis = new NumberAxis("高程（米）");
+            axis.AddTickMarks(1);
             axis.SetValue(0, 10, 100);
             grid.DataContext = axis.MultiTicks[0];
          //   ExistPolylineTranslate.Y = 100;
-            ExistPolylineTranslate.X = 1000;
+         //   ExistPolylineTranslate.X = 1000;
         }
     }
 }
