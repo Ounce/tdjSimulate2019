@@ -25,7 +25,9 @@
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
         </Line>
-        
+
+        <Label Content="高程（米）" />
+
         <!-- 刻度 -->
         <ItemsControl x:Name="Ticks" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>

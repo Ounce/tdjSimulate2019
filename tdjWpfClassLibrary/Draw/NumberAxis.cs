@@ -56,11 +56,6 @@ namespace tdjWpfClassLibrary.Draw
     public class NumberAxis : NotifyPropertyChanged
     {
         /// <summary>
-        /// 数轴名称，例如：米，秒等。
-        /// </summary>
-        public string Title;   
-        
-        /// <summary>
         /// 数轴起点对应的数值。
         /// </summary>
         public double StartValue;
@@ -80,9 +75,8 @@ namespace tdjWpfClassLibrary.Draw
         /// </summary>
         public ObservableCollection<TickMarks> MultiTicks;
 
-        public NumberAxis(string title)
+        public NumberAxis()
         {
-            Title = title;
             MultiTicks = new ObservableCollection<TickMarks>();
         }
 

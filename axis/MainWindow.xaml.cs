@@ -25,7 +25,7 @@ namespace axis
         public MainWindow()
         {
             InitializeComponent();
-            NumberAxis axis = new NumberAxis("高程（米）");
+            NumberAxis axis = new NumberAxis();
             axis.AddTickMarks(1);   // 此函数 需在SetValue之前使用，它没有计算刻度线的位置。
             axis.SetValue(0, 10, 100);
             grid.DataContext = axis.MultiTicks[0];
