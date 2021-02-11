@@ -6,11 +6,6 @@ using System.Text;
 namespace tdjWpfClassLibrary.Draw
 {
     /// <summary>
-    /// 标尺的方向。刻度线的方向与此垂直。
-    /// </summary>
-    public enum AxisDirection { Horizontal, Vertical }
-
-    /// <summary>
     /// 刻度线类。
     /// </summary>
     public class Tick : NotifyPropertyChanged
