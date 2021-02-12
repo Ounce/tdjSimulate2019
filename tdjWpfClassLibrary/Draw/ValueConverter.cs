@@ -7,6 +7,9 @@ using System.Windows.Data;
 
 namespace tdjWpfClassLibrary.Draw
 {
+    /// <summary>
+    /// 加法转换器，可多个数值相加，如果参数不能转换成double则会报错。用于XAML文件。
+    /// </summary>
     public class ConverterPlus : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -28,6 +31,9 @@ namespace tdjWpfClassLibrary.Draw
         }
     }
 
+    /// <summary>
+    /// 反值转换器，如果参数不能转换成double则会报错。用于XAML文件。
+    /// </summary>
     public class ConverterNegate : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -42,5 +48,19 @@ namespace tdjWpfClassLibrary.Draw
         {
             return null;
         }
+    }
+
+    public static class ValueConverter
+    {
+        /// <summary>
+        /// 转换至屏幕坐标。这个函数保持唯一，避免多种方法同时使用。
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double VerticalValue(double value)
+        {
+            return - value;
+        }
+
     }
 }

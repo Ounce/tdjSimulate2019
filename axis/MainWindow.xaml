@@ -18,7 +18,7 @@
         <sys:Double x:Key="LabelHeightHalf">-15</sys:Double>
     </Window.Resources>
     
-    <Grid x:Name="grid">
+    <Grid x:Name="grid" Loaded="grid_Loaded">
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" />
         <!--图框-->
         <Rectangle x:Name="FrameRectangle" Stroke="Black" StrokeThickness="3" Width="{Binding ActualWidth, ElementName=PolylineCanvas}" Height="{Binding ActualHeight,ElementName=PolylineCanvas}" Grid.ColumnSpan="2" Margin="0,0,0,0">

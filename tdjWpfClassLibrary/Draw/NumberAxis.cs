@@ -51,7 +51,7 @@ namespace tdjWpfClassLibrary.Draw
 
         private void Add(double position, string text)
         {
-            Add(new Tick() { Position = position, VerticalPosition= -position, Text = text });
+            Add(new Tick() { Position = position, VerticalPosition= ValueConverter.VerticalValue(position), Text = text });
         }
     }
 
