@@ -11,11 +11,14 @@ namespace tdjWpfClassLibrary.Draw
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            double r = 0;
             if (values == null || values.Length < 2)
                 return DependencyProperty.UnsetValue;
-            double verValue = (double)values[0];
-            double horValue = (double)values[1];
-            return verValue + horValue;
+            foreach (var i in values)
+            {
+                r += (double)i;
+            }
+            return r;
         }
         //反向修改
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
