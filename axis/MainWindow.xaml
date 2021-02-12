@@ -17,7 +17,7 @@
         <sys:Double x:Key="TextHeight">-50</sys:Double>
         <sys:Double x:Key="LabelHeightHalf">-15</sys:Double>
     </Window.Resources>
-    
+
     <Grid x:Name="grid" Loaded="grid_Loaded">
         <Canvas x:Name="PolylineCanvas" Margin="0,0,0,0" />
         <!--图框-->
@@ -157,7 +157,7 @@
         </ItemsControl>
 
         <!--  垂直标签 -->
-        <ItemsControl x:Name="TicksV1L" ItemsSource="{Binding}" >
+        <ItemsControl x:Name="TicksV1L" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
@@ -190,5 +190,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Button Content="Button" x:Name="button" Margin="200, 200" Click="button_Click"/>
+
     </Grid>
 </Window>

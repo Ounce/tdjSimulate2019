@@ -22,33 +22,50 @@ namespace axis
     /// </summary>
     public partial class MainWindow : Window
     {
+        public double Scale { get; set; }
+        private NumberAxis axis;
+        private NumberAxis axis1;
+
+
         public MainWindow()
         {
             InitializeComponent();
-            NumberAxis axis = new NumberAxis();
+            axis1 = new NumberAxis();
+            axis = new NumberAxis();
             axis.AddTickMarks(1);   // 此函数 需在SetValue之前使用，它没有计算刻度线的位置。
             axis.AddTickMarks(0.5);
             axis.AddTickMarks(0.1);
-            axis.SetValue(0, 10, 100);
+
+            Scale = 100;
+
+            axis.SetValue(0, 10, Scale);
             grid.DataContext = axis.MultiTicks[0];
             Ticks5.ItemsSource = axis.MultiTicks[1];
             Ticks10.ItemsSource = axis.MultiTicks[2];
 
             NumberAxis vaxis = new NumberAxis();
-            vaxis.AddTickMarks(1);
-            vaxis.AddTickMarks(0.5);
-            vaxis.AddTickMarks(0.1);
-            vaxis.SetValue(121, 125, 100);
+            axis1.AddTickMarks(1);
+            axis1.AddTickMarks(0.5);
+            axis1.AddTickMarks(0.1);
+            axis1.SetValue(121, 125, Scale);
 
-            TicksV1.ItemsSource = vaxis.MultiTicks[0];
-            TicksV1L.ItemsSource = vaxis.MultiTicks[0];
+            TicksV1.ItemsSource = axis1.MultiTicks[0];
+            TicksV1L.ItemsSource = axis1.MultiTicks[0];
             //   ExistPolylineTranslate.X = 1000;
         }
 
         private void grid_Loaded(object sender, RoutedEventArgs e)
         {
-            ExistPolylineTranslate.Y = grid.ActualHeight + 121 * 100;
+            ExistPolylineTranslate.Y = grid.ActualHeight + 121 * Scale;
 
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            Scale *= 1.2;
+            axis.SetValue(0, 10, Scale);
+            axis1.SetValue(121, 125, Scale);
+            ExistPolylineTranslate.Y = grid.ActualHeight + 121 * Scale;
         }
     }
 }
