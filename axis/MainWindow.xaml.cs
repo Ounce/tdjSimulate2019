@@ -38,7 +38,7 @@ namespace axis
             Ticks10.ItemsSource = axis.MultiTicks[2];
             TicksV1.ItemsSource = axis.MultiTicks[3];
             TicksV1L.ItemsSource = axis.MultiTicks[3];
-            //   ExistPolylineTranslate.Y = 100;
+            ExistPolylineTranslate.Y = 1000;
             //   ExistPolylineTranslate.X = 1000;
         }
     }

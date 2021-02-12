@@ -11,6 +11,8 @@ namespace tdjWpfClassLibrary.Draw
     public class Tick : NotifyPropertyChanged
     {
         public double Position { get; set; }
+
+        public double VerticalPosition { get; set; }
         public string Text { get; set; }
     }
 
@@ -49,7 +51,7 @@ namespace tdjWpfClassLibrary.Draw
 
         private void Add(double position, string text)
         {
-            Add(new Tick() { Position = position, Text = text });
+            Add(new Tick() { Position = position, VerticalPosition= -position, Text = text });
         }
     }
 

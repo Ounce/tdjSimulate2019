@@ -48,7 +48,7 @@
                             </MultiBinding>
                         </Line.Y2>
                         <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
                         </Line.RenderTransform>
                     </Line>
                 </DataTemplate>
@@ -108,7 +108,7 @@
                             </MultiBinding>
                         </Line.Y2>
                         <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
                         </Line.RenderTransform>
                     </Line>
                 </DataTemplate>
@@ -131,7 +131,7 @@
                             </MultiBinding>
                         </Line.Y2>
                         <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
                         </Line.RenderTransform>
                     </Line>
                 </DataTemplate>
@@ -147,9 +147,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="0" Y1="{Binding Position}" X2="20" Y2="{Binding Position}" Stroke="red" StrokeThickness="2">
+                    <Line X1="0" Y1="{Binding VerticalPosition}" X2="20" Y2="{Binding VerticalPosition}" Stroke="red" StrokeThickness="2">
                         <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
                         </Line.RenderTransform>
                     </Line>
                 </DataTemplate>
@@ -169,7 +169,7 @@
                     <Setter Property="Canvas.Top">
                         <Setter.Value>
                             <MultiBinding Converter="{StaticResource ValuePlus}">
-                                <Binding Path="Position"/>
+                                <Binding Path="VerticalPosition"/>
                                 <Binding Source="{StaticResource LabelHeightHalf}" />
                             </MultiBinding>
                         </Setter.Value>
@@ -184,7 +184,7 @@
                     <!-- 如果 Height 不足，Label可能会不显示！-->
                     <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Center" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0">
                         <Label.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
                         </Label.RenderTransform>
                     </Label>
                 </DataTemplate>
