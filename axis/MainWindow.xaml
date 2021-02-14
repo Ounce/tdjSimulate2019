@@ -4,18 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:axis"
-        xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" 
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
         <local1:ConverterPlus x:Key="ValuePlus"/>
-        <sys:Double x:Key="TickLength">-20</sys:Double>
-        <sys:Double x:Key="TickLength5">-15</sys:Double>
-        <sys:Double x:Key="TickLength10">-10</sys:Double>
-        <sys:Double x:Key="TextWidth">-50</sys:Double>
-        <sys:Double x:Key="TextHeight">-50</sys:Double>
-        <sys:Double x:Key="LabelHeightHalf">-15</sys:Double>
+        <local1:ConverterSubtract x:Key="ValueSub"/>
+        <sys:Double x:Key="TickLength">20</sys:Double>
+        <sys:Double x:Key="TickLength5">15</sys:Double>
+        <sys:Double x:Key="TickLength10">10</sys:Double>
+        <sys:Double x:Key="LabelWidthHalf">50</sys:Double>
+        <sys:Double x:Key="LabelHeight">20</sys:Double>
+        <sys:Double x:Key="LabelHeightHalf">15</sys:Double>
     </Window.Resources>
 
     <Grid x:Name="grid" Loaded="grid_Loaded">
@@ -31,7 +33,8 @@
 
         <Label Content="高程（米）" />
 
-        <!-- 刻度 -->
+        <Grid x:Name="HorTick">
+        <!-- 水平轴 刻度 -->
         <ItemsControl x:Name="Ticks" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -42,7 +45,7 @@
                 <DataTemplate>
                     <Line X1="{Binding Position}" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding Position}"  Stroke="red" StrokeThickness="2">
                         <Line.Y2>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
                                 <Binding Source="{StaticResource TickLength}" />
                             </MultiBinding>
@@ -55,7 +58,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!--  标签 -->
+        <!-- 水平轴 标签 -->
         <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -66,17 +69,18 @@
                 <Style TargetType="ContentPresenter">
                     <Setter Property="Canvas.Left" >
                         <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="Position"/>
-                                <Binding Source="{StaticResource TextWidth}" />
+                                <Binding Source="{StaticResource LabelWidthHalf}" />
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
                     <Setter Property="Canvas.Top">
                         <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
-                                <Binding Source="{StaticResource TextHeight}" />
+                                <Binding Source="{StaticResource LabelHeight}" />
+                                <Binding Source="{StaticResource TickLength}"/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
@@ -91,7 +95,8 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
+        </Grid>
+        
         <ItemsControl x:Name="Ticks5" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -102,7 +107,7 @@
                 <DataTemplate>
                     <Line X1="{Binding Position}" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding Position}"  Stroke="red" StrokeThickness="1">
                         <Line.Y2>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
                                 <Binding Source="{StaticResource TickLength5}" />
                             </MultiBinding>
@@ -125,7 +130,7 @@
                 <DataTemplate>
                     <Line X1="{Binding Position}" Y1="{Binding ActualHeight, ElementName=PolylineCanvas}" X2="{Binding Position}"  Stroke="red" StrokeThickness="1">
                         <Line.Y2>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="ActualHeight" ElementName="PolylineCanvas"/>
                                 <Binding Source="{StaticResource TickLength10}" />
                             </MultiBinding>
@@ -138,6 +143,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
+        <Grid x:Name="VerTricks">
         <!-- 垂直刻度 -->
         <ItemsControl x:Name="TicksV1" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
@@ -157,7 +163,7 @@
         </ItemsControl>
 
         <!--  垂直标签 -->
-        <ItemsControl x:Name="TicksV1L" >
+        <ItemsControl x:Name="TicksV1L" ItemsSource="{Binding}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
@@ -165,10 +171,14 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="0"/>
-                    <Setter Property="Canvas.Top">
+                        <Setter Property="Canvas.Left">
+                            <Setter.Value>
+                                <Binding Source="{StaticResource TickLength}"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Canvas.Top">
                         <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ValuePlus}">
+                            <MultiBinding Converter="{StaticResource ValueSub}">
                                 <Binding Path="VerticalPosition"/>
                                 <Binding Source="{StaticResource LabelHeightHalf}" />
                             </MultiBinding>
@@ -182,7 +192,7 @@
                     <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
                     -->
                     <!-- 如果 Height 不足，Label可能会不显示！-->
-                    <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Center" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0">
+                    <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Left" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0">
                         <Label.RenderTransform>
                             <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
                         </Label.RenderTransform>
@@ -190,6 +200,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        </Grid>
         <Button Content="Button" x:Name="button" Margin="200, 200" Click="button_Click"/>
 
     </Grid>

@@ -19,7 +19,7 @@ namespace tdjWpfClassLibrary.Draw
     /// <summary>
     /// 刻度，同样长度、单位的一组刻度线。
     /// </summary>
-    public class TickMarks : ObservableCollection<Tick>
+    public class Graduation : ObservableCollection<Tick>
     {
         /// <summary>
         /// 刻度线的相对于数轴单位的单位值。
@@ -30,7 +30,7 @@ namespace tdjWpfClassLibrary.Draw
         /// 构造函数需定义刻度线的单位。
         /// </summary>
         /// <param name="unit">该刻度的单位。</param>
-        public TickMarks(double unit)
+        public Graduation(double unit)
         {
             Unit = unit;
         }
@@ -75,11 +75,11 @@ namespace tdjWpfClassLibrary.Draw
         /// <summary>
         /// 刻度线数组，内有多个刻度线。初始化时确定，其后不得修改。
         /// </summary>
-        public ObservableCollection<TickMarks> MultiTicks;
+        public ObservableCollection<Graduation> Graduations;
 
         public NumberAxis()
         {
-            MultiTicks = new ObservableCollection<TickMarks>();
+            Graduations = new ObservableCollection<Graduation>();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace tdjWpfClassLibrary.Draw
         /// <param name="endValue"></param>
         /// <param name="unit"></param>
         /// <returns></returns>
-        public List<double> GetTickValues(double startValue, double endValue, double unit)
+        private List<double> GetTickValues(double startValue, double endValue, double unit)
         {
             List<double> values = new List<double>();
             double start = startValue % unit + startValue;
@@ -107,7 +107,7 @@ namespace tdjWpfClassLibrary.Draw
             StartValue = startValue;
             EndValue = endValue;
             Scale = scale;
-            foreach (var i in MultiTicks)
+            foreach (var i in Graduations)
             {
                 i.Add(GetTickValues(startValue, endValue, i.Unit), scale);
             }
@@ -117,9 +117,9 @@ namespace tdjWpfClassLibrary.Draw
         /// 增加一个刻度。此函数需在SetValue前使用，没有计算刻度线位置。刻度线位置计算在SetValue中进行。
         /// </summary>
         /// <param name="unit"></param>
-        public void AddTickMarks(double unit)
+        public void AddGraduation(double unit)
         {
-            MultiTicks.Add(new TickMarks(unit));
+            Graduations.Add(new Graduation(unit));
         }
 
     }
