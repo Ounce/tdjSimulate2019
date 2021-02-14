@@ -43,7 +43,6 @@ namespace axis
             Ticks5.ItemsSource = axis.Graduations[1];
             Ticks10.ItemsSource = axis.Graduations[2];
 
-            NumberAxis vaxis = new NumberAxis();
             axis1.AddGraduation(1);
             axis1.AddGraduation(0.5);
             axis1.AddGraduation(0.1);
