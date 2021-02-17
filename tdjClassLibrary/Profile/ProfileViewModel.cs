@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell.Interop;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Text;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 
@@ -12,7 +14,13 @@ namespace tdjClassLibrary.Profile
 {
     public class ProfileViewModel : NotifyPropertyChanged
     {
+        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
+        public Polyline Polyline { get; set; }
+
+       // public PointCollection points { get; set; }
+
         public ObservableCollection<SlopeViewModel> Slopes;
+
         public int Count
         {
             get { return Slopes.Count; }
@@ -30,16 +38,6 @@ namespace tdjClassLibrary.Profile
         public bool FixBeginOrEndAltitude { get; set; }
 
         /// <summary>
-        /// 最大高程。
-        /// </summary>
-        public double MaxAltitude { get; set; }
-
-        /// <summary>
-        /// 最小高程。
-        /// </summary>
-        public double MinAltitude { get; set; }
-
-        /// <summary>
         /// 纵断面全长。
         /// </summary>
         public double Length
@@ -54,9 +52,6 @@ namespace tdjClassLibrary.Profile
                 return l;
             }
         }
-
-        // 将界面中的控件赋值给这个Polyline后，修改这个Polyline则可同时更新界面控件。
-        public Polyline Polyline { get; set; }
 
         public Point FirstPoint
         {
@@ -106,25 +101,6 @@ namespace tdjClassLibrary.Profile
             }
         }
 
-        /// <summary>
-        /// 计算最大和最小高程。
-        /// </summary>
-        /// <returns></returns>
-        public void SetMaxMinAltitude()
-        {
-            double min, max;
-            min = max = Slopes[0].BeginAltitude;
-            foreach (SlopeViewModel s in Slopes)
-            {
-                if (s.EndAltitude > max)
-                    max = s.EndAltitude;
-                if (s.EndAltitude < min)
-                    min = s.EndAltitude;
-            }
-            MaxAltitude = max;
-            MinAltitude = min;
-            return;
-        }
     }
 
 

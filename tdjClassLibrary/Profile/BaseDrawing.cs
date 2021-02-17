@@ -6,7 +6,7 @@ using System.Windows.Controls;
 namespace tdjClassLibrary.Profile
 {
     /// <summary>
-    /// 图的基类，封装了一些基本参数。
+    /// 图的基类，封装了一些基本参数。此图形是绘制在Canvas上。要在构造函数中给Canvas赋值。
     /// </summary>
     public class BaseDrawing : NotifyPropertyChanged
     {
