@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace profileDesigner
+namespace ProfileDesigner
 {
     /// <summary>
     /// Interaction logic for App.xaml
