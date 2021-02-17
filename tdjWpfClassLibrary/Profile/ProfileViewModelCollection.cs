@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace tdjWpfClassLibrary.Profile
 {
-    class ProfileViewModelCollection : NotifyPropertyChanged
+    public class ProfileViewModelCollection : NotifyPropertyChanged
     {
         public ObservableCollection<ProfileViewModel> Items;
 
@@ -120,6 +120,11 @@ namespace tdjWpfClassLibrary.Profile
                         UpdateMaxMinAltitude();
                     break;
              }
+        }
+
+        public void Add(ProfileViewModel profile)
+        {
+            Items.Add(profile);
         }
 
         /// <summary>

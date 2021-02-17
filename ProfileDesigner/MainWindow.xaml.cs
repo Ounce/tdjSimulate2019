@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+
+using tdjWpfClassLibrary;
+using tdjWpfClassLibrary.Profile;
 using ProfileDesigner;
 
 namespace profileDesigner
@@ -28,11 +31,12 @@ namespace profileDesigner
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
-        ProfileDesign ProfileDesign;
+        ProfileViewModelCollection Profiles;
 
         public MainWindow()
         {
             InitializeComponent();
+            Profiles = new ProfileViewModelCollection();
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -47,9 +51,13 @@ namespace profileDesigner
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-                //ProfileDesign.DesignPolylineDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
+                ProfileViewModel pd = new ProfileViewModel();
+                pd.ReadXML((XmlElement)xmlDesignNode);
+                Profiles.Add(pd);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
-                //ProfileDesign.ExistPolylineDrawing.Profile.ReadXML((XmlElement)xmlDesignNode);
+                ProfileViewModel pe = new ProfileViewModel();
+                pe.ReadXML((XmlElement)xmlDesignNode);
+                Profiles.Add(pe);
             }
         }
 
