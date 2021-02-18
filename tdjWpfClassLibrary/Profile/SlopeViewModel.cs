@@ -31,12 +31,13 @@ namespace tdjWpfClassLibrary.Profile
 
         public double Grade
         {
-            get { return _grade; }
+            get { return _grade * Option.GradeUnit; }
             set
             {
-                if (value != _grade)
+                double v = value / Option.GradeUnit;
+                if (v != _grade)
                 {
-                    _grade = value;
+                    _grade = v;
                     EndAltitude = _beginAltitude - _grade * _length;
                     OnPropertyChanged("Grade");
                     OnPropertyChanged("GradeShowValue");
@@ -48,11 +49,6 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _grade;
-
-        public double GradeShowValue
-        {
-            get { return Grade * Option.GradeUnit; }
-        }
 
         public double BeginAltitude
         {

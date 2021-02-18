@@ -17,6 +17,26 @@ namespace tdjWpfClassLibrary.Profile
             set { Items[index] = value; }
         }
 
+        public int Count
+        {
+            get { return Items.Count; }
+        }
+
+        public void Clear()
+        {
+            Items.Clear();
+        }
+
+        public void Remove(ProfileViewModel item)
+        {
+            Items.Remove(item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            Items.RemoveAt(index);
+        }
+
         /// <summary>
         /// 最大高程。
         /// </summary>

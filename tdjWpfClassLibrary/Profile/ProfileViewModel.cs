@@ -57,6 +57,12 @@ namespace tdjWpfClassLibrary.Profile
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
+        public SlopeViewModel this[int index]
+        {
+            get { return Slopes[index]; }
+            set { Slopes[index] = value; }
+        }
+
         /// <summary>
         /// 坡度单位。1000 = ‰；100 = % 。
         /// </summary>
@@ -415,7 +421,7 @@ namespace tdjWpfClassLibrary.Profile
                 //slope.SlopeTableBottom = SlopeTableBottom;
                 slope.BeginMileage = m;
                 slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
-                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
+                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit * Option.GradeUnit;
                 slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
                 //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
                 m += slope.Length;

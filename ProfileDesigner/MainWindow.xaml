@@ -124,15 +124,11 @@
             </Polyline>
         </Canvas>
         <Canvas Name="TableHeadCanvas" Grid.Column="0" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
-            <Rectangle Canvas.Top="0" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-
-            </Rectangle>
-            <Rectangle Canvas.Top="48" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
+            <Rectangle Canvas.Top="0" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
+            <Rectangle Canvas.Top="48" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Canvas.Top="96" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-            <Rectangle Canvas.Top="144" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-            </Rectangle>
-            <Rectangle  Canvas.Top="192" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-            </Rectangle>
+            <Rectangle Canvas.Top="144" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
+            <Rectangle Canvas.Top="192" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Label x:Name="label" Content="设计纵断面" FontSize="24" Canvas.Left="0" Canvas.Top="0" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
             <Label Content="设计高程" FontSize="24" Canvas.Left="0" Canvas.Top="48" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
             <Label Content="高差" FontSize="24" Canvas.Left="0" Canvas.Top="96" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
@@ -143,14 +139,12 @@
             <Rectangle Name="DesignTableRectangle" Canvas.Top="0" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
             <Rectangle Name="DesignAltitudeRectangle" Canvas.Top="48" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
             <Rectangle Name="AltitudeDifferenceRectangle" Canvas.Top="96" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-            <Rectangle Name="ExistAltitudeRectangle" Canvas.Top="144" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-            </Rectangle>
+            <Rectangle Name="ExistAltitudeRectangle" Canvas.Top="144" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Name="ExistTableRectangle" Canvas.Top="192" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
                 <Rectangle.RenderTransform>
                     <TranslateTransform x:Name="ExistTableTransform"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
         </Canvas>
-        
     </Grid>
 </Window>

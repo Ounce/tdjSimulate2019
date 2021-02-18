@@ -49,28 +49,28 @@ namespace tdjWpfClassLibrary
             
             profile = new ProfileViewModel();
             label.DataContext = profile;
-            Profiles.Items.Add(profile);
+            Profiles.Add(profile);
             profile.SlopeTableRectange = SlopeRectangle;
             //SlopeTableTop = Canvas.GetTop(SlopeRectangle);
             SlopeTableTop = 0;
             SlopeTableBottom = SlopeTableTop + SlopeRectangle.Height;
-            Profiles.Items[0].SlopeTableTop = 0;
-            Profiles.Items[0].SlopeTableBottom = 100;
+            Profiles[0].SlopeTableTop = 0;
+            Profiles[0].SlopeTableBottom = 100;
             SlopeRectangle.DataContext = profile.ProfileOption;
 
 
             //SlopeRectange.Stroke = profile.ProfileOption.SlopeTableColor;
 
             //ItemsControl1.ItemsSource = Profiles.Items[0].Slopes;
-            GradeGrid.DataContext = Profiles.Items[0].Slopes;
+            GradeGrid.DataContext = Profiles[0].Slopes;
             /*
             ItemsControl2.ItemsSource = Profiles.Items[0].Slopes;
             ItemsControl3.ItemsSource = Profiles.Items[0].Slopes;
             ItemsControl4.ItemsSource = Profiles.Items[0].Slopes;
             */
 
-            Profiles.Items[0].SlopeTableBottom = SlopeTableBottom;
-            Profiles.Items[0].SlopeTableTop = SlopeTableTop;
+            Profiles[0].SlopeTableBottom = SlopeTableBottom;
+            Profiles[0].SlopeTableTop = SlopeTableTop;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -91,7 +91,7 @@ namespace tdjWpfClassLibrary
 
                 */
                 //  使用 ProfileViewModelCollection的函数。
-                Profiles.Items[0].ReadXML((XmlElement)xmlDesignNode);
+                Profiles[0].ReadXML((XmlElement)xmlDesignNode);
                 //Profiles.PolylineVerticalAlignment = VerticalAlignment.Top;
                 //Profiles.SetPolylineFullSize(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 //Profiles.UpdateMaxMinAltitude();
@@ -115,13 +115,13 @@ namespace tdjWpfClassLibrary
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            Profiles.Items[0].Slopes[3].Grade = -Profiles.Items[0].Slopes[3].Grade;
+            Profiles[0].Slopes[3].Grade = -Profiles[0].Slopes[3].Grade;
             return;
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            Profiles.Items[0].Slopes[3].Length += 50;
+            Profiles[0].Slopes[3].Length += 50;
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)

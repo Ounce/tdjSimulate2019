@@ -58,7 +58,8 @@ namespace profileDesigner
                 ProfileViewModel pe = new ProfileViewModel();
                 pe.ReadXML((XmlElement)xmlDesignNode);
                 Profiles.Add(pe);
-                
+                ExistTableItem.DataContext = Profiles[1].Slopes;
+                DesignTableItem.DataContext = Profiles[0].Slopes;
             }
         }
 
