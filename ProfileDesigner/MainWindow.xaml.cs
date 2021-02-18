@@ -58,6 +58,7 @@ namespace profileDesigner
                 ProfileViewModel pe = new ProfileViewModel();
                 pe.ReadXML((XmlElement)xmlDesignNode);
                 Profiles.Add(pe);
+                
             }
         }
 

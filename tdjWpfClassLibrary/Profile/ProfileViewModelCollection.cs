@@ -9,7 +9,13 @@ namespace tdjWpfClassLibrary.Profile
 {
     public class ProfileViewModelCollection : NotifyPropertyChanged
     {
-        public ObservableCollection<ProfileViewModel> Items;
+        private ObservableCollection<ProfileViewModel> Items;
+
+        public ProfileViewModel this[int index] 
+        {
+            get { return Items[index]; }
+            set { Items[index] = value; }
+        }
 
         /// <summary>
         /// 最大高程。
