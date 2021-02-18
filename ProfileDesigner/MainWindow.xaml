@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:profileDesigner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -76,9 +76,6 @@
                 <ToggleButton ToolTip="移动" Name="MouseMoveButton" IsThreeState="False" Height="34" Width="26">
                     <Image Source="/Images/MoveGlyph_16x.png"/>
                 </ToggleButton>
-                <Button x:Name="ExitButtom" Height="34" Width="26" Click="Exit">
-
-                </Button>
             </ToolBar>
             <ToolBar  VerticalAlignment="Top" Margin="0,0,0,0" d:LayoutOverrides="Width">
                 <Button Name="SplitButton" IsEnabled="True" ToolTip="拆分" Click="Split_Click" Height="34" Width="26">

@@ -7,7 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <None Remove="Images\AbstractAssociation_16x.png" />
+    <None Remove="Images\Exit_16x.png" />
+    <None Remove="Images\MoveGlyph_16x.png" />
+    <None Remove="Images\OpenFolder_16x.png" />
+    <None Remove="Images\SaveAll_16x.png" />
+    <None Remove="Images\SaveAs_16x.png" />
+    <None Remove="Images\Save_16x.png" />
+    <None Remove="Images\Split_16x.png" />
+    <None Remove="Images\ZoomIn_16x.png" />
+    <None Remove="Images\ZoomIn_disabled_16x.png" />
+    <None Remove="Images\ZoomOriginalSize_16x.png" />
+    <None Remove="Images\ZoomOut_16x.png" />
+    <None Remove="Images\ZoomOut_disabled_16x.png" />
+    <None Remove="Images\ZoomToFit_16x.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,45 +28,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Images\AbstractAssociation_16x.png">
+    <Resource Include="Images\AbstractAssociation_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\MoveGlyph_16x.png">
+    </Resource>
+    <Resource Include="Images\Exit_16x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\MoveGlyph_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\OpenFolder_16x.png">
+    </Resource>
+    <Resource Include="Images\OpenFolder_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\SaveAll_16x.png">
+    </Resource>
+    <Resource Include="Images\SaveAll_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\SaveAs_16x.png">
+    </Resource>
+    <Resource Include="Images\SaveAs_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\Save_16x.png">
+    </Resource>
+    <Resource Include="Images\Save_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\Split_16x.png">
+    </Resource>
+    <Resource Include="Images\Split_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomIn_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomIn_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomIn_disabled_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomIn_disabled_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomOriginalSize_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomOriginalSize_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomOut_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomOut_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomOut_disabled_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomOut_disabled_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\ZoomToFit_16x.png">
+    </Resource>
+    <Resource Include="Images\ZoomToFit_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
   </ItemGroup>
 
 </Project>
