@@ -27,6 +27,7 @@ namespace profileDesigner
     public partial class MainWindow : Window
     {
         public static RoutedCommand CustomRoutedCommandOpenFile = new RoutedCommand();
+
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             Control target = e.Source as Control;

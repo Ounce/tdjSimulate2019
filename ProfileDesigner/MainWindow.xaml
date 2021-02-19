@@ -58,7 +58,7 @@
         </DockPanel>
        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="2,2,0,0" VerticalAlignment="Top" Width="400" Grid.RowSpan="2">
             <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
-                <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Click="OpenFile_Click">
+                <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Command="{x:Static local:MainWindow.CustomRoutedCommandOpenFile}">
                     <Image Source="/Images/OpenFolder_16x.png"/>
                 </Button>
                 <Button Click="Save_Click" ToolTip="保存" Height="34" Width="26">
