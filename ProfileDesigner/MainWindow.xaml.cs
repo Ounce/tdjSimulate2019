@@ -26,8 +26,6 @@ namespace profileDesigner
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static RoutedCommand CustomRoutedCommandOpenFile = new RoutedCommand();
-
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             Control target = e.Source as Control;
@@ -73,6 +71,7 @@ namespace profileDesigner
                 DesignTableItem.DataContext = Profiles[0].Slopes;
                 ExistPolylineTranslate.Y = 5200;
             }
+            e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
 
         private void ShowOption(object sender, RoutedEventArgs e)
