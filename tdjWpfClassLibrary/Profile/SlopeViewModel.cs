@@ -55,9 +55,10 @@ namespace tdjWpfClassLibrary.Profile
             get { return _beginAltitude; }
             set
             {
-                if (value != _beginAltitude)
+                double m = Math.Round(value, 3, MidpointRounding.AwayFromZero);
+                if (m != _beginAltitude)
                 {
-                    _beginAltitude = value;
+                    _beginAltitude = m;
                     EndAltitude = _beginAltitude - _grade * _length;
                     OnPropertyChanged("BeginAltitude");
                     OnPropertyChanged("Y1");
@@ -71,9 +72,10 @@ namespace tdjWpfClassLibrary.Profile
             get { return _endAltitude; }
             set
             {
-                if (value != _endAltitude)
+                double m = Math.Round(value, 3, MidpointRounding.AwayFromZero);
+                if (m != _endAltitude)
                 {
-                    _endAltitude = value;
+                    _endAltitude = m;
                     BeginAltitude = _endAltitude + _grade * _length;
                     OnPropertyChanged("EndAltitude");
                     OnPropertyChanged("Y2");

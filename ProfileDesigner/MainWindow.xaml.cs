@@ -17,7 +17,6 @@ using System.Xml;
 
 using tdjWpfClassLibrary;
 using tdjWpfClassLibrary.Profile;
-using ProfileDesigner;
 
 namespace profileDesigner
 {
