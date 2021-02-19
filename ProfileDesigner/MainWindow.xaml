@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
     <Window.CommandBindings>
-        <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed=" OpenFile_Click"/>
+        <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
+        <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
     </Window.InputBindings>
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
@@ -36,7 +38,7 @@
                     <MenuItem Header="导入纵断面(_I)..." />
                     <MenuItem Header="导出纵断面到DXF格式(_E)..." />
                     <Separator/>
-                    <MenuItem Header="保存(_S)" InputGestureText="Ctl+S">
+                    <MenuItem Header="保存(_S)" Command="Save" InputGestureText="Ctl+S" ToolTip="保存">
                         <MenuItem.Icon>
                             <Image Source="/Images/Save_16x.png"/>
                         </MenuItem.Icon>
@@ -61,7 +63,7 @@
                 <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Command="Open">
                     <Image Source="/Images/OpenFolder_16x.png"/>
                 </Button>
-                <Button Click="Save_Click" ToolTip="保存" Height="34" Width="26">
+                <Button Command="Save" ToolTip="保存" Height="34" Width="26">
                     <Image Source="/Images/Save_16x.png"/>
                 </Button>
                 <Button Click="SaveAs_Click" ToolTip="另存为..." Height="34" Width="26">

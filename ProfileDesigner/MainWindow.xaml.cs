@@ -101,7 +101,7 @@ namespace profileDesigner
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Save");
         }
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
