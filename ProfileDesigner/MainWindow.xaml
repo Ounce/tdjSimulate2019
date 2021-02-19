@@ -130,7 +130,7 @@
         </Canvas>
         -->
         
-        <!--坡度线-->
+        <!-- 设计 坡度线-->
         <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -147,7 +147,25 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
+        <!-- 既有 坡度线-->
+        <ItemsControl x:Name="ExistProfileLine" ItemsSource="{Binding Items, ElementName=ExistDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Grid.Row="2" Grid.RowSpan="0" Grid.Column="2"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="2" >
+                        <Line.RenderTransform>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                        </Line.RenderTransform>
+                    </Line>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
         <Canvas Name="TableHeadCanvas" Grid.Column="0" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
             <Rectangle Canvas.Top="0" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Canvas.Top="48" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
