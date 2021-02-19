@@ -108,6 +108,14 @@
             </TabItem>
         </TabControl>
         <GridSplitter Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="stretch" />
+
+        <Line X1="10" Y1="-5100" X2="200" Y2="-5100" Stroke="White" StrokeThickness="0">
+            <Line.RenderTransform>
+                <TranslateTransform x:Name="ExistPolylineTranslate"/>
+            </Line.RenderTransform>
+        </Line>
+        
+        <!--
         <Canvas Name="ProfileCanvas" Grid.Column="2" Margin="0" Grid.Row="2" ClipToBounds="True" MouseDown="ProfileCanvas_MouseDown" MouseUp="ProfileCanvas_MouseUp" Background="Transparent" MouseMove="ProfileCanvas_MouseMove" MouseWheel="ProfileCanvas_MouseWheel" Grid.ColumnSpan="2" Grid.RowSpan="3">
             <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
                 <Polyline.RenderTransform>
@@ -120,6 +128,26 @@
                 </Polyline.RenderTransform>
             </Polyline>
         </Canvas>
+        -->
+        
+        <!--坡度线-->
+        <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Grid.Row="2" Grid.RowSpan="0" Grid.Column="2"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3" >
+                        <Line.RenderTransform>
+                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                        </Line.RenderTransform>
+                    </Line>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
         <Canvas Name="TableHeadCanvas" Grid.Column="0" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
             <Rectangle Canvas.Top="0" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Canvas.Top="48" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
@@ -132,16 +160,18 @@
             <Label Content="既有高程" FontSize="24" Canvas.Left="0" Canvas.Top="144" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
             <Label Content="既有纵断面" FontSize="24" Canvas.Left="0" Canvas.Top="192" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
         </Canvas>
-        <Canvas Name="TableCanvas" Grid.Column="2" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
-            <Rectangle Name="DesignTableRectangle" Canvas.Top="0" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
-            <Rectangle Name="DesignAltitudeRectangle" Canvas.Top="48" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
-            <Rectangle Name="AltitudeDifferenceRectangle" Canvas.Top="96" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-            <Rectangle Name="ExistAltitudeRectangle" Canvas.Top="144" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-            <Rectangle Name="ExistTableRectangle" Canvas.Top="192" Width="{Binding ActualWidth, ElementName=ProfileCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-                <Rectangle.RenderTransform>
-                    <TranslateTransform x:Name="ExistTableTransform"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-        </Canvas>
+        <Grid x:Name="ButtomTableGrid" Margin="0 0 0 0" Grid.Row="3" Grid.Column="2">
+            <Canvas Name="TableCanvas" Grid.Column="2" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
+                <Rectangle Name="DesignTableRectangle" Canvas.Top="0" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
+                <Rectangle Name="DesignAltitudeRectangle" Canvas.Top="48" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
+                <Rectangle Name="AltitudeDifferenceRectangle" Canvas.Top="96" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
+                <Rectangle Name="ExistAltitudeRectangle" Canvas.Top="144" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
+                <Rectangle Name="ExistTableRectangle" Canvas.Top="192" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="ExistTableTransform"/>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+            </Canvas>
+        </Grid>
     </Grid>
 </Window>

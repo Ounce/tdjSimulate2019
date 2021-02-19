@@ -60,6 +60,7 @@ namespace profileDesigner
                 Profiles.Add(pe);
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
+                ExistPolylineTranslate.Y = 5200;
             }
         }
 
