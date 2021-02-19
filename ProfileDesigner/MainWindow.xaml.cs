@@ -47,6 +47,7 @@ namespace profileDesigner
         {
             InitializeComponent();
             Profiles = new ProfileViewModelCollection();
+            
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -63,6 +64,8 @@ namespace profileDesigner
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
                 ProfileViewModel pd = new ProfileViewModel();
                 pd.ReadXML((XmlElement)xmlDesignNode);
+                pd.SlopeTableTop = 0;
+                pd.SlopeTableBottom = 50;
                 Profiles.Add(pd);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
                 ProfileViewModel pe = new ProfileViewModel();
@@ -71,6 +74,11 @@ namespace profileDesigner
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
                 ExistPolylineTranslate.Y = 5200;
+                DesignStackPanel.DataContext = pd.Slopes;
+                /*
+                ItemsControl2.ItemsSource = pd.Slopes;
+                ItemsControl3.ItemsSource = pd.Slopes;
+                */
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }

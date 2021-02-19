@@ -125,21 +125,6 @@
             </Line.RenderTransform>
         </Line>
         
-        <!--
-        <Canvas Name="ProfileCanvas" Grid.Column="2" Margin="0" Grid.Row="2" ClipToBounds="True" MouseDown="ProfileCanvas_MouseDown" MouseUp="ProfileCanvas_MouseUp" Background="Transparent" MouseMove="ProfileCanvas_MouseMove" MouseWheel="ProfileCanvas_MouseWheel" Grid.ColumnSpan="2" Grid.RowSpan="3">
-            <Polyline Name="ExistPolyline" Stroke="Red" StrokeThickness="{Binding ExistProfileOption.LineWidth}" Visibility="{Binding Path=ExistVisibility}" StrokeDashArray="10, 5" >
-                <Polyline.RenderTransform>
-                    <TranslateTransform x:Name="ExistPolylineTranslate"/>
-                </Polyline.RenderTransform>
-            </Polyline>
-            <Polyline Name="DesignPolyline" Stroke="Black" StrokeThickness="{Binding DesignProfileOption.LineWidth}" Visibility="{Binding Path=DesignVisibility}" >
-                <Polyline.RenderTransform >
-                    <TranslateTransform x:Name="DesignPolylineTranslate"/>
-                </Polyline.RenderTransform>
-            </Polyline>
-        </Canvas>
-        -->
-        
         <!-- 设计 坡度线-->
         <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
             <ItemsControl.ItemsPanel>
@@ -189,17 +174,72 @@
             <Label Content="既有纵断面" FontSize="24" Canvas.Left="0" Canvas.Top="192" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
         </Canvas>
         <Grid x:Name="ButtomTableGrid" Margin="0 0 0 0" Grid.Row="3" Grid.Column="2">
-            <Canvas Name="TableCanvas" Grid.Column="2" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
-                <Rectangle Name="DesignTableRectangle" Canvas.Top="0" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
-                <Rectangle Name="DesignAltitudeRectangle" Canvas.Top="48" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"></Rectangle>
-                <Rectangle Name="AltitudeDifferenceRectangle" Canvas.Top="96" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-                <Rectangle Name="ExistAltitudeRectangle" Canvas.Top="144" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
-                <Rectangle Name="ExistTableRectangle" Canvas.Top="192" Width="{Binding ActualWidth, ElementName=ButtomTableGrid, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2">
-                    <Rectangle.RenderTransform>
-                        <TranslateTransform x:Name="ExistTableTransform"/>
-                    </Rectangle.RenderTransform>
-                </Rectangle>
-            </Canvas>
+            <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="2"/>
+            <StackPanel x:Name="DesignStackPanel">
+            <!-- 坡度表的 分割线 和 坡度线 线段-->
+            <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Grid.Row="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Stroke="Red" StrokeThickness="2">
+                            <Path.Data>
+                                <GeometryGroup FillRule="EvenOdd">
+                                    <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
+                                    <LineGeometry StartPoint="{Binding SlopeTableRightTop}" 
+                                              EndPoint="{Binding SlopeTableRightBottom}"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!-- 坡度表的 坡度 标签-->
+            <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
+                        <Setter Property="Canvas.Top" Value="0" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+                <!--坡度表的 长度 标签-->
+                <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Grid.Row="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
+                            <Setter Property="Canvas.Top" Value="0" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Length}" Height="50" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Line x:Name="DesignGrideLine" X1="0" Y1="48" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="48" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
+            </StackPanel>
+            <Line x:Name="DesignAltitudeLine" X1="0" Y1="98" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="98" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
+            <Line x:Name="AltitudeDiffenceLine" X1="0" Y1="148" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="148" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
+            <Line x:Name="ExistGrideLine" X1="0" Y1="198" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="198" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
         </Grid>
     </Grid>
 </Window>
