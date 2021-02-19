@@ -25,6 +25,8 @@ namespace profileDesigner
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static RoutedCommand CommandExit = new RoutedCommand();
+
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             Control target = e.Source as Control;

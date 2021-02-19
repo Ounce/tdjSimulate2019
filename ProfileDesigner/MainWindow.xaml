@@ -9,10 +9,13 @@
     <Window.CommandBindings>
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
         <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
+        <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
+        
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static local:MainWindow.CommandExit}" Key="X" Modifiers="Alt"/>
     </Window.InputBindings>
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
@@ -49,7 +52,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="退出(_X)" Click="Exit" />
+                    <MenuItem Header="退出(_X)" Click="Exit" InputGestureText="Alt+X"/>
                 </MenuItem>
                 <MenuItem Header="编辑(_E)" Click="ShowOption">
                     <MenuItem Header="编辑既有纵断面(_I)..." Click="EditExist_Click"/>
