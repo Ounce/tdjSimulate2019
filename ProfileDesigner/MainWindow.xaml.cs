@@ -26,6 +26,16 @@ namespace profileDesigner
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static RoutedCommand CustomRoutedCommandOpenFile = new RoutedCommand();
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Control target = e.Source as Control;
+            if (target != null)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+
         XmlDocument xmlDocument;
         XmlElement root;
         string FileName;

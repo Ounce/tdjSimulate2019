@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:profileDesigner"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.CustomRoutedCommandOpenFile}" CanExecute="CommandBinding_CanExecute" Executed=" OpenFile_Click"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{x:Static local:MainWindow.CustomRoutedCommandOpenFile}" Key="O" Modifiers="Ctrl"></KeyBinding>
+    </Window.InputBindings>
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -21,7 +27,7 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Height="17" LastChildFill="True" Margin="0,0,0,0" VerticalAlignment="Top" >
             <Menu x:Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0">
                 <MenuItem Header="文件(_F)">
-                    <MenuItem Name="OpenFile" Header="打开(_O)..."  Click="OpenFile_Click">
+                    <MenuItem Name="OpenFile" Header="打开(_O)..." Command="{x:Static local:MainWindow.CustomRoutedCommandOpenFile}" InputGestureText="Ctrl+O">
                         <MenuItem.Icon>
                             <Image Source="/Images/OpenFolder_16x.png"/>
                         </MenuItem.Icon>
@@ -30,7 +36,7 @@
                     <MenuItem Header="导入纵断面(_I)..." />
                     <MenuItem Header="导出纵断面到DXF格式(_E)..." />
                     <Separator/>
-                    <MenuItem Header="保存(_S)" >
+                    <MenuItem Header="保存(_S)" InputGestureText="Ctl+S">
                         <MenuItem.Icon>
                             <Image Source="/Images/Save_16x.png"/>
                         </MenuItem.Icon>
@@ -52,7 +58,6 @@
         </DockPanel>
        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="2,2,0,0" VerticalAlignment="Top" Width="400" Grid.RowSpan="2">
             <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
-
                 <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Click="OpenFile_Click">
                     <Image Source="/Images/OpenFolder_16x.png"/>
                 </Button>
