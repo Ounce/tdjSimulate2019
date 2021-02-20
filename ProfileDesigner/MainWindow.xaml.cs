@@ -70,6 +70,8 @@ namespace profileDesigner
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
                 ProfileViewModel pe = new ProfileViewModel();
                 pe.ReadXML((XmlElement)xmlDesignNode);
+                pe.SlopeTableTop = ExistGrideLine.Y2 + 1;
+                pe.SlopeTableBottom = pe.SlopeTableTop + 48;
                 Profiles.Add(pe);
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
@@ -79,6 +81,7 @@ namespace profileDesigner
                 ItemsControl2.ItemsSource = pd.Slopes;
                 ItemsControl3.ItemsSource = pd.Slopes;
                 */
+                ExistStackPanel.DataContext = pe.Slopes;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
