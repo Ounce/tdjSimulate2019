@@ -23,6 +23,11 @@ namespace tdjWpfClassLibrary.Profile
     /// </summary>
     public class ProfileViewModel : NotifyPropertyChanged
     {
+        public string Name
+        {
+            get;
+            set;
+        }
         public HorizontalAlignment HorizontalAlignment
         {
             set 

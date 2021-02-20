@@ -65,12 +65,14 @@ namespace profileDesigner
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
                 ProfileViewModel pd = new ProfileViewModel();
+                pd.Name = "DesignProfile";
                 pd.ReadXML((XmlElement)xmlDesignNode);
                 pd.SlopeTableTop = 1;
                 pd.SlopeTableBottom = 48;
                 Profiles.Add(pd);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
                 ProfileViewModel pe = new ProfileViewModel();
+                pe.Name = "ExistProfile";
                 pe.ReadXML((XmlElement)xmlDesignNode);
                 pe.SlopeTableTop = ExistGrideLine.Y2 + 1;
                 pe.SlopeTableBottom = pe.SlopeTableTop + 44;
@@ -113,14 +115,61 @@ namespace profileDesigner
             Close();
         }
 
-        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        public void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            if (xmlDocument == null)
+            {
+                SaveAs_Click(sender, e);
+            }
+            else
+            {
+                root.RemoveAll();
+                SaveFile();
+            }
+            //TODO:1 完善保存profile文件。
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void SaveFile()
         {
-            MessageBox.Show("Save");
+            for (int i = 0; i < Profiles.Count; i++)
+            {
+                XmlElement designElement = xmlDocument.CreateElement(Profiles[i].Name);
+                AppendSlopes(Profiles[i], designElement);
+            }
+            xmlDocument.Save(FileName);
+        }
+
+        private void AppendSlopes(ProfileViewModel profile, XmlElement element)
+        {
+            element.SetAttribute("GradeUnit", profile.GradeUnit.ToString());
+            element.SetAttribute("FixAltitudePosition", profile.FixAltitudePosition.ToString());
+            element.SetAttribute("FixBeginOrEndAltitude", profile.FixBeginOrEndAltitude.ToString());
+            root.AppendChild(element);
+            foreach (SlopeViewModel slope in profile.Slopes)
+            {
+                XmlElement slopeElement = xmlDocument.CreateElement("Slope");
+                slopeElement.SetAttribute("Length", slope.Length.ToString());
+                slopeElement.SetAttribute("Grade", slope.Grade.ToString());
+                slopeElement.SetAttribute("BeginAltitude", slope.BeginAltitude.ToString());
+                element.AppendChild(slopeElement);
+            }
+        }
+
+        public void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: 完善另存profile文件。
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = Filter;
+            if (sfd.ShowDialog() == true)
+            {
+                FileName = sfd.FileName;
+                xmlDocument = new XmlDocument();
+                xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
+                XmlNamespaceManager xmlns = new XmlNamespaceManager(xmlDocument.NameTable);
+                root = xmlDocument.CreateElement("Profiles", "http://ounce.gitee.io/tdjsimulate/");
+                xmlDocument.AppendChild(root);
+                SaveFile();
+            }
         }
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
