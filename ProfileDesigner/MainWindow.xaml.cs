@@ -42,11 +42,13 @@ namespace profileDesigner
         string Filter = "纵断面文件(*.profile)|*.profile";
 
         ProfileViewModelCollection Profiles;
+        AltitudeDifferences AltitudeDifferences;
 
         public MainWindow()
         {
             InitializeComponent();
             Profiles = new ProfileViewModelCollection();
+            AltitudeDifferences = new AltitudeDifferences();
             
         }
 
@@ -64,14 +66,14 @@ namespace profileDesigner
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
                 ProfileViewModel pd = new ProfileViewModel();
                 pd.ReadXML((XmlElement)xmlDesignNode);
-                pd.SlopeTableTop = 0;
-                pd.SlopeTableBottom = 50;
+                pd.SlopeTableTop = 1;
+                pd.SlopeTableBottom = 48;
                 Profiles.Add(pd);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
                 ProfileViewModel pe = new ProfileViewModel();
                 pe.ReadXML((XmlElement)xmlDesignNode);
                 pe.SlopeTableTop = ExistGrideLine.Y2 + 1;
-                pe.SlopeTableBottom = pe.SlopeTableTop + 48;
+                pe.SlopeTableBottom = pe.SlopeTableTop + 44;
                 Profiles.Add(pe);
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
@@ -82,6 +84,11 @@ namespace profileDesigner
                 ItemsControl3.ItemsSource = pd.Slopes;
                 */
                 ExistStackPanel.DataContext = pe.Slopes;
+                AltitudeDifferences.DesignProfile = pd;
+                AltitudeDifferences.ExistProfile = pe;
+                AltitudeDifferences.AssignEvent();
+                AltitudeDifferences.Update();
+                AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }

@@ -203,8 +203,8 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
-            _maxAltitude = StaticClass.Altitude.InitMax;
-            _minAltitude = StaticClass.Altitude.InitMin;
+            _maxAltitude = double.MinValue;
+            _minAltitude = double.MaxValue;
             ProfileOption = new ProfileViewModelOption();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
@@ -309,6 +309,17 @@ namespace tdjWpfClassLibrary.Profile
         private double GetPointY(double altitude)
         {
             return -altitude * Scale.Vertical;
+        }
+
+        public double? GetAltitude(double position)
+        {
+            double? r = null;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                if (position > s.BeginMileage && position <= s.EndMileage)
+                    return s.GetAltitude(position);
+            }
+            return r;
         }
 
         /// <summary>

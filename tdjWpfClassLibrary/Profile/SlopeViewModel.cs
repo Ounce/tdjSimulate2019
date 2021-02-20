@@ -59,7 +59,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (m != _beginAltitude)
                 {
                     _beginAltitude = m;
-                    EndAltitude = _beginAltitude - _grade * _length;
+                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("BeginAltitude");
                     OnPropertyChanged("Y1");
                 }
@@ -76,7 +76,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (m != _endAltitude)
                 {
                     _endAltitude = m;
-                    BeginAltitude = _endAltitude + _grade * _length;
+                    BeginAltitude = Math.Round(_endAltitude + _grade * _length, 3, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("EndAltitude");
                     OnPropertyChanged("Y2");
                 }
@@ -301,6 +301,12 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+        }
+
+        public double? GetAltitude(double position)
+        {
+            if (position < BeginMileage || position > EndMileage) return null;
+            return _beginAltitude - _grade * (position - _beginMileage);
         }
     }
 }

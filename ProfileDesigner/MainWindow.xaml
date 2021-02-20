@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:profileDesigner"
+        xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+
+    <Window.Resources>
+        <local1:ConverterPlus x:Key="ValuePlus"/>
+        <local1:ConverterSubtract x:Key="ValueSub"/>
+        <sys:Double x:Key="LabelTop">7.5</sys:Double>
+    </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
         <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
         <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
-        
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"></KeyBinding>
@@ -123,6 +129,7 @@
             <Line.RenderTransform>
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
+
         </Line>
         
         <!-- 设计 坡度线-->
@@ -237,8 +244,99 @@
                 </ItemsControl>
                 <Line x:Name="DesignGrideLine" X1="0" Y1="48" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="48" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             </StackPanel>
+            <StackPanel x:Name="AltitudeDifferenceStackPanel">
+                <!--设计标高-->
+                <ItemsControl x:Name="ItemsControl21" ItemsSource="{Binding}" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Grid.Row="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="Position" />
+                                        <Binding Source="{StaticResource LabelTop}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top" Value="98" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding DesignAltitude}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
+                                <Label.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!-- 高差 -->
+                <ItemsControl x:Name="ItemsControl22" ItemsSource="{Binding}" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Grid.Row="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="Position" />
+                                        <Binding Source="{StaticResource LabelTop}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top" Value="148" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Difference}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
+                                <Label.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!-- 既有标高 -->
+                <ItemsControl x:Name="ItemsControl23" ItemsSource="{Binding}" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Grid.Row="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="Position" />
+                                        <Binding Source="{StaticResource LabelTop}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top" Value="198" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding ExistAltitude}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
+                                <Label.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
             <Line x:Name="DesignAltitudeLine" X1="0" Y1="98" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="98" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
-      
             <Line x:Name="AltitudeDiffenceLine" X1="0" Y1="148" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="148" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <Line x:Name="ExistGrideLine" X1="0" Y1="198" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="198" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <StackPanel x:Name="ExistStackPanel">
@@ -302,6 +400,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
+
         </Grid>
     </Grid>
 </Window>
