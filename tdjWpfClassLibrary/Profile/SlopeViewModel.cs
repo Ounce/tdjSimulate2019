@@ -22,7 +22,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _length = value;
                     EndMileage = _beginMileage + _length;
-                    EndAltitude = _beginAltitude - _grade * _length;
+                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Length");
                     OnPropertyChanged("Width");
                 }
@@ -38,7 +38,7 @@ namespace tdjWpfClassLibrary.Profile
                 if (v != _grade)
                 {
                     _grade = v;
-                    EndAltitude = _beginAltitude - _grade * _length;
+                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Grade");
                     OnPropertyChanged("GradeShowValue");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
@@ -306,7 +306,7 @@ namespace tdjWpfClassLibrary.Profile
         public double? GetAltitude(double position)
         {
             if (position < BeginMileage || position > EndMileage) return null;
-            return _beginAltitude - _grade * (position - _beginMileage);
+            return Math.Round(_beginAltitude - _grade * (position - _beginMileage), 3, MidpointRounding.AwayFromZero);
         }
     }
 }

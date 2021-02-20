@@ -66,7 +66,7 @@ namespace tdjWpfClassLibrary.Profile
             {
                 if (_designAltitude == null || _existAltitude == null)
                     return null;
-                return _designAltitude - _existAltitude;
+                return Math.Round((double)(_designAltitude - _existAltitude), 3, MidpointRounding.AwayFromZero);
             }
         }
 
