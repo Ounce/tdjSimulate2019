@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:profileDesigner"
         xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
+        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
 
     <Window.Resources>
         <local1:ConverterPlus x:Key="ValuePlus"/>

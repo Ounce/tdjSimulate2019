@@ -244,16 +244,6 @@ namespace profileDesigner
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-        }
-
         private void GradeCanvasRectangle_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
