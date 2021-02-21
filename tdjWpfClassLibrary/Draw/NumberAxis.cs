@@ -85,31 +85,44 @@ namespace tdjWpfClassLibrary.Draw
         /// <summary>
         /// 计算数轴上的刻度值。
         /// </summary>
-        /// <param name="startValue"></param>
-        /// <param name="endValue"></param>
-        /// <param name="unit"></param>
+        /// <param name="startValue">开始值</param>
+        /// <param name="endValue">结束值</param>
+        /// <param name="unit">单位</param>
         /// <returns></returns>
-        private List<double> GetTickValues(double startValue, double endValue, double unit)
+        private List<double> GetTickValues(double unit)
         {
             List<double> values = new List<double>();
-            double start = startValue % unit + startValue;
-            string a = start.ToString();
+            string a = unit.ToString();
             int l = a.Length - a.IndexOf(".") - 1;
-            for (double i = start; i < endValue; i += unit)
+            for (double i = StartValue; i <= EndValue; i += unit)
             {
                 values.Add(Math.Round(i, l, MidpointRounding.AwayFromZero));
             }
             return values;
         }
 
+        /// <summary>
+        /// 设置数轴开始值和结束值，比例。
+        /// </summary>
+        /// <param name="startValue">开始值</param>
+        /// <param name="endValue">结束值</param>
+        /// <param name="scale">比例</param>
         public void SetValue(double startValue, double endValue, double scale)
         {
-            StartValue = startValue;
-            EndValue = endValue;
+            double s, e;
+            StartValue = double.MaxValue;
+            EndValue = double.MinValue;
+            foreach (var g in Graduations)
+            {
+                s = Math.Floor(startValue / g.Unit) * g.Unit;
+                if (s < StartValue) StartValue = s;
+                e = Math.Ceiling(endValue / g.Unit) * g.Unit;
+                if (e > EndValue) EndValue = e;
+            }
             Scale = scale;
             foreach (var i in Graduations)
             {
-                i.Add(GetTickValues(startValue, endValue, i.Unit), scale);
+                i.Add(GetTickValues(i.Unit), scale);
             }
         }
 

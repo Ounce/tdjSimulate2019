@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml;
 
 using tdjWpfClassLibrary;
+using tdjWpfClassLibrary.Draw;
 using tdjWpfClassLibrary.Profile;
 
 namespace profileDesigner
@@ -43,6 +44,8 @@ namespace profileDesigner
 
         ProfileViewModelCollection Profiles;
         AltitudeDifferences AltitudeDifferences;
+        private NumberAxis VerticalAxis;
+        private NumberAxis HorizontalAxis;
 
         public MainWindow()
         {
@@ -50,7 +53,15 @@ namespace profileDesigner
             Profiles = new ProfileViewModelCollection();
             AltitudeDifferences = new AltitudeDifferences();
             Profiles.VerticalAlignment = VerticalAlignment.Center;
-            Profiles.HorizontalAlignment = HorizontalAlignment.Center;
+            Profiles.HorizontalAlignment = HorizontalAlignment.Left;
+            VerticalAxis = new NumberAxis();
+            VerticalAxis.AddGraduation(1);
+            VerticalAxis.AddGraduation(0.5);
+            VerticalAxis.AddGraduation(0.1);
+            HorizontalAxis = new NumberAxis();
+            HorizontalAxis.AddGraduation(100);
+            HorizontalAxis.AddGraduation(50);
+            HorizontalAxis.AddGraduation(10);
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -93,6 +104,16 @@ namespace profileDesigner
                 AltitudeDifferences.AssignEvent();
                 AltitudeDifferences.Update();
                 AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
+
+                VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
+                Ticks1.DataContext = VerticalAxis.Graduations[0];
+                Ticks2.ItemsSource = VerticalAxis.Graduations[1];
+                Ticks3.ItemsSource = VerticalAxis.Graduations[2];
+
+                HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+                Ticks4.DataContext = HorizontalAxis.Graduations[0];
+                Ticks5.ItemsSource = HorizontalAxis.Graduations[1];
+                Ticks6.ItemsSource = HorizontalAxis.Graduations[2];
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
