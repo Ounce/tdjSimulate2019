@@ -50,6 +50,7 @@ namespace profileDesigner
             Profiles = new ProfileViewModelCollection();
             AltitudeDifferences = new AltitudeDifferences();
             Profiles.VerticalAlignment = VerticalAlignment.Center;
+            Profiles.HorizontalAlignment = HorizontalAlignment.Right;
             
         }
 
@@ -83,6 +84,7 @@ namespace profileDesigner
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
                 ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
+                ExistPolylineTranslate.X = -Profiles.LeftTop.X;
                 DesignStackPanel.DataContext = pd.Slopes;
                 /*
                 ItemsControl2.ItemsSource = pd.Slopes;
