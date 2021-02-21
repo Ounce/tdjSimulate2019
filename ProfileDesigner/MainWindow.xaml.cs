@@ -226,7 +226,7 @@ namespace profileDesigner
 
         private void ProfileCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            MessageBox.Show("ProfileCanvas_MouseDown");
         }
 
         private void ProfileCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -248,6 +248,16 @@ namespace profileDesigner
         {
             Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
             Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
+        }
+
+        private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ExistCanvas_MouseDown");
+        }
+
+        private void GradeCanvasRectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("GradeCanvasRectangle_MouseDown");
         }
     }
 }
