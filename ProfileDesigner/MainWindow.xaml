@@ -194,10 +194,17 @@
                         <Path Stroke="Red" StrokeThickness="2">
                             <Path.Data>
                                 <GeometryGroup FillRule="EvenOdd">
-                                    <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
-                                    <LineGeometry StartPoint="{Binding SlopeTableRightTop}" 
-                                              EndPoint="{Binding SlopeTableRightBottom}"/>
-                                </GeometryGroup>
+                                        <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}">
+                                            <LineGeometry.Transform>
+                                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                            </LineGeometry.Transform>
+                                        </LineGeometry>
+                                        <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}">
+                                            <LineGeometry.Transform>
+                                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                            </LineGeometry.Transform>
+                                        </LineGeometry>
+                                    </GeometryGroup>
                             </Path.Data>
                         </Path>
                     </DataTemplate>
@@ -218,8 +225,12 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0"/>
-                    </DataTemplate>
+                            <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0">
+                                <Label.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
                 <!--坡度表的 长度 标签-->
@@ -237,7 +248,11 @@
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Length}" Height="50" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
+                            <Label Content="{Binding Length}" Height="50" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom">
+                                <Label.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                </Label.RenderTransform>
+                            </Label>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -268,7 +283,10 @@
                         <DataTemplate>
                             <Label Content="{Binding DesignAltitude}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
                                 <Label.RenderTransform>
-                                    <RotateTransform Angle="-90"/>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90"/>
+                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                    </TransformGroup>
                                 </Label.RenderTransform>
                             </Label>
                         </DataTemplate>
@@ -298,7 +316,10 @@
                         <DataTemplate>
                             <Label Content="{Binding Difference}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
                                 <Label.RenderTransform>
-                                    <RotateTransform Angle="-90"/>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90"/>
+                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                    </TransformGroup>
                                 </Label.RenderTransform>
                             </Label>
                         </DataTemplate>
@@ -328,7 +349,10 @@
                         <DataTemplate>
                             <Label Content="{Binding ExistAltitude}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
                                 <Label.RenderTransform>
-                                    <RotateTransform Angle="-90"/>
+                                <TransformGroup>
+                                        <RotateTransform Angle="-90"/>
+                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" /> 
+                                </TransformGroup>
                                 </Label.RenderTransform>
                             </Label>
                         </DataTemplate>
@@ -351,9 +375,16 @@
                             <Path Stroke="Red" StrokeThickness="2">
                                 <Path.Data>
                                     <GeometryGroup FillRule="EvenOdd">
-                                        <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
-                                        <LineGeometry StartPoint="{Binding SlopeTableRightTop}" 
-                                              EndPoint="{Binding SlopeTableRightBottom}"/>
+                                        <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}">
+                                            <LineGeometry.Transform>
+                                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                            </LineGeometry.Transform>
+                                        </LineGeometry>
+                                        <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}">
+                                            <LineGeometry.Transform>
+                                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                            </LineGeometry.Transform>
+                                        </LineGeometry>
                                     </GeometryGroup>
                                 </Path.Data>
                             </Path>
@@ -375,7 +406,11 @@
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0"/>
+                            <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0">
+                                <Label.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                </Label.RenderTransform>
+                            </Label>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -394,12 +429,15 @@
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Length}" Height="50" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom"/>
+                            <Label Content="{Binding Length}" Height="50" HorizontalContentAlignment="{Binding SlopeTableLengthLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0" VerticalContentAlignment="Bottom">
+                                <Label.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                </Label.RenderTransform>
+                            </Label>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-
         </Grid>
     </Grid>
 </Window>
