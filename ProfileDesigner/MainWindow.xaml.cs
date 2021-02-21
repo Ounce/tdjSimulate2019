@@ -50,14 +50,11 @@ namespace profileDesigner
             Profiles = new ProfileViewModelCollection();
             AltitudeDifferences = new AltitudeDifferences();
             Profiles.VerticalAlignment = VerticalAlignment.Center;
-            Profiles.HorizontalAlignment = HorizontalAlignment.Right;
-            
+            Profiles.HorizontalAlignment = HorizontalAlignment.Center;
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
-            Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
-            Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Filter;
             dialog.Title = "打开纵断面编辑文件";
@@ -84,7 +81,7 @@ namespace profileDesigner
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
                 ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
-                ExistPolylineTranslate.X = -Profiles.LeftTop.X;
+                ExistPolylineTranslate.X = Profiles.LeftTop.X;
                 DesignStackPanel.DataContext = pd.Slopes;
                 /*
                 ItemsControl2.ItemsSource = pd.Slopes;
@@ -245,6 +242,22 @@ namespace profileDesigner
         private void ProfileCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
+
+        private void GradeCanvasRectangle_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
+            Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
         }
     }
 }

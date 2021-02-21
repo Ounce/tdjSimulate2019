@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:profileDesigner"
         xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
 
     <Window.Resources>
         <local1:ConverterPlus x:Key="ValuePlus"/>
@@ -130,7 +130,7 @@
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
         </Line>
-        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2"/>
+        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" SizeChanged="GradeCanvasRectangle_SizeChanged"/>
 
         <!-- 设计 坡度线-->
         <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">

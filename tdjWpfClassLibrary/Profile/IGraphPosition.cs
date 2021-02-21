@@ -36,10 +36,10 @@ namespace tdjWpfClassLibrary.Profile
                     l = 0;
                     break;
                 case HorizontalAlignment.Center:
-                    l = (CanvasActualWidth - (right - left)) * 0.5;
+                    l = (canvasActualWidth - (right - left)) * 0.5;
                     break;
                 case HorizontalAlignment.Right:
-                    l = (CanvasActualWidth - (right - left));
+                    l = (canvasActualWidth - (right - left));
                     break;
             }
             switch (verticalAlignment)
