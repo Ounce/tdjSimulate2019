@@ -21,7 +21,7 @@ namespace tdjWpfClassLibrary.Profile
     /// 提供Polyline和Points。
     /// 需要HorizontalScale和VertialScale。
     /// </summary>
-    public class ProfileViewModel : NotifyPropertyChanged
+    public class ProfileViewModel : NotifyPropertyChanged, IGraphPosition
     {
         public string Name
         {
@@ -30,35 +30,36 @@ namespace tdjWpfClassLibrary.Profile
         }
         public HorizontalAlignment HorizontalAlignment
         {
+            get => _horizontalAlignment;
             set 
             {
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
         }
         private HorizontalAlignment _horizontalAlignment;
 
-        public VerticalAlignment PolylineVerticalAlignment
+        public VerticalAlignment VerticalAlignment
         {
+            get => _verticalAlignment;
             set 
             { 
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
         }
         private VerticalAlignment _verticalAlignment;
 
-        private double canvasHeight, canvasWidth;
+        public double CanvasActualHeight { get; set; }
+        public double CanvasActualWidth { get; set; }
 
-        public PolylineOriginPoint PolylineOriginPoint = new PolylineOriginPoint(0, 0);
+        public Point LeftTop { get; set; } = new Point(0, 0);
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
@@ -136,7 +137,6 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private Point firstPoint;
-
 
         public ProfileViewModelOption ProfileOption;
 
@@ -235,11 +235,16 @@ namespace tdjWpfClassLibrary.Profile
                     UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].EndAltitude);
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
                     break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    UpdateMaxMinAltitude();
+                    break;
             }
         }
 
         /// <summary>
-        /// Slope属性改变处理函数。
+        /// Slope属性改变处理函数。检查并更新MaxAltitude和MinAltitude。Mileage改变时，更新其他Slope的Mileage。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -274,6 +279,12 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        private void SetLeftTop()
+        {
+            IGraphPosition gp = new ProfileViewModel();
+            gp.SetLeftTop(0, Length, _maxAltitude, _minAltitude);
+        }
+
         /// <summary>
         /// 按照height和width设置比例后设置Polyline的Points。
         /// 按照Profile的长度、高差计算比例。
@@ -282,12 +293,11 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="width"></param>
         public void SetPolylineFullSize(double height, double width)
         {
-            canvasHeight = height;
-            canvasWidth = width;
+            CanvasActualHeight = height;
+            CanvasActualWidth = width;
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
-            PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
-            PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
+            SetLeftTop();
         }
 
         /// <summary>
@@ -352,6 +362,7 @@ namespace tdjWpfClassLibrary.Profile
         public void UpdateMaxMinAltitude()
         {
             double min, max;
+            if (Slopes == null || Slopes.Count == 0) return;
             min = max = Slopes[0].BeginAltitude;
             foreach (SlopeViewModel s in Slopes)
             {

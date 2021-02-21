@@ -73,6 +73,9 @@ namespace tdjWpfClassLibrary.Profile
 
         public PolylineOriginPoint PolylineOriginPoint;
 
+        /// <summary>
+        /// 用于计算图型显示位置，图形显示在顶端、中心、底部、左边或右边时，需要此参数在计算偏移量。
+        /// </summary>
         public double canvasWidth, canvasHeight;
 
         public HorizontalAlignment HorizontalAlignment
@@ -86,7 +89,6 @@ namespace tdjWpfClassLibrary.Profile
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
-
         }
         private HorizontalAlignment _horizontalAlignment;
 
@@ -125,12 +127,16 @@ namespace tdjWpfClassLibrary.Profile
                     if (Items[e.NewStartingIndex].MinAltitude < MinAltitude)
                         SetMinAltitude(Items[e.NewStartingIndex].MinAltitude);
                     break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    UpdateMaxMinAltitude();
+                    break;
             }
         }
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int p;
             switch (e.PropertyName)
             {
                 case "MaxAltitude":
