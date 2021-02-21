@@ -129,9 +129,9 @@
             <Line.RenderTransform>
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
-
         </Line>
-        
+        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2"/>
+
         <!-- 设计 坡度线-->
         <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
             <ItemsControl.ItemsPanel>

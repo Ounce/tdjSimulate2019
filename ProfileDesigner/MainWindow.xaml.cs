@@ -49,11 +49,14 @@ namespace profileDesigner
             InitializeComponent();
             Profiles = new ProfileViewModelCollection();
             AltitudeDifferences = new AltitudeDifferences();
+            Profiles.VerticalAlignment = VerticalAlignment.Center;
             
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
+            Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
+            Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Filter;
             dialog.Title = "打开纵断面编辑文件";
@@ -79,7 +82,7 @@ namespace profileDesigner
                 Profiles.Add(pe);
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
-                ExistPolylineTranslate.Y = 5200;
+                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
                 DesignStackPanel.DataContext = pd.Slopes;
                 /*
                 ItemsControl2.ItemsSource = pd.Slopes;

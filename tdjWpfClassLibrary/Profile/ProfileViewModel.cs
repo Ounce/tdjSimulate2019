@@ -282,7 +282,7 @@ namespace tdjWpfClassLibrary.Profile
         private void SetLeftTop()
         {
             IGraphPosition gp = new ProfileViewModel();
-            gp.SetLeftTop(0, Length, _maxAltitude, _minAltitude);
+            LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, _maxAltitude * Scale.Vertical, _minAltitude * Scale.Vertical);
         }
 
         /// <summary>

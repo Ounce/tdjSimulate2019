@@ -26,10 +26,10 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="right">图形水平方向的终点坐标。（终点参数 * 水平比例）</param>
         /// <param name="top">图形顶端坐标。（顶端 * 垂直比例）</param>
         /// <param name="bottom">图形底端坐标。（底端 * 垂直比例）</param>
-        void SetLeftTop(double left, double right, double top, double bottom)
+        Point SetLeftTop(HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, double canvasActualWidth, double canvasActualHeight, double left, double right, double top, double bottom)
         {
             double l, t;
-            switch (HorizontalAlignment)
+            switch (horizontalAlignment)
             {
                 case HorizontalAlignment.Left:
                 default:
@@ -42,20 +42,20 @@ namespace tdjWpfClassLibrary.Profile
                     l = (CanvasActualWidth - (right - left));
                     break;
             }
-            switch (VerticalAlignment)
+            switch (verticalAlignment)
             {
                 case VerticalAlignment.Top:
                 default:
                     t = ValueConverter.VerticalValue(top);
                     break;
                 case VerticalAlignment.Center:
-                    t = ValueConverter.VerticalValue(top - (CanvasActualHeight - (top - bottom)) * 0.5);
+                    t = ValueConverter.VerticalValue(top + (canvasActualHeight - (top - bottom)) * 0.5);
                     break;
                 case VerticalAlignment.Bottom:
-                    t = ValueConverter.VerticalValue(top - (CanvasActualHeight - (top - bottom)));
+                    t = ValueConverter.VerticalValue(canvasActualHeight + bottom);
                     break;
             }
-            LeftTop = new Point(l, t);
+            return new Point(l, t);
         }
     }
 }

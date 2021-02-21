@@ -97,9 +97,9 @@ namespace tdjWpfClassLibrary
                 //Profiles.UpdateMaxMinAltitude();
                 Profiles.SetPolylineOriginPoint(PolylineCanvas.ActualHeight, PolylineCanvas.ActualWidth);
                 Canvas.SetLeft(FrameRectangle, 0);
-                Canvas.SetTop(FrameRectangle, Profiles.PolylineOriginPoint.Y);
-                ExistPolylineTranslate.X = Profiles.PolylineOriginPoint.X;
-                ExistPolylineTranslate.Y = -Profiles.PolylineOriginPoint.Y;
+                Canvas.SetTop(FrameRectangle, Profiles.LeftTop.Y);
+                ExistPolylineTranslate.X = Profiles.LeftTop.X;
+                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
 
                 //测试 SlopeTable
                 /*
