@@ -136,7 +136,7 @@
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
         </Line>
-        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" SizeChanged="GradeCanvasRectangle_SizeChanged" MouseDown="GradeCanvasRectangle_MouseDown" Fill="White"/>
+        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" Fill="White"/>
         <!-- 数轴 -->
         <Label Content="高程（米）" Grid.Row="2" Grid.Column="2"/>
         <Grid x:Name="Ticks1" Grid.Row="2" Grid.Column="2">
