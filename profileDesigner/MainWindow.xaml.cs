@@ -307,7 +307,17 @@ namespace profileDesigner
 
         private void ProfileCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-
+            if (e.Delta > 0)
+            {
+                Scale.Horizontal *= 1.1;
+                Scale.Vertical *= 1.1;
+            }
+            else
+            {
+                Scale.Horizontal *= 0.9;
+                Scale.Vertical *= 0.9;
+            }
+            UpdateScale();
         }
 
         private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)

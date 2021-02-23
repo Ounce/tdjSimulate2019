@@ -139,7 +139,9 @@
         <Grid x:Name="forEvent" Grid.Row="2" Grid.Column="2" Margin="0,0,0,0" ClipToBounds="True"
               MouseDown="ProfileCanvas_MouseDown" 
               MouseUp="ProfileCanvas_MouseUp" 
-              MouseMove="ProfileCanvas_MouseMove">
+              MouseMove="ProfileCanvas_MouseMove"
+              MouseWheel="ProfileCanvas_MouseWheel"
+              >
             <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" SizeChanged="GradeCanvasRectangle_SizeChanged"/>
             <!-- 数轴 -->
             <Label Content="高程（米）" Grid.Row="2" Grid.Column="2"/>
@@ -389,6 +391,11 @@
             <Label Content="既有纵断面" FontSize="24" Canvas.Left="0" Canvas.Top="192" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
         </Canvas>
         <Grid x:Name="ButtomTableGrid" Grid.Row="3" Grid.Column="2" ClipToBounds="True">
+            <Line X1="1" Y1="0" X2="1" Y2="248" Stroke="Red" StrokeThickness="2">
+                <Line.RenderTransform>
+                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
+                </Line.RenderTransform>
+            </Line>
             <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="1"/>
             <StackPanel x:Name="DesignStackPanel">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
