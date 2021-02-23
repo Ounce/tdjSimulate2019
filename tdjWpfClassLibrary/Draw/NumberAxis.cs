@@ -68,11 +68,6 @@ namespace tdjWpfClassLibrary.Draw
         public double EndValue;
 
         /// <summary>
-        /// 像素数与数轴值比例。单位：像素/数值。
-        /// </summary>
-        public double Scale;
-
-        /// <summary>
         /// 刻度线数组，内有多个刻度线。初始化时确定，其后不得修改。
         /// </summary>
         public ObservableCollection<Graduation> Graduations;
@@ -119,7 +114,6 @@ namespace tdjWpfClassLibrary.Draw
                 e = Math.Ceiling(endValue / g.Unit) * g.Unit;
                 if (e > EndValue) EndValue = e;
             }
-            Scale = scale;
             foreach (var i in Graduations)
             {
                 i.Add(GetTickValues(i.Unit), scale);

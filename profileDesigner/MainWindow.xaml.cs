@@ -204,17 +204,33 @@ namespace profileDesigner
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Scale.Horizontal *= 1.2;
+            Scale.Vertical *= 1.2;
+            UpdateScale();
         }
 
         private void ZoomOutButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Scale.Horizontal *= 0.8;
+            Scale.Vertical *= 0.8;
+            UpdateScale();
         }
 
         private void ZoomAllButton_Click(object sender, RoutedEventArgs e)
         {
+            Scale.SetScale(GradeCanvasRectangle.ActualHeight, GradeCanvasRectangle.ActualWidth, Profiles.MaxAltitude, Profiles.MinAltitude, Profiles.Length);
+            UpdateScale();
+        }
 
+        private void UpdateScale()
+        {
+            VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
+            HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+            Profiles.UpdateScale();
+            Profiles.SetLeftTop();
+            ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
+            ExistPolylineTranslate.X = Profiles.LeftTop.X;
+            AltitudeDifferences.UpdateScale();
         }
 
         private void Split_Click(object sender, RoutedEventArgs e)

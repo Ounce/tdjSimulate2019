@@ -221,5 +221,13 @@ namespace tdjWpfClassLibrary.Profile
             IGraphPosition gp = new ProfileViewModel();
             LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, _maxAltitude * Scale.Vertical, _minAltitude * Scale.Vertical);
         }
+
+        public void UpdateScale()
+        {
+            foreach (var i in Items)
+            {
+                i.UpdateScale();
+            }
+        }
     }
 }

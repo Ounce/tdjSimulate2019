@@ -80,13 +80,24 @@ namespace tdjWpfClassLibrary.Profile
                     _mileage = value;
                     Position = _mileage * Scale.Horizontal;
                     OnPropertyChanged("Mileage");
-                    OnPropertyChanged("Position");
                 }
             }
         }
         private double _mileage;
 
-        public double Position { get; set; }
+        public double Position 
+        { 
+            get => _position;
+            set
+            {
+                if (value != _position)
+                {
+                    _position = value;
+                    OnPropertyChanged("Position");
+                }
+            }
+        }
+        private double _position;
 
         public AltitudeDifference()
         {
@@ -201,7 +212,7 @@ namespace tdjWpfClassLibrary.Profile
         {
             foreach (var item in Items)
             {
-
+                item.Position = item.Mileage * Scale.Horizontal;
             }
         }
     }

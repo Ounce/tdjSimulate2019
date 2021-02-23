@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
+using tdjWpfClassLibrary.Draw;
 using Point = System.Windows.Point;
 
 
@@ -298,6 +299,14 @@ namespace tdjWpfClassLibrary.Profile
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
             SetLeftTop();
+        }
+
+        public void UpdateScale()
+        {
+            foreach (var i in Slopes)
+            {
+                i.UpdateScale();
+            }
         }
 
         /// <summary>

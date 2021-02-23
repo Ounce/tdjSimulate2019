@@ -201,7 +201,7 @@
             <ItemsControl x:Name="Ticks2" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas  ClipToBounds="True"/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -217,7 +217,7 @@
             <ItemsControl x:Name="Ticks3" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas ClipToBounds="True"/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -235,7 +235,7 @@
                 <ItemsControl ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas ClipToBounds="True"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -257,7 +257,7 @@
                 <ItemsControl ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas ClipToBounds="True"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
@@ -299,7 +299,7 @@
             <ItemsControl x:Name="Ticks5" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas ClipToBounds="True"/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -321,7 +321,7 @@
             <ItemsControl x:Name="Ticks6" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas ClipToBounds="True"/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -344,7 +344,7 @@
             <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas x:Name="ProfileCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ProfileCanvas_MouseDown" ClipToBounds="True"/>
+                        <Canvas x:Name="ProfileCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ProfileCanvas_MouseDown" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -362,7 +362,7 @@
             <ItemsControl x:Name="ExistProfileLine" ItemsSource="{Binding Items, ElementName=ExistDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas x:Name="ExistCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ExistCanvas_MouseDown" ClipToBounds="True"/>
+                        <Canvas x:Name="ExistCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ExistCanvas_MouseDown" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

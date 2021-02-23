@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using tdjWpfClassLibrary.Draw;
 
 namespace tdjWpfClassLibrary.Profile
 {
@@ -155,12 +156,21 @@ namespace tdjWpfClassLibrary.Profile
 
         public double Y1
         {
-            get { return -BeginAltitude * Scale.Vertical; }
+            get { return ValueConverter.VerticalValue(BeginAltitude * Scale.Vertical); }
         }
 
         public double Y2
         {
-            get { return -EndAltitude * Scale.Vertical; }
+            get { return ValueConverter.VerticalValue(EndAltitude * Scale.Vertical); }
+        }
+
+        public void UpdateScale()
+        {
+            X1 = _beginMileage * Scale.Horizontal;
+            X2 = _endMileage * Scale.Horizontal;
+            OnPropertyChanged("Y1");
+            OnPropertyChanged("Y2");
+            OnPropertyChanged("Width");
         }
 
         /// <summary>
