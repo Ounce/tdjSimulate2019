@@ -47,6 +47,12 @@ namespace profileDesigner
         private NumberAxis VerticalAxis;
         private NumberAxis HorizontalAxis;
 
+        //鼠标按下去的位置
+        private Point startMovePosition;
+
+        //移动标志
+        private bool isMoving = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,6 +68,7 @@ namespace profileDesigner
             HorizontalAxis.AddGraduation(100);
             HorizontalAxis.AddGraduation(50);
             HorizontalAxis.AddGraduation(10);
+            startMovePosition = new Point();
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -247,17 +254,39 @@ namespace profileDesigner
 
         private void ProfileCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("ProfileCanvas_MouseDown");
+            if (MouseMoveButton.IsChecked == true)
+            {
+                startMovePosition = e.GetPosition((Grid)sender);
+                isMoving = true;
+            }
+            else
+                isMoving = false;
         }
 
         private void ProfileCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-
+            if (isMoving)
+            {
+                Point currentMousePosition = e.GetPosition((Grid)sender);//当前鼠标位置
+                Point deltaPt = new Point(0, 0);
+                deltaPt.X = currentMousePosition.X - startMovePosition.X;
+                deltaPt.Y = currentMousePosition.Y - startMovePosition.Y;
+                ExistPolylineTranslate.X += deltaPt.X;
+                ExistPolylineTranslate.Y += deltaPt.Y;
+                startMovePosition = currentMousePosition;
+            }
         }
 
         private void ProfileCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            if (MouseMoveButton.IsChecked == true)
+            {
+                isMoving = false;
+                Point endMovePosition = e.GetPosition((Grid)sender);
+                //为了避免跳跃式的变换，单次有效变化 累加入 totalTranslate中。           
+                ExistPolylineTranslate.X += endMovePosition.X - startMovePosition.X;
+                ExistPolylineTranslate.Y += endMovePosition.Y - startMovePosition.Y;
+            }
         }
 
         private void ProfileCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -268,6 +297,12 @@ namespace profileDesigner
         private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("ExistCanvas_MouseDown");
+        }
+
+        private void GradeCanvasRectangle_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
+            Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
         }
     }
 }
