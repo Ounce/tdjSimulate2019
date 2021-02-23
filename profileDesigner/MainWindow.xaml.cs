@@ -269,7 +269,5 @@ namespace profileDesigner
         {
             MessageBox.Show("ExistCanvas_MouseDown");
         }
-
-
     }
 }
