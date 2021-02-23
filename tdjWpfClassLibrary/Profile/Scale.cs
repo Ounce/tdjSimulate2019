@@ -4,6 +4,9 @@ using System.Text;
 
 namespace tdjWpfClassLibrary.Profile
 {
+    /// <summary>
+    /// 纵断面图的比例，高程 和 长度 的比例。
+    /// </summary>
     public static class Scale 
     {
         /// <summary>

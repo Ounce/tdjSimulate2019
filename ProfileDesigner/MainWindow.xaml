@@ -31,7 +31,7 @@
     </Window.InputBindings>
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="197"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
             <RowDefinition Height="161*"></RowDefinition>
             <RowDefinition Height="242"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Height="17" LastChildFill="True" Margin="0,0,0,0" VerticalAlignment="Top" >
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="17" LastChildFill="True" VerticalAlignment="Center" >
             <Menu x:Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0">
                 <MenuItem Header="文件(_F)">
                     <MenuItem Name="OpenFile" Header="打开(_O)..." Command="Open" InputGestureText="Ctrl+O" ToolTip="打开项目文件">
@@ -73,7 +73,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-       <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="2,2,0,0" VerticalAlignment="Top" Width="400" Grid.RowSpan="2">
+        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="0,2,0,0" VerticalAlignment="Top" Width="400" Grid.RowSpan="2">
             <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
                 <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Command="Open">
                     <Image Source="/Images/OpenFolder_16x.png"/>
@@ -105,7 +105,7 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <TabControl Name="ProfileTablControl" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top">
+        <TabControl Name="ProfileTablControl" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top">
             <TabItem Name="ExistTableItem" Header="既有纵断面">
                 <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
                 <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="existDataGrid_CellEditEnding" KeyUp="ExistDataGrid_KeyUp" BeginningEdit="ExistDataGrid_BeginningEdit" CanUserDeleteRows="True">
@@ -129,109 +129,177 @@
                 </DataGrid>
             </TabItem>
         </TabControl>
-        <GridSplitter Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="stretch" />
+        <GridSplitter Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-        <Line X1="10" Y1="-5100" X2="200" Y2="-5100" Stroke="White" StrokeThickness="0">
+        <Line X1="10" Y1="-5100" X2="200" Y2="-5100" Stroke="White" StrokeThickness="0" Grid.ColumnSpan="2">
             <Line.RenderTransform>
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
             </Line.RenderTransform>
         </Line>
-        <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" Fill="White"/>
-        <!-- 数轴 -->
-        <Label Content="高程（米）" Grid.Row="2" Grid.Column="2"/>
-        <Grid x:Name="Ticks1" Grid.Row="2" Grid.Column="2">
-            <ItemsControl ItemsSource="{Binding}" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="0" X2="20" Y1="{Binding VerticalPosition}" Y2="{Binding VerticalPosition}"  Stroke="red" StrokeThickness="2">
-                        <Line.RenderTransform>
-                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <ItemsControl x:Name="TicksV1L" ItemsSource="{Binding}" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left">
-                        <Setter.Value>
-                                <Binding Source="{StaticResource TickLength1}"/>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Canvas.Top">
-                        <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ValueSub}">
-                                <Binding Path="VerticalPosition"/>
-                                <Binding Source="{StaticResource LabelHeightHalf}" />
-                            </MultiBinding>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <!--
+        <Grid x:Name="forEvent" Grid.Row="2" Grid.Column="2" Margin="0,0,0,0" ClipToBounds="True"
+              MouseDown="ProfileCanvas_MouseDown" 
+              MouseUp="ProfileCanvas_MouseUp" 
+              MouseMove="ProfileCanvas_MouseMove">
+            <Rectangle x:Name="GradeCanvasRectangle" Grid.Row="2" Grid.Column="2" Margin="0" Stroke="Black" StrokeThickness="2" SizeChanged="GradeCanvasRectangle_SizeChanged"/>
+            <!-- 数轴 -->
+            <Label Content="高程（米）" Grid.Row="2" Grid.Column="2"/>
+            <Grid x:Name="Ticks1" Grid.Row="2" Grid.Column="2">
+                <ItemsControl ItemsSource="{Binding}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas ClipToBounds="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Line X1="0" X2="20" Y1="{Binding VerticalPosition}" Y2="{Binding VerticalPosition}"  Stroke="red" StrokeThickness="2">
+                                <Line.RenderTransform>
+                                    <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                                </Line.RenderTransform>
+                            </Line>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl x:Name="TicksV1L" ItemsSource="{Binding}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <Binding Source="{StaticResource TickLength1}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="VerticalPosition"/>
+                                        <Binding Source="{StaticResource LabelHeightHalf}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--
                     <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
                     -->
-                    <!-- 如果 Height 不足，Label可能会不显示！-->
-                    <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Left" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0">
-                        <Label.RenderTransform>
-                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Label.RenderTransform>
-                    </Label>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
-    <ItemsControl x:Name="Ticks2" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="0" Y1="{Binding VerticalPosition}" X2="15"  Y2="{Binding VerticalPosition}" Stroke="red" StrokeThickness="2">
-                        <Line.RenderTransform>
-                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <ItemsControl x:Name="Ticks3" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="0" Y1="{Binding VerticalPosition}" X2="10"  Y2="{Binding VerticalPosition}" Stroke="red" StrokeThickness="2">
-                        <Line.RenderTransform>
-                            <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <Grid x:Name="Ticks4" Grid.Row="2" Grid.Column="2">
-            <ItemsControl ItemsSource="{Binding}" >
+                            <!-- 如果 Height 不足，Label可能会不显示！-->
+                            <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Left" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0">
+                                <Label.RenderTransform>
+                                    <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+            <ItemsControl x:Name="Ticks2" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas />
+                        <Canvas  ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="0" Y1="{Binding VerticalPosition}" X2="15"  Y2="{Binding VerticalPosition}" Stroke="red" StrokeThickness="2">
+                            <Line.RenderTransform>
+                                <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            </Line.RenderTransform>
+                        </Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl x:Name="Ticks3" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="0" Y1="{Binding VerticalPosition}" X2="10"  Y2="{Binding VerticalPosition}" Stroke="red" StrokeThickness="2">
+                            <Line.RenderTransform>
+                                <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            </Line.RenderTransform>
+                        </Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid x:Name="Ticks4" Grid.Row="2" Grid.Column="2">
+                <ItemsControl ItemsSource="{Binding}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas ClipToBounds="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Line X1="{Binding Position}" X2="{Binding Position}" Y1="{Binding ActualHeight, ElementName=GradeCanvasRectangle}" Stroke="red" StrokeThickness="2">
+                                <Line.Y2>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
+                                        <Binding Source="{StaticResource TickLength1}" />
+                                    </MultiBinding>
+                                </Line.Y2>
+                                <Line.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
+                                </Line.RenderTransform>
+                            </Line>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas ClipToBounds="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="Position"/>
+                                        <Binding Source="{StaticResource LabelHalfWidth}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ValueSub}">
+                                        <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
+                                        <Binding Source="{StaticResource TickLength1}" />
+                                        <Binding Source="{StaticResource LabelHeight}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--
+                    <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
+                    -->
+                            <!-- 如果 Height 不足，Label可能会不显示！-->
+                            <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Center" Width="50" Height="30" VerticalContentAlignment="Bottom" Margin="0">
+                                <Label.RenderTransform>
+                                    <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
+                                </Label.RenderTransform>
+                            </Label>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+            <ItemsControl x:Name="Ticks5" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas ClipToBounds="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -240,7 +308,7 @@
                             <Line.Y2>
                                 <MultiBinding Converter="{StaticResource ValueSub}">
                                     <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
-                                    <Binding Source="{StaticResource TickLength1}" />
+                                    <Binding Source="{StaticResource TickLength2}" />
                                 </MultiBinding>
                             </Line.Y2>
                             <Line.RenderTransform>
@@ -250,129 +318,65 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl ItemsSource="{Binding}" >
+            <ItemsControl x:Name="Ticks6" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas />
+                        <Canvas ClipToBounds="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left">
-                            <Setter.Value>
-                                <MultiBinding Converter="{StaticResource ValueSub}">
-                                    <Binding Path="Position"/>
-                                    <Binding Source="{StaticResource LabelHalfWidth}" />
-                                </MultiBinding>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="Canvas.Top">
-                            <Setter.Value>
-                                <MultiBinding Converter="{StaticResource ValueSub}">
-                                    <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
-                                    <Binding Source="{StaticResource TickLength1}" />
-                                    <Binding Source="{StaticResource LabelHeight}" />
-                                </MultiBinding>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <!--
-                    <Label Content="{Binding GradeShowValue}" HorizontalContentAlignment="{Binding Grade, Converter={StaticResource GradeAlignment}}" Width="{Binding Width}" Margin="0"/>
-                    -->
-                        <!-- 如果 Height 不足，Label可能会不显示！-->
-                        <Label Name="VLabel" Content="{Binding Text}" HorizontalContentAlignment="Center" Width="50" Height="30" VerticalContentAlignment="Bottom" Margin="0">
-                            <Label.RenderTransform>
+                        <Line X1="{Binding Position}" X2="{Binding Position}" Y1="{Binding ActualHeight, ElementName=GradeCanvasRectangle}" Stroke="red" StrokeThickness="2">
+                            <Line.Y2>
+                                <MultiBinding Converter="{StaticResource ValueSub}">
+                                    <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
+                                    <Binding Source="{StaticResource TickLength3}" />
+                                </MultiBinding>
+                            </Line.Y2>
+                            <Line.RenderTransform>
                                 <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
-                            </Label.RenderTransform>
-                        </Label>
+                            </Line.RenderTransform>
+                        </Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!-- 设计 坡度线-->
+            <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas x:Name="ProfileCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ProfileCanvas_MouseDown" ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3" >
+                            <Line.RenderTransform>
+                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            </Line.RenderTransform>
+                        </Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- 既有 坡度线-->
+            <ItemsControl x:Name="ExistProfileLine" ItemsSource="{Binding Items, ElementName=ExistDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas x:Name="ExistCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ExistCanvas_MouseDown" ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="2" >
+                            <Line.RenderTransform>
+                                <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
+                            </Line.RenderTransform>
+                        </Line>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-        <ItemsControl x:Name="Ticks5" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="{Binding Position}" X2="{Binding Position}" Y1="{Binding ActualHeight, ElementName=GradeCanvasRectangle}" Stroke="red" StrokeThickness="2">
-                        <Line.Y2>
-                            <MultiBinding Converter="{StaticResource ValueSub}">
-                                <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
-                                <Binding Source="{StaticResource TickLength2}" />
-                            </MultiBinding>
-                        </Line.Y2>
-                        <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <ItemsControl x:Name="Ticks6" ItemsSource="{Binding}" Grid.Row="2" Grid.Column="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="{Binding Position}" X2="{Binding Position}" Y1="{Binding ActualHeight, ElementName=GradeCanvasRectangle}" Stroke="red" StrokeThickness="2">
-                        <Line.Y2>
-                            <MultiBinding Converter="{StaticResource ValueSub}">
-                                <Binding Path="ActualHeight" ElementName="GradeCanvasRectangle"/>
-                                <Binding Source="{StaticResource TickLength3}" />
-                            </MultiBinding>
-                        </Line.Y2>
-                        <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <!-- 设计 坡度线-->
-        <ItemsControl x:Name="DesignProfileLine" ItemsSource="{Binding Items, ElementName=DesignDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas x:Name="ProfileCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ProfileCanvas_MouseDown"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Blue" StrokeThickness="3" >
-                        <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <!-- 既有 坡度线-->
-        <ItemsControl x:Name="ExistProfileLine" ItemsSource="{Binding Items, ElementName=ExistDataGrid}" Margin="0,0,0,100" Grid.Column="2" Grid.Row="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas x:Name="ExistCanvas" Grid.Row="2" Grid.RowSpan="0" Grid.Column="2" MouseDown="ExistCanvas_MouseDown"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="2" >
-                        <Line.RenderTransform>
-                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
-                        </Line.RenderTransform>
-                    </Line>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <Canvas Name="TableHeadCanvas" Grid.Column="0" Margin="0,0,0,0" Grid.Row="3" ClipToBounds="True" >
+        <Canvas Name="TableHeadCanvas" Grid.Column="0" Grid.Row="3" ClipToBounds="True" Grid.ColumnSpan="2" >
             <Rectangle Canvas.Top="0" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Canvas.Top="48" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
             <Rectangle Canvas.Top="96" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}" Height="50" Stroke="Black" StrokeThickness="2"/>
@@ -384,60 +388,60 @@
             <Label Content="既有高程" FontSize="24" Canvas.Left="0" Canvas.Top="144" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
             <Label Content="既有纵断面" FontSize="24" Canvas.Left="0" Canvas.Top="192" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="{Binding ActualWidth, ElementName=TableHeadCanvas, Mode=OneWay}"/>
         </Canvas>
-        <Grid x:Name="ButtomTableGrid" Margin="0 0 0 0" Grid.Row="3" Grid.Column="2">
-            <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="2"/>
+        <Grid x:Name="ButtomTableGrid" Grid.Row="3" Grid.Column="2" ClipToBounds="True">
+            <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="1"/>
             <StackPanel x:Name="DesignStackPanel">
-            <!-- 坡度表的 分割线 和 坡度线 线段-->
-            <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" Grid.Row="1">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas Grid.Row="1"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Path Stroke="Red" StrokeThickness="2">
-                            <Path.Data>
-                                <GeometryGroup FillRule="EvenOdd">
-                                    <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
-                                    <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
-                                    <GeometryGroup.Transform>
-                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
-                                    </GeometryGroup.Transform>
-                                </GeometryGroup>
-                            </Path.Data>
-                        </Path>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <!-- 坡度表的 坡度 标签-->
-            <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
-                        <Setter Property="Canvas.Top" Value="0" />
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                <!-- 坡度表的 分割线 和 坡度线 线段-->
+                <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Path Stroke="Red" StrokeThickness="2">
+                                <Path.Data>
+                                    <GeometryGroup FillRule="EvenOdd">
+                                        <LineGeometry StartPoint="{Binding SlopeTableGradeLineStartPoint}" EndPoint="{Binding SlopeTableGradeLineEndPoint}"/>
+                                        <LineGeometry StartPoint="{Binding SlopeTableRightTop}" EndPoint="{Binding SlopeTableRightBottom}"/>
+                                        <GeometryGroup.Transform>
+                                            <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                        </GeometryGroup.Transform>
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!-- 坡度表的 坡度 标签-->
+                <ItemsControl x:Name="ItemsControl3" ItemsSource="{Binding}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding Path=X1}" />
+                            <Setter Property="Canvas.Top" Value="0" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
                             <Label Content="{Binding Grade}" HorizontalContentAlignment="{Binding SlopeTableGradeLabelHorizontalAlignment}" Width="{Binding Width}" Margin="0">
                                 <Label.RenderTransform>
                                     <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
                                 </Label.RenderTransform>
                             </Label>
                         </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
                 <!--坡度表的 长度 标签-->
-                <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}" Grid.Row="1">
+                <ItemsControl x:Name="ItemsControl4" ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
@@ -460,10 +464,10 @@
             </StackPanel>
             <StackPanel x:Name="AltitudeDifferenceStackPanel">
                 <!--设计标高-->
-                <ItemsControl x:Name="ItemsControl21" ItemsSource="{Binding}" Grid.Row="1">
+                <ItemsControl x:Name="ItemsControl21" ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
@@ -496,7 +500,7 @@
                 <ItemsControl x:Name="ItemsControl22" ItemsSource="{Binding}" Grid.Row="1">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
@@ -529,7 +533,7 @@
                 <ItemsControl x:Name="ItemsControl23" ItemsSource="{Binding}" Grid.Row="1">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
@@ -549,10 +553,10 @@
                         <DataTemplate>
                             <Label Content="{Binding ExistAltitude}" HorizontalContentAlignment="Left" Margin="0" VerticalContentAlignment="Top">
                                 <Label.RenderTransform>
-                                <TransformGroup>
+                                    <TransformGroup>
                                         <RotateTransform Angle="-90"/>
-                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" /> 
-                                </TransformGroup>
+                                        <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" />
+                                    </TransformGroup>
                                 </Label.RenderTransform>
                             </Label>
                         </DataTemplate>
@@ -564,10 +568,10 @@
             <Line x:Name="ExistGrideLine" X1="0" Y1="198" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="198" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <StackPanel x:Name="ExistStackPanel">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
-                <ItemsControl ItemsSource="{Binding}" Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -615,10 +619,10 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 <!--坡度表的 长度 标签-->
-                <ItemsControl ItemsSource="{Binding}" Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas Grid.Row="1"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
