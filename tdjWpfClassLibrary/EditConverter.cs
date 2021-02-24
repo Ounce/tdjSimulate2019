@@ -37,7 +37,7 @@ namespace tdjWpfClassLibrary
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return StringConvert.ToDouble((string)value);
         }
     }
 
@@ -52,7 +52,7 @@ namespace tdjWpfClassLibrary
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return StringConvert.ToDouble((string)value);
         }
     }
 }

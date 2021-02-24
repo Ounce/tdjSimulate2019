@@ -13,6 +13,7 @@
         <local1:ConverterPlus x:Key="ValuePlus"/>
         <local1:ConverterSubtract x:Key="ValueSub"/>
         <local21:ColorConverter x:Key="ColorConverter"/>
+        <local21:RoundConvert3 x:Key="Round3"/>
         <sys:Double x:Key="LabelTop">7.5</sys:Double>
         <sys:Double x:Key="LabelHeightHalf">15</sys:Double>
         <sys:Double x:Key="LabelHeight">30</sys:Double>
@@ -126,8 +127,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay}" Width="*"/>
                             <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay}"  Width="*"/>
-                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Mode=TwoWay}"  Width="1.5*"/>
-                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Mode=TwoWay}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay}"  Width="1.5*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
