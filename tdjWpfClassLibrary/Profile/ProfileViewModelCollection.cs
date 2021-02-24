@@ -42,16 +42,32 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public double MaxAltitude
         {
-            get { return _maxAltitude; }
+            get 
+            {
+                if (Items.Count < 1) return 0;
+                _maxAltitude = Items[0].MaxAltitude;
+                for (int i = 1; i < Items.Count; i++)
+                    if (_maxAltitude < Items[i].MaxAltitude)
+                        _maxAltitude = Items[i].MaxAltitude;
+                return _maxAltitude; 
+            }
         }
-        public double _maxAltitude;
+        private double _maxAltitude;
 
         /// <summary>
         /// 最小高程。
         /// </summary>
         public double MinAltitude
         {
-            get { return _minAltitude; }
+            get
+            {
+                if (Items.Count < 1) return 0;
+                _minAltitude = Items[0].MinAltitude;
+                for (int i = 1; i < Items.Count; i++)
+                    if (_minAltitude > Items[i].MinAltitude)
+                        _minAltitude = Items[i].MinAltitude;
+                return _minAltitude;
+            }
         }
         public double _minAltitude;
 
@@ -138,21 +154,7 @@ namespace tdjWpfClassLibrary.Profile
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                case "MaxAltitude":
-                    if (((ProfileViewModel)sender).MaxAltitude > _maxAltitude)
-                        SetMaxAltitude(((ProfileViewModel)sender).MaxAltitude);
-                    else
-                        UpdateMaxMinAltitude();
-                    break;
-                case "MinAltitude":
-                    if (((ProfileViewModel)sender).MinAltitude > _minAltitude)
-                        SetMinAltitude(((ProfileViewModel)sender).MinAltitude);
-                    else
-                        UpdateMaxMinAltitude();
-                    break;
-             }
+ 
         }
 
         public void Add(ProfileViewModel profile)
@@ -182,6 +184,7 @@ namespace tdjWpfClassLibrary.Profile
                     SetMaxAltitude(max);
                 if (_minAltitude != min)
                     SetMinAltitude(min);
+                SetLeftTop();
             }
         }
 

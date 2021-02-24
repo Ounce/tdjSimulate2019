@@ -112,7 +112,19 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public double MaxAltitude
         {
-            get { return _maxAltitude; }
+            get
+            {
+                if (Slopes.Count < 1) return 0;
+                _maxAltitude = Slopes[0].BeginAltitude;
+                for (int i = 0; i < Slopes.Count; i++)
+                {
+                    if (_maxAltitude < Slopes[i].BeginAltitude)
+                        _maxAltitude = Slopes[i].BeginAltitude;
+                    if (_maxAltitude < Slopes[i].EndAltitude)
+                        _maxAltitude = Slopes[i].EndAltitude;
+                }
+                return _maxAltitude;
+            }
         }
         public double _maxAltitude;
 
@@ -258,7 +270,7 @@ namespace tdjWpfClassLibrary.Profile
                     p = GetPosition(sender);
                     if (p < 1) break;
                     Slopes[p - 1].EndAltitude = ((SlopeViewModel)sender).BeginAltitude;
-                    UpdateMaxMinAltitude(((SlopeViewModel)sender).BeginAltitude);
+                    UpdateMaxMinAltitude();
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -266,10 +278,10 @@ namespace tdjWpfClassLibrary.Profile
                     Slopes[p + 1].BeginMileage = Slopes[p].EndMileage;
                     break;
                 case "EndAltitude":
-                    UpdateMaxMinAltitude(((SlopeViewModel)sender).EndAltitude);
                     p = GetPosition(sender);
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
+                    UpdateMaxMinAltitude();
                     break;
                 case "Grade":
                 case "Length":
@@ -285,6 +297,7 @@ namespace tdjWpfClassLibrary.Profile
                         Slopes[p].SetBeginAltitudeByEndAltitude();
                     else
                         Slopes[p].SetEndAltitudeByBeginAltitude();
+                    UpdateMaxMinAltitude();
                     break;
             }
         }

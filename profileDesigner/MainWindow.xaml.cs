@@ -100,11 +100,13 @@ namespace profileDesigner
                 Profiles.Add(pe);
                 ExistTableItem.DataContext = Profiles[1].Slopes;
                 DesignTableItem.DataContext = Profiles[0].Slopes;
+                Profiles.SetLeftTop();
                 ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
                 ExistPolylineTranslate.X = Profiles.LeftTop.X;
                 DesignStackPanel.DataContext = pd.Slopes;
 
                 //设置 修改高程位置的颜色。是否可以改成绑定？
+                
                 v = ProfileTablControl.SelectedIndex;
                 ProfileTablControl.SelectedIndex = 1;
                 col = pd.FixBeginOrEndAltitude ? 2 : 3;
@@ -113,6 +115,7 @@ namespace profileDesigner
                 col = pe.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(pe.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
+                
                 //((TabItem)v).Visibility = Visibility.Visible;
                 /*
                 ItemsControl2.ItemsSource = pd.Slopes;
@@ -262,6 +265,13 @@ namespace profileDesigner
             {
                 int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
+                Profiles.SetLeftTop();
+                Profiles.UpdateMaxMinAltitude();
+                HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+                VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
+                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
+                ExistPolylineTranslate.X = Profiles.LeftTop.X;
+                AltitudeDifferences.Update();
             }
         }
 
@@ -281,6 +291,7 @@ namespace profileDesigner
             {
                 int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
+                AltitudeDifferences.Update();
             }
         }
 
