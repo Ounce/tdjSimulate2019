@@ -58,11 +58,10 @@ namespace tdjWpfClassLibrary.Profile
             get { return _beginAltitude; }
             set
             {
-                double m = Math.Round(value, 3, MidpointRounding.AwayFromZero);
-                if (m != _beginAltitude)
+                if (value != _beginAltitude)
                 {
-                    _beginAltitude = m;
-                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
+                    _beginAltitude = value;
+                    EndAltitude = _beginAltitude - _grade * _length;
                     OnPropertyChanged("BeginAltitude");
                     OnPropertyChanged("Y1");
                 }
@@ -72,12 +71,12 @@ namespace tdjWpfClassLibrary.Profile
 
         public void SetBeginAltitudeByEndAltitude()
         {
-            BeginAltitude = Math.Round(_endAltitude + _grade * _length, 3, MidpointRounding.AwayFromZero);
+            BeginAltitude = _endAltitude + _grade * _length;
         }
 
         public void SetEndAltitudeByBeginAltitude()
         {
-            EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
+            EndAltitude = _beginAltitude - _grade * _length;
         }
 
         public double EndAltitude
@@ -85,11 +84,10 @@ namespace tdjWpfClassLibrary.Profile
             get { return _endAltitude; }
             set
             {
-                double m = Math.Round(value, 3, MidpointRounding.AwayFromZero);
-                if (m != _endAltitude)
+                if (value != _endAltitude)
                 {
-                    _endAltitude = m;
-                    BeginAltitude = Math.Round(_endAltitude + _grade * _length, 3, MidpointRounding.AwayFromZero);
+                    _endAltitude = value;
+                    BeginAltitude = _endAltitude + _grade * _length;
                     OnPropertyChanged("EndAltitude");
                     OnPropertyChanged("Y2");
                 }
