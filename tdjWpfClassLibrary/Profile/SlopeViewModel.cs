@@ -23,7 +23,8 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _length = value;
                     EndMileage = _beginMileage + _length;
-                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, MidpointRounding.AwayFromZero);
+                    // 移到 ProfileViewModel中计算。
+                    //EndAltitude = Math.Round(_beginAltitude - _grade * _length, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Length");
                     OnPropertyChanged("Width");
                 }
@@ -39,7 +40,8 @@ namespace tdjWpfClassLibrary.Profile
                 if (v != _grade)
                 {
                     _grade = v;
-                    EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
+                    // 移到 ProfileViewModel中计算。
+                    //EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Grade");
                     OnPropertyChanged("GradeShowValue");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
@@ -67,6 +69,16 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _beginAltitude;
+
+        public void SetBeginAltitudeByEndAltitude()
+        {
+            BeginAltitude = Math.Round(_endAltitude + _grade * _length, 3, MidpointRounding.AwayFromZero);
+        }
+
+        public void SetEndAltitudeByBeginAltitude()
+        {
+            EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
+        }
 
         public double EndAltitude
         {

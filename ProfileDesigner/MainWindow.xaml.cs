@@ -286,6 +286,7 @@ namespace profileDesigner
 
         private void UpdateCellColor(int profileIndex, int row, int col, object sender)
         {
+            if (col < 2 || col > 3) return;
             int oldCol = Profiles[profileIndex].FixBeginOrEndAltitude ? 2 : 3;
             SetCellColor(Profiles[profileIndex].FixAltitudePosition, oldCol, sender, Colors.Black);
             Profiles[profileIndex].FixAltitudePosition = row;

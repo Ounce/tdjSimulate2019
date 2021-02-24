@@ -11,7 +11,7 @@ namespace tdjWpfClassLibrary
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            string r = "";
+            //string r = "";
             if (values == null || values.Length < 2 || values[0] == null || values[1] == null)
                 return DependencyProperty.UnsetValue;
         /*    if ((int)values[0] == (int)values[1])

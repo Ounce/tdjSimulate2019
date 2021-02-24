@@ -271,6 +271,21 @@ namespace tdjWpfClassLibrary.Profile
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
                     break;
+                case "Grade":
+                case "Length":
+                    p = GetPosition(sender);
+                    if (p == FixAltitudePosition)
+                    {
+                        if (FixBeginOrEndAltitude)
+                            Slopes[p].SetEndAltitudeByBeginAltitude();
+                        else
+                            Slopes[p].SetBeginAltitudeByEndAltitude();
+                    }
+                    else if (p < FixAltitudePosition)
+                        Slopes[p].SetBeginAltitudeByEndAltitude();
+                    else
+                        Slopes[p].SetEndAltitudeByBeginAltitude();
+                    break;
             }
         }
 
