@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:profileDesigner"
         xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local21="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+        Title="MainWindow" Height="600" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
 
     <Window.Resources>
         <local1:ConverterPlus x:Key="ValuePlus"/>
         <local1:ConverterSubtract x:Key="ValueSub"/>
+        <local21:ColorConverter x:Key="ColorConverter"/>
         <sys:Double x:Key="LabelTop">7.5</sys:Double>
         <sys:Double x:Key="LabelHeightHalf">15</sys:Double>
         <sys:Double x:Key="LabelHeight">30</sys:Double>
@@ -18,6 +20,8 @@
         <sys:Double x:Key="TickLength2">15</sys:Double>
         <sys:Double x:Key="TickLength3">10</sys:Double>
         <sys:Double x:Key="LabelHalfWidth">20</sys:Double>
+        <sys:Int32 x:Key="BeginCol">1</sys:Int32>
+        <sys:Int32 x:Key="EndCol">2</sys:Int32>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
@@ -105,32 +109,45 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <TabControl Name="ProfileTablControl" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top">
-            <TabItem Name="ExistTableItem" Header="既有纵断面">
-                <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
-                <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="existDataGrid_CellEditEnding" KeyUp="ExistDataGrid_KeyUp" BeginningEdit="ExistDataGrid_BeginningEdit" CanUserDeleteRows="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay}" Width="*"/>
-                        <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay}"  Width="*"/>
-                        <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Mode=TwoWay}"  Width="1.5*"/>
-                        <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Mode=TwoWay}"  Width="1.5*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Name="DesignTableItem" Header="设计纵断面">
-                <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" BeginningEdit="DesignDataGrid_BeginningEdit" KeyUp="DesignDataGrid_KeyUp">
-                    <!-- -->
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay}" Width="*"/>
-                        <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay}"  Width="*"/>
-                        <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Mode=TwoWay}"  Width="1.5*"/>
-                        <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Mode=TwoWay}"  Width="1.5*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-        </TabControl>
+        <Grid Grid.Row="2" Grid.Column="0" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Stroke="Black" StrokeThickness="1"/>
+            <TabControl Name="ProfileTablControl" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top">
+                <TabItem Name="ExistTableItem" Header="既有纵断面">
+                    <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
+                    <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="existDataGrid_CellEditEnding" KeyUp="ExistDataGrid_KeyUp" BeginningEdit="ExistDataGrid_BeginningEdit" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay}" Width="*"/>
+                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay}"  Width="*"/>
+                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Mode=TwoWay}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Mode=TwoWay}"  Width="1.5*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Name="DesignTableItem" Header="设计纵断面">
+                    <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" BeginningEdit="DesignDataGrid_BeginningEdit" KeyUp="DesignDataGrid_KeyUp">
+                        <!-- -->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay}" Width="*"/>
+                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay}"  Width="*"/>
+                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Mode=TwoWay}" Width="1.5*">
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Mode=TwoWay}"  Width="1.5*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            <Button x:Name="AddSlopeButton" Content="新增" Grid.Row="1" Grid.Column="0" Margin="0"/>
+            <Button x:Name="RemoveSlopeButtom" Content="删除" Grid.Row="1" Grid.Column="1" Margin="0"/>
+        </Grid>
         <GridSplitter Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-
         <Line X1="10" Y1="-5100" X2="200" Y2="-5100" Stroke="White" StrokeThickness="0" Grid.ColumnSpan="2">
             <Line.RenderTransform>
                 <TranslateTransform x:Name="ExistPolylineTranslate"/>
@@ -149,7 +166,7 @@
                 <ItemsControl ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas ClipToBounds="True"/>
+                            <Canvas />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>

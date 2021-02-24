@@ -73,6 +73,8 @@ namespace profileDesigner
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
+            int col;
+            int v;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Filter;
             dialog.Title = "打开纵断面编辑文件";
@@ -101,6 +103,17 @@ namespace profileDesigner
                 ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
                 ExistPolylineTranslate.X = Profiles.LeftTop.X;
                 DesignStackPanel.DataContext = pd.Slopes;
+
+                //设置 修改高程位置的颜色。是否可以改成绑定？
+                v = ProfileTablControl.SelectedIndex;
+                ProfileTablControl.SelectedIndex = 1;
+                col = pd.FixBeginOrEndAltitude ? 2 : 3;
+                SetCellColor(pd.FixAltitudePosition, col, DesignDataGrid as object, Colors.Red);
+                ProfileTablControl.SelectedIndex = 0;
+                col = pe.FixBeginOrEndAltitude ? 2 : 3;
+                SetCellColor(pe.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
+                ProfileTablControl.SelectedIndex = v;
+                //((TabItem)v).Visibility = Visibility.Visible;
                 /*
                 ItemsControl2.ItemsSource = pd.Slopes;
                 ItemsControl3.ItemsSource = pd.Slopes;
@@ -245,7 +258,11 @@ namespace profileDesigner
 
         private void existDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                int rowIndex = e.Row.GetIndex();
+                UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
+            }
         }
 
         private void ExistDataGrid_KeyUp(object sender, KeyEventArgs e)
@@ -260,7 +277,38 @@ namespace profileDesigner
 
         private void designDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                int rowIndex = e.Row.GetIndex();
+                UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
+            }
+        /*    if (e.EditAction == DataGridEditAction.Commit)
+            {
+                int rowIndex = e.Row.GetIndex();
+                if (e.Column.DisplayIndex == 2)
+                    Profiles[0].Slopes[rowIndex].Fix = 1;
+                if (e.Column.DisplayIndex == 3)
+                    Profiles[0].Slopes[rowIndex].Fix = 2;
+            }*/
+        }
 
+        private void UpdateCellColor(int profileIndex, int row, int col, object sender)
+        {
+            int oldCol = Profiles[profileIndex].FixBeginOrEndAltitude ? 2 : 3;
+            SetCellColor(Profiles[profileIndex].FixAltitudePosition, oldCol, sender, Colors.Black);
+            Profiles[profileIndex].FixAltitudePosition = row;
+            Profiles[profileIndex].FixBeginOrEndAltitude = col == 2 ? true : false;
+            SetCellColor(row, col, sender, Colors.Red);
+        }
+
+        private void SetCellColor(int row, int col, object sender, Color color)
+        {
+            Visibility visibility = ((DataGrid)sender).Visibility;
+            ((DataGrid)sender).Visibility = Visibility.Visible;
+            ((DataGrid)sender).Visibility = visibility;
+            DataGridCell cell = DataGridPlus.GetCell(sender as DataGrid, row, col);
+            if (cell != null)
+                cell.Foreground = new SolidColorBrush(color);
         }
 
         private void DesignDataGrid_KeyUp(object sender, KeyEventArgs e)

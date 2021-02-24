@@ -311,6 +311,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+
         }
 
         public double? GetAltitude(double position)
