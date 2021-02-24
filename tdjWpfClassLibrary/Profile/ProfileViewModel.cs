@@ -255,6 +255,9 @@ namespace tdjWpfClassLibrary.Profile
             switch (e.PropertyName)
             {
                 case "BeginAltitude":
+                    p = GetPosition(sender);
+                    if (p < 1) break;
+                    Slopes[p - 1].EndAltitude = ((SlopeViewModel)sender).BeginAltitude;
                     UpdateMaxMinAltitude(((SlopeViewModel)sender).BeginAltitude);
                     break;
                 case "EndMileage":

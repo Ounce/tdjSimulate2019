@@ -282,14 +282,6 @@ namespace profileDesigner
                 int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
             }
-        /*    if (e.EditAction == DataGridEditAction.Commit)
-            {
-                int rowIndex = e.Row.GetIndex();
-                if (e.Column.DisplayIndex == 2)
-                    Profiles[0].Slopes[rowIndex].Fix = 1;
-                if (e.Column.DisplayIndex == 3)
-                    Profiles[0].Slopes[rowIndex].Fix = 2;
-            }*/
         }
 
         private void UpdateCellColor(int profileIndex, int row, int col, object sender)
