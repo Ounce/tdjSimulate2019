@@ -263,16 +263,25 @@ namespace profileDesigner
         {
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                int rowIndex = e.Row.GetIndex();
-                UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                Profiles.UpdateMaxMinAltitude();
-                Profiles.SetLeftTop();
-                HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
-                VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
-                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
-                ExistPolylineTranslate.X = Profiles.LeftTop.X;
-                //AltitudeDifferences.Update(); 没有删减不用
+                UpdateProfiles(1, sender, e);
             }
+        }
+
+        /// <summary>
+        /// 根据DataGrid单元格中的内容刷新图形。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateProfiles(int profileIndex, object sender, DataGridCellEditEndingEventArgs e)
+        {
+            UpdateCellColor(profileIndex, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
+            Profiles.UpdateMaxMinAltitude();
+            Profiles.SetLeftTop();
+            HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+            VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
+            ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
+            ExistPolylineTranslate.X = Profiles.LeftTop.X;
+            //AltitudeDifferences.Update(); 没有删减不用
         }
 
         private void ExistDataGrid_KeyUp(object sender, KeyEventArgs e)
@@ -289,12 +298,17 @@ namespace profileDesigner
         {
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                int rowIndex = e.Row.GetIndex();
-                UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                AltitudeDifferences.Update();
+                UpdateProfiles(0, sender, e);
             }
         }
 
+        /// <summary>
+        /// 改变编辑的高程的单元格的颜色。—— FixAltitude
+        /// </summary>
+        /// <param name="profileIndex"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="sender"></param>
         private void UpdateCellColor(int profileIndex, int row, int col, object sender)
         {
             if (col < 2 || col > 3) return;
@@ -305,6 +319,13 @@ namespace profileDesigner
             SetCellColor(row, col, sender, Colors.Red);
         }
 
+        /// <summary>
+        /// 设置DataGrid中某个单元格的颜色。
+        /// </summary>
+        /// <param name="row">单元格的行号</param>
+        /// <param name="col">单元格的列号</param>
+        /// <param name="sender">DataGrid</param>
+        /// <param name="color">颜色</param>
         private void SetCellColor(int row, int col, object sender, Color color)
         {
             Visibility visibility = ((DataGrid)sender).Visibility;
