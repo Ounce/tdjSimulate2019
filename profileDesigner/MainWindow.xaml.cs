@@ -265,13 +265,13 @@ namespace profileDesigner
             {
                 int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                Profiles.SetLeftTop();
                 Profiles.UpdateMaxMinAltitude();
+                Profiles.SetLeftTop();
                 HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
                 VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
                 ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
                 ExistPolylineTranslate.X = Profiles.LeftTop.X;
-                AltitudeDifferences.Update();
+                //AltitudeDifferences.Update(); 没有删减不用
             }
         }
 
