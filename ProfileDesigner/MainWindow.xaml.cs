@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Office.Interop.Excel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
-using Excel = Microsoft.Office.Interop.Excel;
 using Point = System.Windows.Point;
 
 using tdjWpfClassLibrary;
@@ -48,9 +46,9 @@ namespace profileDesigner
 
         string xlsFileName;
         string xlsFilter = "Excel文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls|所有文件(*.*)|*.*";
-        
+
         ProfileViewModelCollection Profiles;
-        ProfileViewModel DesignProfile, ExistProfile;
+        public ProfileViewModel DesignProfile, ExistProfile;
         AltitudeDifferences AltitudeDifferences;
         private NumberAxis VerticalAxis;
         private NumberAxis HorizontalAxis;
@@ -99,6 +97,7 @@ namespace profileDesigner
             startMovePosition = new Point();
             DesignTableItem.DataContext = DesignProfile.Slopes;
             ExistTableItem.DataContext = ExistProfile.Slopes;
+            //ExistDataGrid.ItemsSource = ExistProfile.Slopes;
             //DesignStackPanel.DataContext = DesignProfile.Slopes;
             //ExistStackPanel.DataContext = ExistProfile.Slopes;
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
@@ -238,7 +237,7 @@ namespace profileDesigner
         {
             Profiles.UpdateScale();
             UpdateProfiles();
-         }
+        }
 
         private void Split_Click(object sender, RoutedEventArgs e)
         {
@@ -394,11 +393,6 @@ namespace profileDesigner
 
             }
 
-
-        }
-
-        private void Import1_Click(object sender, RoutedEventArgs e)
-        {
 
         }
     }
