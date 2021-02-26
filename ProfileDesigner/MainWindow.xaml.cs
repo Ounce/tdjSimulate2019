@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Office.Interop.Excel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
+using Excel = Microsoft.Office.Interop.Excel;
+using Point = System.Windows.Point;
+
 using tdjWpfClassLibrary;
 using tdjWpfClassLibrary.Draw;
 using tdjWpfClassLibrary.Profile;
@@ -24,7 +28,7 @@ namespace profileDesigner
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
         public static RoutedCommand CommandExit = new RoutedCommand();
 
@@ -42,7 +46,11 @@ namespace profileDesigner
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
+        string xlsFileName;
+        string xlsFilter = "Excel文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls|所有文件(*.*)|*.*";
+        
         ProfileViewModelCollection Profiles;
+        ProfileViewModel DesignProfile, ExistProfile;
         AltitudeDifferences AltitudeDifferences;
         private NumberAxis VerticalAxis;
         private NumberAxis HorizontalAxis;
@@ -57,18 +65,43 @@ namespace profileDesigner
         {
             InitializeComponent();
             Profiles = new ProfileViewModelCollection();
+            DesignProfile = new ProfileViewModel();
+            DesignProfile.Name = "DesignProfile";
+            DesignProfile.SlopeTableTop = 1;
+            DesignProfile.SlopeTableBottom = 48;
+            ExistProfile = new ProfileViewModel();
+            ExistProfile.Name = "ExistProfile";
+            ExistProfile.SlopeTableTop = ExistGrideLine.Y2 + 1;
+            ExistProfile.SlopeTableBottom = ExistProfile.SlopeTableTop + 44;
+            Profiles.Add(DesignProfile);
+            Profiles.Add(ExistProfile);
             AltitudeDifferences = new AltitudeDifferences();
+            AltitudeDifferences.AssignEvent();
+            AltitudeDifferences.DesignProfile = DesignProfile;
+            AltitudeDifferences.ExistProfile = ExistProfile;
             Profiles.VerticalAlignment = VerticalAlignment.Center;
             Profiles.HorizontalAlignment = HorizontalAlignment.Left;
             VerticalAxis = new NumberAxis();
             VerticalAxis.AddGraduation(1);
             VerticalAxis.AddGraduation(0.5);
             VerticalAxis.AddGraduation(0.1);
+
             HorizontalAxis = new NumberAxis();
             HorizontalAxis.AddGraduation(100);
             HorizontalAxis.AddGraduation(50);
             HorizontalAxis.AddGraduation(10);
+            Ticks1.DataContext = VerticalAxis.Graduations[0];
+            Ticks2.ItemsSource = VerticalAxis.Graduations[1];
+            Ticks3.ItemsSource = VerticalAxis.Graduations[2];
+            Ticks4.DataContext = HorizontalAxis.Graduations[0];
+            Ticks5.ItemsSource = HorizontalAxis.Graduations[1];
+            Ticks6.ItemsSource = HorizontalAxis.Graduations[2];
             startMovePosition = new Point();
+            DesignTableItem.DataContext = DesignProfile.Slopes;
+            ExistTableItem.DataContext = ExistProfile.Slopes;
+            //DesignStackPanel.DataContext = DesignProfile.Slopes;
+            //ExistStackPanel.DataContext = ExistProfile.Slopes;
+            AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -85,58 +118,21 @@ namespace profileDesigner
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-                ProfileViewModel pd = new ProfileViewModel();
-                pd.Name = "DesignProfile";
-                pd.ReadXML((XmlElement)xmlDesignNode);
-                pd.SlopeTableTop = 1;
-                pd.SlopeTableBottom = 48;
-                Profiles.Add(pd);
+                DesignProfile.ReadXML((XmlElement)xmlDesignNode);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
-                ProfileViewModel pe = new ProfileViewModel();
-                pe.Name = "ExistProfile";
-                pe.ReadXML((XmlElement)xmlDesignNode);
-                pe.SlopeTableTop = ExistGrideLine.Y2 + 1;
-                pe.SlopeTableBottom = pe.SlopeTableTop + 44;
-                Profiles.Add(pe);
-                ExistTableItem.DataContext = Profiles[1].Slopes;
-                DesignTableItem.DataContext = Profiles[0].Slopes;
-                Profiles.SetLeftTop();
-                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
-                ExistPolylineTranslate.X = Profiles.LeftTop.X;
-                DesignStackPanel.DataContext = pd.Slopes;
+                ExistProfile.ReadXML((XmlElement)xmlExistNode);
 
                 //设置 修改高程位置的颜色。是否可以改成绑定？
-                
                 v = ProfileTablControl.SelectedIndex;
-                ProfileTablControl.SelectedIndex = 1;
-                col = pd.FixBeginOrEndAltitude ? 2 : 3;
-                SetCellColor(pd.FixAltitudePosition, col, DesignDataGrid as object, Colors.Red);
-                ProfileTablControl.SelectedIndex = 0;
-                col = pe.FixBeginOrEndAltitude ? 2 : 3;
-                SetCellColor(pe.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
+                DesignTableItem.IsSelected = true;
+                col = DesignProfile.FixBeginOrEndAltitude ? 2 : 3;
+                SetCellColor(DesignProfile.FixAltitudePosition, col, DesignDataGrid as object, Colors.Red);
+                ExistTableItem.IsSelected = true;
+                col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
+                SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-                
-                //((TabItem)v).Visibility = Visibility.Visible;
-                /*
-                ItemsControl2.ItemsSource = pd.Slopes;
-                ItemsControl3.ItemsSource = pd.Slopes;
-                */
-                ExistStackPanel.DataContext = pe.Slopes;
-                AltitudeDifferences.DesignProfile = pd;
-                AltitudeDifferences.ExistProfile = pe;
-                AltitudeDifferences.AssignEvent();
-                AltitudeDifferences.Update();
-                AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
 
-                VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
-                Ticks1.DataContext = VerticalAxis.Graduations[0];
-                Ticks2.ItemsSource = VerticalAxis.Graduations[1];
-                Ticks3.ItemsSource = VerticalAxis.Graduations[2];
-
-                HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
-                Ticks4.DataContext = HorizontalAxis.Graduations[0];
-                Ticks5.ItemsSource = HorizontalAxis.Graduations[1];
-                Ticks6.ItemsSource = HorizontalAxis.Graduations[2];
+                UpdateProfiles();
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
@@ -240,14 +236,9 @@ namespace profileDesigner
 
         private void UpdateScale()
         {
-            VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
-            HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
             Profiles.UpdateScale();
-            Profiles.SetLeftTop();
-            ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
-            ExistPolylineTranslate.X = Profiles.LeftTop.X;
-            AltitudeDifferences.UpdateScale();
-        }
+            UpdateProfiles();
+         }
 
         private void Split_Click(object sender, RoutedEventArgs e)
         {
@@ -263,16 +254,22 @@ namespace profileDesigner
         {
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                Profiles.SetLeftTop();
-                Profiles.UpdateMaxMinAltitude();
-                HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
-                VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
-                ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
-                ExistPolylineTranslate.X = Profiles.LeftTop.X;
-                AltitudeDifferences.Update();
+                UpdateProfiles();
             }
+        }
+
+        /// <summary>
+        /// 更新Profile的绘图涉及到的各项参数。
+        /// </summary>
+        private void UpdateProfiles()
+        {
+            Profiles.SetLeftTop();
+            HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+            VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
+            ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
+            ExistPolylineTranslate.X = Profiles.LeftTop.X;
+            AltitudeDifferences.Update();
         }
 
         private void ExistDataGrid_KeyUp(object sender, KeyEventArgs e)
@@ -289,9 +286,8 @@ namespace profileDesigner
         {
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                int rowIndex = e.Row.GetIndex();
                 UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                AltitudeDifferences.Update();
+                UpdateProfiles();
             }
         }
 
@@ -305,11 +301,15 @@ namespace profileDesigner
             SetCellColor(row, col, sender, Colors.Red);
         }
 
+        /// <summary>
+        /// 设置DataGrid单元格的颜色。要求此时DataGrid可见，否则无法修改。
+        /// </summary>
+        /// <param name="row">行号</param>
+        /// <param name="col">列号</param>
+        /// <param name="sender">DataGrid</param>
+        /// <param name="color">颜色</param>
         private void SetCellColor(int row, int col, object sender, Color color)
         {
-            Visibility visibility = ((DataGrid)sender).Visibility;
-            ((DataGrid)sender).Visibility = Visibility.Visible;
-            ((DataGrid)sender).Visibility = visibility;
             DataGridCell cell = DataGridPlus.GetCell(sender as DataGrid, row, col);
             if (cell != null)
                 cell.Foreground = new SolidColorBrush(color);
@@ -381,6 +381,25 @@ namespace profileDesigner
         {
             Profiles.CanvasActualHeight = GradeCanvasRectangle.ActualHeight;
             Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = xlsFilter;
+            dialog.Title = "导入Excel纵断面数据";
+            if (dialog.ShowDialog() == true)
+            {
+
+            }
+
+
+        }
+
+        private void Import1_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

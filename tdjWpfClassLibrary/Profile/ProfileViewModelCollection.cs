@@ -184,21 +184,18 @@ namespace tdjWpfClassLibrary.Profile
                     SetMaxAltitude(max);
                 if (_minAltitude != min)
                     SetMinAltitude(min);
-                SetLeftTop();
             }
         }
 
         private void SetMaxAltitude(double value)
         {
             _maxAltitude = value;
-            SetLeftTop();
             OnPropertyChanged("MaxAltitude");
         }
 
         private void SetMinAltitude(double value)
         {
             _minAltitude = value;
-            SetLeftTop();
             OnPropertyChanged("MinAltitude");
         }
 
@@ -222,7 +219,7 @@ namespace tdjWpfClassLibrary.Profile
         public void SetLeftTop()
         {
             IGraphPosition gp = new ProfileViewModel();
-            LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, _maxAltitude * Scale.Vertical, _minAltitude * Scale.Vertical);
+            LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, MaxAltitude * Scale.Vertical, MinAltitude * Scale.Vertical);
         }
 
         public void UpdateScale()

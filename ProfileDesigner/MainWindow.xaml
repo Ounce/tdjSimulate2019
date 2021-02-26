@@ -48,14 +48,14 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="17" LastChildFill="True" VerticalAlignment="Center" >
             <Menu x:Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0">
-                <MenuItem Header="文件(_F)">
+                <MenuItem Header="文件(_F)" >
                     <MenuItem Name="OpenFile" Header="打开(_O)..." Command="Open" InputGestureText="Ctrl+O" ToolTip="打开项目文件">
                         <MenuItem.Icon>
                             <Image Source="/Images/OpenFolder_16x.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="导入纵断面(_I)..." />
+                    <MenuItem Header="导入Excel纵断面数据(_I)..." Name="Import1"  ToolTip="导入Excel纵断面数据" Click="Import_Click"  />
                     <MenuItem Header="导出纵断面到DXF格式(_E)..." />
                     <Separator/>
                     <MenuItem Header="保存(_S)" Command="Save" InputGestureText="Ctl+S" ToolTip="保存">
@@ -414,7 +414,7 @@
                 </Line.RenderTransform>
             </Line>
             <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="1"/>
-            <StackPanel x:Name="DesignStackPanel">
+            <StackPanel x:Name="DesignStackPanel" DataContext="{Binding Items, ElementName=DesignDataGrid}">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
                 <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
@@ -590,7 +590,7 @@
             <Line x:Name="DesignAltitudeLine" X1="0" Y1="98" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="98" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <Line x:Name="AltitudeDiffenceLine" X1="0" Y1="148" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="148" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <Line x:Name="ExistGrideLine" X1="0" Y1="198" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="198" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
-            <StackPanel x:Name="ExistStackPanel">
+            <StackPanel x:Name="ExistStackPanel" DataContext="{Binding Items, ElementName=ExistDataGrid}">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>

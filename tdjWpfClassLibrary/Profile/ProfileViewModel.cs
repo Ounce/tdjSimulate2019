@@ -108,28 +108,16 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         /// <summary>
-        /// 最大高程。
+        /// 最大高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
         public double MaxAltitude
         {
-            get
-            {
-                if (Slopes.Count < 1) return 0;
-                _maxAltitude = Slopes[0].BeginAltitude;
-                for (int i = 0; i < Slopes.Count; i++)
-                {
-                    if (_maxAltitude < Slopes[i].BeginAltitude)
-                        _maxAltitude = Slopes[i].BeginAltitude;
-                    if (_maxAltitude < Slopes[i].EndAltitude)
-                        _maxAltitude = Slopes[i].EndAltitude;
-                }
-                return _maxAltitude;
-            }
+            get { return _maxAltitude; }
         }
         public double _maxAltitude;
 
         /// <summary>
-        /// 最小高程。
+        /// 最小高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
         public double MinAltitude
         {
