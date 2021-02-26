@@ -290,6 +290,13 @@ namespace profileDesigner
             }
         }
 
+        /// <summary>
+        /// 改变编辑的高程的单元格的颜色。—— FixAltitude
+        /// </summary>
+        /// <param name="profileIndex"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="sender"></param>
         private void UpdateCellColor(int profileIndex, int row, int col, object sender)
         {
             if (col < 2 || col > 3) return;
