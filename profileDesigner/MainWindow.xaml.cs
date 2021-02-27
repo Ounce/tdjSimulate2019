@@ -244,11 +244,6 @@ namespace profileDesigner
 
         }
 
-        private void ExistDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-
-        }
-
         private void existDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -269,16 +264,6 @@ namespace profileDesigner
             ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
             ExistPolylineTranslate.X = Profiles.LeftTop.X;
             AltitudeDifferences.Update();
-        }
-
-        private void ExistDataGrid_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void DesignDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-
         }
 
         private void designDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -319,11 +304,6 @@ namespace profileDesigner
             DataGridCell cell = DataGridPlus.GetCell(sender as DataGrid, row, col);
             if (cell != null)
                 cell.Foreground = new SolidColorBrush(color);
-        }
-
-        private void DesignDataGrid_KeyUp(object sender, KeyEventArgs e)
-        {
-
         }
 
         private void ProfileCanvas_MouseDown(object sender, MouseButtonEventArgs e)
