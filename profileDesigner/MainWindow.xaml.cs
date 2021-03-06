@@ -20,6 +20,7 @@ using Point = System.Windows.Point;
 using tdjWpfClassLibrary;
 using tdjWpfClassLibrary.Draw;
 using tdjWpfClassLibrary.Profile;
+using System.Reflection;
 
 namespace profileDesigner
 {
@@ -55,9 +56,10 @@ namespace profileDesigner
 
         //鼠标按下去的位置
         private Point startMovePosition;
-
         //移动标志
         private bool isMoving = false;
+
+        private DataGrid activeDataGrid;
 
         public MainWindow()
         {
@@ -101,6 +103,8 @@ namespace profileDesigner
             //DesignStackPanel.DataContext = DesignProfile.Slopes;
             //ExistStackPanel.DataContext = ExistProfile.Slopes;
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
+
+            activeDataGrid = ExistDataGrid;
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -207,7 +211,7 @@ namespace profileDesigner
                 xmlDocument = new XmlDocument();
                 xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
                 XmlNamespaceManager xmlns = new XmlNamespaceManager(xmlDocument.NameTable);
-                root = xmlDocument.CreateElement("Profiles", "http://ounce.gitee.io/tdjsimulate/");
+                root = xmlDocument.CreateElement("Profiles");
                 xmlDocument.AppendChild(root);
                 SaveFile();
             }
@@ -381,6 +385,72 @@ namespace profileDesigner
             }
 
 
+        }
+
+        private void Copy_Execute(object sender, RoutedEventArgs e)
+        {
+            DataGrid dataGrid;
+            if (DesignTableItem.IsSelected)
+                dataGrid = DesignDataGrid;
+            else if (ExistTableItem.IsSelected)
+                dataGrid = ExistDataGrid;
+            else
+                return;
+            dataGrid.SelectAllCells();
+            dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            ApplicationCommands.Copy.Execute(null, dataGrid);
+            dataGrid.UnselectAllCells();
+        }
+
+        private void Paste_Execute(object sender, RoutedEventArgs e)
+        {
+            // 遍历所有DataGrid的选中的Cell是否IsFoused为true；是：为选中datagrid，否为未选中。
+            DataGrid dataGrid;
+            if (DesignTableItem.IsSelected)
+                dataGrid = DesignDataGrid;
+            else if (ExistTableItem.IsSelected)
+                dataGrid = ExistDataGrid;
+            else
+                return;
+
+            int rowIndex = -1;
+            int colIndex = -1;
+            var _cells = dataGrid.SelectedCells;
+            if (_cells.Any())
+            {
+                rowIndex = dataGrid.Items.IndexOf(_cells.First().Item);
+                colIndex = _cells.First().Column.DisplayIndex;
+            }
+            else
+                return;
+            string pasteText = Clipboard.GetText();
+            string[] Rinfo = pasteText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            int rSum = Math.Min(Rinfo.Length, dataGrid.Items.Count - rowIndex);
+            for (int i = 0; i < rSum; i++)
+            {
+                string[] Cinfo = Rinfo[i].Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                int cSum = Math.Min(Cinfo.Length, dataGrid.Columns.Count - colIndex);
+                SlopeViewModel slope = dataGrid.Items[i + rowIndex] as SlopeViewModel;
+                for (int j = 0; j < cSum; j++)
+                {
+                    switch(j + colIndex)
+                    {
+                        case 0:
+                            slope.Length = StringConvert.ToDouble(Cinfo[j]);
+                            break;
+                        case 1:
+                            slope.Grade = StringConvert.ToDouble(Cinfo[j]);
+                            break;
+                        case 2:
+                            slope.BeginAltitude = StringConvert.ToDouble(Cinfo[j]);
+                            break;
+                        case 3:
+                            slope.EndAltitude = StringConvert.ToDouble(Cinfo[j]);
+                            break;
+                    }
+                }
+            }
+            UpdateProfiles();
         }
     }
 }
