@@ -27,11 +27,13 @@
     <Window.CommandBindings>
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
         <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
+        <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute" Executed="Paste_Execute"/>
         <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="Paste" Key="V" Modifiers="Ctrl"/>
         <KeyBinding Command="{x:Static local:MainWindow.CommandExit}" Key="X" Modifiers="Alt"/>
     </Window.InputBindings>
     <Grid Name="Grid">
