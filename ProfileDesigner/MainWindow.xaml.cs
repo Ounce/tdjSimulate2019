@@ -387,6 +387,21 @@ namespace profileDesigner
 
         }
 
+        private void Copy_Execute(object sender, RoutedEventArgs e)
+        {
+            DataGrid dataGrid;
+            if (DesignTableItem.IsSelected)
+                dataGrid = DesignDataGrid;
+            else if (ExistTableItem.IsSelected)
+                dataGrid = ExistDataGrid;
+            else
+                return;
+            dataGrid.SelectAllCells();
+            dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            ApplicationCommands.Copy.Execute(null, dataGrid);
+            dataGrid.UnselectAllCells();
+        }
+
         private void Paste_Execute(object sender, RoutedEventArgs e)
         {
             // 遍历所有DataGrid的选中的Cell是否IsFoused为true；是：为选中datagrid，否为未选中。
@@ -433,7 +448,6 @@ namespace profileDesigner
                             slope.EndAltitude = StringConvert.ToDouble(Cinfo[j]);
                             break;
                     }
-                    
                 }
             }
             UpdateProfiles();

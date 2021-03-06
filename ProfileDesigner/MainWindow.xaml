@@ -28,11 +28,13 @@
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Click"/>
         <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
         <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute" Executed="Paste_Execute"/>
+        <CommandBinding Command="Copy" CanExecute="CommandBinding_CanExecute" Executed="Copy_Execute"/>
         <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="Copy" Key="C" Modifiers="Ctrl"/>
         <KeyBinding Command="Paste" Key="V" Modifiers="Ctrl"/>
         <KeyBinding Command="{x:Static local:MainWindow.CommandExit}" Key="X" Modifiers="Alt"/>
     </Window.InputBindings>
@@ -90,6 +92,12 @@
                 </Button>
                 <Button Click="SaveAs_Click" ToolTip="另存为..." Height="34" Width="26">
                     <Image Source="/Images/SaveAs_16x.png"/>
+                </Button>
+                <Button ToolTip="复制" Height="34" Width="26" Command="Copy">
+                    <Image Source="/Images/Copy.png"/>
+                </Button>
+                <Button Click="Paste_Execute" ToolTip="粘贴" Height="34" Width="26">
+                    <Image Source="/Images/Paste.png"/>
                 </Button>
             </ToolBar>
             <ToolBar VerticalAlignment="Top" Margin="0,0,0,0" d:LayoutOverrides="Width">

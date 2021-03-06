@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <None Remove="Images\AbstractAssociation_16x.png" />
+    <None Remove="Images\copy.png" />
+    <None Remove="Images\Copy_16x.png" />
     <None Remove="Images\Exit_16x.png" />
     <None Remove="Images\MoveGlyph_16x.png" />
     <None Remove="Images\OpenFolder_16x.png" />
+    <None Remove="Images\paste.png" />
+    <None Remove="Images\Paste_16x.png" />
     <None Remove="Images\SaveAll_16x.png" />
     <None Remove="Images\SaveAs_16x.png" />
     <None Remove="Images\Save_16x.png" />
@@ -43,6 +47,12 @@
     <Resource Include="Images\AbstractAssociation_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Copy_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Exit_16x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -50,6 +60,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\OpenFolder_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\paste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Paste_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\SaveAll_16x.png">
