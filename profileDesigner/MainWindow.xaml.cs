@@ -67,10 +67,12 @@ namespace profileDesigner
             Profiles = new ProfileViewModelCollection();
             DesignProfile = new ProfileViewModel();
             DesignProfile.Name = "DesignProfile";
+            DesignProfile.Title = "设计纵断面";
             DesignProfile.SlopeTableTop = 1;
             DesignProfile.SlopeTableBottom = 48;
             ExistProfile = new ProfileViewModel();
             ExistProfile.Name = "ExistProfile";
+            ExistProfile.Title = "既有纵断面";
             ExistProfile.SlopeTableTop = ExistGrideLine.Y2 + 1;
             ExistProfile.SlopeTableBottom = ExistProfile.SlopeTableTop + 44;
             Profiles.Add(DesignProfile);
@@ -400,6 +402,18 @@ namespace profileDesigner
             dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
             ApplicationCommands.Copy.Execute(null, dataGrid);
             dataGrid.UnselectAllCells();
+        }
+
+        private void ExportDXF_Execute(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "DXF文件(*.dxf)|*.dxf";
+            if (sfd.ShowDialog() == true)
+            {
+                DXFIO dxfIO = new DXFIO();
+                dxfIO.ExportToDXF(Profiles, sfd.FileName, AltitudeDifferences);
+                MessageBox.Show("导出已完成！", "提示!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void Paste_Execute(object sender, RoutedEventArgs e)
