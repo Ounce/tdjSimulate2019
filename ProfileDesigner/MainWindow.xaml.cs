@@ -456,7 +456,6 @@ namespace profileDesigner
         {
             int rowIndex;
             if (ActiveDataGrid == null) return;
-
             SlopeViewModel slope = new SlopeViewModel();
             rowIndex = GetSelectedRowIndex();
             if (rowIndex == -1) return;
@@ -473,5 +472,15 @@ namespace profileDesigner
             else
                 return -1 ;
         }
+
+        private void RemoveSlope(object sender, RoutedEventArgs e)
+        {
+            int rowIndex;
+            if (ActiveDataGrid == null) return;
+            rowIndex = GetSelectedRowIndex();
+            if (rowIndex == -1) return;
+            ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).RemoveAt(rowIndex);
+        }
+
     }
 }

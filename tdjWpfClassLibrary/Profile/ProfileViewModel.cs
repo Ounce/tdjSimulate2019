@@ -243,7 +243,7 @@ namespace tdjWpfClassLibrary.Profile
                     {
                         Slopes[e.NewStartingIndex + 1].BeginMileage = Slopes[e.NewStartingIndex].EndMileage;
                     }
-                    if (FixAltitudePosition > e.NewStartingIndex) FixAltitudePosition++;
+                    if (FixAltitudePosition >= e.NewStartingIndex) FixAltitudePosition++;
                     if (e.NewStartingIndex < FixAltitudePosition)
                     {
                         if (e.NewStartingIndex < Slopes.Count - 1)
@@ -259,6 +259,26 @@ namespace tdjWpfClassLibrary.Profile
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    if (e.OldStartingIndex == 0)
+                    {
+                        Slopes[0].BeginMileage = 0;
+                    }
+                    else
+                    {
+                        Slopes[e.OldStartingIndex].BeginMileage = Slopes[e.OldStartingIndex - 1].EndMileage;
+                    }
+                    if (FixAltitudePosition > e.OldStartingIndex) FixAltitudePosition--;
+                    if (FixAltitudePosition < e.OldStartingIndex)
+                    {
+                        if (e.OldStartingIndex < Slopes.Count && e.OldStartingIndex > 0)
+                            Slopes[e.OldStartingIndex].BeginAltitude = Slopes[e.OldStartingIndex - 1].EndAltitude;
+                    }
+                    else
+                    {
+                        if (e.OldStartingIndex < Slopes.Count - 1)
+                            Slopes[e.OldStartingIndex].EndAltitude = Slopes[e.OldStartingIndex + 1].BeginAltitude;
+                    }
+                    break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
                     UpdateMaxMinAltitude();
