@@ -134,10 +134,10 @@
                     <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
                     <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding }" CellEditEnding="existDataGrid_CellEditEnding"  SelectionUnit="Cell" CanUserDeleteRows="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="*"/>
-                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="1.5*"/>
-                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -145,10 +145,10 @@
                     <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" SelectionUnit="Cell"  CanUserDeleteRows="True">
                         <!-- -->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="*"/>
-                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="1.5*" />
-                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                            <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                            <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="1.5*" />
+                            <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -180,7 +180,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Line X1="0" X2="20" Y1="{Binding VerticalPosition}" Y2="{Binding VerticalPosition}"  Stroke="red" StrokeThickness="2">
+                            <Line X1="0" X2="20" Y1="{Binding VerticalPosition}" Y2="{Binding VerticalPosition}"  Stroke="red" StrokeThickness="1" >
                                 <Line.RenderTransform>
                                     <TranslateTransform Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
                                 </Line.RenderTransform>
@@ -395,7 +395,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="2" >
+                        <Line X1="{Binding X1}" Y1="{Binding Y1}" X2="{Binding X2}" Y2="{Binding Y2}" Stroke="Red" StrokeThickness="1" StrokeDashArray="20, 10">
                             <Line.RenderTransform>
                                 <TranslateTransform X="{Binding X, ElementName=ExistPolylineTranslate}" Y="{Binding Y, ElementName=ExistPolylineTranslate}"/>
                             </Line.RenderTransform>
