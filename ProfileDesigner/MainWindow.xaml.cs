@@ -21,6 +21,7 @@ using tdjWpfClassLibrary;
 using tdjWpfClassLibrary.Draw;
 using tdjWpfClassLibrary.Profile;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace profileDesigner
 {
@@ -59,7 +60,18 @@ namespace profileDesigner
         //移动标志
         private bool isMoving = false;
 
-        private DataGrid activeDataGrid;
+        private DataGrid ActiveDataGrid
+        {
+            get
+            {
+                if (DesignTableItem.IsSelected)
+                    return DesignDataGrid;
+                else if (ExistTableItem.IsSelected)
+                    return ExistDataGrid;
+                else
+                    return null;
+            }
+        }
 
         public MainWindow()
         {
@@ -106,7 +118,7 @@ namespace profileDesigner
             //ExistStackPanel.DataContext = ExistProfile.Slopes;
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
 
-            activeDataGrid = ExistDataGrid;
+            //activeDataGrid = ExistDataGrid;
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -375,33 +387,14 @@ namespace profileDesigner
             Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
         }
 
-        private void Import_Click(object sender, RoutedEventArgs e)
-        {
-
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = xlsFilter;
-            dialog.Title = "导入Excel纵断面数据";
-            if (dialog.ShowDialog() == true)
-            {
-
-            }
-
-
-        }
-
         private void Copy_Execute(object sender, RoutedEventArgs e)
         {
-            DataGrid dataGrid;
-            if (DesignTableItem.IsSelected)
-                dataGrid = DesignDataGrid;
-            else if (ExistTableItem.IsSelected)
-                dataGrid = ExistDataGrid;
-            else
+            if (ActiveDataGrid == null)
                 return;
-            dataGrid.SelectAllCells();
-            dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-            ApplicationCommands.Copy.Execute(null, dataGrid);
-            dataGrid.UnselectAllCells();
+            ActiveDataGrid.SelectAllCells();
+            ActiveDataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            ApplicationCommands.Copy.Execute(null, ActiveDataGrid);
+            ActiveDataGrid.UnselectAllCells();
         }
 
         private void ExportDXF_Execute(object sender, RoutedEventArgs e)
@@ -418,33 +411,25 @@ namespace profileDesigner
 
         private void Paste_Execute(object sender, RoutedEventArgs e)
         {
-            // 遍历所有DataGrid的选中的Cell是否IsFoused为true；是：为选中datagrid，否为未选中。
-            DataGrid dataGrid;
-            if (DesignTableItem.IsSelected)
-                dataGrid = DesignDataGrid;
-            else if (ExistTableItem.IsSelected)
-                dataGrid = ExistDataGrid;
-            else
-                return;
-
+            if (ActiveDataGrid == null) return;
             int rowIndex = -1;
             int colIndex = -1;
-            var _cells = dataGrid.SelectedCells;
+            var _cells = ActiveDataGrid.SelectedCells;
             if (_cells.Any())
             {
-                rowIndex = dataGrid.Items.IndexOf(_cells.First().Item);
+                rowIndex = ActiveDataGrid.Items.IndexOf(_cells.First().Item);
                 colIndex = _cells.First().Column.DisplayIndex;
             }
             else
                 return;
             string pasteText = Clipboard.GetText();
             string[] Rinfo = pasteText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            int rSum = Math.Min(Rinfo.Length, dataGrid.Items.Count - rowIndex);
+            int rSum = Math.Min(Rinfo.Length, ActiveDataGrid.Items.Count - rowIndex);
             for (int i = 0; i < rSum; i++)
             {
                 string[] Cinfo = Rinfo[i].Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
-                int cSum = Math.Min(Cinfo.Length, dataGrid.Columns.Count - colIndex);
-                SlopeViewModel slope = dataGrid.Items[i + rowIndex] as SlopeViewModel;
+                int cSum = Math.Min(Cinfo.Length, ActiveDataGrid.Columns.Count - colIndex);
+                SlopeViewModel slope = ActiveDataGrid.Items[i + rowIndex] as SlopeViewModel;
                 for (int j = 0; j < cSum; j++)
                 {
                     switch(j + colIndex)
@@ -465,6 +450,28 @@ namespace profileDesigner
                 }
             }
             UpdateProfiles();
+        }
+
+        private void AddSlope(object sender, RoutedEventArgs e)
+        {
+            int rowIndex;
+            if (ActiveDataGrid == null) return;
+
+            SlopeViewModel slope = new SlopeViewModel();
+            rowIndex = GetSelectedRowIndex();
+            if (rowIndex == -1) return;
+            ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).Insert(rowIndex, slope);
+        }
+
+        private int GetSelectedRowIndex()
+        {
+            var _cells = ActiveDataGrid.SelectedCells;
+            if (_cells.Any())
+            {
+                return ActiveDataGrid.Items.IndexOf(_cells.First().Item);
+            }
+            else
+                return -1 ;
         }
     }
 }

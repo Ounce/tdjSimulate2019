@@ -235,6 +235,25 @@ namespace tdjWpfClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    if (e.NewStartingIndex > 0)
+                    {
+                        Slopes[e.NewStartingIndex].BeginMileage = Slopes[e.NewStartingIndex - 1].EndMileage;
+                    }
+                    if (e.NewStartingIndex < Slopes.Count - 1)
+                    {
+                        Slopes[e.NewStartingIndex + 1].BeginMileage = Slopes[e.NewStartingIndex].EndMileage;
+                    }
+                    if (FixAltitudePosition > e.NewStartingIndex) FixAltitudePosition++;
+                    if (e.NewStartingIndex < FixAltitudePosition)
+                    {
+                        if (e.NewStartingIndex < Slopes.Count - 1)
+                            Slopes[e.NewStartingIndex].EndAltitude = Slopes[e.NewStartingIndex + 1].BeginAltitude;
+                    }
+                    else
+                    {
+                        if (e.NewStartingIndex > 0)
+                            Slopes[e.NewStartingIndex].BeginAltitude = Slopes[e.NewStartingIndex - 1].EndAltitude;
+                    }
                     UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].BeginAltitude);
                     UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].EndAltitude);
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
@@ -463,8 +482,7 @@ namespace tdjWpfClassLibrary.Profile
             XmlNodeList xmlNodeList = xmlElement.ChildNodes;
             double m = 0;
             Slopes.Clear();
-            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
-            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+
             if (xmlElement.GetAttribute("GradeUnit") == null)
                 GradeUnit = 1000;
             else
@@ -473,7 +491,6 @@ namespace tdjWpfClassLibrary.Profile
             {
                 SlopeViewModel slope = new SlopeViewModel();
                 //SetSlopeTable(slope);
-
                 //已经在SlopesCollectionChanged中通过调用SetSlopeTable设置。
                 //slope.SlopeTableTop = SlopeTableTop;
                 //slope.SlopeTableBottom = SlopeTableBottom;
@@ -486,6 +503,9 @@ namespace tdjWpfClassLibrary.Profile
                 //slope.EndMileage = m;
                 Slopes.Add(slope);
             }
+            //避免读取数据时修改FixAltitudePosition。
+            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
+            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
             OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
