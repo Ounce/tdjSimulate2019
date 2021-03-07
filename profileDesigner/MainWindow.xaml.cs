@@ -375,20 +375,6 @@ namespace profileDesigner
             Profiles.CanvasActualWidth = GradeCanvasRectangle.ActualWidth;
         }
 
-        private void Import_Click(object sender, RoutedEventArgs e)
-        {
-
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = xlsFilter;
-            dialog.Title = "导入Excel纵断面数据";
-            if (dialog.ShowDialog() == true)
-            {
-
-            }
-
-
-        }
-
         private void Copy_Execute(object sender, RoutedEventArgs e)
         {
             DataGrid dataGrid;

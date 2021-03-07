@@ -59,7 +59,6 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="导入Excel纵断面数据(_I)..." Name="Import1"  ToolTip="导入Excel纵断面数据" Click="Import_Click"  />
                     <MenuItem Header="导出纵断面到DXF格式(_E)..." Name="ExportDXF" ToolTip="导出到DXF文件" Click="ExportDXF_Execute"/>
                     <Separator/>
                     <MenuItem Header="保存(_S)" Command="Save" InputGestureText="Ctl+S" ToolTip="保存">
@@ -76,8 +75,8 @@
                     <MenuItem Header="退出(_X)" Command="{x:Static local:MainWindow.CommandExit}" InputGestureText="Alt+X"/>
                 </MenuItem>
                 <MenuItem Header="编辑(_E)" Click="ShowOption">
-                    <MenuItem Header="编辑既有纵断面(_I)..." Click="EditExist_Click"/>
-                    <MenuItem Header="编辑设计纵断面(_D)..." Click="EditDesign_Click"/>
+                    <MenuItem Header="复制(_C)..." InputGestureText="Ctrl+C" Command="Copy"/>
+                    <MenuItem Header="粘贴(_P)..." InputGestureText="Ctrl+V" Command="Paste"/>
                     <MenuItem Header="设置(_O)..." Click="ShowOption"/>
                 </MenuItem>
             </Menu>
