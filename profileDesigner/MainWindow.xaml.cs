@@ -46,6 +46,8 @@ namespace profileDesigner
         string FileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
+        bool CanClose = true;
+
         string xlsFileName;
         string xlsFilter = "Excel文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls|所有文件(*.*)|*.*";
 
@@ -76,6 +78,8 @@ namespace profileDesigner
         public MainWindow()
         {
             InitializeComponent();
+            //与前台Window定义重复。
+            //this.Closing += new System.ComponentModel.CancelEventHandler(Window_Closing);
             Profiles = new ProfileViewModelCollection();
             DesignProfile = new ProfileViewModel();
             DesignProfile.Name = "DesignProfile";
@@ -148,23 +152,13 @@ namespace profileDesigner
                 col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-
                 UpdateProfiles();
+                CanClose = true;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
 
         private void ShowOption(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EditDesign_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EditExist_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -196,6 +190,7 @@ namespace profileDesigner
                 AppendSlopes(Profiles[i], designElement);
             }
             xmlDocument.Save(FileName);
+            CanClose = true;
         }
 
         private void AppendSlopes(ProfileViewModel profile, XmlElement element)
@@ -268,6 +263,7 @@ namespace profileDesigner
             {
                 UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
                 UpdateProfiles();
+                CanClose = false;
             }
         }
 
@@ -290,6 +286,7 @@ namespace profileDesigner
             {
                 UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
                 UpdateProfiles();
+                CanClose = false;
             }
         }
 
@@ -473,6 +470,19 @@ namespace profileDesigner
                 return -1 ;
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CanClose)
+            {
+                e.Cancel = false;
+                return;
+            }
+            if (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否退出？", "", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void RemoveSlope(object sender, RoutedEventArgs e)
         {
             int rowIndex;
@@ -481,6 +491,5 @@ namespace profileDesigner
             if (rowIndex == -1) return;
             ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).RemoveAt(rowIndex);
         }
-
     }
 }

@@ -7,7 +7,8 @@
         xmlns:local1="clr-namespace:tdjWpfClassLibrary.Draw;assembly=tdjWpfClassLibrary" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local21="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+        Title="MainWindow" Height="600" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized"
+        Closing="Window_Closing">
 
     <Window.Resources>
         <local1:ConverterPlus x:Key="ValuePlus"/>
