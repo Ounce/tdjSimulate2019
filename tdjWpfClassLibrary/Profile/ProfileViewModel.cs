@@ -29,6 +29,9 @@ namespace tdjWpfClassLibrary.Profile
             get;
             set;
         }
+
+        public string Title { get; set; }
+
         public HorizontalAlignment HorizontalAlignment
         {
             get => _horizontalAlignment;
