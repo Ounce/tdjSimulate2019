@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< Updated upstream
 using System.Collections.ObjectModel;
+=======
+>>>>>>> Stashed changes
 using System.Text;
 
 namespace tdjWpfClassLibrary.Draw
 {
     /// <summary>
+<<<<<<< Updated upstream
     /// 刻度线类。
     /// </summary>
     public class Tick : NotifyPropertyChanged
@@ -131,4 +135,21 @@ namespace tdjWpfClassLibrary.Draw
 
     }
 
+=======
+    /// 数轴方向，水平、垂直。
+    /// </summary>
+    public enum AxisDircetion { Horizontal, Vertical }
+
+    /// <summary>
+    /// 数轴类。
+    /// </summary>
+    class NumberAxis : NotifyPropertyChanged
+    {
+        /// <summary>
+        /// 数轴方向，Horizontal，Vertical。
+        /// </summary>
+        public AxisDircetion Direction;
+
+    }
+>>>>>>> Stashed changes
 }
