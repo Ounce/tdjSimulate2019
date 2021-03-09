@@ -62,6 +62,10 @@ namespace profileDesigner
         //移动标志
         private bool isMoving = false;
 
+        private Point MousePosition; //鼠标在Grid中的位置。
+        private double MouseMileage;
+        private double MouseAltitude;
+
         private DataGrid ActiveDataGrid
         {
             get
@@ -333,16 +337,17 @@ namespace profileDesigner
         }
 
         private void ProfileCanvas_MouseMove(object sender, MouseEventArgs e)
-        {
+        { 
+            //其他功能需要随时确定鼠标位置。
+            MousePosition = e.GetPosition((Grid)sender);//当前鼠标位置
             if (isMoving)
             {
-                Point currentMousePosition = e.GetPosition((Grid)sender);//当前鼠标位置
                 Point deltaPt = new Point(0, 0);
-                deltaPt.X = currentMousePosition.X - startMovePosition.X;
-                deltaPt.Y = currentMousePosition.Y - startMovePosition.Y;
+                deltaPt.X = MousePosition.X - startMovePosition.X;
+                deltaPt.Y = MousePosition.Y - startMovePosition.Y;
                 ExistPolylineTranslate.X += deltaPt.X;
                 ExistPolylineTranslate.Y += deltaPt.Y;
-                startMovePosition = currentMousePosition;
+                startMovePosition = MousePosition;
             }
         }
 
@@ -360,6 +365,8 @@ namespace profileDesigner
 
         private void ProfileCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            UpdateMouseMileage();
+            UpdateMouseAltitude();
             if (e.Delta > 0)
             {
                 Scale.Horizontal *= 1.1;
@@ -371,6 +378,8 @@ namespace profileDesigner
                 Scale.Vertical *= 0.9;
             }
             UpdateScale();
+            ExistPolylineTranslate.X = MousePosition.X - MouseMileage * Scale.Horizontal;
+            //ExistPolylineTranslate.Y = -Profiles.LeftTop.Y + MousePosition.Y * 0.1;
         }
 
         private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -490,6 +499,18 @@ namespace profileDesigner
             rowIndex = GetSelectedRowIndex();
             if (rowIndex == -1) return;
             ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).RemoveAt(rowIndex);
+        }
+
+        private void UpdateMouseMileage()
+        {
+            //当前鼠标位置MousePosition由ProfileCanvas_MouseMove函数确定。
+            MouseMileage = (MousePosition.X - ExistPolylineTranslate.X) / Scale.Horizontal;
+            return;
+        }
+
+        private void UpdateMouseAltitude()
+        {
+            MouseAltitude = (-MousePosition.Y +  Profiles.LeftTop.Y) / Scale.Vertical;
         }
     }
 }
