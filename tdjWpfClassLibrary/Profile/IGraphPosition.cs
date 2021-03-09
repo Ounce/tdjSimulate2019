@@ -57,19 +57,5 @@ namespace tdjWpfClassLibrary.Profile
             }
             return new Point(l, t);
         }
-
-        double GetMouseVerticalValue(double mouseVerticalPosition, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, double canvasActualWidth, double canvasActualHeight, double left, double right, double top, double bottom)
-        {
-            double v = -1;
-            switch (verticalAlignment)
-            {
-                case VerticalAlignment.Top:
-                    top - bottom
-                case VerticalAlignment.Center:
-                case VerticalAlignment.Bottom:
-                    break;
-            }
-            return v;
-        }
     }
 }
