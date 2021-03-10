@@ -232,16 +232,16 @@ namespace profileDesigner
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
         {
-            Scale.Horizontal *= 1.2;
-            Scale.Vertical *= 1.2;
-            UpdateScale();
+            MousePosition.X = 0.5 * Grid.ActualWidth;
+            MousePosition.Y = 0.5 * Grid.ActualHeight;
+            Zoom(1.2);
         }
 
         private void ZoomOutButton_Click(object sender, RoutedEventArgs e)
         {
-            Scale.Horizontal *= 0.8;
-            Scale.Vertical *= 0.8;
-            UpdateScale();
+            MousePosition.X = 0.5 * Grid.ActualWidth;
+            MousePosition.Y = 0.5 * Grid.ActualHeight;
+            Zoom(0.8);
         }
 
         private void ZoomAllButton_Click(object sender, RoutedEventArgs e)
@@ -365,21 +365,14 @@ namespace profileDesigner
 
         private void ProfileCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            UpdateMouseMileage();
-            UpdateMouseAltitude();
             if (e.Delta > 0)
             {
-                Scale.Horizontal *= 1.1;
-                Scale.Vertical *= 1.1;
+                Zoom(1.1);
             }
             else
             {
-                Scale.Horizontal *= 0.9;
-                Scale.Vertical *= 0.9;
+                Zoom(0.9);
             }
-            UpdateScale();
-            ExistPolylineTranslate.X = MousePosition.X - MouseMileage * Scale.Horizontal;
-            ExistPolylineTranslate.Y = -ValueConverter.VerticalValue(MouseAltitude * Scale.Vertical) + MousePosition.Y;
         }
 
         private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -517,6 +510,17 @@ namespace profileDesigner
         private void UpdateMouseAltitude()
         {
             MouseAltitude = Profiles.MaxAltitude - (MousePosition.Y - (ExistPolylineTranslate.Y + ValueConverter.VerticalValue(Profiles.MaxAltitude * Scale.Vertical) )) / Scale.Vertical;
+        }
+
+        private void Zoom(double scale)
+        {
+            UpdateMouseMileage();
+            UpdateMouseAltitude();
+            Scale.Horizontal *= scale;
+            Scale.Vertical *= scale;
+            UpdateScale();
+            ExistPolylineTranslate.X = MousePosition.X - MouseMileage * Scale.Horizontal;
+            ExistPolylineTranslate.Y = -ValueConverter.VerticalValue(MouseAltitude * Scale.Vertical) + MousePosition.Y;
         }
     }
 }
