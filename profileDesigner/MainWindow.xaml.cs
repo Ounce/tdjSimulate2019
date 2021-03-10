@@ -379,7 +379,7 @@ namespace profileDesigner
             }
             UpdateScale();
             ExistPolylineTranslate.X = MousePosition.X - MouseMileage * Scale.Horizontal;
-            //ExistPolylineTranslate.Y = -Profiles.LeftTop.Y + MousePosition.Y * 0.1;
+            ExistPolylineTranslate.Y = -ValueConverter.VerticalValue(MouseAltitude * Scale.Vertical) + MousePosition.Y;
         }
 
         private void ExistCanvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -501,6 +501,9 @@ namespace profileDesigner
             ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).RemoveAt(rowIndex);
         }
 
+        /// <summary>
+        /// 更新鼠标说在位置对应的里程
+        /// </summary>
         private void UpdateMouseMileage()
         {
             //当前鼠标位置MousePosition由ProfileCanvas_MouseMove函数确定。
@@ -508,9 +511,12 @@ namespace profileDesigner
             return;
         }
 
+        /// <summary>
+        /// 更新鼠标位置对应的高程
+        /// </summary>
         private void UpdateMouseAltitude()
         {
-            MouseAltitude = (-MousePosition.Y +  Profiles.LeftTop.Y) / Scale.Vertical;
+            MouseAltitude = Profiles.MaxAltitude - (MousePosition.Y - (ExistPolylineTranslate.Y + ValueConverter.VerticalValue(Profiles.MaxAltitude * Scale.Vertical) )) / Scale.Vertical;
         }
     }
 }
