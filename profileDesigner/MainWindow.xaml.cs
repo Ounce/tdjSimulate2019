@@ -43,7 +43,19 @@ namespace profileDesigner
 
         XmlDocument xmlDocument;
         XmlElement root;
-        string FileName;
+        string FileName 
+        {
+            get { return _fileName; }
+            set
+            {
+                if (value != _fileName)
+                {
+                    _fileName = value;
+                    this.Title = "纵断面辅助设计 -- " + _fileName;
+                }
+            } 
+        }
+        private string _fileName;
         string Filter = "纵断面文件(*.profile)|*.profile";
 
         bool CanClose = true;
@@ -82,6 +94,7 @@ namespace profileDesigner
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = "纵断面辅助设计";
             //与前台Window定义重复。
             //this.Closing += new System.ComponentModel.CancelEventHandler(Window_Closing);
             Profiles = new ProfileViewModelCollection();
