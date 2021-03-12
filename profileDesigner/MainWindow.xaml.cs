@@ -465,16 +465,6 @@ namespace profileDesigner
             UpdateProfiles();
         }
 
-        private void AddSlope(object sender, RoutedEventArgs e)
-        {
-            int rowIndex;
-            if (ActiveDataGrid == null) return;
-            SlopeViewModel slope = new SlopeViewModel();
-            rowIndex = GetSelectedRowIndex(ActiveDataGrid);
-            if (rowIndex == -1) return;
-            ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).Insert(rowIndex, slope);
-        }
-
         private int GetSelectedRowIndex(DataGrid dataGrid)
         {
             var _cells = dataGrid.SelectedCells;
@@ -524,6 +514,9 @@ namespace profileDesigner
                 case Key.Delete:
                     DeleteSlope(ExistDataGrid);
                     break;
+                case Key.Insert:
+                    AddSlope(ExistDataGrid);
+                    break;
             }
         }
 
@@ -534,7 +527,24 @@ namespace profileDesigner
                 case Key.Delete:
                     DeleteSlope(DesignDataGrid);
                     break;
+                case Key.Insert:
+                    AddSlope(DesignDataGrid);
+                    break;
             }
+        }
+
+        private void AddSlope(DataGrid dataGrid)
+        {
+            if (dataGrid == null) return;
+            SlopeViewModel slope = new SlopeViewModel();
+            int rowIndex = GetSelectedRowIndex(dataGrid);
+            if (rowIndex == -1) return;
+            ((ObservableCollection<SlopeViewModel>)(dataGrid.ItemsSource)).Insert(rowIndex, slope);
+        }
+
+        private void InsertSlope(object sender, RoutedEventArgs e)
+        {
+            AddSlope(ActiveDataGrid);
         }
 
         private void DeleteSlope(DataGrid dataGrid)

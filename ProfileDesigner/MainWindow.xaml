@@ -156,7 +156,7 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            <Button x:Name="AddSlopeButton" Content="新增" Grid.Row="1" Grid.Column="0" Margin="0" Click="AddSlope"/>
+            <Button x:Name="AddSlopeButton" Content="新增" Grid.Row="1" Grid.Column="0" Margin="0" Click="InsertSlope"/>
             <Button x:Name="RemoveSlopeButtom" Content="删除" Grid.Row="1" Grid.Column="1" Margin="0" Click="RemoveSlope"/>
         </Grid>
         <GridSplitter Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
