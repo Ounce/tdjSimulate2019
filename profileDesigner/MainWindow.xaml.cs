@@ -22,6 +22,7 @@ using tdjWpfClassLibrary.Draw;
 using tdjWpfClassLibrary.Profile;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace profileDesigner
 {
@@ -98,6 +99,7 @@ namespace profileDesigner
             //与前台Window定义重复。
             //this.Closing += new System.ComponentModel.CancelEventHandler(Window_Closing);
             Profiles = new ProfileViewModelCollection();
+            Profiles.PropertyChanged += ProfilesPropertyChanged;
             DesignProfile = new ProfileViewModel();
             DesignProfile.Name = "DesignProfile";
             DesignProfile.Title = "设计纵断面";
@@ -140,6 +142,16 @@ namespace profileDesigner
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
 
             //activeDataGrid = ExistDataGrid;
+        }
+
+        private void ProfilesPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Updated":
+                    UpdateProfiles();
+                    break;
+            }
         }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -280,7 +292,7 @@ namespace profileDesigner
             if (e.EditAction == DataGridEditAction.Commit)
             {
                 UpdateCellColor(1, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                UpdateProfiles();
+                //UpdateProfiles();
                 CanClose = false;
             }
         }
@@ -303,7 +315,8 @@ namespace profileDesigner
             if (e.EditAction == DataGridEditAction.Commit)
             {
                 UpdateCellColor(0, e.Row.GetIndex(), e.Column.DisplayIndex, sender);
-                UpdateProfiles();
+                // 由ProfileViewModel等类的Updated消息传递修改状态，并触发ProfilesPropertyChanged调用UpdateProfiles。
+                //UpdateProfiles(); 
                 CanClose = false;
             }
         }
@@ -483,7 +496,7 @@ namespace profileDesigner
                 e.Cancel = false;
                 return;
             }
-            if (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否退出？", "", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            if (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否退出？", "警告！", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
             {
                 e.Cancel = true;
             }
@@ -540,6 +553,7 @@ namespace profileDesigner
             int rowIndex = GetSelectedRowIndex(dataGrid);
             if (rowIndex == -1) return;
             ((ObservableCollection<SlopeViewModel>)(dataGrid.ItemsSource)).Insert(rowIndex, slope);
+            CanClose = false;
         }
 
         private void InsertSlope(object sender, RoutedEventArgs e)
@@ -553,6 +567,7 @@ namespace profileDesigner
             int rowIndex = GetSelectedRowIndex(dataGrid);
             if (rowIndex == -1) return;
             ((ObservableCollection<SlopeViewModel>)(dataGrid.ItemsSource)).RemoveAt(rowIndex);
+            CanClose = false;
         }
 
         private void RemoveSlope(object sender, RoutedEventArgs e)

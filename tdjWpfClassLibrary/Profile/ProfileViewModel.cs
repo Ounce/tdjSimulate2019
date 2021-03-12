@@ -83,6 +83,17 @@ namespace tdjWpfClassLibrary.Profile
             get { return Slopes.Count; }
         }
 
+        public bool Updated
+        {
+            get { return _updated; }
+            set
+            {
+                _updated = true;
+                OnPropertyChanged("Updated");
+            }
+        }
+        private bool _updated = true;
+
         /// <summary>
         /// 原始Altitude位置。未设置时此值为-1。
         /// 读取Excel数据时，以第一个非-999高程为FixAltitudePosition。
@@ -330,6 +341,7 @@ namespace tdjWpfClassLibrary.Profile
                     UpdateMaxMinAltitude();
                     break;
             }
+            Updated = true;
         }
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)

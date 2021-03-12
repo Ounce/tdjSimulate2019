@@ -17,6 +17,17 @@ namespace tdjWpfClassLibrary.Profile
             set { Items[index] = value; }
         }
 
+        public bool Updated
+        {
+            get { return _updated; }
+            set
+            {
+                _updated = true;
+                OnPropertyChanged("Updated");
+            }
+        }
+        private bool _updated = true;
+
         public int Count
         {
             get { return Items.Count; }
@@ -154,7 +165,12 @@ namespace tdjWpfClassLibrary.Profile
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
- 
+            switch (e.PropertyName)
+            {
+                case "Updated":
+                    OnPropertyChanged("Updated");
+                    break;
+            }
         }
 
         public void Add(ProfileViewModel profile)
