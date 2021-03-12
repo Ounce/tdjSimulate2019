@@ -30,6 +30,7 @@
         <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
         <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute" Executed="Paste_Execute"/>
         <CommandBinding Command="Copy" CanExecute="CommandBinding_CanExecute" Executed="Copy_Execute"/>
+        <CommandBinding Command="Delete" CanExecute="CommandBinding_CanExecute" Executed="RemoveSlope"/>
         <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
     </Window.CommandBindings>
     <Window.InputBindings>
@@ -37,6 +38,7 @@
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
         <KeyBinding Command="Copy" Key="C" Modifiers="Ctrl"/>
         <KeyBinding Command="Paste" Key="V" Modifiers="Ctrl"/>
+        <KeyBinding Command="Delete" Key="Delete"/>
         <KeyBinding Command="{x:Static local:MainWindow.CommandExit}" Key="X" Modifiers="Alt"/>
     </Window.InputBindings>
     <Grid Name="Grid">
@@ -133,7 +135,7 @@
             <TabControl Name="ProfileTablControl" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top">
                 <TabItem Name="ExistTableItem" Header="既有纵断面" Margin="0">
                     <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
-                    <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding }" CellEditEnding="existDataGrid_CellEditEnding"  SelectionUnit="Cell" CanUserDeleteRows="True">
+                    <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding }" CellEditEnding="existDataGrid_CellEditEnding"  SelectionUnit="Cell" CanUserDeleteRows="True" KeyUp="ExistDataGrid_KeyUp">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
                             <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
@@ -143,7 +145,7 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem Name="DesignTableItem" Header="设计纵断面">
-                    <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" SelectionUnit="Cell"  CanUserDeleteRows="True">
+                    <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" SelectionUnit="Cell"  CanUserDeleteRows="True" KeyUp="DesignDataGrid_KeyUp">
                         <!-- -->
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>

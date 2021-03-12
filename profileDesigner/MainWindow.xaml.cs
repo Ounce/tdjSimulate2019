@@ -149,6 +149,7 @@ namespace profileDesigner
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Filter;
             dialog.Title = "打开纵断面编辑文件";
+            // todo: 判断数据是否已被修改。
             if (dialog.ShowDialog() == true)
             {
                 FileName = dialog.FileName;
@@ -469,17 +470,17 @@ namespace profileDesigner
             int rowIndex;
             if (ActiveDataGrid == null) return;
             SlopeViewModel slope = new SlopeViewModel();
-            rowIndex = GetSelectedRowIndex();
+            rowIndex = GetSelectedRowIndex(ActiveDataGrid);
             if (rowIndex == -1) return;
             ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).Insert(rowIndex, slope);
         }
 
-        private int GetSelectedRowIndex()
+        private int GetSelectedRowIndex(DataGrid dataGrid)
         {
-            var _cells = ActiveDataGrid.SelectedCells;
+            var _cells = dataGrid.SelectedCells;
             if (_cells.Any())
             {
-                return ActiveDataGrid.Items.IndexOf(_cells.First().Item);
+                return dataGrid.Items.IndexOf(_cells.First().Item);
             }
             else
                 return -1 ;
@@ -498,15 +499,6 @@ namespace profileDesigner
             }
         }
 
-        private void RemoveSlope(object sender, RoutedEventArgs e)
-        {
-            int rowIndex;
-            if (ActiveDataGrid == null) return;
-            rowIndex = GetSelectedRowIndex();
-            if (rowIndex == -1) return;
-            ((ObservableCollection<SlopeViewModel>)(ActiveDataGrid.ItemsSource)).RemoveAt(rowIndex);
-        }
-
         /// <summary>
         /// 更新鼠标说在位置对应的里程
         /// </summary>
@@ -523,6 +515,39 @@ namespace profileDesigner
         private void UpdateMouseAltitude()
         {
             MouseAltitude = Profiles.MaxAltitude - (MousePosition.Y - (ExistPolylineTranslate.Y + ValueConverter.VerticalValue(Profiles.MaxAltitude * Scale.Vertical) )) / Scale.Vertical;
+        }
+
+        private void ExistDataGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                    DeleteSlope(ExistDataGrid);
+                    break;
+            }
+        }
+
+        private void DesignDataGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                    DeleteSlope(DesignDataGrid);
+                    break;
+            }
+        }
+
+        private void DeleteSlope(DataGrid dataGrid)
+        {
+            if (dataGrid == null) return;
+            int rowIndex = GetSelectedRowIndex(dataGrid);
+            if (rowIndex == -1) return;
+            ((ObservableCollection<SlopeViewModel>)(dataGrid.ItemsSource)).RemoveAt(rowIndex);
+        }
+
+        private void RemoveSlope(object sender, RoutedEventArgs e)
+        {
+            DeleteSlope(ActiveDataGrid);
         }
 
         private void Zoom(double scale)
