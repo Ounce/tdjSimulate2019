@@ -232,7 +232,7 @@ namespace tdjWpfClassLibrary.Profile
             ProfileOption = new ProfileViewModelOption();
             Slopes = new ObservableCollection<SlopeViewModel>();
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
-            this.PropertyChanged += ProfilePropertyChanged;
+            //this.PropertyChanged += ProfilePropertyChanged;
         }
 
         /// <summary>
