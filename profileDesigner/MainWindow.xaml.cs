@@ -99,17 +99,19 @@ namespace profileDesigner
             //与前台Window定义重复。
             //this.Closing += new System.ComponentModel.CancelEventHandler(Window_Closing);
             Profiles = new ProfileViewModelCollection();
-            Profiles.PropertyChanged += ProfilesPropertyChanged;
+            //Profiles.PropertyChanged += ProfilesPropertyChanged;
             DesignProfile = new ProfileViewModel();
             DesignProfile.Name = "DesignProfile";
             DesignProfile.Title = "设计纵断面";
             DesignProfile.SlopeTableTop = 1;
             DesignProfile.SlopeTableBottom = 48;
+            DesignProfile.PropertyChanged += ProfilesPropertyChanged;
             ExistProfile = new ProfileViewModel();
             ExistProfile.Name = "ExistProfile";
             ExistProfile.Title = "既有纵断面";
             ExistProfile.SlopeTableTop = ExistGrideLine.Y2 + 1;
             ExistProfile.SlopeTableBottom = ExistProfile.SlopeTableTop + 44;
+            ExistProfile.PropertyChanged += ProfilesPropertyChanged;
             Profiles.Add(DesignProfile);
             Profiles.Add(ExistProfile);
             AltitudeDifferences = new AltitudeDifferences();

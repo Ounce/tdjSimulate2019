@@ -538,7 +538,7 @@ namespace tdjWpfClassLibrary.Profile
             //避免读取数据时修改FixAltitudePosition。
             FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
             FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
-            OnPropertyChanged("Count");
+            //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
 
