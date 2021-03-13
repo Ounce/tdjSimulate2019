@@ -179,12 +179,9 @@ namespace profileDesigner
                 design.AppendPropertyChanged();
                 DesignProfile = design;
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
-                exist.ReadXML((XmlElement)xmlExistNode);
-                exist.AppendPropertyChanged();
-                ExistProfile = exist;
-                DesignTableItem.DataContext = DesignProfile.Slopes;
-                ExistTableItem.DataContext = ExistProfile.Slopes;
-                //设置 修改高程位置的颜色。是否可以改成绑定？
+                ExistProfile.ReadXML((XmlElement)xmlExistNode);
+                
+                //设置 修改高程位置的颜色。是否可以改成绑定？ 这个设置居然增加5秒的运行时间。
                 v = ProfileTablControl.SelectedIndex;
                 DesignTableItem.IsSelected = true;
                 col = DesignProfile.FixBeginOrEndAltitude ? 2 : 3;
@@ -193,7 +190,7 @@ namespace profileDesigner
                 col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-                UpdateProfiles();
+                /*UpdateProfiles();*/
                 CanClose = true;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
@@ -252,6 +249,11 @@ namespace profileDesigner
 
         public void SaveAs_Click(object sender, RoutedEventArgs e)
         {
+            SaveAs();
+        }
+
+        public bool SaveAs()
+        {
             //TODO: 完善另存profile文件。
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = Filter;
@@ -264,7 +266,9 @@ namespace profileDesigner
                 root = xmlDocument.CreateElement("Profiles");
                 xmlDocument.AppendChild(root);
                 SaveFile();
+                return true;
             }
+            return false;
         }
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
@@ -507,9 +511,20 @@ namespace profileDesigner
                 e.Cancel = false;
                 return;
             }
-            if (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否退出？", "警告！", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            switch (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否保存？", "警告！", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
             {
-                e.Cancel = true;
+                case MessageBoxResult.Yes:
+                    if (SaveAs())
+                        e.Cancel = false;
+                    else
+                        e.Cancel = true;
+                    break;
+                case MessageBoxResult.No:
+                    e.Cancel = false;
+                    break;
+                case MessageBoxResult.Cancel:
+                    e.Cancel = true;
+                    break;
             }
         }
 
