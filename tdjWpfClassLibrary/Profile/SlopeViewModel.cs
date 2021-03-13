@@ -155,7 +155,6 @@ namespace tdjWpfClassLibrary.Profile
                     _x2 = value;
                     OnPropertyChanged("X2");
                     OnPropertyChanged("SlopeTableRightTop");
-                    OnPropertyChanged("SlopeTableRightCenter");
                     OnPropertyChanged("SlopeTableRightBottom");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
                     OnPropertyChanged("SlopeTableGradeLineEndPoint");
