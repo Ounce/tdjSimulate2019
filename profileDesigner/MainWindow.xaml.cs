@@ -184,7 +184,7 @@ namespace profileDesigner
                 col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-                UpdateProfiles();
+                /*UpdateProfiles();*/
                 CanClose = true;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。

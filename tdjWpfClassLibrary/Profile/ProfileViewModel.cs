@@ -521,6 +521,8 @@ namespace tdjWpfClassLibrary.Profile
         {
             XmlNodeList xmlNodeList = xmlElement.ChildNodes;
             double m = 0;
+
+            double l, g, a = double.MinValue, e;
             Slopes.Clear();
 
             if (xmlElement.GetAttribute("GradeUnit") == null)
@@ -529,25 +531,22 @@ namespace tdjWpfClassLibrary.Profile
                 GradeUnit = Convert.ToDouble(xmlElement.GetAttribute("GradeUnit"));
             foreach (XmlNode xmlNode in xmlNodeList)
             {
-                SlopeViewModel slope = new SlopeViewModel();
-                //SetSlopeTable(slope);
-                //已经在SlopesCollectionChanged中通过调用SetSlopeTable设置。
-                //slope.SlopeTableTop = SlopeTableTop;
-                //slope.SlopeTableBottom = SlopeTableBottom;
-                slope.BeginMileage = m;
-                slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
-                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit * Option.GradeUnit;
-                slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
-                //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
-                m += slope.Length;
-                //slope.EndMileage = m;
+                l = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
+                g = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
+                if (m == 0)
+                    a = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
+                e = a - g * l;
+                SlopeViewModel slope = new SlopeViewModel(l, g, m, m + l, a, e);
                 Slopes.Add(slope);
+                a = e;
+                m += l;
             }
             //避免读取数据时修改FixAltitudePosition。
             FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
             FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
             //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
+            
         }
 
         

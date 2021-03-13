@@ -324,6 +324,18 @@ namespace tdjWpfClassLibrary.Profile
 
         }
 
+        public SlopeViewModel(double length, double grade, double beginMileage, double endMileage, double beginAltitude, double endAltitude) : base()
+        {
+            _length = length;
+            _grade = grade;
+            _beginMileage = beginMileage;
+            _endMileage = endMileage;
+            _beginAltitude = beginAltitude;
+            _endAltitude = endAltitude;
+            _x1 = _beginMileage * Scale.Horizontal;
+            _x2 = _endMileage * Scale.Horizontal;
+        }
+
         public double? GetAltitude(double position)
         {
             if (position < BeginMileage || position > EndMileage) return null;
