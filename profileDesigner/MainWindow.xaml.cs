@@ -139,8 +139,8 @@ namespace profileDesigner
             DesignTableItem.DataContext = DesignProfile.Slopes;
             ExistTableItem.DataContext = ExistProfile.Slopes;
             //ExistDataGrid.ItemsSource = ExistProfile.Slopes;
-            //DesignStackPanel.DataContext = DesignProfile.Slopes;
-            //ExistStackPanel.DataContext = ExistProfile.Slopes;
+            DesignStackPanel.DataContext = DesignProfile.Slopes;
+            ExistStackPanel.DataContext = ExistProfile.Slopes;
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
 
             //activeDataGrid = ExistDataGrid;
@@ -151,7 +151,8 @@ namespace profileDesigner
             switch (e.PropertyName)
             {
                 case "Updated":
-                    UpdateProfiles();
+                    UpdateAxis();
+                    AltitudeDifferences.Update();
                     break;
             }
         }
@@ -171,9 +172,13 @@ namespace profileDesigner
                 xmlDocument.Load(FileName);
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
+                DesignProfile.RemovePropertyChanged();
                 DesignProfile.ReadXML((XmlElement)xmlDesignNode);
+                DesignProfile.AppendPropertyChanged();
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
+                ExistProfile.RemovePropertyChanged();
                 ExistProfile.ReadXML((XmlElement)xmlExistNode);
+                ExistProfile.AppendPropertyChanged();
                 
                 //设置 修改高程位置的颜色。是否可以改成绑定？ 这个设置居然增加5秒的运行时间。
                 v = ProfileTablControl.SelectedIndex;
@@ -184,7 +189,8 @@ namespace profileDesigner
                 col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-                /*UpdateProfiles();*/
+                UpdateProfiles();
+                //AltitudeDifferences.Update();
                 CanClose = true;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
@@ -317,6 +323,12 @@ namespace profileDesigner
             ExistPolylineTranslate.Y = -Profiles.LeftTop.Y;
             ExistPolylineTranslate.X = Profiles.LeftTop.X;
             AltitudeDifferences.Update();
+        }
+
+        private void UpdateAxis()
+        {
+            HorizontalAxis.SetValue(0, Profiles.Length, Scale.Horizontal);
+            VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
         }
 
         private void designDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

@@ -135,11 +135,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _x1 = value;
                     OnPropertyChanged("X1");
-                    OnPropertyChanged("SlopeTableLeftTop");
-                    OnPropertyChanged("SlopeTableLeftCenter");
-                    OnPropertyChanged("SlopeTableLeftBottom");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
-                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
@@ -156,7 +152,6 @@ namespace tdjWpfClassLibrary.Profile
                     OnPropertyChanged("X2");
                     OnPropertyChanged("SlopeTableRightTop");
                     OnPropertyChanged("SlopeTableRightBottom");
-                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
                     OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }

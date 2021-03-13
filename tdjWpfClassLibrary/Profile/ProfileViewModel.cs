@@ -235,6 +235,24 @@ namespace tdjWpfClassLibrary.Profile
             //this.PropertyChanged += ProfilePropertyChanged;
         }
 
+        public void RemovePropertyChanged()
+        {
+            //Slopes.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.PropertyChanged -= SlopePropertyChanged;
+            }
+        }
+
+        public void AppendPropertyChanged()
+        {
+            //Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.PropertyChanged += SlopePropertyChanged;
+            }
+        }
+
         /// <summary>
         /// Slopes改变时，处理函数。
         /// </summary>
@@ -304,6 +322,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            // Updated用于触发更新坐标轴，放在此处会过于频繁更新，改在UpdateMaxMinAltitude函数中。
             int p;
             switch (e.PropertyName)
             {
@@ -312,6 +331,7 @@ namespace tdjWpfClassLibrary.Profile
                     if (p < 1) break;
                     Slopes[p - 1].EndAltitude = ((SlopeViewModel)sender).BeginAltitude;
                     UpdateMaxMinAltitude();
+                    //Updated = true;
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -323,6 +343,7 @@ namespace tdjWpfClassLibrary.Profile
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
                     UpdateMaxMinAltitude();
+                    //Updated = true;
                     break;
                 case "Grade":
                 case "Length":
@@ -339,9 +360,10 @@ namespace tdjWpfClassLibrary.Profile
                     else
                         Slopes[p].SetEndAltitudeByBeginAltitude();
                     UpdateMaxMinAltitude();
+                    //Updated = true;
                     break;
             }
-            Updated = true;
+            //Updated = true;
         }
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -454,9 +476,15 @@ namespace tdjWpfClassLibrary.Profile
                     min = s.EndAltitude;
             }
             if (_maxAltitude != max)
+            {
                 SetMaxAltitude(max);
+                Updated = true;
+            }
             if (_minAltitude != min)
+            {
                 SetMinAltitude(min);
+                Updated = true;
+            }
             return;
         }
 
