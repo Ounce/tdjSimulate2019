@@ -231,16 +231,8 @@ namespace tdjWpfClassLibrary.Profile
             GradeUnit = 1000;
             ProfileOption = new ProfileViewModelOption();
             Slopes = new ObservableCollection<SlopeViewModel>();
-            //this.PropertyChanged += ProfilePropertyChanged;
-        }
-
-        public void AppendPropertyChanged()
-        {
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
-            foreach (SlopeViewModel slope in Slopes)
-            {
-                slope.PropertyChanged += SlopePropertyChanged;
-            }
+            //this.PropertyChanged += ProfilePropertyChanged;
         }
 
         /// <summary>
@@ -521,7 +513,6 @@ namespace tdjWpfClassLibrary.Profile
         {
             XmlNodeList xmlNodeList = xmlElement.ChildNodes;
             double m = 0;
-
             double l, g, a = double.MinValue, e;
             Slopes.Clear();
 
@@ -541,12 +532,14 @@ namespace tdjWpfClassLibrary.Profile
                 a = e;
                 m += l;
             }
+            /*
+            if (Slopes.Count > 0)
+                Slopes[0].BeginAltitude = a;*/
             //避免读取数据时修改FixAltitudePosition。
             FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
             FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
             //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
-            
         }
 
         

@@ -174,8 +174,8 @@ namespace profileDesigner
                 DesignProfile.ReadXML((XmlElement)xmlDesignNode);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
                 ExistProfile.ReadXML((XmlElement)xmlExistNode);
-
-                //设置 修改高程位置的颜色。是否可以改成绑定？
+                
+                //设置 修改高程位置的颜色。是否可以改成绑定？ 这个设置居然增加5秒的运行时间。
                 v = ProfileTablControl.SelectedIndex;
                 DesignTableItem.IsSelected = true;
                 col = DesignProfile.FixBeginOrEndAltitude ? 2 : 3;
