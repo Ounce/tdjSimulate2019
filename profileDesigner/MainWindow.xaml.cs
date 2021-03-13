@@ -179,8 +179,11 @@ namespace profileDesigner
                 design.AppendPropertyChanged();
                 DesignProfile = design;
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
-                ExistProfile.ReadXML((XmlElement)xmlExistNode);
-                
+                exist.ReadXML((XmlElement)xmlExistNode);
+                exist.AppendPropertyChanged();
+                ExistProfile = exist;
+                DesignTableItem.DataContext = DesignProfile.Slopes;
+                ExistTableItem.DataContext = ExistProfile.Slopes;
                 //设置 修改高程位置的颜色。是否可以改成绑定？ 这个设置居然增加5秒的运行时间。
                 v = ProfileTablControl.SelectedIndex;
                 DesignTableItem.IsSelected = true;
