@@ -243,6 +243,11 @@ namespace profileDesigner
 
         public void SaveAs_Click(object sender, RoutedEventArgs e)
         {
+            SaveAs();
+        }
+
+        public bool SaveAs()
+        {
             //TODO: 完善另存profile文件。
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = Filter;
@@ -255,7 +260,9 @@ namespace profileDesigner
                 root = xmlDocument.CreateElement("Profiles");
                 xmlDocument.AppendChild(root);
                 SaveFile();
+                return true;
             }
+            return false;
         }
 
         private void ZoomInButton_Click(object sender, RoutedEventArgs e)
@@ -498,9 +505,20 @@ namespace profileDesigner
                 e.Cancel = false;
                 return;
             }
-            if (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否退出？", "警告！", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            switch (MessageBox.Show("纵断面已修改，现在退出会丢失数据！是否保存？", "警告！", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
             {
-                e.Cancel = true;
+                case MessageBoxResult.Yes:
+                    if (SaveAs())
+                        e.Cancel = false;
+                    else
+                        e.Cancel = true;
+                    break;
+                case MessageBoxResult.No:
+                    e.Cancel = false;
+                    break;
+                case MessageBoxResult.Cancel:
+                    e.Cancel = true;
+                    break;
             }
         }
 
