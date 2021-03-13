@@ -105,14 +105,12 @@ namespace profileDesigner
             DesignProfile.Title = "设计纵断面";
             DesignProfile.SlopeTableTop = 1;
             DesignProfile.SlopeTableBottom = 48;
-            DesignProfile.AppendPropertyChanged();
             DesignProfile.PropertyChanged += ProfilesPropertyChanged;
             ExistProfile = new ProfileViewModel();
             ExistProfile.Name = "ExistProfile";
             ExistProfile.Title = "既有纵断面";
             ExistProfile.SlopeTableTop = ExistGrideLine.Y2 + 1;
             ExistProfile.SlopeTableBottom = ExistProfile.SlopeTableTop + 44;
-            ExistProfile.AppendPropertyChanged();
             ExistProfile.PropertyChanged += ProfilesPropertyChanged;
             Profiles.Add(DesignProfile);
             Profiles.Add(ExistProfile);
@@ -171,20 +169,13 @@ namespace profileDesigner
                 FileName = dialog.FileName;
                 xmlDocument = new XmlDocument();
                 xmlDocument.Load(FileName);
-                ProfileViewModel design = new ProfileViewModel();
-                ProfileViewModel exist = new ProfileViewModel();
                 root = (XmlElement)xmlDocument.SelectSingleNode("Profiles");
                 XmlNode xmlDesignNode = xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-                design.ReadXML((XmlElement)xmlDesignNode);
-                design.AppendPropertyChanged();
-                DesignProfile = design;
+                DesignProfile.ReadXML((XmlElement)xmlDesignNode);
                 XmlNode xmlExistNode = xmlDocument.SelectSingleNode("Profiles/ExistProfile");
-                exist.ReadXML((XmlElement)xmlExistNode);
-                exist.AppendPropertyChanged();
-                ExistProfile = exist;
-                DesignTableItem.DataContext = DesignProfile.Slopes;
-                ExistTableItem.DataContext = ExistProfile.Slopes;
-                //设置 修改高程位置的颜色。是否可以改成绑定？ 这个设置居然增加5秒的运行时间。
+                ExistProfile.ReadXML((XmlElement)xmlExistNode);
+
+                //设置 修改高程位置的颜色。是否可以改成绑定？
                 v = ProfileTablControl.SelectedIndex;
                 DesignTableItem.IsSelected = true;
                 col = DesignProfile.FixBeginOrEndAltitude ? 2 : 3;
@@ -193,7 +184,7 @@ namespace profileDesigner
                 col = ExistProfile.FixBeginOrEndAltitude ? 2 : 3;
                 SetCellColor(ExistProfile.FixAltitudePosition, col, ExistDataGrid as object, Colors.Red);
                 ProfileTablControl.SelectedIndex = v;
-                /*UpdateProfiles();*/
+                UpdateProfiles();
                 CanClose = true;
             }
             e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
