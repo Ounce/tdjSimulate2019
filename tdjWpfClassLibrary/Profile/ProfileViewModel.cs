@@ -231,8 +231,16 @@ namespace tdjWpfClassLibrary.Profile
             GradeUnit = 1000;
             ProfileOption = new ProfileViewModelOption();
             Slopes = new ObservableCollection<SlopeViewModel>();
-            Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
             //this.PropertyChanged += ProfilePropertyChanged;
+        }
+
+        public void AppendPropertyChanged()
+        {
+            Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.PropertyChanged += SlopePropertyChanged;
+            }
         }
 
         /// <summary>
