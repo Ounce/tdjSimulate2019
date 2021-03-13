@@ -43,7 +43,7 @@
     </Window.InputBindings>
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="197"/>
+            <ColumnDefinition Width="247"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -141,6 +141,7 @@
                             <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
                             <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
                             <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -152,6 +153,7 @@
                             <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
                             <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="1.5*" />
                             <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                            <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
