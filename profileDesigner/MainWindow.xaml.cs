@@ -136,14 +136,14 @@ namespace profileDesigner
             Ticks5.ItemsSource = HorizontalAxis.Graduations[1];
             Ticks6.ItemsSource = HorizontalAxis.Graduations[2];
             startMovePosition = new Point();
-            DesignTableItem.DataContext = DesignProfile.Slopes;
-            ExistTableItem.DataContext = ExistProfile.Slopes;
-            //ExistDataGrid.ItemsSource = ExistProfile.Slopes;
-            DesignDataGrid.DataContext = DesignProfile.Slopes;
-            ExistDataGrid.DataContext = ExistProfile.Slopes;
-            AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
             DesignTableItem.DataContext = DesignProfile;
             ExistTableItem.DataContext = ExistProfile;
+            ExistDataGrid.ItemsSource = ExistProfile.Slopes;
+            DesignDataGrid.ItemsSource = DesignProfile.Slopes;
+            //ExistDataGrid.ItemsSource = ExistProfile.Slopes;
+            AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
+            //DesignTableItem.DataContext = DesignProfile;
+            //ExistTableItem.DataContext = ExistProfile;
             //activeDataGrid = ExistDataGrid;
         }
 

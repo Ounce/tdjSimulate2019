@@ -472,7 +472,7 @@
                 </Line.RenderTransform>
             </Line>
             <Rectangle Name="DesignGradeRectangle" Margin="0 0 0 0" Stroke="Black" StrokeThickness="1"/>
-            <StackPanel x:Name="DesignStackPanel">
+            <StackPanel x:Name="DesignStackPanel" DataContext="{Binding Items, ElementName=DesignDataGrid}">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
                 <ItemsControl x:Name="ItemsControl2" ItemsSource="{Binding}" >
                     <ItemsControl.ItemsPanel>
@@ -648,7 +648,7 @@
             <Line x:Name="DesignAltitudeLine" X1="0" Y1="98" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="98" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <Line x:Name="AltitudeDiffenceLine" X1="0" Y1="148" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="148" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
             <Line x:Name="ExistGrideLine" X1="0" Y1="198" X2="{Binding ActualWidth, ElementName=DesignGradeRectangle,Mode=OneWay}" Y2="198" Stroke="{Binding Stroke, ElementName=DesignGradeRectangle}" StrokeThickness="{Binding StrokeThickness, ElementName=DesignGradeRectangle}"/>
-            <StackPanel x:Name="ExistStackPanel" >
+            <StackPanel x:Name="ExistStackPanel" DataContext="{Binding Items, ElementName=ExistDataGrid}">
                 <!-- 坡度表的 分割线 和 坡度线 线段-->
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>
