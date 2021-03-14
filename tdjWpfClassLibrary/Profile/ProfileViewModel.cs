@@ -105,6 +105,7 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public bool FixBeginOrEndAltitude { get; set; }
 
+        public double BeginAltitude;
 
         public double HumpMileage 
         { 
@@ -586,7 +587,10 @@ namespace tdjWpfClassLibrary.Profile
                 l = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
                 g = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
                 if (m == 0)
+                {
                     a = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
+                    BeginAltitude = a;
+                }
                 e = a - g * l;
                 SlopeViewModel slope = new SlopeViewModel(l, g, m, m + l, a, e);
                 Slopes.Add(slope);
@@ -603,7 +607,23 @@ namespace tdjWpfClassLibrary.Profile
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
 
-        
+
+        public void WriteXML(XmlElement xmlElement)
+        {
+            xmlElement.SetAttribute("GradeUnit", GradeUnit.ToString());
+            xmlElement.SetAttribute("FixAltitudePosition", FixAltitudePosition.ToString());
+            xmlElement.SetAttribute("FixBeginOrEndAltitude", FixBeginOrEndAltitude.ToString());
+            xmlElement.SetAttribute("BeginAltitude", BeginAltitude.ToString());
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                XmlElement slopeElement = xmlElement.OwnerDocument.CreateElement("Slope");
+                slopeElement.SetAttribute("Length", slope.Length.ToString());
+                slopeElement.SetAttribute("Grade", slope.Grade.ToString());
+                slopeElement.SetAttribute("BeginAltitude", slope.BeginAltitude.ToString());
+                xmlElement.AppendChild(slopeElement);
+            }
+        }
+
         #endregion
     }
 

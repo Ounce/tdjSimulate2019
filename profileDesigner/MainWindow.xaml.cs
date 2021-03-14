@@ -231,26 +231,11 @@ namespace profileDesigner
             for (int i = 0; i < Profiles.Count; i++)
             {
                 XmlElement designElement = xmlDocument.CreateElement(Profiles[i].Name);
-                AppendSlopes(Profiles[i], designElement);
+                Profiles[i].WriteXML(designElement);
+                root.AppendChild(designElement);
             }
             xmlDocument.Save(FileName);
             CanClose = true;
-        }
-
-        private void AppendSlopes(ProfileViewModel profile, XmlElement element)
-        {
-            element.SetAttribute("GradeUnit", profile.GradeUnit.ToString());
-            element.SetAttribute("FixAltitudePosition", profile.FixAltitudePosition.ToString());
-            element.SetAttribute("FixBeginOrEndAltitude", profile.FixBeginOrEndAltitude.ToString());
-            root.AppendChild(element);
-            foreach (SlopeViewModel slope in profile.Slopes)
-            {
-                XmlElement slopeElement = xmlDocument.CreateElement("Slope");
-                slopeElement.SetAttribute("Length", slope.Length.ToString());
-                slopeElement.SetAttribute("Grade", slope.Grade.ToString());
-                slopeElement.SetAttribute("BeginAltitude", slope.BeginAltitude.ToString());
-                element.AppendChild(slopeElement);
-            }
         }
 
         public void SaveAs_Click(object sender, RoutedEventArgs e)
