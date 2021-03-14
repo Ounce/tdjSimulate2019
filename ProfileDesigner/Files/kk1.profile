@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Profiles>
-  <DesignProfile GradeUnit="1000" FixAltitudePosition="1" FixBeginOrEndAltitude="False" BeginAltitude="101">
+  <DesignProfile GradeUnit="1000" FixAltitudePosition="1" FixBeginOrEndAltitude="False" BeginAltitude="101" HumpHeightBeginMileage="0" HumpHeightEndMileage="0">
     <Slope Length="100" Grade="-10" BeginAltitude="101" />
     <Slope Length="22.5" Grade="0" BeginAltitude="102" />
     <Slope Length="50" Grade="40" BeginAltitude="102" />
@@ -14,7 +14,7 @@
     <Slope Length="100" Grade="0" BeginAltitude="98.192" />
     <Slope Length="200" Grade="-2" BeginAltitude="98.192" />
   </DesignProfile>
-  <ExistProfile GradeUnit="1000" FixAltitudePosition="6" FixBeginOrEndAltitude="True" BeginAltitude="100.2">
+  <ExistProfile GradeUnit="1000" FixAltitudePosition="6" FixBeginOrEndAltitude="True" BeginAltitude="101.10000000000001" HumpHeightBeginMileage="122.5" HumpHeightEndMileage="472.5">
     <Slope Length="100" Grade="-10" BeginAltitude="101.10000000000001" />
     <Slope Length="22.5" Grade="0" BeginAltitude="102.10000000000001" />
     <Slope Length="30" Grade="40" BeginAltitude="102.10000000000001" />

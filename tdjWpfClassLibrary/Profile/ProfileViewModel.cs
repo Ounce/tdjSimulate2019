@@ -603,6 +603,16 @@ namespace tdjWpfClassLibrary.Profile
             //避免读取数据时修改FixAltitudePosition。
             FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
             FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+            string v = xmlElement.GetAttribute("HumpHeightBeginMileage");
+            if (String.IsNullOrEmpty(v))
+                HumpMileage = 0;
+            else 
+                HumpMileage = Convert.ToDouble(v);
+            v = xmlElement.GetAttribute("HumpHeightEndMileage");
+            if (String.IsNullOrEmpty(v))
+                HumpHeightCalculatePointMileage = 0;
+            else
+                HumpHeightCalculatePointMileage = Convert.ToDouble(v);
             //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
@@ -614,6 +624,8 @@ namespace tdjWpfClassLibrary.Profile
             xmlElement.SetAttribute("FixAltitudePosition", FixAltitudePosition.ToString());
             xmlElement.SetAttribute("FixBeginOrEndAltitude", FixBeginOrEndAltitude.ToString());
             xmlElement.SetAttribute("BeginAltitude", BeginAltitude.ToString());
+            xmlElement.SetAttribute("HumpHeightBeginMileage", HumpMileage.ToString());
+            xmlElement.SetAttribute("HumpHeightEndMileage", HumpHeightCalculatePointMileage.ToString());
             foreach (SlopeViewModel slope in Slopes)
             {
                 XmlElement slopeElement = xmlElement.OwnerDocument.CreateElement("Slope");
