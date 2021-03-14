@@ -146,6 +146,11 @@ namespace profileDesigner
             //activeDataGrid = ExistDataGrid;
         }
 
+        /// <summary>
+        /// 更新数轴和高差表。编辑纵断面后需要将编辑消息通过Updated传递到MainWindow，并调用此函数。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProfilesPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -302,6 +307,11 @@ namespace profileDesigner
 
         }
 
+        /// <summary>
+        /// 编辑后处理，此函数在结束编辑后，改变绑定数据之前调用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void existDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -331,6 +341,11 @@ namespace profileDesigner
             VerticalAxis.SetValue(Profiles.MinAltitude, Profiles.MaxAltitude, Scale.Vertical);
         }
 
+        /// <summary>
+        /// 编辑后处理，此函数在结束编辑后，改变绑定数据之前调用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void designDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
