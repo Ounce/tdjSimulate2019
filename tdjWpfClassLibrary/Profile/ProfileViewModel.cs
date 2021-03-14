@@ -105,6 +105,39 @@ namespace tdjWpfClassLibrary.Profile
         /// </summary>
         public bool FixBeginOrEndAltitude { get; set; }
 
+
+        public double HumpMileage 
+        { 
+            get => _humpMileage; 
+            set
+            {
+                if (value != _humpMileage)
+                {
+                    _humpMileage = value;
+                    OnPropertyChanged("HumpMileage");
+                    OnPropertyChanged("HumpHeight");
+                }
+            }
+        }
+        private double _humpMileage;
+
+        public double HumpHeightCalculatePointMileage 
+        { 
+            get => _humpHeightCalculatePointMileage;
+            set
+            {
+                if (value != _humpHeightCalculatePointMileage)
+                {
+                    _humpHeightCalculatePointMileage = value;
+                    OnPropertyChanged("HumpHeightCalculatePointMileage");
+                    OnPropertyChanged("HumpHeight");
+                }
+            }
+        }
+        private double _humpHeightCalculatePointMileage;
+
+        public double? HumpHeight { get { return GetAltitude(HumpMileage) - GetAltitude(HumpHeightCalculatePointMileage); } }
+
         /// <summary>
         /// 纵断面全长。
         /// </summary>

@@ -134,29 +134,65 @@
             <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Stroke="Black" StrokeThickness="1"/>
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Orientation="Vertical">
                 <TabControl Name="ProfileTablControl" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top">
-                    <TabItem Name="ExistTableItem" Header="既有纵断面" Margin="0">
-                        <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
-                        <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding }" CellEditEnding="existDataGrid_CellEditEnding"  SelectionUnit="Cell" CanUserDeleteRows="True" KeyUp="ExistDataGrid_KeyUp">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
-                                <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
-                                <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
-                                <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
-                                <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                    <TabItem Name="ExistTableItem" Header="既有纵断面" Margin="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="24"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--<DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" AddingNewItem="ExistDataGrid_AddingNewItem" KeyUp="ExistDataGrid_KeyUp" CellEditEnding="existDataGrid_CellEditEnded">-->
+                            <DataGrid Name="ExistDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding }" CellEditEnding="existDataGrid_CellEditEnding"  SelectionUnit="Cell" CanUserDeleteRows="True" KeyUp="ExistDataGrid_KeyUp" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                                    <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                                    <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                                    <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                                    <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="驼峰平台里程：" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"/>
+                            <TextBlock Text="峰高计算点里程：" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0"/>
+                            <TextBlock Text="峰高：" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0"/>
+                            <TextBox x:Name="ExistHumpMileageTextBox" Text="{Binding HumpMileage}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="100" Margin="0"/>
+                            <TextBox x:Name="ExistHumpHeightCalculatePointMileageTextBox" Text="{Binding HumpHeightCalculatePointMileage}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Width="100" Margin="0"/>
+                            <TextBlock Name="ExistHumpHeightTextBlock" Text="{Binding HumpHeight, Converter={StaticResource Round3}}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1"/>
+                        </Grid>
                     </TabItem>
                     <TabItem Name="DesignTableItem" Header="设计纵断面">
-                        <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" SelectionUnit="Cell"  CanUserDeleteRows="True" KeyUp="DesignDataGrid_KeyUp">
-                            <!-- -->
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
-                                <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
-                                <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="1.5*" />
-                                <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
-                                <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="24"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <DataGrid Name="DesignDataGrid" AutoGenerateColumns="False" Margin="3" ItemsSource="{Binding}" CellEditEnding="designDataGrid_CellEditEnding" SelectionUnit="Cell"  CanUserDeleteRows="True" KeyUp="DesignDataGrid_KeyUp" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                                <!-- -->
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="长度" Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                                    <DataGridTextColumn Header="坡度" Binding="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                                    <DataGridTextColumn Header="始端高程" Binding="{Binding BeginAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="1.5*" />
+                                    <DataGridTextColumn Header="终端高程" Binding="{Binding EndAltitude, Converter={StaticResource Round3}, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.5*"/>
+                                    <DataGridTextColumn Header="里程" Binding="{Binding EndMileage, Converter={StaticResource Round3}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="驼峰平台里程：" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"/>
+                            <TextBlock Text="峰高计算点里程：" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0"/>
+                            <TextBlock Text="峰高：" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0"/>
+                            <TextBox x:Name="DesignHumpMileageTextBox" Text="{Binding HumpMileage}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="100" Margin="0"/>
+                            <TextBox x:Name="DesignHumpHeightCalculatePointMileageTextBox" Text="{Binding HumpHeightCalculatePointMileage}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Width="100" Margin="0"/>
+                            <TextBlock Name="DesignHumpHeightTextBlock" Text="{Binding HumpHeight}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1"/>
+                        </Grid>
                     </TabItem>
                 </TabControl>
                 <Grid>

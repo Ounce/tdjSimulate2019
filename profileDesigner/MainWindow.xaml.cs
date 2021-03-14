@@ -139,10 +139,11 @@ namespace profileDesigner
             DesignTableItem.DataContext = DesignProfile.Slopes;
             ExistTableItem.DataContext = ExistProfile.Slopes;
             //ExistDataGrid.ItemsSource = ExistProfile.Slopes;
-            DesignStackPanel.DataContext = DesignProfile.Slopes;
-            ExistStackPanel.DataContext = ExistProfile.Slopes;
+            DesignDataGrid.DataContext = DesignProfile.Slopes;
+            ExistDataGrid.DataContext = ExistProfile.Slopes;
             AltitudeDifferenceStackPanel.DataContext = AltitudeDifferences.Items;
-
+            DesignTableItem.DataContext = DesignProfile;
+            ExistTableItem.DataContext = ExistProfile;
             //activeDataGrid = ExistDataGrid;
         }
 
