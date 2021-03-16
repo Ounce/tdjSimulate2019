@@ -165,12 +165,33 @@ namespace profileDesigner
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
+            if (CanClose)
+            {
+                OpenFile_Execute();
+                return;
+            }
+            switch (MessageBox.Show("纵断面已修改，是否保存？", "警告！", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+            {
+                case MessageBoxResult.Yes:
+                    root.RemoveAll();
+                    SaveFile();
+                    OpenFile_Execute();
+                    break;
+                case MessageBoxResult.No:
+                    OpenFile_Execute();
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
+        }
+
+        private void OpenFile_Execute()
+        { 
             int col;
             int v;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Filter;
             dialog.Title = "打开纵断面编辑文件";
-            // todo: 判断数据是否已被修改。
             if (dialog.ShowDialog() == true)
             {
                 FileName = dialog.FileName;
@@ -199,7 +220,7 @@ namespace profileDesigner
                 //AltitudeDifferences.Update();
                 CanClose = true;
             }
-            e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
+            //e.Handled = true;   //说是可以避免降低性能，但似乎没啥效果。
         }
 
         private void ShowOption(object sender, RoutedEventArgs e)
@@ -223,7 +244,6 @@ namespace profileDesigner
                 root.RemoveAll();
                 SaveFile();
             }
-            //TODO:1 完善保存profile文件。
         }
 
         private void SaveFile()
