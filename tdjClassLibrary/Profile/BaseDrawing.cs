@@ -11,11 +11,6 @@ namespace tdjClassLibrary.Profile
     public class BaseDrawing : NotifyPropertyChanged
     {
         /// <summary>
-        /// 用于绘图的Canvas的引用，使用绘图函数前应先赋值，Canvas应在项目的Windows中定义。
-        /// </summary>
-        public Canvas Canvas { get; set; }
-
-        /// <summary>
         /// 水平比例。
         /// </summary>
         public double HorizontalScale

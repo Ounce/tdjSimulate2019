@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
+using tdjWpfClassLibrary.Draw;
 using Point = System.Windows.Point;
 
 
@@ -21,41 +22,56 @@ namespace tdjWpfClassLibrary.Profile
     /// 提供Polyline和Points。
     /// 需要HorizontalScale和VertialScale。
     /// </summary>
-    public class ProfileViewModel : NotifyPropertyChanged
+    public class ProfileViewModel : NotifyPropertyChanged, IGraphPosition
     {
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public string Title { get; set; }
+
         public HorizontalAlignment HorizontalAlignment
         {
+            get => _horizontalAlignment;
             set 
             {
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
         }
         private HorizontalAlignment _horizontalAlignment;
 
-        public VerticalAlignment PolylineVerticalAlignment
+        public VerticalAlignment VerticalAlignment
         {
+            get => _verticalAlignment;
             set 
             { 
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
         }
         private VerticalAlignment _verticalAlignment;
 
-        private double canvasHeight, canvasWidth;
+        public double CanvasActualHeight { get; set; }
+        public double CanvasActualWidth { get; set; }
 
-        public PolylineOriginPoint PolylineOriginPoint = new PolylineOriginPoint(0, 0);
+        public Point LeftTop { get; set; } = new Point(0, 0);
 
         public ObservableCollection<SlopeViewModel> Slopes;
+
+        public SlopeViewModel this[int index]
+        {
+            get { return Slopes[index]; }
+            set { Slopes[index] = value; }
+        }
 
         /// <summary>
         /// 坡度单位。1000 = ‰；100 = % 。
@@ -67,6 +83,17 @@ namespace tdjWpfClassLibrary.Profile
             get { return Slopes.Count; }
         }
 
+        public bool Updated
+        {
+            get { return _updated; }
+            set
+            {
+                _updated = true;
+                OnPropertyChanged("Updated");
+            }
+        }
+        private bool _updated = true;
+
         /// <summary>
         /// 原始Altitude位置。未设置时此值为-1。
         /// 读取Excel数据时，以第一个非-999高程为FixAltitudePosition。
@@ -77,6 +104,40 @@ namespace tdjWpfClassLibrary.Profile
         /// 原始Altitude。如果原始值为BeginAltitude，则此值为true；如果为EndAltitude时为false。
         /// </summary>
         public bool FixBeginOrEndAltitude { get; set; }
+
+        public double BeginAltitude;
+
+        public double HumpMileage 
+        { 
+            get => _humpMileage; 
+            set
+            {
+                if (value != _humpMileage)
+                {
+                    _humpMileage = value;
+                    OnPropertyChanged("HumpMileage");
+                    OnPropertyChanged("HumpHeight");
+                }
+            }
+        }
+        private double _humpMileage;
+
+        public double HumpHeightCalculatePointMileage 
+        { 
+            get => _humpHeightCalculatePointMileage;
+            set
+            {
+                if (value != _humpHeightCalculatePointMileage)
+                {
+                    _humpHeightCalculatePointMileage = value;
+                    OnPropertyChanged("HumpHeightCalculatePointMileage");
+                    OnPropertyChanged("HumpHeight");
+                }
+            }
+        }
+        private double _humpHeightCalculatePointMileage;
+
+        public double? HumpHeight { get { return GetAltitude(HumpMileage) - GetAltitude(HumpHeightCalculatePointMileage); } }
 
         /// <summary>
         /// 纵断面全长。
@@ -95,7 +156,7 @@ namespace tdjWpfClassLibrary.Profile
         }
 
         /// <summary>
-        /// 最大高程。
+        /// 最大高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
         public double MaxAltitude
         {
@@ -104,7 +165,7 @@ namespace tdjWpfClassLibrary.Profile
         public double _maxAltitude;
 
         /// <summary>
-        /// 最小高程。
+        /// 最小高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
         public double MinAltitude
         {
@@ -125,7 +186,6 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private Point firstPoint;
-
 
         public ProfileViewModelOption ProfileOption;
 
@@ -197,8 +257,8 @@ namespace tdjWpfClassLibrary.Profile
 
         public ProfileViewModel()
         {
-            _maxAltitude = StaticClass.Altitude.InitMax;
-            _minAltitude = StaticClass.Altitude.InitMin;
+            _maxAltitude = double.MinValue;
+            _minAltitude = double.MaxValue;
             ProfileOption = new ProfileViewModelOption();
             _horizontalAlignment = HorizontalAlignment.Center;
             _verticalAlignment = VerticalAlignment.Center;
@@ -206,7 +266,25 @@ namespace tdjWpfClassLibrary.Profile
             ProfileOption = new ProfileViewModelOption();
             Slopes = new ObservableCollection<SlopeViewModel>();
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
-            this.PropertyChanged += ProfilePropertyChanged;
+            //this.PropertyChanged += ProfilePropertyChanged;
+        }
+
+        public void RemovePropertyChanged()
+        {
+            //Slopes.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.PropertyChanged -= SlopePropertyChanged;
+            }
+        }
+
+        public void AppendPropertyChanged()
+        {
+            //Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                slope.PropertyChanged += SlopePropertyChanged;
+            }
         }
 
         /// <summary>
@@ -220,25 +298,74 @@ namespace tdjWpfClassLibrary.Profile
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Slopes[e.NewStartingIndex].PropertyChanged += SlopePropertyChanged;
+                    if (e.NewStartingIndex > 0)
+                    {
+                        Slopes[e.NewStartingIndex].BeginMileage = Slopes[e.NewStartingIndex - 1].EndMileage;
+                    }
+                    if (e.NewStartingIndex < Slopes.Count - 1)
+                    {
+                        Slopes[e.NewStartingIndex + 1].BeginMileage = Slopes[e.NewStartingIndex].EndMileage;
+                    }
+                    if (FixAltitudePosition >= e.NewStartingIndex) FixAltitudePosition++;
+                    if (e.NewStartingIndex < FixAltitudePosition)
+                    {
+                        if (e.NewStartingIndex < Slopes.Count - 1)
+                            Slopes[e.NewStartingIndex].EndAltitude = Slopes[e.NewStartingIndex + 1].BeginAltitude;
+                    }
+                    else
+                    {
+                        if (e.NewStartingIndex > 0)
+                            Slopes[e.NewStartingIndex].BeginAltitude = Slopes[e.NewStartingIndex - 1].EndAltitude;
+                    }
                     UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].BeginAltitude);
                     UpdateMaxMinAltitude(Slopes[e.NewStartingIndex].EndAltitude);
                     SetSlopeTable(Slopes[e.NewStartingIndex]);
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    if (e.OldStartingIndex == 0)
+                    {
+                        Slopes[0].BeginMileage = 0;
+                    }
+                    else
+                    {
+                        Slopes[e.OldStartingIndex].BeginMileage = Slopes[e.OldStartingIndex - 1].EndMileage;
+                    }
+                    if (FixAltitudePosition > e.OldStartingIndex) FixAltitudePosition--;
+                    if (FixAltitudePosition < e.OldStartingIndex)
+                    {
+                        if (e.OldStartingIndex < Slopes.Count && e.OldStartingIndex > 0)
+                            Slopes[e.OldStartingIndex].BeginAltitude = Slopes[e.OldStartingIndex - 1].EndAltitude;
+                    }
+                    else
+                    {
+                        if (e.OldStartingIndex < Slopes.Count - 1)
+                            Slopes[e.OldStartingIndex].EndAltitude = Slopes[e.OldStartingIndex + 1].BeginAltitude;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    UpdateMaxMinAltitude();
                     break;
             }
         }
 
         /// <summary>
-        /// Slope属性改变处理函数。
+        /// Slope属性改变处理函数。检查并更新MaxAltitude和MinAltitude。Mileage改变时，更新其他Slope的Mileage。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SlopePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            // Updated用于触发更新坐标轴，放在此处会过于频繁更新，改在UpdateMaxMinAltitude函数中。
             int p;
             switch (e.PropertyName)
             {
                 case "BeginAltitude":
-                    UpdateMaxMinAltitude(((SlopeViewModel)sender).BeginAltitude);
+                    p = GetPosition(sender);
+                    if (p < 1) break;
+                    Slopes[p - 1].EndAltitude = ((SlopeViewModel)sender).BeginAltitude;
+                    UpdateMaxMinAltitude();
+                    //Updated = true;
                     break;
                 case "EndMileage":
                     p = GetPosition(sender);
@@ -246,12 +373,31 @@ namespace tdjWpfClassLibrary.Profile
                     Slopes[p + 1].BeginMileage = Slopes[p].EndMileage;
                     break;
                 case "EndAltitude":
-                    UpdateMaxMinAltitude(((SlopeViewModel)sender).EndAltitude);
                     p = GetPosition(sender);
                     if (p < 0 || p > Slopes.Count - 2) break;
                     Slopes[p + 1].BeginAltitude = Slopes[p].EndAltitude;
+                    UpdateMaxMinAltitude();
+                    //Updated = true;
+                    break;
+                case "Grade":
+                case "Length":
+                    p = GetPosition(sender);
+                    if (p == FixAltitudePosition)
+                    {
+                        if (FixBeginOrEndAltitude)
+                            Slopes[p].SetEndAltitudeByBeginAltitude();
+                        else
+                            Slopes[p].SetBeginAltitudeByEndAltitude();
+                    }
+                    else if (p < FixAltitudePosition)
+                        Slopes[p].SetBeginAltitudeByEndAltitude();
+                    else
+                        Slopes[p].SetEndAltitudeByBeginAltitude();
+                    UpdateMaxMinAltitude();
+                    //Updated = true;
                     break;
             }
+            //Updated = true;
         }
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -263,6 +409,12 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        private void SetLeftTop()
+        {
+            IGraphPosition gp = new ProfileViewModel();
+            LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, _maxAltitude * Scale.Vertical, _minAltitude * Scale.Vertical);
+        }
+
         /// <summary>
         /// 按照height和width设置比例后设置Polyline的Points。
         /// 按照Profile的长度、高差计算比例。
@@ -271,12 +423,19 @@ namespace tdjWpfClassLibrary.Profile
         /// <param name="width"></param>
         public void SetPolylineFullSize(double height, double width)
         {
-            canvasHeight = height;
-            canvasWidth = width;
+            CanvasActualHeight = height;
+            CanvasActualWidth = width;
             UpdateMaxMinAltitude();
             Scale.SetScale(height, width, MaxAltitude, MinAltitude, Length);
-            PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
-            PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
+            SetLeftTop();
+        }
+
+        public void UpdateScale()
+        {
+            foreach (var i in Slopes)
+            {
+                i.UpdateScale();
+            }
         }
 
         /// <summary>
@@ -305,6 +464,17 @@ namespace tdjWpfClassLibrary.Profile
             return -altitude * Scale.Vertical;
         }
 
+        public double? GetAltitude(double position)
+        {
+            double? r = null;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                if (position > s.BeginMileage && position <= s.EndMileage)
+                    return s.GetAltitude(position);
+            }
+            return r;
+        }
+
         /// <summary>
         /// 获得sender代表的Slope在Slopes中的位置。
         /// </summary>
@@ -330,6 +500,7 @@ namespace tdjWpfClassLibrary.Profile
         public void UpdateMaxMinAltitude()
         {
             double min, max;
+            if (Slopes == null || Slopes.Count == 0) return;
             min = max = Slopes[0].BeginAltitude;
             foreach (SlopeViewModel s in Slopes)
             {
@@ -339,9 +510,15 @@ namespace tdjWpfClassLibrary.Profile
                     min = s.EndAltitude;
             }
             if (_maxAltitude != max)
+            {
                 SetMaxAltitude(max);
+                Updated = true;
+            }
             if (_minAltitude != min)
+            {
                 SetMinAltitude(min);
+                Updated = true;
+            }
             return;
         }
 
@@ -398,35 +575,67 @@ namespace tdjWpfClassLibrary.Profile
         {
             XmlNodeList xmlNodeList = xmlElement.ChildNodes;
             double m = 0;
+            double l, g, a = double.MinValue, e;
             Slopes.Clear();
-            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
-            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+
             if (xmlElement.GetAttribute("GradeUnit") == null)
                 GradeUnit = 1000;
             else
                 GradeUnit = Convert.ToDouble(xmlElement.GetAttribute("GradeUnit"));
             foreach (XmlNode xmlNode in xmlNodeList)
             {
-                SlopeViewModel slope = new SlopeViewModel();
-                //SetSlopeTable(slope);
-
-                //已经在SlopesCollectionChanged中通过调用SetSlopeTable设置。
-                //slope.SlopeTableTop = SlopeTableTop;
-                //slope.SlopeTableBottom = SlopeTableBottom;
-                slope.BeginMileage = m;
-                slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
-                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
-                slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
-                //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
-                m += slope.Length;
-                //slope.EndMileage = m;
+                l = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
+                g = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
+                if (m == 0)
+                {
+                    a = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
+                    BeginAltitude = a;
+                }
+                e = a - g * l;
+                SlopeViewModel slope = new SlopeViewModel(l, g, m, m + l, a, e);
                 Slopes.Add(slope);
+                a = e;
+                m += l;
             }
-            OnPropertyChanged("Count");
+            /*
+            if (Slopes.Count > 0)
+                Slopes[0].BeginAltitude = a;*/
+            //避免读取数据时修改FixAltitudePosition。
+            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
+            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+            string v = xmlElement.GetAttribute("HumpHeightBeginMileage");
+            if (String.IsNullOrEmpty(v))
+                HumpMileage = 0;
+            else 
+                HumpMileage = Convert.ToDouble(v);
+            v = xmlElement.GetAttribute("HumpHeightEndMileage");
+            if (String.IsNullOrEmpty(v))
+                HumpHeightCalculatePointMileage = 0;
+            else
+                HumpHeightCalculatePointMileage = Convert.ToDouble(v);
+            //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
 
-        
+
+        public void WriteXML(XmlElement xmlElement)
+        {
+            xmlElement.SetAttribute("GradeUnit", GradeUnit.ToString());
+            xmlElement.SetAttribute("FixAltitudePosition", FixAltitudePosition.ToString());
+            xmlElement.SetAttribute("FixBeginOrEndAltitude", FixBeginOrEndAltitude.ToString());
+            xmlElement.SetAttribute("BeginAltitude", BeginAltitude.ToString());
+            xmlElement.SetAttribute("HumpHeightBeginMileage", HumpMileage.ToString());
+            xmlElement.SetAttribute("HumpHeightEndMileage", HumpHeightCalculatePointMileage.ToString());
+            foreach (SlopeViewModel slope in Slopes)
+            {
+                XmlElement slopeElement = xmlElement.OwnerDocument.CreateElement("Slope");
+                slopeElement.SetAttribute("Length", slope.Length.ToString());
+                slopeElement.SetAttribute("Grade", slope.Grade.ToString());
+                slopeElement.SetAttribute("BeginAltitude", slope.BeginAltitude.ToString());
+                xmlElement.AppendChild(slopeElement);
+            }
+        }
+
         #endregion
     }
 

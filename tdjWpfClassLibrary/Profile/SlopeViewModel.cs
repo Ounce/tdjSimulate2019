@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using tdjWpfClassLibrary.Draw;
 
 namespace tdjWpfClassLibrary.Profile
 {
@@ -22,7 +23,8 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _length = value;
                     EndMileage = _beginMileage + _length;
-                    EndAltitude = _beginAltitude - _grade * _length;
+                    // 移到 ProfileViewModel中计算。
+                    //EndAltitude = Math.Round(_beginAltitude - _grade * _length, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Length");
                     OnPropertyChanged("Width");
                 }
@@ -31,13 +33,15 @@ namespace tdjWpfClassLibrary.Profile
 
         public double Grade
         {
-            get { return _grade; }
+            get { return _grade * Option.GradeUnit; }
             set
             {
-                if (value != _grade)
+                double v = value / Option.GradeUnit;
+                if (v != _grade)
                 {
-                    _grade = value;
-                    EndAltitude = _beginAltitude - _grade * _length;
+                    _grade = v;
+                    // 移到 ProfileViewModel中计算。
+                    //EndAltitude = Math.Round(_beginAltitude - _grade * _length, 3, MidpointRounding.AwayFromZero);
                     OnPropertyChanged("Grade");
                     OnPropertyChanged("GradeShowValue");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
@@ -48,11 +52,6 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _grade;
-
-        public double GradeShowValue
-        {
-            get { return Grade * Option.GradeUnit; }
-        }
 
         public double BeginAltitude
         {
@@ -69,6 +68,16 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
         private double _beginAltitude;
+
+        public void SetBeginAltitudeByEndAltitude()
+        {
+            BeginAltitude = _endAltitude + _grade * _length;
+        }
+
+        public void SetEndAltitudeByBeginAltitude()
+        {
+            EndAltitude = _beginAltitude - _grade * _length;
+        }
 
         public double EndAltitude
         {
@@ -126,11 +135,7 @@ namespace tdjWpfClassLibrary.Profile
                 {
                     _x1 = value;
                     OnPropertyChanged("X1");
-                    OnPropertyChanged("SlopeTableLeftTop");
-                    OnPropertyChanged("SlopeTableLeftCenter");
-                    OnPropertyChanged("SlopeTableLeftBottom");
                     OnPropertyChanged("SlopeTableGradeLineStartPoint");
-                    OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
         }
@@ -146,9 +151,7 @@ namespace tdjWpfClassLibrary.Profile
                     _x2 = value;
                     OnPropertyChanged("X2");
                     OnPropertyChanged("SlopeTableRightTop");
-                    OnPropertyChanged("SlopeTableRightCenter");
                     OnPropertyChanged("SlopeTableRightBottom");
-                    OnPropertyChanged("SlopeTableGradeLineStartPoint");
                     OnPropertyChanged("SlopeTableGradeLineEndPoint");
                 }
             }
@@ -157,12 +160,21 @@ namespace tdjWpfClassLibrary.Profile
 
         public double Y1
         {
-            get { return -BeginAltitude * Scale.Vertical; }
+            get { return ValueConverter.VerticalValue(BeginAltitude * Scale.Vertical); }
         }
 
         public double Y2
         {
-            get { return -EndAltitude * Scale.Vertical; }
+            get { return ValueConverter.VerticalValue(EndAltitude * Scale.Vertical); }
+        }
+
+        public void UpdateScale()
+        {
+            X1 = _beginMileage * Scale.Horizontal;
+            X2 = _endMileage * Scale.Horizontal;
+            OnPropertyChanged("Y1");
+            OnPropertyChanged("Y2");
+            OnPropertyChanged("Width");
         }
 
         /// <summary>
@@ -303,6 +315,25 @@ namespace tdjWpfClassLibrary.Profile
 
         public SlopeViewModel()
         {
+
+        }
+
+        public SlopeViewModel(double length, double grade, double beginMileage, double endMileage, double beginAltitude, double endAltitude) : base() 
+        { 
+            _length = length; 
+            _grade = grade; 
+            _beginMileage = beginMileage; 
+            _endMileage = endMileage;
+            _beginAltitude = beginAltitude;
+            _endAltitude = endAltitude;
+            _x1 = _beginMileage * Scale.Horizontal;
+            _x2 = _endMileage * Scale.Horizontal;
+        }
+
+        public double? GetAltitude(double position)
+        {
+            if (position < BeginMileage || position > EndMileage) return null;
+            return Math.Round(_beginAltitude - _grade * (position - _beginMileage), 3, MidpointRounding.AwayFromZero);
         }
     }
 }

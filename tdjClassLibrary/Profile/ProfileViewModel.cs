@@ -7,8 +7,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
-
+using System.Xml;
+using System.Xml.Resolvers;
 
 namespace tdjClassLibrary.Profile
 {
@@ -69,6 +69,8 @@ namespace tdjClassLibrary.Profile
 
         public ProfileViewModel()
         {
+            Slopes = new ObservableCollection<SlopeViewModel>();
+            GradeUnit = 1000;
             Slopes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SlopesCollectionChanged);
         }
 
@@ -101,6 +103,52 @@ namespace tdjClassLibrary.Profile
             }
         }
 
+        /// <summary>
+        /// 计算最大和最小高程。
+        /// </summary>
+        /// <returns></returns>
+        public void SetMaxMinAltitude()
+        {
+            double min, max;
+            min = max = Slopes[0].BeginAltitude;
+            foreach (SlopeViewModel s in Slopes)
+            {
+                if (s.EndAltitude > max)
+                    max = s.EndAltitude;
+                if (s.EndAltitude < min)
+                    min = s.EndAltitude;
+            }
+            MaxAltitude = max;
+            MinAltitude = min;
+            return;
+        }
+    
+        public void ReadXML(XmlElement xmlElement)
+        {
+            XmlNodeList xmlNodeList = xmlElement.ChildNodes;
+            double m = 0;
+            Slopes.Clear();
+            FixAltitudePosition = Convert.ToInt32(xmlElement.GetAttribute("FixAltitudePosition"));
+            FixBeginOrEndAltitude = Convert.ToBoolean(xmlElement.GetAttribute("FixBeginOrEndAltitude"));
+            if (xmlElement.GetAttribute("GradeUnit") == null)
+                GradeUnit = 1000;
+            else
+                GradeUnit = Convert.ToDouble(xmlElement.GetAttribute("GradeUnit"));
+            foreach (XmlNode xmlNode in xmlNodeList)
+            {
+                SlopeViewModel slope = new SlopeViewModel();
+                Slopes.Add(slope);
+                slope.BeginMileage = m;
+                slope.Length = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Length"));
+                slope.Grade = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("Grade")) / GradeUnit;
+                slope.BeginAltitude = Convert.ToDouble(((XmlElement)xmlNode).GetAttribute("BeginAltitude"));
+                //                slope.EndAltitude = slope.BeginAltitude - slope.Length * slope.Grade / ProfileDrawing.GradeUnit;
+                m += slope.Length;
+                //slope.EndMileage = m;
+            }
+            // Slopes.Add会改变profile.FixAltitudePosition。
+            
+        }
     }
 
 

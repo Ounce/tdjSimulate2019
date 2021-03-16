@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>profileDesigner.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\AbstractAssociation_16x.png" />
+    <None Remove="Images\copy.png" />
+    <None Remove="Images\Copy_16x.png" />
+    <None Remove="Images\Exit_16x.png" />
+    <None Remove="Images\MoveGlyph_16x.png" />
+    <None Remove="Images\OpenFolder_16x.png" />
+    <None Remove="Images\paste.png" />
+    <None Remove="Images\Paste_16x.png" />
+    <None Remove="Images\SaveAll_16x.png" />
+    <None Remove="Images\SaveAs_16x.png" />
+    <None Remove="Images\Save_16x.png" />
+    <None Remove="Images\Split_16x.png" />
+    <None Remove="Images\ZoomIn_16x.png" />
+    <None Remove="Images\ZoomIn_disabled_16x.png" />
+    <None Remove="Images\ZoomOriginalSize_16x.png" />
+    <None Remove="Images\ZoomOut_16x.png" />
+    <None Remove="Images\ZoomOut_disabled_16x.png" />
+    <None Remove="Images\ZoomToFit_16x.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Excel.dll">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>8</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>00020813-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\tdjWpfClassLibrary\tdjWpfClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="netDxf">
+      <HintPath>reference\netDxf_2.3.0\bin\Debug\netDxf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\AbstractAssociation_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Copy_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Exit_16x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\MoveGlyph_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\OpenFolder_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\paste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Paste_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\SaveAll_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\SaveAs_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Save_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Split_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomIn_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomIn_disabled_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOriginalSize_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOut_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOut_disabled_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomToFit_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

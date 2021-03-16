@@ -75,6 +75,6 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-        private Brush _slopeTableColor = Brushes.Red;
+        private Brush _slopeTableColor;// = Brushes.Red;
     }
 }

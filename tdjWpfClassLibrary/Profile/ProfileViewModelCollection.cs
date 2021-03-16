@@ -7,25 +7,78 @@ using System.Windows;
 
 namespace tdjWpfClassLibrary.Profile
 {
-    class ProfileViewModelCollection : NotifyPropertyChanged
+    public class ProfileViewModelCollection : NotifyPropertyChanged, IGraphPosition
     {
-        public ObservableCollection<ProfileViewModel> Items;
+        private ObservableCollection<ProfileViewModel> Items;
+
+        public ProfileViewModel this[int index] 
+        {
+            get { return Items[index]; }
+            set { Items[index] = value; }
+        }
+
+        public bool Updated
+        {
+            get { return _updated; }
+            set
+            {
+                _updated = true;
+                OnPropertyChanged("Updated");
+            }
+        }
+        private bool _updated = true;
+
+        public int Count
+        {
+            get { return Items.Count; }
+        }
+
+        public void Clear()
+        {
+            Items.Clear();
+        }
+
+        public void Remove(ProfileViewModel item)
+        {
+            Items.Remove(item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            Items.RemoveAt(index);
+        }
 
         /// <summary>
         /// 最大高程。
         /// </summary>
         public double MaxAltitude
         {
-            get { return _maxAltitude; }
+            get 
+            {
+                if (Items.Count < 1) return 0;
+                _maxAltitude = Items[0].MaxAltitude;
+                for (int i = 1; i < Items.Count; i++)
+                    if (_maxAltitude < Items[i].MaxAltitude)
+                        _maxAltitude = Items[i].MaxAltitude;
+                return _maxAltitude; 
+            }
         }
-        public double _maxAltitude;
+        private double _maxAltitude;
 
         /// <summary>
         /// 最小高程。
         /// </summary>
         public double MinAltitude
         {
-            get { return _minAltitude; }
+            get
+            {
+                if (Items.Count < 1) return 0;
+                _minAltitude = Items[0].MinAltitude;
+                for (int i = 1; i < Items.Count; i++)
+                    if (_minAltitude > Items[i].MinAltitude)
+                        _minAltitude = Items[i].MinAltitude;
+                return _minAltitude;
+            }
         }
         public double _minAltitude;
 
@@ -45,33 +98,36 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
-        public PolylineOriginPoint PolylineOriginPoint;
+        public Point LeftTop { get; set; }
 
-        public double canvasWidth, canvasHeight;
+        /// <summary>
+        /// 用于计算图型显示位置，图形显示在顶端、中心、底部、左边或右边时，需要此参数在计算偏移量。
+        /// </summary>
+        public double CanvasActualWidth { get; set; }
+        public double CanvasActualHeight { get; set; }
 
         public HorizontalAlignment HorizontalAlignment
         {
+            get => _horizontalAlignment;
             set
             {
                 if (value != _horizontalAlignment)
                 {
                     _horizontalAlignment = value;
-                    PolylineOriginPoint.SetX(_horizontalAlignment, canvasWidth, Length);
                     OnPropertyChanged("HorizontalAlignment");
                 }
             }
-
         }
         private HorizontalAlignment _horizontalAlignment;
 
-        public VerticalAlignment PolylineVerticalAlignment
+        public VerticalAlignment VerticalAlignment
         {
+            get => _verticalAlignment;
             set
             {
                 if (value != _verticalAlignment)
                 {
                     _verticalAlignment = value;
-                    PolylineOriginPoint.SetY(_verticalAlignment, canvasHeight, _maxAltitude, _minAltitude);
                     OnPropertyChanged("VerticalAlignment");
                 }
             }
@@ -85,7 +141,7 @@ namespace tdjWpfClassLibrary.Profile
             _verticalAlignment = VerticalAlignment.Center;
             Items = new ObservableCollection<ProfileViewModel>();
             Items.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ItemsCollectionChanged);
-            PolylineOriginPoint = new PolylineOriginPoint();
+            LeftTop = new Point();
         }
 
         private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -99,27 +155,27 @@ namespace tdjWpfClassLibrary.Profile
                     if (Items[e.NewStartingIndex].MinAltitude < MinAltitude)
                         SetMinAltitude(Items[e.NewStartingIndex].MinAltitude);
                     break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    UpdateMaxMinAltitude();
+                    break;
             }
         }
 
         private void ProfilePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int p;
             switch (e.PropertyName)
             {
-                case "MaxAltitude":
-                    if (((ProfileViewModel)sender).MaxAltitude > _maxAltitude)
-                        SetMaxAltitude(((ProfileViewModel)sender).MaxAltitude);
-                    else
-                        UpdateMaxMinAltitude();
+                case "Updated":
+                    OnPropertyChanged("Updated");
                     break;
-                case "MinAltitude":
-                    if (((ProfileViewModel)sender).MinAltitude > _minAltitude)
-                        SetMinAltitude(((ProfileViewModel)sender).MinAltitude);
-                    else
-                        UpdateMaxMinAltitude();
-                    break;
-             }
+            }
+        }
+
+        public void Add(ProfileViewModel profile)
+        {
+            Items.Add(profile);
         }
 
         /// <summary>
@@ -173,8 +229,21 @@ namespace tdjWpfClassLibrary.Profile
 
         public void SetPolylineOriginPoint(double height, double width)
         {
-            PolylineOriginPoint.SetX(_horizontalAlignment, width, Length);
-            PolylineOriginPoint.SetY(_verticalAlignment, height, _maxAltitude, _minAltitude);
+            SetLeftTop();
+        }
+
+        public void SetLeftTop()
+        {
+            IGraphPosition gp = new ProfileViewModel();
+            LeftTop = gp.SetLeftTop(HorizontalAlignment, VerticalAlignment, CanvasActualWidth, CanvasActualHeight, 0, Length * Scale.Horizontal, MaxAltitude * Scale.Vertical, MinAltitude * Scale.Vertical);
+        }
+
+        public void UpdateScale()
+        {
+            foreach (var i in Items)
+            {
+                i.UpdateScale();
+            }
         }
     }
 }
