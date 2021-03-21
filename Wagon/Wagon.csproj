@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tdjWpfClassLibrary\tdjWpfClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="arrow_Up_32xLG.png" />
     <Resource Include="Images\arrow_Up_32xLG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

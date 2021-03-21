@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -60,6 +62,8 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private double _position;
 
+        public RunType RunType { get; set; }
+
         public Cut()
         {
             _initPosition = -1;
@@ -68,6 +72,23 @@ namespace tdjWpfClassLibrary.Wagon
 
     public class CutList : ObservableCollection<Cut>
     {
-
+        public CutList() { }
+        public void ReadXML(string fileName)
+        {
+            XElement xe = XElement.Load(fileName);
+            //xe.Descendants
+            var elements = from ele in xe.Elements() select ele;
+            foreach (var ele in elements)
+            {
+                Cut model = new Cut();
+                model.Name = ele.Attribute("Name").Value;
+                model.Model = ele.Attribute("Model").Value;
+                model.Count = Convert.ToInt32(ele.Attribute("Count").Value);
+                model.Weight = Convert.ToDouble(ele.Attribute("Weight").Value);
+                model.RunType = (RunType)System.Enum.Parse(typeof(RunType), ele.Attribute("RunType").Value); 
+                Add(model);
+            }
+        }
+        
     }
 }

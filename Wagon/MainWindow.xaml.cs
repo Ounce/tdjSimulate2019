@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using tdjWpfClassLibrary;
+using tdjWpfClassLibrary.Wagon;
 
 namespace Wagon
 {
@@ -20,9 +22,13 @@ namespace Wagon
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CutList OriginCuts;
         public MainWindow()
         {
             InitializeComponent();
+            OriginCuts = new CutList();
+            OriginCuts.ReadXML("..//..//..//Files//Cuts.xml");
+            CutsDataGrid.ItemsSource = OriginCuts;
         }
     }
 }
