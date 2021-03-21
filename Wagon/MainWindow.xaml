@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wagon"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="车组：" Grid.Row="0" Grid.Column="0" Margin="10,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0">
 
+        </DataGrid>
+        <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="已选车组：" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Bottom" Grid.Column="2"/>
+        <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2">
+
+        </DataGrid>
+        <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Content>
+                <Image Source="Images/Up_32.png"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="MoveDownButton" Grid.Row="1" Grid.Column="3" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Content>
+                <Image Source="Images/Down_32.png"/>
+            </Button.Content>
+        </Button>
+        <StackPanel x:Name="WagonDetails" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+            <DataGrid/>
+        </StackPanel>
     </Grid>
 </Window>
