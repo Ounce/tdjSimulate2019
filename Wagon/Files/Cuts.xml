@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Cuts>
+  <Cut Name="单辆重" Count="1" Weight="80" RunType="N"/>
+</Cuts>

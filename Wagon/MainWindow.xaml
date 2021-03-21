@@ -15,18 +15,32 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="车组：" Grid.Row="0" Grid.Column="0" Margin="10,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0">
-
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                <DataGridTextColumn Header="辆数" Binding="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                <DataGridTextColumn Header="单辆总重" Binding="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                <DataGridTextColumn Header="走行" Binding="{Binding RunType, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock Text="已选车组：" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Bottom" Grid.Column="2"/>
         <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2">
-
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                <DataGridTextColumn Header="辆数" Binding="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="*"/>
+                <DataGridTextColumn Header="单辆总重" Binding="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=Default}"  Width="1.1*"/>
+                <DataGridTextColumn Header="走行" Binding="{Binding RunType, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+                <DataGridTextColumn Header="位置" Binding="{Binding InitPosition, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+                <DataGridTextColumn Header="速度" Binding="{Binding InitSpeed, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Content>
