@@ -11,19 +11,19 @@ namespace tdjWpfClassLibrary.Wagon
     public enum RunType 
     { 
         [Description("易")]
-        Y = 1,
+        Y = -1,
         [Description("中")]
         Z = 0,
         [Description("难")]
-        N = -1,
+        N = 1,
         [Description("极易")]
-        GY = 2,
+        GY = -2,
         [Description("极难")]
-        GN = -2
+        GN = 2
     }
 
     /// <summary>
-    /// 得到枚举的DescriptionAttribute值。
+    /// 得到枚举的DescriptionAttribute值。此类未测试。
     /// </summary>
     public static class EnumHelper
     {
