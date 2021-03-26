@@ -13,6 +13,11 @@ namespace tdjWpfClassLibrary.Wagon
     public class Cut : Wagons
     {
         /// <summary>
+        /// 车组情况简要说明
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// 初始位置。如果为车组内的车辆其值为-1。
         /// </summary>
         public double InitPosition

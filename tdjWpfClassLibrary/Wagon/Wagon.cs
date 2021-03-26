@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -134,14 +136,19 @@ namespace tdjWpfClassLibrary.Wagon
 
     public class WagonList : ObservableCollection<Wagon>
     {
-        public WagonList()
-        {
-            ReadJSON();
-        }
+        public WagonList() { }
 
-        private void ReadJSON()
+        public void ReadXML(string fileName)
         {
-
+            XElement xe = XElement.Load(fileName);
+            //xe.Descendants
+            var elements = from ele in xe.Elements() select ele;
+            foreach (var ele in elements)
+            {
+                Wagon model = new Wagon();
+                model.Model = ele.Attribute("Model").Value;
+                Add(model);
+            }
         }
     }
 }

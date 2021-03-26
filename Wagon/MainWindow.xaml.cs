@@ -22,13 +22,23 @@ namespace Wagon
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CutList OriginCuts;
+        private static CutList OriginCuts;
+        private static WagonList OriginWagons;
+        private RunTypes RunTypes;
+
         public MainWindow()
         {
             InitializeComponent();
             OriginCuts = new CutList();
             OriginCuts.ReadXML("..//..//..//Files//Cuts.xml");
             CutsDataGrid.ItemsSource = OriginCuts;
+
+            OriginWagons = new WagonList();
+            OriginWagons.ReadXML("..//..//..//Files//Cuts.xml");
+            ModelComboBox.ItemsSource = OriginWagons;
+
+            RunTypes = new RunTypes();
+            RunTypeComboBox.ItemsSource = RunTypes;
         }
     }
 }

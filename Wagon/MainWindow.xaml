@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Wagon"
+        xmlns:local="clr-namespace" xmlns:local1="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="950">
+    <Window.Resources>
+        <local1:ConverterEnumDescription x:Key="EnumDescription"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -70,36 +73,36 @@
                 </StackPanel>
                 <DockPanel Width="150" Height="25" Grid.Row="1" Grid.Column="0">
                     <TextBlock DockPanel.Dock="Left" Text="名称：" Width="50" TextAlignment="Right"/>
-                    <TextBox DockPanel.Dock="Right" Margin="0" Height="25"/>                    
+                    <TextBox x:Name="NameTextBox" Text="{Binding Name}" DockPanel.Dock="Right" Margin="0" Height="25"/>                    
                 </DockPanel>
                 <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                     <TextBlock DockPanel.Dock="Left" Text="描述：" Width="50" TextAlignment="Right"/>
-                    <TextBox DockPanel.Dock="Right" Margin="0" Height="25" />
+                    <TextBox x:Name="DescriptionTextBox" Text="{Binding Description}" DockPanel.Dock="Right" Margin="0" Height="25" />
                 </DockPanel>
                 <WrapPanel x:Name="WagonDetails" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
                     <DockPanel Margin="0,0,0,0">
                         <TextBlock DockPanel.Dock="Left" Text="型号：" Width="50" TextAlignment="Right"/>
-                        <ComboBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <ComboBox Name="ModelComboBox" DisplayMemberPath="Model" SelectedValuePath="Model" Text="{Binding Model}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="辆数：" Width="50" TextAlignment="Right"/>
-                        <TextBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <TextBox x:Name="CountTextBox" Text="{Binding Count}"  DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="单辆重：" Width="60" TextAlignment="Right"/>
-                        <TextBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <TextBox x:Name="WeightTextBox" Text="{Binding Weight}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="走行：" Width="50" TextAlignment="Right"/>
-                        <ComboBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <ComboBox Name="RunTypeComboBox" DisplayMemberPath="Value" SelectedValuePath="Key" Text="{Binding RunType, Converter={StaticResource EnumDescription}, Mode=OneWay}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="位置：" Width="50" TextAlignment="Right"/>
-                        <TextBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <TextBox x:Name="PositionTextBox" Text="{Binding InitPositio}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="速度：" Width="50" TextAlignment="Right"/>
-                        <TextBox DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <TextBox x:Name="SpeedTextBox" Text="{Binding InitSpeed}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                 </WrapPanel>
             </Grid>
