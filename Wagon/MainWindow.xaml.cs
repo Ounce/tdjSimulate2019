@@ -40,5 +40,10 @@ namespace Wagon
             RunTypes = new RunTypes();
             RunTypeComboBox.ItemsSource = RunTypes;
         }
+
+        private void CutsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
+        }
     }
 }
