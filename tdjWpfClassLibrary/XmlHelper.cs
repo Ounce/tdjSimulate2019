@@ -16,5 +16,13 @@ namespace tdjWpfClassLibrary
             writer.Serialize(file, model);
             file.Close();
         }
+
+        public static object ReadXML(string fileName, Type model)
+        {
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(model);
+            System.IO.StreamReader file = new System.IO.StreamReader(fileName);
+            return reader.Deserialize(file);
+            //file.Close();
+        }
     }
 }
