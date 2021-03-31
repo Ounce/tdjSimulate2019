@@ -94,6 +94,21 @@ namespace tdjWpfClassLibrary.Wagon
                 Add(model);
             }
         }
+
+        public void ReadXML(XElement xElement)
+        {
+            var elements = from ele in xElement.Elements() select ele;
+            foreach (var ele in elements)
+            {
+                Cut model = new Cut();
+                model.Name = ele.Attribute("Name").Value;
+                model.Model = ele.Attribute("Model").Value;
+                model.Count = Convert.ToInt32(ele.Attribute("Count").Value);
+                model.Weight = Convert.ToDouble(ele.Attribute("Weight").Value);
+                model.RunType = (RunType)System.Enum.Parse(typeof(RunType), ele.Attribute("RunType").Value);
+                Add(model);
+            }
+        }
         
     }
 }
