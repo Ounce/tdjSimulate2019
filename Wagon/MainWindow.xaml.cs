@@ -72,7 +72,7 @@ namespace Wagon
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
             XmlHelper.WriteXML(path, projectFile);
 
-            ProjectFile p = new ProjectFile();
+            ProjectFile p;
             p = (ProjectFile)XmlHelper.ReadXML(path, typeof(ProjectFile));
             MessageBox.Show(p.Version);
         }

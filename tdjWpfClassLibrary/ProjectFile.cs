@@ -16,10 +16,5 @@ namespace tdjWpfClassLibrary
         /// </summary>
         public string Version { get; set; }
         public CutList Cuts { get; set; }
-
-        public static void WriteXML()
-        {
-
-        }
     }
 }
