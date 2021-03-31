@@ -44,11 +44,11 @@ namespace Wagon
             RunTypes = new RunTypes();
             RunTypeComboBox.ItemsSource = RunTypes;
 
-            SelectedCutList = new CutList();
-            xmlDocument = new XmlDocument();
-            xmlDocument.Load("..//..//..//Files//Project.xml");
-            XElement xmlDesignNode = (XElement)xmlDocument.SelectSingleNode("Profiles/DesignProfile");
-            SelectedCutList.ReadXML(xmlDesignNode);
+            //SelectedCutList = new CutList();
+            //xmlDocument = new XmlDocument();
+            //xmlDocument.Load("..//..//..//Files//Project.xml");
+            //XElement xmlDesignNode = (XElement)xmlDocument.SelectSingleNode("Profiles/DesignProfile");
+            //SelectedCutList.ReadXML(xmlDesignNode);
         }
 
         private void CutsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -59,6 +59,18 @@ namespace Wagon
         private void SelectedCutDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
+        }
+
+        private void DeleteCutButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectFile projectFile = new ProjectFile();
+            projectFile.Version = "10.1";
+            projectFile.Cuts = new CutList();
+            Cut c = new Cut();
+            c.Model = "C62A";
+            projectFile.Cuts.Add(c);
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
+            XmlHelper.WriteXML(path, projectFile);
         }
     }
 }

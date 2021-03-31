@@ -34,7 +34,7 @@
         <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="NewCutButton" Content="+" Grid.Row="1" Grid.Column="1" Margin="2,0,2,106" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <Button x:Name="DeleteCutButton" Content="-" Grid.Row="1" Grid.Column="1" Margin="2,0,2,36" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Button x:Name="DeleteCutButton" Content="-" Grid.Row="1" Grid.Column="1" Margin="2,0,2,36" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="DeleteCutButton_Click"/>
         <TextBlock Text="已选车组：" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Bottom" Grid.Column="2"/>
         <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False" SelectionChanged="SelectedCutDataGrid_SelectionChanged">
             <DataGrid.Columns>
