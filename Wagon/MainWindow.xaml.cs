@@ -25,7 +25,7 @@ namespace Wagon
     public partial class MainWindow : Window
     {
         private static CutList OriginCuts;
-        private static WagonList OriginWagons;
+        private static WagonModelList OriginWagons;
         private RunTypes RunTypes;
         private static CutList SelectedCutList;
         private XmlDocument xmlDocument;
@@ -37,8 +37,8 @@ namespace Wagon
             OriginCuts.ReadXML("..//..//..//Files//Cuts.xml");
             CutsDataGrid.ItemsSource = OriginCuts;
 
-            OriginWagons = new WagonList();
-            OriginWagons = (WagonList)XmlHelper.ReadXML("..//..//..//Files//Wagons.xml", typeof(WagonList));
+            //OriginWagons = new WagonModelList();
+            OriginWagons = (WagonModelList)XmlHelper.ReadXML("..//..//..//Files//Wagons.xml", typeof(WagonModelList));
             ModelComboBox.ItemsSource = OriginWagons;
 
             RunTypes = new RunTypes();
@@ -64,7 +64,7 @@ namespace Wagon
         private void DeleteCutButton_Click(object sender, RoutedEventArgs e)
         {
             ProjectFile projectFile = new ProjectFile();
-            projectFile.Version = "0.3";
+            //projectFile.Version = "0.3";
             //projectFile.Cuts = new CutList();
             Cut c = new Cut();
             c.Model = "C62A";
@@ -81,15 +81,15 @@ namespace Wagon
         private void NewCutButton_Click(object sender, RoutedEventArgs e)
         {
             string path = "..//..//..//Files//Wagons.xml";
-    /*        WagonList wagonlist = new WagonList();
-            tdjWpfClassLibrary.Wagon.Wagon a = new tdjWpfClassLibrary.Wagon.Wagon();
-            a.Model = "C62A";
-            a.Distances.Add(1.75);
-            wagonlist.Add(a);
-            XmlHelper.WriteXML(path, wagonlist);
-    */
-            WagonList wagons;
-            wagons = (WagonList)XmlHelper.ReadXML(path, typeof(WagonList));
+            /*        WagonList wagonlist = new WagonList();
+                    tdjWpfClassLibrary.Wagon.Wagon a = new tdjWpfClassLibrary.Wagon.Wagon();
+                    a.Model = "C62A";
+                    a.Distances.Add(1.75);
+                    wagonlist.Add(a);
+                    XmlHelper.WriteXML(path, wagonlist);
+            */
+            WagonModelList wagons;
+            wagons = (WagonModelList)XmlHelper.ReadXML(path, typeof(WagonModelList));
             MessageBox.Show(wagons[0].Model);
         }
     }

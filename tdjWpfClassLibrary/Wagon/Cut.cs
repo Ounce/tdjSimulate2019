@@ -81,6 +81,11 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private double _position;
 
+        /// <summary>
+        ///轴位置
+        /// </summary>
+        public List<double> AxisPositions;
+
         public RunType RunType { get; set; }
 
         public Cut()

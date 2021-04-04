@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<Project Version="0.3">
+<Project>
   <Cuts>
-    <Cut Type="C" Length="0" Weight="0" Model="C62A">
-      <Distances />
+    <Cut Category="C" Length="0" Weight="0" Model="C62A">
       <Count>0</Count>
       <RunType>Z</RunType>
       <InitPosition>-1</InitPosition>

@@ -28,7 +28,21 @@ namespace tdjWpfClassLibrary.Wagon
         private int _count;
     }
 
-    public class Wagon : NotifyPropertyChanged
+    public class Wagon : WagonBase
+    {
+
+    }
+
+    public class WagonModel : WagonBase
+    {
+        /// <summary>
+        /// 轴距，第一轴是距前端的距离。
+        /// </summary>
+        public List<double> AxisDistances { get; set; }
+        public WagonModel() { AxisDistances = new List<double>(); }
+    }
+
+    public class WagonBase : NotifyPropertyChanged
     {
         [XmlAttribute("Category")]
         public WagonCategory Category
@@ -99,19 +113,9 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private string _model;
 
-        /// <summary>
-        ///轴位置
-        /// </summary>
-        public List<double> AxisPositions;
-
-        /// <summary>
-        /// 轴距，第一轴是距前端的距离。
-        /// </summary>
-        public List<double> AxisDistances { get; set; }
-
-        public Wagon()
+        public WagonBase()
         {
-            AxisDistances = new List<double>();
+            Category = WagonCategory.C;
         }
     }
 
@@ -119,8 +123,8 @@ namespace tdjWpfClassLibrary.Wagon
     /// 各种车型的列表。
     /// </summary>
     [XmlRoot("Wagons")]
-    public class WagonList : ObservableCollection<Wagon>
+    public class WagonModelList : ObservableCollection<WagonModel>
     {
-        public WagonList() { }
+        public WagonModelList() { }
     }
 }
