@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -67,6 +68,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 位置（前端）。模糊车钩钩舌内侧与车辆端板之间的空间。
         /// </summary>
+        [XmlIgnore]
         public double Position
         {
             get => _position;
