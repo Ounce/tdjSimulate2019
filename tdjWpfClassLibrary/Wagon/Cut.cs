@@ -12,6 +12,20 @@ namespace tdjWpfClassLibrary.Wagon
     /// </summary>
     public class Cut : Wagons
     {
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
+
         /// <summary>
         /// 车组情况简要说明
         /// </summary>

@@ -28,8 +28,23 @@ namespace tdjWpfClassLibrary.Wagon
         private int _count;
     }
 
-    public class Wagon : WagonModel
+    public class Wagon : NotifyPropertyChanged
     {
+        [XmlAttribute("Category")]
+        public WagonCategory Category
+        {
+            get => _category;
+            set
+            {
+                if (value != _category)
+                {
+                    _category = value;
+                    OnPropertyChanged("Category");
+                }
+            }
+        }
+        private WagonCategory _category;
+
         /// <summary>
         /// 车辆全长。
         /// </summary>
@@ -89,61 +104,16 @@ namespace tdjWpfClassLibrary.Wagon
         /// </summary>
         public List<double> AxisPositions;
 
+        /// <summary>
+        /// 轴距，第一轴是距前端的距离。
+        /// </summary>
+        public List<double> AxisDistances { get; set; }
+
         public Wagon()
         {
             AxisDistances = new List<double>();
         }
     }
-
-    public enum WagonType { C, P, N };
-
-    public class WagonModel : NotifyPropertyChanged
-    {
-        [XmlAttribute("Type")]
-        public WagonType Type 
-        { 
-            get => _type; 
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    OnPropertyChanged("Type");
-                }
-            }
-        }
-        private WagonType _type;
-
-        [XmlAttribute("Name")]
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
-        }
-        private string _name;
-
-        /// <summary>
-        /// 轴距，第一轴是距前端的距离。
-        /// </summary>
-        public List<double> AxisDistances { get; set; }
-    }
-
-    public static class WagonTypes 
-    {
-        public static List<WagonModel> Items = new List<WagonModel>()
-        {
-            new WagonModel() { Type = WagonType.C, Name = "敞车"},
-            new WagonModel() { Type = WagonType.P, Name = "棚车"},
-            new WagonModel() { Type = WagonType.N, Name = "平车"}
-        };
-    };
 
     /// <summary>
     /// 各种车型的列表。
