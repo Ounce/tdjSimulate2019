@@ -33,6 +33,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 车辆全长。
         /// </summary>
+        [XmlAttribute("Length")]
         public double Length
         {
             get => _length;
@@ -50,6 +51,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 车辆总重。
         /// </summary>
+        [XmlAttribute("Weight")]
         public double Weight
         {
             get => _weight;
@@ -86,12 +88,18 @@ namespace tdjWpfClassLibrary.Wagon
         ///轴位置
         /// </summary>
         public List<double> AxisPositions;
+
+        public Wagon()
+        {
+            AxisDistances = new List<double>();
+        }
     }
 
     public enum WagonType { C, P, N };
 
     public class WagonModel : NotifyPropertyChanged
     {
+        [XmlAttribute("Type")]
         public WagonType Type 
         { 
             get => _type; 
@@ -106,6 +114,7 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private WagonType _type;
 
+        [XmlAttribute("Name")]
         public string Name
         {
             get => _name;
@@ -123,7 +132,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
-        public List<double> AxisDistances;
+        public List<double> AxisDistances { get; set; }
     }
 
     public static class WagonTypes 

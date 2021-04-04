@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <Wagons>
-  <Wagon Model="C70">
-    <Distance>1.7</Distance>
-    <Distance>1.83</Distance>
-    <Distance>7</Distance>
-    <Distance>1.83</Distance>
+  <Wagon Type="C" Length="0" Weight="0" Model="C62A">
+    <AxisDistances>
+      <double>1.508</double>
+      <double>1.75</double>
+      <double>7.46</double>
+      <double>1.75</double>
+    </AxisDistances>
   </Wagon>
 </Wagons>

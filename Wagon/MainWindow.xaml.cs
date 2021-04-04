@@ -79,10 +79,15 @@ namespace Wagon
         }
 
         private void NewCutButton_Click(object sender, RoutedEventArgs e)
-        {/*
-             XmlHelper.WriteXML(path, new WagonList());
-            */           string path = "..//..//..//Files//Wagons.xml";
-
+        {
+            string path = "..//..//..//Files//Wagons.xml";
+    /*        WagonList wagonlist = new WagonList();
+            tdjWpfClassLibrary.Wagon.Wagon a = new tdjWpfClassLibrary.Wagon.Wagon();
+            a.Model = "C62A";
+            a.Distances.Add(1.75);
+            wagonlist.Add(a);
+            XmlHelper.WriteXML(path, wagonlist);
+    */
             WagonList wagons;
             wagons = (WagonList)XmlHelper.ReadXML(path, typeof(WagonList));
             MessageBox.Show(wagons[0].Model);

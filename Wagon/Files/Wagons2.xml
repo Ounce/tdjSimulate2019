@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Wagons>
+  <Wagon Model="C70">
+    <Distance>1.7</Distance>
+    <Distance>1.83</Distance>
+    <Distance>7</Distance>
+    <Distance>1.83</Distance>
+  </Wagon>
+</Wagons>
