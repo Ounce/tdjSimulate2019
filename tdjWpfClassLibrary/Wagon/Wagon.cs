@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -66,6 +67,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 型号。
         /// </summary>
+        [XmlAttribute("Model")]
         public string Model
         {
             get => _model;
@@ -134,21 +136,12 @@ namespace tdjWpfClassLibrary.Wagon
         };
     };
 
+    /// <summary>
+    /// 各种车型的列表。
+    /// </summary>
+    [XmlRoot("Wagons")]
     public class WagonList : ObservableCollection<Wagon>
     {
         public WagonList() { }
-
-        public void ReadXML(string fileName)
-        {
-            XElement xe = XElement.Load(fileName);
-            //xe.Descendants
-            var elements = from ele in xe.Elements() select ele;
-            foreach (var ele in elements)
-            {
-                Wagon model = new Wagon();
-                model.Model = ele.Attribute("Model").Value;
-                Add(model);
-            }
-        }
     }
 }

@@ -38,7 +38,7 @@ namespace Wagon
             CutsDataGrid.ItemsSource = OriginCuts;
 
             OriginWagons = new WagonList();
-            OriginWagons.ReadXML("..//..//..//Files//Cuts.xml");
+            OriginWagons = (WagonList)XmlHelper.ReadXML("..//..//..//Files//Wagons.xml", typeof(WagonList));
             ModelComboBox.ItemsSource = OriginWagons;
 
             RunTypes = new RunTypes();
@@ -64,17 +64,28 @@ namespace Wagon
         private void DeleteCutButton_Click(object sender, RoutedEventArgs e)
         {
             ProjectFile projectFile = new ProjectFile();
-            projectFile.Version = "10.1";
-            projectFile.Cuts = new CutList();
+            projectFile.Version = "0.3";
+            //projectFile.Cuts = new CutList();
             Cut c = new Cut();
             c.Model = "C62A";
             projectFile.Cuts.Add(c);
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
+            //var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
+            string path = "..//..//..//Files//Project.xml";
             XmlHelper.WriteXML(path, projectFile);
-
+            
             ProjectFile p;
             p = (ProjectFile)XmlHelper.ReadXML(path, typeof(ProjectFile));
             MessageBox.Show(p.Version);
+        }
+
+        private void NewCutButton_Click(object sender, RoutedEventArgs e)
+        {/*
+             XmlHelper.WriteXML(path, new WagonList());
+            */           string path = "..//..//..//Files//Wagons.xml";
+
+            WagonList wagons;
+            wagons = (WagonList)XmlHelper.ReadXML(path, typeof(WagonList));
+            MessageBox.Show(wagons[0].Model);
         }
     }
 }
