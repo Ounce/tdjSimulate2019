@@ -92,5 +92,11 @@ namespace Wagon
             wagons = (WagonModelList)XmlHelper.ReadXML(path, typeof(WagonModelList));
             MessageBox.Show(wagons[0].Model);
         }
+
+        private void WagonEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditWagon editWagon = new EditWagon();
+            editWagon.Show();
+        }
     }
 }

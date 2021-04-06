@@ -22,6 +22,7 @@
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="车组：" Grid.Row="0" Grid.Column="0" Margin="10,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Button x:Name="WagonEditButton" Content="编辑车辆" Width="60" Height="24" Grid.Row="0" Grid.Column="0" Margin="10,15,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="WagonEditButton_Click"/>
         <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" SelectionChanged="CutsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
