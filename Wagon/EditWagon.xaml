@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="AddWagonButton" Content="新增" Grid.Column="0" Click="AddWagonButton_Click"/>
-                <Button x:Name="DeleteWagonButton" Content="删除" Grid.Column="1"/>
+                <Button x:Name="DeleteWagonButton" Content="删除" Grid.Column="1" Click="DeleteWagonButton_Click"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Orientation="Vertical" Margin="50, 50, 50,50" DataContext="{Binding SelectedItem, ElementName=WagonListDataGrid}">

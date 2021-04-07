@@ -37,6 +37,12 @@ namespace Wagon
             MainWindow.OriginWagons.Add(w);
             WagonListDataGrid.SelectedIndex = WagonListDataGrid.Items.Count - 1;
         }
+
+        private void DeleteWagonButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WagonListDataGrid.SelectedItem == null) return;
+            MainWindow.OriginWagons.RemoveAt(WagonListDataGrid.SelectedIndex);
+        }
     }
 
 
