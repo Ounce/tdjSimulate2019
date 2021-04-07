@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wagon" xmlns:local1="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
-        Title="编辑车辆" Height="450" Width="800">
+        Title="编辑车辆" Height="450" Width="800" Closing="Window_Closing"
+        >
     <Window.Resources>
         <local1:ConverterEnumDescription x:Key="EnumDescription"/>
     </Window.Resources>
@@ -54,7 +55,7 @@
                 <TextBlock DockPanel.Dock="Left" Text="轴距："/>
                 <DataGrid DockPanel.Dock="Right" ItemsSource="{Binding Axises}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="轴距" Binding="{Binding Distance}" Width="Auto"/>
+                        <DataGridTextColumn Header="轴距" Binding="{Binding Distance, Mode=TwoWay}" Width="Auto"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

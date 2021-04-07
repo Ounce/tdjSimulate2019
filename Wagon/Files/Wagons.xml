@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Wagons>
-  <WagonModel Type="C" Length="13.976" Weight="0" Model="C62A">
+  <WagonModel Category="C" Length="13.976" Weight="0" Model="C62A">
     <Axises>
       <Axis>
         <Distance>1.508</Distance>
@@ -8,12 +8,15 @@
       </Axis>
       <Axis>
         <Distance>1.75</Distance>
+        <Position>0</Position>
       </Axis>
       <Axis>
         <Distance>7.46</Distance>
+        <Position>0</Position>
       </Axis>
       <Axis>
         <Distance>1.75</Distance>
+        <Position>0</Position>
       </Axis>
     </Axises>
   </WagonModel>
