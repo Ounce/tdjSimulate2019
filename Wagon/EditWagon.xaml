@@ -20,7 +20,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <DataGrid x:Name="WagonListDataGrid" ItemsSource="{Binding Mode=OneWay}" AutoGenerateColumns="False">
+            <DataGrid x:Name="WagonListDataGrid" ItemsSource="{Binding Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="类型" Binding="{Binding Category,Converter={StaticResource EnumDescription}, Mode=OneWay}" Width="Auto"/>
                     <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}" Width="auto"/>
@@ -34,7 +34,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="AddWagonButton" Content="新增" Grid.Column="0"/>
+                <Button x:Name="AddWagonButton" Content="新增" Grid.Column="0" Click="AddWagonButton_Click"/>
                 <Button x:Name="DeleteWagonButton" Content="删除" Grid.Column="1"/>
             </Grid>
         </StackPanel>

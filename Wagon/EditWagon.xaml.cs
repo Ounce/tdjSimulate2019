@@ -19,22 +19,23 @@ namespace Wagon
     /// </summary>
     public partial class EditWagon : Window
     {
-        public WagonModelList Wagons;
-        string path = "..//..//..//Files//Wagons.xml";
-        bool CanClose = true;
-
         public EditWagon()
         {
             InitializeComponent();
-            
-            Wagons = (WagonModelList)XmlHelper.ReadXML(path, typeof(WagonModelList));
-            WagonListDataGrid.ItemsSource = Wagons;
+            WagonListDataGrid.ItemsSource = MainWindow.OriginWagons;
             WagonCategoryComboBox.ItemsSource = new WagonCategories();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            XmlHelper.WriteXML(path, Wagons);
+            XmlHelper.WriteXML(MainWindow.WagonFilePath, MainWindow.OriginWagons);
+        }
+
+        private void AddWagonButton_Click(object sender, RoutedEventArgs e)
+        {
+            WagonModel w = new WagonModel();
+            MainWindow.OriginWagons.Add(w);
+            WagonListDataGrid.SelectedIndex = WagonListDataGrid.Items.Count - 1;
         }
     }
 

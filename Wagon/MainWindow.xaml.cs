@@ -25,7 +25,8 @@ namespace Wagon
     public partial class MainWindow : Window
     {
         private static CutList OriginCuts;
-        private static WagonModelList OriginWagons;
+        public static WagonModelList OriginWagons;
+        public static string WagonFilePath = "..//..//..//Files//Wagons.xml";
         private RunTypes RunTypes;
         private static CutList SelectedCutList;
         private XmlDocument xmlDocument;
@@ -38,7 +39,7 @@ namespace Wagon
             CutsDataGrid.ItemsSource = OriginCuts;
 
             //OriginWagons = new WagonModelList();
-            OriginWagons = (WagonModelList)XmlHelper.ReadXML("..//..//..//Files//Wagons.xml", typeof(WagonModelList));
+            OriginWagons = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
             ModelComboBox.ItemsSource = OriginWagons;
 
             RunTypes = new RunTypes();

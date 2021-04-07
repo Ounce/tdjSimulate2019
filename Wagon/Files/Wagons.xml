@@ -20,4 +20,104 @@
       </Axis>
     </Axises>
   </WagonModel>
+  <WagonModel Category="C" Length="13.976" Weight="0" Model="C70">
+    <Axises>
+      <Axis>
+        <Distance>1.508</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>7.46</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+  </WagonModel>
+  <WagonModel Category="C" Length="13.4" Weight="0" Model="C50">
+    <Axises>
+      <Axis>
+        <Distance>1.504</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>7.4</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+  </WagonModel>
+  <WagonModel Category="C" Length="18" Weight="0" Model="C62A">
+    <Axises>
+      <Axis>
+        <Distance>1.5</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>9</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+  </WagonModel>
+  <WagonModel Category="C" Length="17" Weight="0" Model="P50">
+    <Axises>
+      <Axis>
+        <Distance>1.5</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>9</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+  </WagonModel>
+  <WagonModel Category="C" Length="130" Weight="0" Model="N50">
+    <Axises>
+      <Axis>
+        <Distance>1.5</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>7</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+  </WagonModel>
 </Wagons>
