@@ -1,11 +1,20 @@
 <?xml version="1.0"?>
 <Wagons>
   <WagonModel Type="C" Length="13.976" Weight="0" Model="C62A">
-    <AxisDistances>
-      <double>1.508</double>
-      <double>1.75</double>
-      <double>7.46</double>
-      <double>1.75</double>
-    </AxisDistances>
+    <Axises>
+      <Axis>
+        <Distance>1.508</Distance>
+        <Position>12</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+      </Axis>
+      <Axis>
+        <Distance>7.46</Distance>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+      </Axis>
+    </Axises>
   </WagonModel>
 </Wagons>

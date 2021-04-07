@@ -35,11 +35,6 @@ namespace tdjWpfClassLibrary.Wagon
 
     public class WagonModel : WagonBase
     {
-        /// <summary>
-        /// 轴距，第一轴是距前端的距离。
-        /// </summary>
-        public List<double> AxisDistances { get; set; }
-        public WagonModel() { AxisDistances = new List<double>(); }
     }
 
     public class WagonBase : NotifyPropertyChanged
@@ -113,9 +108,16 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private string _model;
 
+
+        /// <summary>
+        /// 轴距，第一轴是距前端的距离。
+        /// </summary>
+        public ObservableCollection<Axis> Axises { get; set; }
+
         public WagonBase()
         {
             Category = WagonCategory.C;
+            Axises = new ObservableCollection<Axis>(); 
         }
     }
 

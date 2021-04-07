@@ -50,6 +50,14 @@
                 <TextBlock DockPanel.Dock="Left" Text="车长："/>
                 <TextBox DockPanel.Dock="Right" Text="{Binding Length}"/>
             </DockPanel>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="轴距："/>
+                <DataGrid DockPanel.Dock="Right" ItemsSource="{Binding Axises}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="轴距" Binding="{Binding Distance}" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
         </StackPanel>
     </Grid>
 </Window>
