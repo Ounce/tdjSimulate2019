@@ -1,9 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0"?>
 <Cuts>
-  <Cut Name="单辆重" Model="C70" Count="1" Weight="80" RunType="N">
-    <Distance>1.7</Distance>
-    <Distance>1.83</Distance>
-    <Distance>7</Distance>
-    <Distance>1.83</Distance>
+  <Cut Category="C" Length="0" Weight="80" Model="C70" Name="单辆重">
+    <Axises />
+    <Count>1</Count>
+    <AxisPositions />
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>Y</RunType>
   </Cut>
 </Cuts>

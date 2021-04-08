@@ -2,11 +2,12 @@
 <Project>
   <Cuts>
     <Cut Category="C" Length="0" Weight="0" Model="C62A">
+      <Axises />
       <Count>0</Count>
-      <RunType>Z</RunType>
+      <AxisPositions />
       <InitPosition>-1</InitPosition>
       <InitSpeed>0</InitSpeed>
-      <Position>0</Position>
+      <RunType>Y</RunType>
     </Cut>
   </Cuts>
 </Project>

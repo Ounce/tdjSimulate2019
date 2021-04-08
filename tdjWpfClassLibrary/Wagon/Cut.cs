@@ -13,6 +13,7 @@ namespace tdjWpfClassLibrary.Wagon
     /// </summary>
     public class Cut : Wagons
     {
+        [XmlAttribute("Name")]
         public string Name
         {
             get => _name;
@@ -88,7 +89,19 @@ namespace tdjWpfClassLibrary.Wagon
         /// </summary>
         public List<double> AxisPositions;
 
-        public RunType RunType { get; set; }
+        public RunType RunType 
+        { 
+            get => _runType;
+            set
+            {
+                if (value != _runType)
+                {
+                    _runType = value;
+                    OnPropertyChanged("RunType");
+                }
+            }
+        }
+        private RunType _runType;
 
         public Cut()
         {
@@ -96,6 +109,7 @@ namespace tdjWpfClassLibrary.Wagon
         }
     }
 
+    [XmlRoot("Cuts")]
     public class CutList : ObservableCollection<Cut>
     {
         public CutList() { }
