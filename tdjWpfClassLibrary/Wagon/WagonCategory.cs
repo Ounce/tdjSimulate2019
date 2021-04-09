@@ -40,12 +40,5 @@ namespace tdjWpfClassLibrary.Wagon
     /// <summary>
     /// 车辆分类目录
     /// </summary>
-    public class WagonCategories : Dictionary<WagonCategory, string>
-    {
-        public WagonCategories()
-        {
-            foreach (WagonCategory item in Enum.GetValues(typeof(WagonCategory)))
-                Add(item, EnumHelper.GetDescription(item));
-        }
-    }
+    public class WagonCategories : EnumDictionary<WagonCategory> { }
 }

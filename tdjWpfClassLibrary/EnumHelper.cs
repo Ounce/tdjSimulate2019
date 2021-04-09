@@ -50,11 +50,15 @@ namespace tdjWpfClassLibrary
         }
     }
 
-    public class EnumDictionary : Dictionary<Enum, string>
+    public class EnumDictionary<EnumType> : Dictionary<Enum, string>
     {
         public EnumDictionary()
         {
-            foreach (Enum item in Enum.GetValues(typeof(Enum)))
+            if (!typeof(EnumType).IsEnum)
+            {
+                throw new ArgumentException("T must be an enumerated type");
+            }
+            foreach (Enum item in Enum.GetValues(typeof(EnumType)))
                 Add(item, EnumHelper.GetDescription(item));
         }
     }

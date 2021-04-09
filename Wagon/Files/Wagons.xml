@@ -60,7 +60,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel Category="C" Length="17" Weight="0" Model="P50">
+  <WagonModel Category="P" Length="17" Weight="0" Model="P50">
     <Axises>
       <Axis>
         <Distance>1.5</Distance>
