@@ -129,5 +129,17 @@ namespace Wagon
             if (SelectedCutsDataGrid.SelectedItem == null) return;
             Project.Cuts.RemoveAt(SelectedCutsDataGrid.SelectedIndex);
         }
+
+        private void MoveUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCutsDataGrid.SelectedItem == null || SelectedCutsDataGrid.SelectedIndex == 0) return;
+            Project.Cuts.Move(SelectedCutsDataGrid.SelectedIndex, SelectedCutsDataGrid.SelectedIndex - 1);
+        }
+
+        private void MoveDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCutsDataGrid.SelectedItem == null || SelectedCutsDataGrid.SelectedIndex == SelectedCutsDataGrid.Items.Count - 1) return;
+            Project.Cuts.Move(SelectedCutsDataGrid.SelectedIndex, SelectedCutsDataGrid.SelectedIndex + 1);
+        }
     }
 }

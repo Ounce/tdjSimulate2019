@@ -48,12 +48,12 @@
                 <DataGridTextColumn Header="速度" Binding="{Binding InitSpeed, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MoveUpButton_Click">
             <Button.Content>
                 <Image Source="Images/Up_32.png"/>
             </Button.Content>
         </Button>
-        <Button x:Name="MoveDownButton" Grid.Row="1" Grid.Column="3" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button x:Name="MoveDownButton" Grid.Row="1" Grid.Column="3" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MoveDownButton_Click">
             <Button.Content>
                 <Image Source="Images/Down_32.png"/>
             </Button.Content>
