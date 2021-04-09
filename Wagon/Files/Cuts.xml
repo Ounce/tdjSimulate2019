@@ -3,9 +3,17 @@
   <Cut Category="C" Length="0" Weight="80" Model="C70" Name="单辆重">
     <Axises />
     <Count>1</Count>
-    <AxisPositions />
+    <Description />
     <InitPosition>-1</InitPosition>
     <InitSpeed>0</InitSpeed>
     <RunType>Y</RunType>
+  </Cut>
+  <Cut Category="C" Length="0" Weight="30" Model="P50" Name="单辆空">
+    <Axises />
+    <Count>1</Count>
+    <Description>单辆空车，难行车。</Description>
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>N</RunType>
   </Cut>
 </Cuts>

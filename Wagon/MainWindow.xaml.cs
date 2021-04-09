@@ -29,8 +29,10 @@ namespace Wagon
         public static WagonModelList OriginWagons;
         public static string WagonFilePath = "..//..//..//Files//Wagons.xml";
         private RunTypes RunTypes;
+        /*
         private static CutList SelectedCutList;
         private XmlDocument xmlDocument;
+        */
         private ProjectFile ProjectFile;
         private Project Project;
         private static string ProjectFilePath = "..//..//..//Files//Project.xml";
@@ -62,11 +64,25 @@ namespace Wagon
 
         private void CutsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (CutsDataGrid.SelectedItem == null) return;
+            WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
+        }
+
+        private void CutsDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (CutsDataGrid.SelectedItem == null) return;
             WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
         }
 
         private void SelectedCutDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SelectedCutsDataGrid.SelectedItem == null) return;
+            WagonDetailsGrid.DataContext = Project.Cuts[SelectedCutsDataGrid.SelectedIndex];
+        }
+
+        private void SelectedCutsDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCutsDataGrid.SelectedItem == null) return;
             WagonDetailsGrid.DataContext = Project.Cuts[SelectedCutsDataGrid.SelectedIndex];
         }
 
@@ -98,6 +114,20 @@ namespace Wagon
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Save();
+        }
+
+        private void InsertButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CutsDataGrid.SelectedItem == null) return;
+            Cut cut = new Cut();
+            cut.Copy(OriginCuts[CutsDataGrid.SelectedIndex]);
+            Project.Cuts.Add(cut);
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCutsDataGrid.SelectedItem == null) return;
+            Project.Cuts.RemoveAt(SelectedCutsDataGrid.SelectedIndex);
         }
     }
 }

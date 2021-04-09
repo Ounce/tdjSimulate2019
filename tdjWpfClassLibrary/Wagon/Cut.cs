@@ -87,7 +87,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         ///轴位置
         /// </summary>
-        public List<double> AxisPositions;
+        //public List<double> AxisPositions;
 
         public RunType RunType 
         { 
@@ -105,7 +105,32 @@ namespace tdjWpfClassLibrary.Wagon
 
         public Cut()
         {
+            Description = "";
             _initPosition = -1;
+        }
+
+        public void Copy(Cut cut)
+        {
+            Name = cut.Name;
+            Description = cut.Description;
+            Model = cut.Model;
+            Category = cut.Category;
+            RunType = cut.RunType;
+            Length = cut.Length;
+            Weight = cut.Weight;
+            InitPosition = cut.InitPosition;
+            InitSpeed = cut.InitSpeed;
+            if (Axises == null)
+                Axises = new ObservableCollection<Axis>();
+            else
+                Axises.Clear();
+            foreach (var a in cut.Axises)
+            {
+                Axis axis = new Axis();
+                axis.Distance = a.Distance;
+                axis.Position = a.Position;
+                Axises.Add(axis);
+            }
         }
     }
 

@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="车组：" Grid.Row="0" Grid.Column="0" Margin="10,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <Button x:Name="WagonEditButton" Content="编辑车辆" Width="60" Height="24" Grid.Row="0" Grid.Column="0" Margin="10,15,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="WagonEditButton_Click"/>
-        <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" SelectionChanged="CutsDataGrid_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" SelectionChanged="CutsDataGrid_SelectionChanged" IsReadOnly="True" GotFocus="CutsDataGrid_GotFocus">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
                 <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}"  Width="*"/>
@@ -32,12 +32,12 @@
                 <DataGridTextColumn Header="走行" Binding="{Binding RunType, Converter={StaticResource EnumDescription}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="InsertButton_Click"/>
+        <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RemoveButton_Click"/>
         <Button x:Name="NewCutButton" Content="+" Grid.Row="1" Grid.Column="1" Margin="2,0,2,106" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="NewCutButton_Click"/>
         <Button x:Name="DeleteCutButton" Content="-" Grid.Row="1" Grid.Column="1" Margin="2,0,2,36" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="DeleteCutButton_Click"/>
         <TextBlock Text="已选车组：" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Bottom" Grid.Column="2"/>
-        <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False" SelectionChanged="SelectedCutDataGrid_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False" SelectionChanged="SelectedCutDataGrid_SelectionChanged" IsReadOnly="True" GotFocus="SelectedCutsDataGrid_GotFocus">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*" />
                 <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}"  Width="*"/>
