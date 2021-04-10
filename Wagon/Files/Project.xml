@@ -1,16 +1,82 @@
 <?xml version="1.0"?>
 <Project>
   <Cuts>
-    <Cut Category="C" Length="0" Weight="80" Model="C70" Name="单辆重">
-      <Axises />
+    <Cut Category="C" Length="13.976" Weight="80" Model="C70" Name="单辆重">
+      <Axises>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+      </Axises>
       <Count>0</Count>
       <Description />
       <InitPosition>-1</InitPosition>
       <InitSpeed>0</InitSpeed>
       <RunType>Z</RunType>
     </Cut>
-    <Cut Category="C" Length="0" Weight="30" Model="P50" Name="单辆空">
-      <Axises />
+    <Cut Category="P" Length="17" Weight="30" Model="P50" Name="单辆空">
+      <Axises>
+        <Axis>
+          <Distance>1.5</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>9</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.5</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>9</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+      </Axises>
       <Count>0</Count>
       <Description>单辆空车，难行车。</Description>
       <InitPosition>-1</InitPosition>

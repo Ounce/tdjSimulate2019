@@ -12,5 +12,11 @@ namespace tdjWpfClassLibrary.Wagon
         public double Distance { get; set; }
 
         public double Position { get; set; }
+
+        public void Copy(Axis axis)
+        {
+            Distance = axis.Distance;
+            Position = axis.Position;
+        }
     }
 }

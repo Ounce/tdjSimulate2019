@@ -26,18 +26,17 @@ namespace tdjWpfClassLibrary.Wagon
             }
         }
         private int _count;
+
+        public Wagons()
+        {
+        }
     }
 
-    public class Wagon : WagonBase
+    public class Wagon : WagonModel
     {
-
     }
 
-    public class WagonModel : WagonBase
-    {
-    }
-
-    public class WagonBase : NotifyPropertyChanged
+    public class WagonModel : NotifyPropertyChanged
     {
         [XmlAttribute("Category")]
         public WagonCategory Category
@@ -103,21 +102,45 @@ namespace tdjWpfClassLibrary.Wagon
                 {
                     _model = value;
                     OnPropertyChanged("Model");
+                    WagonModel w = WagonHelper.GetWagonModel(value);
+                    if (w == null) return;
+                    Copy(w);
                 }
             }
         }
         private string _model;
-
 
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
         public ObservableCollection<Axis> Axises { get; set; }
 
-        public WagonBase()
+        public WagonModel()
         {
             Category = WagonCategory.C;
-            Axises = new ObservableCollection<Axis>(); 
+            Axises = new ObservableCollection<Axis>();
+        }
+
+
+        /// <summary>
+        /// 复制WagonModel类中的各个属性。用于改变 型号 时修改相关参数。
+        /// </summary>
+        /// <param name="wagonModel"></param>
+        public void Copy(WagonModel wagonModel)
+        {
+            Category = wagonModel.Category;
+            Length = wagonModel.Length;
+            if (Axises == null)
+                Axises = new ObservableCollection<Axis>();
+            else
+                Axises.Clear();
+            foreach (var a in wagonModel.Axises)
+            {
+                Axis axis = new Axis();
+                axis.Distance = a.Distance;
+                axis.Position = a.Position;
+                Axises.Add(axis);
+            }
         }
     }
 
@@ -128,5 +151,25 @@ namespace tdjWpfClassLibrary.Wagon
     public class WagonModelList : ObservableCollection<WagonModel>
     {
         public WagonModelList() { }
+        public WagonModel FindByModel(string model)
+        {
+            foreach (var w in this)
+            {
+                if (w.Model == model)
+                    return w;
+            }
+            return null;
+        }
+    }
+
+    public static class WagonHelper
+    {
+        public static string WagonFilePath = "..//..//..//Files//Wagons.xml";
+        private static WagonModelList WagonModelList = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
+        public static WagonModel GetWagonModel(string model)
+        {
+            if (WagonModelList == null) return null;
+            return WagonModelList.FindByModel(model);
+        }
     }
 }

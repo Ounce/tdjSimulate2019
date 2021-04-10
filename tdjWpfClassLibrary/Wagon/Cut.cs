@@ -109,6 +109,31 @@ namespace tdjWpfClassLibrary.Wagon
             _initPosition = -1;
         }
 
+        /// <summary>
+        /// 复制WagonModel类中的各个属性。用于改变 型号 时修改相关参数。
+        /// </summary>
+        /// <param name="wagonModel"></param>
+        public void Copy(WagonModel wagonModel)
+        {
+            Category = wagonModel.Category;
+            Length = wagonModel.Length;
+            if (Axises == null)
+                Axises = new ObservableCollection<Axis>();
+            else
+                Axises.Clear();
+            foreach (var a in wagonModel.Axises)
+            {
+                Axis axis = new Axis();
+                axis.Distance = a.Distance;
+                axis.Position = a.Position;
+                Axises.Add(axis);
+            }
+        }
+
+        /// <summary>
+        /// 深度复制
+        /// </summary>
+        /// <param name="cut"></param>
         public void Copy(Cut cut)
         {
             Name = cut.Name;
