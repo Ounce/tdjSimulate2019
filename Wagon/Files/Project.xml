@@ -1,8 +1,232 @@
 <?xml version="1.0"?>
 <Project>
   <Cuts>
-    <Cut Category="C" Length="13.976" Weight="80" Model="C70" Name="单辆重">
+    <Cut ID="8e5743e5-24be-40e1-b93f-9b727566aceb" Category="C" Length="13.976" Weight="80" Model="C70" Name="单辆重">
       <Axises>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
         <Axis>
           <Distance>1.508</Distance>
           <Position>0</Position>
@@ -37,13 +261,62 @@
         </Axis>
       </Axises>
       <Count>0</Count>
+      <WagonModelID>00000000-0000-0000-0000-000000000000</WagonModelID>
       <Description />
       <InitPosition>-1</InitPosition>
       <InitSpeed>0</InitSpeed>
       <RunType>Z</RunType>
     </Cut>
-    <Cut Category="P" Length="17" Weight="30" Model="P50" Name="单辆空">
+    <Cut ID="4c14f0f6-33e0-4d2b-aad0-bfa2df145157" Category="P" Length="17" Weight="30" Model="P50" Name="单辆空">
       <Axises>
+        <Axis>
+          <Distance>1.5</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>9</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.5</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>9</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.5</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>9</Distance>
+          <Position>0</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>0</Position>
+        </Axis>
         <Axis>
           <Distance>1.5</Distance>
           <Position>0</Position>
@@ -78,6 +351,7 @@
         </Axis>
       </Axises>
       <Count>0</Count>
+      <WagonModelID>00000000-0000-0000-0000-000000000000</WagonModelID>
       <Description>单辆空车，难行车。</Description>
       <InitPosition>-1</InitPosition>
       <InitSpeed>0</InitSpeed>

@@ -22,26 +22,27 @@ namespace Wagon
         public EditWagon()
         {
             InitializeComponent();
-            WagonListDataGrid.ItemsSource = MainWindow.OriginWagons;
+            WagonListDataGrid.ItemsSource = WagonHelper.WagonModelList;
             WagonCategoryComboBox.ItemsSource = new WagonCategories();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            XmlHelper.WriteXML(MainWindow.WagonFilePath, MainWindow.OriginWagons);
+            //WagonHelper.SetWagonModelGuid();
+            WagonHelper.WriteWagonModelList();
         }
 
         private void AddWagonButton_Click(object sender, RoutedEventArgs e)
         {
             WagonModel w = new WagonModel();
-            MainWindow.OriginWagons.Add(w);
+            WagonHelper.WagonModelList.Add(w);
             WagonListDataGrid.SelectedIndex = WagonListDataGrid.Items.Count - 1;
         }
 
         private void DeleteWagonButton_Click(object sender, RoutedEventArgs e)
         {
             if (WagonListDataGrid.SelectedItem == null) return;
-            MainWindow.OriginWagons.RemoveAt(WagonListDataGrid.SelectedIndex);
+            WagonHelper.WagonModelList.RemoveAt(WagonListDataGrid.SelectedIndex);
         }
     }
 

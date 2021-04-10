@@ -28,6 +28,23 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private string _name;
 
+        public Guid WagonModelID 
+        { 
+            get => _wagonModelID;
+            set
+            {
+                if (value != _wagonModelID)
+                {
+                    _wagonModelID = value;
+                    OnPropertyChanged("WagonModelID");
+                    WagonModel w = WagonHelper.GetWagonModel(value);
+                    if (w == null) return;
+                    Copy(w);
+                }
+            }
+        }
+        private Guid _wagonModelID;
+
         /// <summary>
         /// 车组情况简要说明
         /// </summary>
@@ -107,27 +124,6 @@ namespace tdjWpfClassLibrary.Wagon
         {
             Description = "";
             _initPosition = -1;
-        }
-
-        /// <summary>
-        /// 复制WagonModel类中的各个属性。用于改变 型号 时修改相关参数。
-        /// </summary>
-        /// <param name="wagonModel"></param>
-        public void Copy(WagonModel wagonModel)
-        {
-            Category = wagonModel.Category;
-            Length = wagonModel.Length;
-            if (Axises == null)
-                Axises = new ObservableCollection<Axis>();
-            else
-                Axises.Clear();
-            foreach (var a in wagonModel.Axises)
-            {
-                Axis axis = new Axis();
-                axis.Distance = a.Distance;
-                axis.Position = a.Position;
-                Axises.Add(axis);
-            }
         }
 
         /// <summary>

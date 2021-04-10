@@ -83,7 +83,7 @@
                 <WrapPanel x:Name="WagonDetails" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
                     <DockPanel Margin="0,0,0,0">
                         <TextBlock DockPanel.Dock="Left" Text="型号：" Width="50" TextAlignment="Right"/>
-                        <ComboBox Name="ModelComboBox" DisplayMemberPath="Model" SelectedValuePath="Model" Text="{Binding Model}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <ComboBox Name="ModelComboBox" DisplayMemberPath="Model" SelectedValuePath="ID" SelectedValue="{Binding WagonModelID}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="辆数：" Width="50" TextAlignment="Right"/>

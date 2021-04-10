@@ -38,6 +38,9 @@ namespace tdjWpfClassLibrary.Wagon
 
     public class WagonModel : NotifyPropertyChanged
     {
+        [XmlAttribute("ID")]
+        public Guid ID { get; set; }
+
         [XmlAttribute("Category")]
         public WagonCategory Category
         {
@@ -102,9 +105,6 @@ namespace tdjWpfClassLibrary.Wagon
                 {
                     _model = value;
                     OnPropertyChanged("Model");
-                    WagonModel w = WagonHelper.GetWagonModel(value);
-                    if (w == null) return;
-                    Copy(w);
                 }
             }
         }
@@ -117,6 +117,7 @@ namespace tdjWpfClassLibrary.Wagon
 
         public WagonModel()
         {
+            ID = Guid.NewGuid();
             Category = WagonCategory.C;
             Axises = new ObservableCollection<Axis>();
         }
@@ -128,6 +129,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <param name="wagonModel"></param>
         public void Copy(WagonModel wagonModel)
         {
+            Model = wagonModel.Model;
             Category = wagonModel.Category;
             Length = wagonModel.Length;
             if (Axises == null)
@@ -160,16 +162,51 @@ namespace tdjWpfClassLibrary.Wagon
             }
             return null;
         }
+
+        public WagonModel Find(Guid id)
+        {
+            foreach (var w in this)
+            {
+                if (w.ID == id)
+                    return w;
+            }
+            return null;
+        }
     }
 
     public static class WagonHelper
     {
         public static string WagonFilePath = "..//..//..//Files//Wagons.xml";
-        private static WagonModelList WagonModelList = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
+        public static WagonModelList WagonModelList = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
         public static WagonModel GetWagonModel(string model)
         {
             if (WagonModelList == null) return null;
             return WagonModelList.FindByModel(model);
+        }
+
+        public static WagonModel GetWagonModel(Guid id)
+        {
+            if (WagonModelList == null) return null;
+            return WagonModelList.Find(id);
+        }
+
+        public static void WriteWagonModelList()
+        {
+            XmlHelper.WriteXML(WagonFilePath, WagonModelList);
+        }
+
+        /// <summary>
+        /// 为空ID设置一个有效的ID。
+        /// </summary>
+        public static void SetWagonModelGuid()
+        {
+            foreach (var i in WagonModelList)
+            {
+                if (i.ID.Equals(Guid.Empty))
+                {
+                    i.ID = Guid.NewGuid();
+                }
+            }
         }
     }
 }

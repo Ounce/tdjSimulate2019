@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Wagons>
-  <WagonModel Category="C" Length="13.976" Weight="0" Model="C62A">
+  <WagonModel ID="fb21b055-2597-4a32-a374-ffbd232cac2d" Category="C" Length="13.976" Weight="0" Model="C62A">
     <Axises>
       <Axis>
         <Distance>1.508</Distance>
@@ -20,7 +20,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel Category="C" Length="13.976" Weight="0" Model="C70">
+  <WagonModel ID="23ba3ce8-3b79-4ccb-97f7-3988b2bc309a" Category="C" Length="13.976" Weight="0" Model="C70">
     <Axises>
       <Axis>
         <Distance>1.508</Distance>
@@ -40,7 +40,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel Category="C" Length="18" Weight="0" Model="C62A">
+  <WagonModel ID="cdce6ed2-df4d-4dbc-aa4e-b25413135be7" Category="C" Length="18" Weight="0" Model="C62A">
     <Axises>
       <Axis>
         <Distance>1.5</Distance>
@@ -60,24 +60,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel Category="P" Length="17" Weight="0" Model="P50">
-    <Axises>
-      <Axis>
-        <Distance>1.5</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>9</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>0</Position>
-      </Axis>
-    </Axises>
+  <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Weight="0" Model="P50">
+    <Axises />
   </WagonModel>
 </Wagons>
