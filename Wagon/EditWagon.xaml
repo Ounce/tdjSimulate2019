@@ -45,7 +45,7 @@
             </DockPanel>
             <DockPanel>
                 <TextBlock DockPanel.Dock="Left" Text="型号："/>
-                <TextBox DockPanel.Dock="Right" Text="{Binding Model}"/>
+                <TextBox DockPanel.Dock="Right" Text="{Binding Model}" TextChanged="TextBox_TextChanged"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock DockPanel.Dock="Left" Text="车长："/>

@@ -26,7 +26,7 @@
     <InitSpeed>0</InitSpeed>
     <RunType>Y</RunType>
   </Cut>
-  <Cut ID="01faeb10-1dab-4c3e-a3b2-966e46e1347d" Category="P" Length="17" Weight="30" Model="P50" Name="单辆空">
+  <Cut ID="01faeb10-1dab-4c3e-a3b2-966e46e1347d" Category="P" Length="17" Weight="30" Model="C70" Name="单辆空">
     <Axises />
     <Count>1</Count>
     <WagonModelID>246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad</WagonModelID>

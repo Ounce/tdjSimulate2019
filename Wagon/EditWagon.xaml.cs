@@ -44,6 +44,15 @@ namespace Wagon
             if (WagonListDataGrid.SelectedItem == null) return;
             WagonHelper.WagonModelList.RemoveAt(WagonListDataGrid.SelectedIndex);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string m = ((WagonModel)WagonListDataGrid.SelectedItem).Model;
+            if (WagonHelper.IsExist(((TextBox)sender).Text, m))
+                ((TextBox)sender).Foreground = new SolidColorBrush(Colors.Red);
+            else
+                ((TextBox)sender).Foreground = new SolidColorBrush(Colors.Black);
+        }
     }
 
 

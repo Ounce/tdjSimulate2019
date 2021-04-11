@@ -103,8 +103,8 @@ namespace tdjWpfClassLibrary.Wagon
             {
                 if (value != _model)
                 {
-                    _model = value;
-                    OnPropertyChanged("Model");
+                     _model = value;
+                     OnPropertyChanged("Model");
                 }
             }
         }
@@ -121,7 +121,6 @@ namespace tdjWpfClassLibrary.Wagon
             Category = WagonCategory.C;
             Axises = new ObservableCollection<Axis>();
         }
-
 
         /// <summary>
         /// 复制WagonModel类中的各个属性。用于改变 型号 时修改相关参数。
@@ -196,7 +195,7 @@ namespace tdjWpfClassLibrary.Wagon
         }
 
         /// <summary>
-        /// 为空ID设置一个有效的ID。
+        /// 为WagonModelList中ID为空的Model设置一个有效的ID。
         /// </summary>
         public static void SetWagonModelGuid()
         {
@@ -207,6 +206,24 @@ namespace tdjWpfClassLibrary.Wagon
                     i.ID = Guid.NewGuid();
                 }
             }
+        }
+
+        /// <summary>
+        /// 型号 是否已经存在。不考虑exceptModel。
+        /// </summary>
+        /// <param name="model">查找型号</param>
+        /// <param name="exceptModel">排除型号</param>
+        /// <returns></returns>
+        public static bool IsExist(string model, string exceptModel)
+        {
+            if (WagonModelList == null || exceptModel == null) return false;
+            if (model == exceptModel) return false;
+            foreach (var i in WagonModelList)
+            {
+                if (i.Model != exceptModel && i.Model == model)
+                    return true;
+            }
+            return false;
         }
     }
 }
