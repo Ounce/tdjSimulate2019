@@ -40,7 +40,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel ID="cdce6ed2-df4d-4dbc-aa4e-b25413135be7" Category="C" Length="18" Weight="0" Model="C62A">
+  <WagonModel ID="cdce6ed2-df4d-4dbc-aa4e-b25413135be7" Category="P" Length="18" Weight="0" Model="P70">
     <Axises>
       <Axis>
         <Distance>1.5</Distance>
@@ -60,7 +60,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Weight="0" Model="C62A">
+  <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Weight="0" Model="P50">
     <Axises />
   </WagonModel>
 </Wagons>
