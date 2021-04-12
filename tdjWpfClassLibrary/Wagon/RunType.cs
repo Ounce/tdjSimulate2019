@@ -22,6 +22,8 @@ namespace tdjWpfClassLibrary.Wagon
         GN = 2
     }
  
+    //public class RunTypes : EnumDictionary<RunType> { }
+    
     public class RunTypes : Dictionary<RunType, string>
     {
         public RunTypes()

@@ -1,11 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Project Name="ProjectName">
-  <Cuts>
-    <Cut Name="单辆重" Model="C70" Count="1" Weight="80" RunType="N">
-      <Distance>1.7</Distance>
-      <Distance>1.83</Distance>
-      <Distance>7</Distance>
-      <Distance>1.83</Distance>
-    </Cut>
-  </Cuts>
-</Project>
+<?xml version="1.0"?>
+<Cuts>
+  <Cut ID="24b5d4c1-6a28-4359-a4a6-68d997588c15" Category="C" Length="13.976" Weight="80" Model="C70" Name="单辆重">
+    <Axises>
+      <Axis>
+        <Distance>1.508</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>7.46</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
+    <Count>1</Count>
+    <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
+    <Description />
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>Y</RunType>
+  </Cut>
+  <Cut ID="01faeb10-1dab-4c3e-a3b2-966e46e1347d" Category="P" Length="17" Weight="30" Model="P50" Name="单辆空">
+    <Axises />
+    <Count>1</Count>
+    <WagonModelID>246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad</WagonModelID>
+    <Description>单辆空车，难行车。</Description>
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>Z</RunType>
+  </Cut>
+</Cuts>

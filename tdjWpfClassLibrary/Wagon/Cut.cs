@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -12,6 +13,38 @@ namespace tdjWpfClassLibrary.Wagon
     /// </summary>
     public class Cut : Wagons
     {
+        [XmlAttribute("Name")]
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
+
+        public Guid WagonModelID 
+        { 
+            get => _wagonModelID;
+            set
+            {
+                if (value != _wagonModelID)
+                {
+                    _wagonModelID = value;
+                    OnPropertyChanged("WagonModelID");
+                    WagonModel w = WagonHelper.GetWagonModel(value);
+                    if (w == null) return;
+                    Copy(w);
+                }
+            }
+        }
+        private Guid _wagonModelID;
+
         /// <summary>
         /// 车组情况简要说明
         /// </summary>
@@ -53,6 +86,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 位置（前端）。模糊车钩钩舌内侧与车辆端板之间的空间。
         /// </summary>
+        [XmlIgnore]
         public double Position
         {
             get => _position;
@@ -67,14 +101,61 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private double _position;
 
-        public RunType RunType { get; set; }
+        /// <summary>
+        ///轴位置
+        /// </summary>
+        //public List<double> AxisPositions;
+
+        public RunType RunType 
+        { 
+            get => _runType;
+            set
+            {
+                if (value != _runType)
+                {
+                    _runType = value;
+                    OnPropertyChanged("RunType");
+                }
+            }
+        }
+        private RunType _runType;
 
         public Cut()
         {
+            Description = "";
             _initPosition = -1;
+        }
+
+        /// <summary>
+        /// 深度复制
+        /// </summary>
+        /// <param name="cut"></param>
+        public void Copy(Cut cut)
+        {
+            Name = cut.Name;
+            Description = cut.Description;
+            Model = cut.Model;
+            Category = cut.Category;
+            RunType = cut.RunType;
+            Length = cut.Length;
+            Weight = cut.Weight;
+            InitPosition = cut.InitPosition;
+            InitSpeed = cut.InitSpeed;
+            if (Axises == null)
+                Axises = new ObservableCollection<Axis>();
+            else
+                Axises.Clear();
+            foreach (var a in cut.Axises)
+            {
+                Axis axis = new Axis();
+                axis.Distance = a.Distance;
+                axis.Position = a.Position;
+                Axises.Add(axis);
+            }
         }
     }
 
+    [XmlRoot("Cuts")]
     public class CutList : ObservableCollection<Cut>
     {
         public CutList() { }

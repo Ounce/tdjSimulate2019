@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace" xmlns:local1="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="950">
+        Title="MainWindow" Height="600" Width="950" Closing="Window_Closing">
     <Window.Resources>
         <local1:ConverterEnumDescription x:Key="EnumDescription"/>
     </Window.Resources>
@@ -22,7 +22,11 @@
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="车组：" Grid.Row="0" Grid.Column="0" Margin="10,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" SelectionChanged="CutsDataGrid_SelectionChanged">
+        <Button x:Name="WagonEditButton" Content="编辑车辆" Width="60" Height="24" Grid.Row="0" Grid.Column="0" Margin="10,15,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="WagonEditButton_Click"/>
+        <DataGrid x:Name="CutsDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" 
+                  SelectionChanged="CutsDataGrid_SelectionChanged" GotFocus="CutsDataGrid_GotFocus"
+                  IsReadOnly="True" 
+                  CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
                 <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}"  Width="*"/>
@@ -31,12 +35,15 @@
                 <DataGridTextColumn Header="走行" Binding="{Binding RunType, Converter={StaticResource EnumDescription}, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="NewCutButton" Content="+" Grid.Row="1" Grid.Column="1" Margin="2,0,2,106" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <Button x:Name="DeleteCutButton" Content="-" Grid.Row="1" Grid.Column="1" Margin="2,0,2,36" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Button x:Name="InsertButton" Content=">>" Grid.Row="1" Grid.Column="1" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="InsertButton_Click"/>
+        <Button x:Name="RemoveButton" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RemoveButton_Click"/>
+        <Button x:Name="NewCutButton" Content="+" Grid.Row="1" Grid.Column="1" Margin="2,0,2,106" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="NewCutButton_Click"/>
+        <Button x:Name="DeleteCutButton" Content="-" Grid.Row="1" Grid.Column="1" Margin="2,0,2,36" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="DeleteCutButton_Click"/>
         <TextBlock Text="已选车组：" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Bottom" Grid.Column="2"/>
-        <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False" SelectionChanged="SelectedCutDataGrid_SelectionChanged">
+        <DataGrid x:Name="SelectedCutsDataGrid" Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False"
+                  SelectionChanged="SelectedCutDataGrid_SelectionChanged" GotFocus="SelectedCutsDataGrid_GotFocus"
+                  IsReadOnly="True" 
+                  CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*" />
                 <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}"  Width="*"/>
@@ -47,12 +54,12 @@
                 <DataGridTextColumn Header="速度" Binding="{Binding InitSpeed, Mode=OneWay, UpdateSourceTrigger=Default}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button x:Name="MoveUpButton" Grid.Row="1" Grid.Column="3" Margin="2,36,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MoveUpButton_Click">
             <Button.Content>
                 <Image Source="Images/Up_32.png"/>
             </Button.Content>
         </Button>
-        <Button x:Name="MoveDownButton" Grid.Row="1" Grid.Column="3" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button x:Name="MoveDownButton" Grid.Row="1" Grid.Column="3" Margin="2,106,0,0" Height="36" Width="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MoveDownButton_Click">
             <Button.Content>
                 <Image Source="Images/Down_32.png"/>
             </Button.Content>
@@ -82,7 +89,7 @@
                 <WrapPanel x:Name="WagonDetails" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
                     <DockPanel Margin="0,0,0,0">
                         <TextBlock DockPanel.Dock="Left" Text="型号：" Width="50" TextAlignment="Right"/>
-                        <ComboBox Name="ModelComboBox" DisplayMemberPath="Model" SelectedValuePath="Model" Text="{Binding Model}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <ComboBox Name="ModelComboBox" DisplayMemberPath="Model" SelectedValuePath="ID" SelectedValue="{Binding WagonModelID}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="辆数：" Width="50" TextAlignment="Right"/>
@@ -94,11 +101,11 @@
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="走行：" Width="50" TextAlignment="Right"/>
-                        <ComboBox Name="RunTypeComboBox" DisplayMemberPath="Value" SelectedValuePath="Key" Text="{Binding RunType, Converter={StaticResource EnumDescription}, Mode=OneWay}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <ComboBox Name="RunTypeComboBox" DisplayMemberPath="Value" SelectedValuePath="RunType" Text="{Binding RunType, Converter={StaticResource EnumDescription}}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="位置：" Width="50" TextAlignment="Right"/>
-                        <TextBox x:Name="PositionTextBox" Text="{Binding InitPositio}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
+                        <TextBox x:Name="PositionTextBox" Text="{Binding InitPosition}" DockPanel.Dock="Right" Width="100" Height="25" Margin="0"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
                         <TextBlock DockPanel.Dock="Left" Text="速度：" Width="50" TextAlignment="Right"/>

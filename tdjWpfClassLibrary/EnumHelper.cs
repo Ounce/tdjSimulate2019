@@ -39,9 +39,27 @@ namespace tdjWpfClassLibrary
             return EnumHelper.GetDescription((Enum)value);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            foreach (Enum week in Enum.GetValues(targetType))
+            {
+                if (value.Equals(EnumHelper.GetDescription(week)) == true)
+                    return week;
+            }
             return null;
+        }
+    }
+
+    public class EnumDictionary<EnumType> : Dictionary<Enum, string>
+    {
+        public EnumDictionary()
+        {
+            if (!typeof(EnumType).IsEnum)
+            {
+                throw new ArgumentException("T must be an enumerated type");
+            }
+            foreach (Enum item in Enum.GetValues(typeof(EnumType)))
+                Add(item, EnumHelper.GetDescription(item));
         }
     }
 }

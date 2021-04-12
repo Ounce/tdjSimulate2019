@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Wagon
 {
@@ -25,13 +26,40 @@ namespace tdjWpfClassLibrary.Wagon
             }
         }
         private int _count;
+
+        public Wagons()
+        {
+        }
     }
 
     public class Wagon : WagonModel
     {
+    }
+
+    public class WagonModel : NotifyPropertyChanged
+    {
+        [XmlAttribute("ID")]
+        public Guid ID { get; set; }
+
+        [XmlAttribute("Category")]
+        public WagonCategory Category
+        {
+            get => _category;
+            set
+            {
+                if (value != _category)
+                {
+                    _category = value;
+                    OnPropertyChanged("Category");
+                }
+            }
+        }
+        private WagonCategory _category;
+
         /// <summary>
         /// 车辆全长。
         /// </summary>
+        [XmlAttribute("Length")]
         public double Length
         {
             get => _length;
@@ -49,6 +77,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 车辆总重。
         /// </summary>
+        [XmlAttribute("Weight")]
         public double Weight
         {
             get => _weight;
@@ -66,6 +95,7 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 型号。
         /// </summary>
+        [XmlAttribute("Model")]
         public string Model
         {
             get => _model;
@@ -73,82 +103,127 @@ namespace tdjWpfClassLibrary.Wagon
             {
                 if (value != _model)
                 {
-                    _model = value;
-                    OnPropertyChanged("Model");
+                     _model = value;
+                     OnPropertyChanged("Model");
                 }
             }
         }
         private string _model;
 
         /// <summary>
-        ///轴位置
-        /// </summary>
-        public List<double> AxisPositions;
-    }
-
-    public enum WagonType { C, P, N };
-
-    public class WagonModel : NotifyPropertyChanged
-    {
-        public WagonType Type 
-        { 
-            get => _type; 
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    OnPropertyChanged("Type");
-                }
-            }
-        }
-        private WagonType _type;
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
-        }
-        private string _name;
-
-        /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
-        public List<double> AxisDistances;
+        public ObservableCollection<Axis> Axises { get; set; }
+
+        public WagonModel()
+        {
+            ID = Guid.NewGuid();
+            Category = WagonCategory.C;
+            Axises = new ObservableCollection<Axis>();
+        }
+
+        /// <summary>
+        /// 复制WagonModel类中的各个属性。用于改变 型号 时修改相关参数。
+        /// </summary>
+        /// <param name="wagonModel"></param>
+        public void Copy(WagonModel wagonModel)
+        {
+            Model = wagonModel.Model;
+            Category = wagonModel.Category;
+            Length = wagonModel.Length;
+            if (Axises == null)
+                Axises = new ObservableCollection<Axis>();
+            else
+                Axises.Clear();
+            foreach (var a in wagonModel.Axises)
+            {
+                Axis axis = new Axis();
+                axis.Distance = a.Distance;
+                axis.Position = a.Position;
+                Axises.Add(axis);
+            }
+        }
     }
 
-    public static class WagonTypes 
+    /// <summary>
+    /// 各种车型的列表。
+    /// </summary>
+    [XmlRoot("Wagons")]
+    public class WagonModelList : ObservableCollection<WagonModel>
     {
-        public static List<WagonModel> Items = new List<WagonModel>()
+        public WagonModelList() { }
+        public WagonModel FindByModel(string model)
         {
-            new WagonModel() { Type = WagonType.C, Name = "敞车"},
-            new WagonModel() { Type = WagonType.P, Name = "棚车"},
-            new WagonModel() { Type = WagonType.N, Name = "平车"}
-        };
-    };
-
-    public class WagonList : ObservableCollection<Wagon>
-    {
-        public WagonList() { }
-
-        public void ReadXML(string fileName)
-        {
-            XElement xe = XElement.Load(fileName);
-            //xe.Descendants
-            var elements = from ele in xe.Elements() select ele;
-            foreach (var ele in elements)
+            foreach (var w in this)
             {
-                Wagon model = new Wagon();
-                model.Model = ele.Attribute("Model").Value;
-                Add(model);
+                if (w.Model == model)
+                    return w;
             }
+            return null;
+        }
+
+        public WagonModel Find(Guid id)
+        {
+            foreach (var w in this)
+            {
+                if (w.ID == id)
+                    return w;
+            }
+            return null;
+        }
+    }
+
+    public static class WagonHelper
+    {
+        public static string WagonFilePath = "..//..//..//Files//Wagons.xml";
+        public static WagonModelList WagonModelList = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
+        public static WagonModel GetWagonModel(string model)
+        {
+            if (WagonModelList == null) return null;
+            return WagonModelList.FindByModel(model);
+        }
+
+        public static WagonModel GetWagonModel(Guid id)
+        {
+            if (WagonModelList == null) return null;
+            return WagonModelList.Find(id);
+        }
+
+        public static void WriteWagonModelList()
+        {
+            XmlHelper.WriteXML(WagonFilePath, WagonModelList);
+        }
+
+        /// <summary>
+        /// 为WagonModelList中ID为空的Model设置一个有效的ID。
+        /// </summary>
+        public static void SetWagonModelGuid()
+        {
+            foreach (var i in WagonModelList)
+            {
+                if (i.ID.Equals(Guid.Empty))
+                {
+                    i.ID = Guid.NewGuid();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 型号 是否已经存在。不考虑exceptModel。
+        /// </summary>
+        /// <param name="model">查找型号</param>
+        /// <param name="exceptModel">排除型号</param>
+        /// <returns></returns>
+        public static bool IsExist(string model, string exceptModel)
+        {
+            if (WagonModelList == null || exceptModel == null) return false;
+            if (model == exceptModel) return false;
+            foreach (var i in WagonModelList)
+            {
+                if (i.Model != exceptModel && i.Model == model)
+                    return true;
+            }
+            return false;
         }
     }
 }
