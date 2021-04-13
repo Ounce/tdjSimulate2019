@@ -25,7 +25,6 @@ namespace tdjWpfClassLibrary.Wagon
                     OnPropertyChanged("WagonModelID");
                     WagonModel = WagonHelper.GetWagonModel(value);
                     WagonModel.PropertyChanged += WagonModelPropertyChanged;
-                    //OnPropertyChanged("Model");
                 }
             }
         }
@@ -40,6 +39,7 @@ namespace tdjWpfClassLibrary.Wagon
                 if (value != _wagonModel)
                 {
                     _wagonModel = value;
+                    UpdateAxises();
                     OnPropertyChanged("WagonModel");
                     OnPropertyChanged("Model");
                 }
@@ -67,6 +67,7 @@ namespace tdjWpfClassLibrary.Wagon
                 if (value != _count)
                 {
                     _count = value;
+                    UpdateAxises();
                     OnPropertyChanged("Count");
                 }
             }
@@ -98,6 +99,7 @@ namespace tdjWpfClassLibrary.Wagon
         public Wagons()
         {
             WagonModel = new WagonModel();
+            Axises = new ObservableCollection<Axis>();
             WagonModel.PropertyChanged += WagonModelPropertyChanged;
         }
 
@@ -116,6 +118,38 @@ namespace tdjWpfClassLibrary.Wagon
                 case "Length":
                     OnPropertyChanged("Length");
                     break;
+            }
+        }
+
+        private void UpdateAxises()
+        {
+            if (Count == 0) return;
+            double p = 0;
+            double np = 0;
+            Axises.Clear();
+            for (int i = 0; i < _count; i++) 
+            { 
+                for (int j = 0; j < WagonModel.Axises.Count; j++)
+                {
+                    Axis na = new Axis();
+                    if (j == 0)
+                    {
+                        na.Position = p + WagonModel.Axises[0].Distance;
+                    }
+                    else
+                    {
+                        na.Position = np + WagonModel.Axises[j].Distance;
+                    }
+                    Axises.Add(na);
+                    np = na.Position;
+                }
+                p += WagonModel.Length;
+            }
+            p = 0;
+            foreach (var a in Axises)
+            {
+                a.Distance = a.Position - p;
+                p = a.Position;
             }
         }
     }

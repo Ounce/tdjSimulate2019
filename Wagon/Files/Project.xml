@@ -8,6 +8,38 @@
       <Axises>
         <Axis>
           <Distance>1.508</Distance>
+          <Position>1.508</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>3.258</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>10.718</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>12.468</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>1.508</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>3.258</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>10.718</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>12.468</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
           <Position>0</Position>
         </Axis>
         <Axis>
@@ -32,7 +64,40 @@
       <WagonModelID>fb21b055-2597-4a32-a374-ffbd232cac2d</WagonModelID>
       <Count>1</Count>
       <Weight>30</Weight>
-      <Axises />
+      <Axises>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>1.508</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>3.258</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>10.718</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>12.468</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.508</Distance>
+          <Position>1.508</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>3.258</Position>
+        </Axis>
+        <Axis>
+          <Distance>7.46</Distance>
+          <Position>10.718</Position>
+        </Axis>
+        <Axis>
+          <Distance>1.75</Distance>
+          <Position>12.468</Position>
+        </Axis>
+      </Axises>
       <Description>单辆空车，难行车。</Description>
       <InitPosition>-1</InitPosition>
       <InitSpeed>0</InitSpeed>
