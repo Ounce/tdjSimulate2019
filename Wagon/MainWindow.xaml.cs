@@ -24,9 +24,6 @@ namespace Wagon
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static CutList OriginCuts;
-        private static string OriginCutsPath = "..//..//..//Files//Cuts.xml";
-
         private RunTypes RunTypes;
         /*
         private static CutList SelectedCutList;
@@ -40,8 +37,8 @@ namespace Wagon
         public MainWindow()
         {
             InitializeComponent();
-            OriginCuts = (CutList)XmlHelper.ReadXML(OriginCutsPath, typeof(CutList));
-            CutsDataGrid.ItemsSource = OriginCuts;
+            
+            CutsDataGrid.ItemsSource = CutHelper.OriginCuts;
 
             ModelComboBox.ItemsSource = WagonHelper.WagonModelList;
 
@@ -62,13 +59,13 @@ namespace Wagon
         private void CutsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CutsDataGrid.SelectedItem == null) return;
-            WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
+            WagonDetailsGrid.DataContext = CutHelper.OriginCuts[CutsDataGrid.SelectedIndex];
         }
 
         private void CutsDataGrid_GotFocus(object sender, RoutedEventArgs e)
         {
             if (CutsDataGrid.SelectedItem == null) return;
-            WagonDetailsGrid.DataContext = OriginCuts[CutsDataGrid.SelectedIndex];
+            WagonDetailsGrid.DataContext = CutHelper.OriginCuts[CutsDataGrid.SelectedIndex];
         }
 
         private void SelectedCutDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,13 +83,13 @@ namespace Wagon
         private void DeleteCutButton_Click(object sender, RoutedEventArgs e)
         {
             if (CutsDataGrid.SelectedItem == null) return;
-            OriginCuts.RemoveAt(CutsDataGrid.SelectedIndex);
+            CutHelper.OriginCuts.RemoveAt(CutsDataGrid.SelectedIndex);
         }
 
         private void NewCutButton_Click(object sender, RoutedEventArgs e)
         {
             Cut cut = new Cut();
-            OriginCuts.Add(cut);
+            CutHelper.OriginCuts.Add(cut);
             CutsDataGrid.SelectedIndex = CutsDataGrid.Items.Count - 1;
         }
 
@@ -105,7 +102,7 @@ namespace Wagon
         private void Save()
         {
             XmlHelper.WriteXML(ProjectFilePath, ProjectFile);
-            XmlHelper.WriteXML(OriginCutsPath, OriginCuts);
+            XmlHelper.WriteXML(CutHelper.OriginCutsPath, CutHelper.OriginCuts);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -117,7 +114,7 @@ namespace Wagon
         {
             if (CutsDataGrid.SelectedItem == null) return;
             Cut cut = new Cut();
-            cut.Copy(OriginCuts[CutsDataGrid.SelectedIndex]);
+            cut.Copy(CutHelper.OriginCuts[CutsDataGrid.SelectedIndex]);
             Project.Cuts.Add(cut);
         }
 

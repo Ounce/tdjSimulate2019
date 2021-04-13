@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -11,8 +12,39 @@ namespace tdjWpfClassLibrary.Wagon
     /// <summary>
     /// 同型号的一组车辆。包括载重也相同。
     /// </summary>
-    public class Wagons : Wagon
+    public class Wagons : NotifyPropertyChanged
     {
+        public Guid WagonModelID
+        {
+            get => _wagonModelID;
+            set
+            {
+                if (value != _wagonModelID)
+                {
+                    _wagonModelID = value;
+                    OnPropertyChanged("WagonModelID");
+                    WagonModel = WagonHelper.GetWagonModel(value);
+                    WagonModel.PropertyChanged += WagonModelPropertyChanged;
+                }
+            }
+        }
+        private Guid _wagonModelID;
+
+        [XmlIgnore]
+        public WagonModel WagonModel { get; set; }
+
+        [XmlIgnore]
+        public string Model
+        {
+            get => WagonModel.Model;
+        }
+
+        [XmlIgnore]
+        public WagonCategory Category
+        {
+            get => WagonModel.Category;
+        }
+
         public int Count
         {
             get => _count;
@@ -27,8 +59,38 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private int _count;
 
+        public double Weight
+        {
+            get => _weight;
+            set
+            {
+                if (value != _weight)
+                {
+                    _weight = value;
+                    OnPropertyChanged("Weight");
+                }
+            }
+        }
+        private double _weight;
+        /// <summary>
+        /// 轴距，第一轴是距前端的距离。
+        /// </summary>
+        public ObservableCollection<Axis> Axises { get; set; }
+
         public Wagons()
         {
+            WagonModel = new WagonModel();
+            WagonModel.PropertyChanged += WagonModelPropertyChanged;
+        }
+
+        private void WagonModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Model":
+                    OnPropertyChanged("Model");
+                    break;
+            }
         }
     }
 
@@ -225,5 +287,7 @@ namespace tdjWpfClassLibrary.Wagon
             }
             return false;
         }
+
+
     }
 }

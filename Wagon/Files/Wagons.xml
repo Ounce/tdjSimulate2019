@@ -60,7 +60,7 @@
       </Axis>
     </Axises>
   </WagonModel>
-  <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Weight="0" Model="P50">
+  <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Weight="0" Model="P501">
     <Axises />
   </WagonModel>
 </Wagons>
