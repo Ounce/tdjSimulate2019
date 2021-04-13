@@ -46,6 +46,8 @@ namespace Wagon
             RunTypeComboBox.ItemsSource = RunTypes;
 
             ProjectFile = (ProjectFile)XmlHelper.ReadXML(ProjectFilePath, typeof(ProjectFile));
+            foreach (var w in ProjectFile.Cuts)
+                w.WagonModel = WagonHelper.GetWagonModel(w.WagonModelID);
             Project = (Project)ProjectFile;
             SelectedCutsDataGrid.ItemsSource = Project.Cuts;
 

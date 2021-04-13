@@ -117,7 +117,9 @@ namespace tdjWpfClassLibrary.Wagon
         {
             Name = cut.Name;
             Description = cut.Description;
+            WagonModelID = cut.WagonModelID;
             WagonModel = cut.WagonModel;
+            Count = cut.Count;
             RunType = cut.RunType;
             Weight = cut.Weight;
             InitPosition = cut.InitPosition;

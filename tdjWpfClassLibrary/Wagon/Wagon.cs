@@ -25,13 +25,27 @@ namespace tdjWpfClassLibrary.Wagon
                     OnPropertyChanged("WagonModelID");
                     WagonModel = WagonHelper.GetWagonModel(value);
                     WagonModel.PropertyChanged += WagonModelPropertyChanged;
+                    //OnPropertyChanged("Model");
                 }
             }
         }
         private Guid _wagonModelID;
 
         [XmlIgnore]
-        public WagonModel WagonModel { get; set; }
+        public WagonModel WagonModel 
+        { 
+            get => _wagonModel;
+            set
+            {
+                if (value != _wagonModel)
+                {
+                    _wagonModel = value;
+                    OnPropertyChanged("WagonModel");
+                    OnPropertyChanged("Model");
+                }
+            }
+        }
+        private WagonModel _wagonModel;
 
         [XmlIgnore]
         public string Model
@@ -87,6 +101,11 @@ namespace tdjWpfClassLibrary.Wagon
             WagonModel.PropertyChanged += WagonModelPropertyChanged;
         }
 
+        /// <summary>
+        /// 监视WagonModel属性变化。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WagonModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)

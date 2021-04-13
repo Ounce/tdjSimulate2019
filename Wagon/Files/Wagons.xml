@@ -61,6 +61,23 @@
     </Axises>
   </WagonModel>
   <WagonModel ID="246f1dbf-e94e-4a95-ac8b-02bb3fd2b8ad" Category="P" Length="17" Model="P50">
-    <Axises />
+    <Axises>
+      <Axis>
+        <Distance>1.508</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>9</Distance>
+        <Position>0</Position>
+      </Axis>
+      <Axis>
+        <Distance>1.75</Distance>
+        <Position>0</Position>
+      </Axis>
+    </Axises>
   </WagonModel>
 </Wagons>
