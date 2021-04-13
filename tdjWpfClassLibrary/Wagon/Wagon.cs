@@ -59,6 +59,9 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private int _count;
 
+        /// <summary>
+        /// 单辆车总重。
+        /// </summary>
         public double Weight
         {
             get => _weight;
@@ -72,6 +75,7 @@ namespace tdjWpfClassLibrary.Wagon
             }
         }
         private double _weight;
+
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
@@ -89,6 +93,9 @@ namespace tdjWpfClassLibrary.Wagon
             {
                 case "Model":
                     OnPropertyChanged("Model");
+                    break;
+                case "Length":
+                    OnPropertyChanged("Length");
                     break;
             }
         }
@@ -135,24 +142,6 @@ namespace tdjWpfClassLibrary.Wagon
             }
         }
         private double _length;
-
-        /// <summary>
-        /// 车辆总重。
-        /// </summary>
-        [XmlAttribute("Weight")]
-        public double Weight
-        {
-            get => _weight;
-            set
-            {
-                if (value != _weight)
-                {
-                    _weight = value;
-                    OnPropertyChanged("Weight");
-                }
-            }
-        }
-        private double _weight;
 
         /// <summary>
         /// 型号。
