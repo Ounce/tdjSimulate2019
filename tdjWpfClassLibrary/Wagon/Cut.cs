@@ -124,16 +124,16 @@ namespace tdjWpfClassLibrary.Wagon
             Weight = cut.Weight;
             InitPosition = cut.InitPosition;
             InitSpeed = cut.InitSpeed;
-            if (Axises == null)
-                Axises = new ObservableCollection<Axis>();
+            if (Axles == null)
+                Axles = new ObservableCollection<Axle>();
             else
-                Axises.Clear();
-            foreach (var a in cut.Axises)
+                Axles.Clear();
+            foreach (var a in cut.Axles)
             {
-                Axis axis = new Axis();
+                Axle axis = new Axle();
                 axis.Distance = a.Distance;
                 axis.Position = a.Position;
-                Axises.Add(axis);
+                Axles.Add(axis);
             }
         }
 

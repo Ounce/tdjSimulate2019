@@ -4,56 +4,7 @@
     <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
     <Count>1</Count>
     <Weight>94</Weight>
-    <Axises>
-      <Axis>
-        <Distance>1.508</Distance>
-        <Position>1.508</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>3.258</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.46</Distance>
-        <Position>10.718</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>12.468</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.508</Distance>
-        <Position>1.508</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>3.258</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.46</Distance>
-        <Position>10.718</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>12.468</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.508</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.46</Distance>
-        <Position>0</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>0</Position>
-      </Axis>
-    </Axises>
+    <Axles />
     <Description />
     <InitPosition>-1</InitPosition>
     <InitSpeed>0</InitSpeed>
@@ -63,88 +14,7 @@
     <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
     <Count>5</Count>
     <Weight>30</Weight>
-    <Axises>
-      <Axis>
-        <Distance>1.508</Distance>
-        <Position>1.508</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>3.258</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.46</Distance>
-        <Position>10.718</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>12.468</Position>
-      </Axis>
-      <Axis>
-        <Distance>3.016000000000002</Distance>
-        <Position>15.484000000000002</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>17.234</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.460000000000001</Distance>
-        <Position>24.694000000000003</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>26.444000000000003</Position>
-      </Axis>
-      <Axis>
-        <Distance>3.0159999999999982</Distance>
-        <Position>29.46</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>31.21</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.460000000000001</Distance>
-        <Position>38.67</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>40.42</Position>
-      </Axis>
-      <Axis>
-        <Distance>3.0160000000000053</Distance>
-        <Position>43.43600000000001</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>45.18600000000001</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.460000000000001</Distance>
-        <Position>52.64600000000001</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>54.39600000000001</Position>
-      </Axis>
-      <Axis>
-        <Distance>3.0159999999999982</Distance>
-        <Position>57.412000000000006</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>59.162000000000006</Position>
-      </Axis>
-      <Axis>
-        <Distance>7.459999999999994</Distance>
-        <Position>66.622</Position>
-      </Axis>
-      <Axis>
-        <Distance>1.75</Distance>
-        <Position>68.372</Position>
-      </Axis>
-    </Axises>
+    <Axles />
     <Description>单辆空车，难行车。</Description>
     <InitPosition>-1</InitPosition>
     <InitSpeed>0</InitSpeed>

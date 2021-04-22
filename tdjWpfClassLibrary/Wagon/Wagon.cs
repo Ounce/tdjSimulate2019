@@ -94,12 +94,12 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
-        public ObservableCollection<Axis> Axises { get; set; }
+        public ObservableCollection<Axle> Axles { get; set; }
 
         public Wagons()
         {
             WagonModel = new WagonModel();
-            Axises = new ObservableCollection<Axis>();
+            Axles = new ObservableCollection<Axle>();
             WagonModel.PropertyChanged += WagonModelPropertyChanged;
         }
 
@@ -126,27 +126,27 @@ namespace tdjWpfClassLibrary.Wagon
             if (Count == 0) return;
             double p = 0;
             double np = 0;
-            Axises.Clear();
+            Axles.Clear();
             for (int i = 0; i < _count; i++) 
             { 
-                for (int j = 0; j < WagonModel.Axises.Count; j++)
+                for (int j = 0; j < WagonModel.Axles.Count; j++)
                 {
-                    Axis na = new Axis();
+                    Axle na = new Axle();
                     if (j == 0)
                     {
-                        na.Position = p + WagonModel.Axises[0].Distance;
+                        na.Position = p + WagonModel.Axles[0].Distance;
                     }
                     else
                     {
-                        na.Position = np + WagonModel.Axises[j].Distance;
+                        na.Position = np + WagonModel.Axles[j].Distance;
                     }
-                    Axises.Add(na);
+                    Axles.Add(na);
                     np = na.Position;
                 }
                 p += WagonModel.Length;
             }
             p = 0;
-            foreach (var a in Axises)
+            foreach (var a in Axles)
             {
                 a.Distance = a.Position - p;
                 p = a.Position;
@@ -217,13 +217,13 @@ namespace tdjWpfClassLibrary.Wagon
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
         /// </summary>
-        public ObservableCollection<Axis> Axises { get; set; }
+        public ObservableCollection<Axle> Axles { get; set; }
 
         public WagonModel()
         {
             ID = Guid.NewGuid();
             Category = WagonCategory.C;
-            Axises = new ObservableCollection<Axis>();
+            Axles = new ObservableCollection<Axle>();
         }
 
         /// <summary>
@@ -235,16 +235,16 @@ namespace tdjWpfClassLibrary.Wagon
             Model = wagonModel.Model;
             Category = wagonModel.Category;
             Length = wagonModel.Length;
-            if (Axises == null)
-                Axises = new ObservableCollection<Axis>();
+            if (Axles == null)
+                Axles = new ObservableCollection<Axle>();
             else
-                Axises.Clear();
-            foreach (var a in wagonModel.Axises)
+                Axles.Clear();
+            foreach (var a in wagonModel.Axles)
             {
-                Axis axis = new Axis();
+                Axle axis = new Axle();
                 axis.Distance = a.Distance;
                 axis.Position = a.Position;
-                Axises.Add(axis);
+                Axles.Add(axis);
             }
         }
     }
