@@ -1,0 +1,64 @@
+﻿<Window x:Class="Wagon.EditWagon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wagon" xmlns:local1="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
+        mc:Ignorable="d"
+        Title="编辑车辆" Height="450" Width="800" Closing="Window_Closing"
+        >
+    <Window.Resources>
+        <local1:ConverterEnumDescription x:Key="EnumDescription"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <DataGrid x:Name="WagonListDataGrid" ItemsSource="{Binding Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="类型" Binding="{Binding Category,Converter={StaticResource EnumDescription}, Mode=OneWay}" Width="Auto"/>
+                    <DataGridTextColumn Header="型号" Binding="{Binding Model, Mode=OneWay, UpdateSourceTrigger=Default}" Width="auto"/>
+                    <DataGridTextColumn Header="全长" Binding="{Binding Length, Mode=OneWay, UpdateSourceTrigger=Default}" Width="50"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="AddWagonButton" Content="新增" Grid.Column="0" Click="AddWagonButton_Click"/>
+                <Button x:Name="DeleteWagonButton" Content="删除" Grid.Column="1" Click="DeleteWagonButton_Click"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Orientation="Vertical" Margin="50, 50, 50,50" DataContext="{Binding SelectedItem, ElementName=WagonListDataGrid}">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="车型："/>
+                <ComboBox DockPanel.Dock="Right" Name="WagonCategoryComboBox" DisplayMemberPath="Value" SelectedValuePath="Key" Text="{Binding Category, Converter={StaticResource EnumDescription}}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="型号："/>
+                <TextBox DockPanel.Dock="Right" Text="{Binding Model}" TextChanged="TextBox_TextChanged"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="车长："/>
+                <TextBox DockPanel.Dock="Right" Text="{Binding Length}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="轴距："/>
+                <DataGrid DockPanel.Dock="Right" ItemsSource="{Binding Axises}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="轴距" Binding="{Binding Distance, Mode=TwoWay}" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

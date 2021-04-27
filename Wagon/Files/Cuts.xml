@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Cuts>
+  <Cut Name="单辆重">
+    <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
+    <Count>1</Count>
+    <Weight>94</Weight>
+    <Axles />
+    <Description />
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>Y</RunType>
+  </Cut>
+  <Cut Name="单辆空">
+    <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
+    <Count>5</Count>
+    <Weight>30</Weight>
+    <Axles />
+    <Description>单辆空车，难行车。</Description>
+    <InitPosition>-1</InitPosition>
+    <InitSpeed>0</InitSpeed>
+    <RunType>Z</RunType>
+  </Cut>
+</Cuts>
