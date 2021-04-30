@@ -40,7 +40,7 @@ namespace Wagon
             
             CutsDataGrid.ItemsSource = CutHelper.OriginCuts;
 
-            ModelComboBox.ItemsSource = WagonHelper.WagonModelList;
+            ModelComboBox.ItemsSource = BaseData.Wagons; //WagonHelper.WagonModelList;
 
             RunTypes = new RunTypes();
             RunTypeComboBox.ItemsSource = RunTypes;

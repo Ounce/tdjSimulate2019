@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\tdjWpfClassLibrary\tdjWpfClassLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

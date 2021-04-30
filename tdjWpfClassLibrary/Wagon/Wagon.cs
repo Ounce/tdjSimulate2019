@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -253,7 +254,7 @@ namespace tdjWpfClassLibrary.Wagon
     /// 各种车型的列表。
     /// </summary>
     [XmlRoot("Wagons")]
-    public class WagonModelList : ObservableCollection<WagonModel>
+    public class WagonModelList : ModelList<WagonModel>
     {
         public WagonModelList() { }
         public WagonModel FindByModel(string model)
@@ -265,7 +266,7 @@ namespace tdjWpfClassLibrary.Wagon
             }
             return null;
         }
-
+        /*
         public WagonModel Find(Guid id)
         {
             foreach (var w in this)
@@ -275,6 +276,7 @@ namespace tdjWpfClassLibrary.Wagon
             }
             return null;
         }
+        */
     }
 
     public static class WagonHelper
@@ -283,13 +285,13 @@ namespace tdjWpfClassLibrary.Wagon
         public static WagonModelList WagonModelList = (WagonModelList)XmlHelper.ReadXML(WagonFilePath, typeof(WagonModelList));
         public static WagonModel GetWagonModel(string model)
         {
-            if (WagonModelList == null) return null;
+            //if (WagonModelList == null) return null;
             return WagonModelList.FindByModel(model);
         }
 
         public static WagonModel GetWagonModel(Guid id)
         {
-            if (WagonModelList == null) return null;
+            //if (WagonModelList == null) return null;
             return WagonModelList.Find(id);
         }
 

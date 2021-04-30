@@ -8,8 +8,21 @@ namespace tdjWpfClassLibrary.Retarder
     /// <summary>
     /// 减速顶位置。有关减速顶位置，步长内通过数量等计算。
     /// </summary>
-    public class Positions 
+    public class Positions : NotifyPropertyChanged
     {
+        /// <summary>
+        /// 起点里程。
+        /// </summary>
+        public double Start { get; set; }
+
+        /// <summary>
+        /// 终点里程。
+        /// </summary>
+        public double End { get; set; }
+
+        /// <summary>
+        /// 各顶位置。
+        /// </summary>
         private ObservableCollection<double> Items { get; set; }
 
         /// <summary>
