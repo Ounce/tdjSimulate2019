@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
+<BaseData>
+  
 <Wagons>
   <WagonModel ID="fb21b055-2597-4a32-a374-ffbd232cac2d" Category="C" Length="13.976" Model="C62A">
     <Axises>
@@ -81,3 +83,5 @@
     </Axises>
   </WagonModel>
 </Wagons>
+  
+</BaseData>

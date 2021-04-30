@@ -4,7 +4,7 @@ using System.Text;
 
 namespace tdjWpfClassLibrary.Wagon
 {
-    public class Axis 
+    public class Axle 
     {
         /// <summary>
         /// 轴距，第一轴是距前端的距离。
@@ -13,10 +13,10 @@ namespace tdjWpfClassLibrary.Wagon
 
         public double Position { get; set; }
 
-        public void Copy(Axis axis)
+        public void Copy(Axle axle)
         {
-            Distance = axis.Distance;
-            Position = axis.Position;
+            Distance = axle.Distance;
+            Position = axle.Position;
         }
     }
 }

@@ -28,23 +28,6 @@ namespace tdjWpfClassLibrary.Wagon
         }
         private string _name;
 
-        public Guid WagonModelID 
-        { 
-            get => _wagonModelID;
-            set
-            {
-                if (value != _wagonModelID)
-                {
-                    _wagonModelID = value;
-                    OnPropertyChanged("WagonModelID");
-                    WagonModel w = WagonHelper.GetWagonModel(value);
-                    if (w == null) return;
-                    Copy(w);
-                }
-            }
-        }
-        private Guid _wagonModelID;
-
         /// <summary>
         /// 车组情况简要说明
         /// </summary>
@@ -134,62 +117,42 @@ namespace tdjWpfClassLibrary.Wagon
         {
             Name = cut.Name;
             Description = cut.Description;
-            Model = cut.Model;
-            Category = cut.Category;
+            WagonModelID = cut.WagonModelID;
+            WagonModel = cut.WagonModel;
+            Count = cut.Count;
             RunType = cut.RunType;
-            Length = cut.Length;
             Weight = cut.Weight;
             InitPosition = cut.InitPosition;
             InitSpeed = cut.InitSpeed;
-            if (Axises == null)
-                Axises = new ObservableCollection<Axis>();
+            if (Axles == null)
+                Axles = new ObservableCollection<Axle>();
             else
-                Axises.Clear();
-            foreach (var a in cut.Axises)
+                Axles.Clear();
+            foreach (var a in cut.Axles)
             {
-                Axis axis = new Axis();
+                Axle axis = new Axle();
                 axis.Distance = a.Distance;
                 axis.Position = a.Position;
-                Axises.Add(axis);
+                Axles.Add(axis);
             }
         }
+
     }
 
     [XmlRoot("Cuts")]
     public class CutList : ObservableCollection<Cut>
     {
-        public CutList() { }
-        public void ReadXML(string fileName)
-        {
-            XElement xe = XElement.Load(fileName);
-            //xe.Descendants
-            var elements = from ele in xe.Elements() select ele;
-            foreach (var ele in elements)
-            {
-                Cut model = new Cut();
-                model.Name = ele.Attribute("Name").Value;
-                model.Model = ele.Attribute("Model").Value;
-                model.Count = Convert.ToInt32(ele.Attribute("Count").Value);
-                model.Weight = Convert.ToDouble(ele.Attribute("Weight").Value);
-                model.RunType = (RunType)System.Enum.Parse(typeof(RunType), ele.Attribute("RunType").Value); 
-                Add(model);
-            }
-        }
+    }
 
-        public void ReadXML(XElement xElement)
+    public static class CutHelper
+    {
+        public static string OriginCutsPath = "..//..//..//Files//Cuts.xml";
+        public static CutList OriginCuts;
+        static CutHelper()
         {
-            var elements = from ele in xElement.Elements() select ele;
-            foreach (var ele in elements)
-            {
-                Cut model = new Cut();
-                model.Name = ele.Attribute("Name").Value;
-                model.Model = ele.Attribute("Model").Value;
-                model.Count = Convert.ToInt32(ele.Attribute("Count").Value);
-                model.Weight = Convert.ToDouble(ele.Attribute("Weight").Value);
-                model.RunType = (RunType)System.Enum.Parse(typeof(RunType), ele.Attribute("RunType").Value);
-                Add(model);
-            }
+            OriginCuts = (CutList)XmlHelper.ReadXML(OriginCutsPath, typeof(CutList));
+            foreach (var w in OriginCuts)
+                w.WagonModel = WagonHelper.GetWagonModel(w.WagonModelID);
         }
-        
     }
 }

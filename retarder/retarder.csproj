@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="netDxf">
-      <HintPath>..\profileDesigner\reference\netDxf_2.3.0\bin\Debug\netDxf.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\tdjWpfClassLibrary\tdjWpfClassLibrary.csproj" />
   </ItemGroup>
 
 </Project>
