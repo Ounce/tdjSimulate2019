@@ -21,9 +21,15 @@ namespace retarder
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Project Project { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            Project = (Project)XmlHelper.ReadXML("..//..//..//Files//Project.xml", typeof(Project));
+            if (Project != null)
+            {
+                retarderDataGrid.ItemsSource = Project.Retarders;
+            }
         }
     }
 }

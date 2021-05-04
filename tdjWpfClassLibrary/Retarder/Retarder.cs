@@ -6,6 +6,10 @@ using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Retarder
 {
+    public class RetarderList : ObservableCollection<Retarder>
+    {
+
+    }
     public class Retarder : RetarderModel
     {
         public Positions Positions { get; set; }
@@ -81,34 +85,5 @@ namespace tdjWpfClassLibrary.Retarder
     public class RetarderModelList : ModelCollection<RetarderModel>
     {
         public RetarderModelList() { }
-    }
-
-    public class BaseModel
-    {
-        public Guid ID;
-        public string Model;
-    }
-
-    public class ModelCollection<T> : ObservableCollection<T>
-    {
-        public Object Find(Guid id)
-        {
-            foreach (Object i in this)
-            {
-                if (((BaseModel)i).ID == id)
-                    return i;
-            }
-            return null ;
-        }
-    }
-
-    public class ModelListHelper 
-    {
-        public static string RetarderFilePath = "..//..//..//Files//Retarder.xml";
-        public static RetarderModelList RetarderModelList = (RetarderModelList)XmlHelper.ReadXML(RetarderFilePath, typeof(RetarderModelList));
-        public static Retarder GetRetarderModel(Guid id)
-        {
-            return null;// (RetarderModel)(RetarderModelList.Find(id));
-        }
     }
 }

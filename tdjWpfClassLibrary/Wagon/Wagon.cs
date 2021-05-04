@@ -254,7 +254,7 @@ namespace tdjWpfClassLibrary.Wagon
     /// 各种车型的列表。
     /// </summary>
     [XmlRoot("Wagons")]
-    public class WagonModelList : ModelList<WagonModel>
+    public class WagonModelList : ModelCollection<WagonModel>
     {
         public WagonModelList() { }
         public WagonModel FindByModel(string model)

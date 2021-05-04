@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="减速顶" Height="450" Width="800">
     <Grid>
+        <DataGrid x:Name="retarderDataGrid" Margin="0"/>
+
 
     </Grid>
 </Window>
