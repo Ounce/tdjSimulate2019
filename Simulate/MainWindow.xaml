@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TreeView x:Name="ProjectTreeView" Grid.Column="0" Margin="1"/>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <TabControl x:Name="TableControl" Grid.Column="2">
+            <TabItem Name="ProjectDescriptionTabItem" Margin="1" Width="{Binding ActualWidth, ElementName= TableControl}" Height="{Binding ActualHeight, ElementName=TableControl}"/>
+        </TabControl>
 
     </Grid>
 </Window>
