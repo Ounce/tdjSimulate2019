@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,85 @@ namespace Simulate
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static RoutedCommand CommandExit = new RoutedCommand();
+
+        string Filter = "纵断面文件(*.project)|*.project";
+        bool CanClose = true;
+
         public MainWindow()
         {
             InitializeComponent();
-            Polyline a;
+    
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Control target = e.Source as Control;
+            if (target != null)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+
+        private void OpenFile_Execute(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Show!", "Message");
+        }
+
+        private void Save_Execute(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+
+        private bool Save()
+        {
+            return false;
+        }
+
+        private void SaveAs_Execute(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public bool SaveAs()
+        {
+            //TODO: 完善另存profile文件。
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = Filter;
+            if (sfd.ShowDialog() == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CanClose)
+            {
+                e.Cancel = false;
+                return;
+            }
+            switch (MessageBox.Show("项目数据已修改，现在退出会丢失数据！是否保存？", "警告！", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+            {
+                case MessageBoxResult.Yes:
+                    if (SaveAs())
+                        e.Cancel = false;
+                    else
+                        e.Cancel = true;
+                    break;
+                case MessageBoxResult.No:
+                    e.Cancel = false;
+                    break;
+                case MessageBoxResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
     }
 }

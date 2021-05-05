@@ -1,21 +1,120 @@
 ﻿<Window x:Class="Simulate.MainWindow"
+        Name="mainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simulate"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Closing="Window_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Execute"/>
+        <!--
+        <CommandBinding Command="Save" CanExecute="CommandBinding_CanExecute" Executed="Save_Click"/>
+        <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute" Executed="Paste_Execute"/>
+        <CommandBinding Command="Copy" CanExecute="CommandBinding_CanExecute" Executed="Copy_Execute"/>
+        <CommandBinding Command="Delete" CanExecute="CommandBinding_CanExecute" Executed="RemoveSlope"/>
+        -->
+        <CommandBinding Command="{x:Static local:MainWindow.CommandExit}" CanExecute="CommandBinding_CanExecute" Executed="Exit"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="Copy" Key="C" Modifiers="Ctrl"/>
+        <KeyBinding Command="Paste" Key="V" Modifiers="Ctrl"/>
+        <KeyBinding Command="Delete" Key="Delete"/>
+        <KeyBinding Command="{x:Static local:MainWindow.CommandExit}" Key="X" Modifiers="Alt"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="ProjectTreeView" Grid.Column="0" Margin="1"/>
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <TabControl x:Name="TableControl" Grid.Column="2">
-            <TabItem Name="ProjectDescriptionTabItem" Margin="1" Width="{Binding ActualWidth, ElementName= TableControl}" Height="{Binding ActualHeight, ElementName=TableControl}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="17"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="161*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="17" LastChildFill="True" VerticalAlignment="Center" >
+            <Menu x:Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0">
+                <MenuItem Header="文件(_F)" >
+                    <MenuItem Name="OpenFile" Header="打开(_O)..." Command="Open" InputGestureText="Ctrl+O" ToolTip="打开项目文件">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/OpenFolder_16x.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="保存(_S)" Command="Save" InputGestureText="Ctl+S" ToolTip="保存">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Save_16x.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="另存为(_A)..." Click="SaveAs_Execute">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/SaveAs_16x.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="退出(_X)" Command="{x:Static local:MainWindow.CommandExit}" InputGestureText="Alt+X"/>
+                </MenuItem>
+                <!--
+                <MenuItem Header="编辑(_E)" Click="ShowOption">
+                
+                    <MenuItem Header="复制(_C)..." InputGestureText="Ctrl+C" Command="Copy"/>
+                    <MenuItem Header="粘贴(_P)..." InputGestureText="Ctrl+V" Command="Paste"/>
+                    <MenuItem Header="设置(_O)..." Click="ShowOption"/>
+                </MenuItem>
+                -->
+            </Menu>
+        </DockPanel>
+        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="39" Margin="0,2,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Width="{Binding ActualWidth, ElementName=mainWindow}">
+            <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
+                <Button x:Name="FileOpenButton" ToolTip="打开项目文件" Height="34" Width="26" Command="Open">
+                    <Image Source="/Images/OpenFolder_16x.png"/>
+                </Button>
+                <Button Command="Save" ToolTip="保存" Height="34" Width="26">
+                    <Image Source="/Images/Save_16x.png"/>
+                </Button>
+                <Button Click="SaveAs_Execute" ToolTip="另存为..." Height="34" Width="26">
+                    <Image Source="/Images/SaveAs_16x.png"/>
+                </Button>
+                <!--
+                <Button ToolTip="复制" Height="34" Width="26" Command="Copy">
+                    <Image Source="/Images/Copy.png"/>
+                </Button>
+                <Button Click="Paste_Execute" ToolTip="粘贴" Height="34" Width="26">
+                    <Image Source="/Images/Paste.png"/>
+                </Button>
+            </ToolBar>
+            <ToolBar VerticalAlignment="Top" Margin="0,0,0,0" d:LayoutOverrides="Width">
+                <Button ToolTip="放大" Height="34" Width="26" Click="ZoomInButton_Click">
+                    <Image Source="/Images/ZoomIn_16x.png"/>
+                </Button>
+                <Button ToolTip="缩小" Height="34" Width="26" Click="ZoomOutButton_Click">
+                    <Image Source="/Images/ZoomOut_16x.png"/>
+                </Button>
+                <Button ToolTip="原始" Height="34" Width="26" Click="ZoomAllButton_Click">
+                    <Image Source="/Images/AbstractAssociation_16x.png"/>
+                </Button>
+                <ToggleButton ToolTip="移动" Name="MouseMoveButton" IsThreeState="False" Height="34" Width="26">
+                    <Image Source="/Images/MoveGlyph_16x.png"/>
+                </ToggleButton>
+                -->
+            </ToolBar>
+            <!--
+            <ToolBar  VerticalAlignment="Top" Margin="0,0,0,0" d:LayoutOverrides="Width">
+                <Button Name="SplitButton" IsEnabled="True" ToolTip="拆分" Click="Split_Click" Height="34" Width="26">
+                    <Image Source="/Images/Split_16x.png"/>
+                </Button>
+            </ToolBar>
+            -->
+        </ToolBarTray>
+        <TreeView x:Name="ProjectTreeView" Grid.Row="2" Grid.Column="0" Margin="1"/>
+        <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <TabControl x:Name="WorkTabControl" Grid.Row="2" Grid.Column="2">
+            <TabItem Name="ProjectDescriptionTabItem" Margin="1" Width="{Binding ActualWidth, ElementName= WorkTabControl}" Height="{Binding ActualHeight, ElementName=WorkTabControl}"/>
         </TabControl>
 
     </Grid>

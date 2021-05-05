@@ -6,4 +6,81 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\AbstractAssociation_16x.png" />
+    <None Remove="Images\copy.png" />
+    <None Remove="Images\Copy_16x.png" />
+    <None Remove="Images\Exit_16x.png" />
+    <None Remove="Images\MoveGlyph_16x.png" />
+    <None Remove="Images\OpenFolder_16x.png" />
+    <None Remove="Images\paste.png" />
+    <None Remove="Images\Paste_16x.png" />
+    <None Remove="Images\SaveAll_16x.png" />
+    <None Remove="Images\SaveAs_16x.png" />
+    <None Remove="Images\Save_16x.png" />
+    <None Remove="Images\Split_16x.png" />
+    <None Remove="Images\ZoomIn_16x.png" />
+    <None Remove="Images\ZoomIn_disabled_16x.png" />
+    <None Remove="Images\ZoomOriginalSize_16x.png" />
+    <None Remove="Images\ZoomOut_16x.png" />
+    <None Remove="Images\ZoomOut_disabled_16x.png" />
+    <None Remove="Images\ZoomToFit_16x.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\AbstractAssociation_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Copy_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Exit_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\MoveGlyph_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\OpenFolder_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\paste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Paste_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\SaveAll_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\SaveAs_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Save_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Split_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomIn_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomIn_disabled_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOriginalSize_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOut_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomOut_disabled_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ZoomToFit_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 </Project>
