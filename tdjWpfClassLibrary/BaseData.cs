@@ -14,6 +14,8 @@ namespace tdjWpfClassLibrary
         
         public static WagonModelList Wagons { get => Data.Wagons; set => Data.Wagons = value; }
         public static RetarderModelList Retarders { get => Data.Retarders; set => Data.Retarders = value; }
+        public static CtrRetarderModelList CtrRetarders { get => Data.CtrRetarders; set => Data.CtrRetarders = value; }
+        public static ArresterModelList Arresters { get => Data.Arresters; set => Data.Arresters = value; }
 
         public static void WriteXml()
         {
@@ -26,5 +28,7 @@ namespace tdjWpfClassLibrary
     {
         public WagonModelList Wagons;
         public RetarderModelList Retarders;
+        public CtrRetarderModelList CtrRetarders;
+        public ArresterModelList Arresters;
     }
 }

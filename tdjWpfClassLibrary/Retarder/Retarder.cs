@@ -12,7 +12,8 @@ namespace tdjWpfClassLibrary.Retarder
     }
     public class Retarder : RetarderModel
     {
-        public Positions Positions { get; set; }
+        public Guid ModelID;
+        public Position Position { get; set; }
 
         /// <summary>
         /// 数量
@@ -64,6 +65,12 @@ namespace tdjWpfClassLibrary.Retarder
             }
         }
         private double _speedDeviation;
+
+        public void Copy(RetarderModel model)
+        {
+            ModelID = model.ID;
+            Model = model.Model;
+        }
     }
 
     public class RetarderModel : NotifyPropertyChanged
@@ -75,14 +82,22 @@ namespace tdjWpfClassLibrary.Retarder
         /// </summary>
         public string Model { get; set; }
 
+        /// <summary>
+        /// 基本制动功。计算制动功公式需要据此计算。
+        /// </summary>
+        public double BaseWork { get; set; }
 
+        /// <summary>
+        /// 制动功计算公式编号。
+        /// </summary>
+        public int WorkIndex { get; set; }
     }
 
     /// <summary>
     /// 普通减速顶列表。
     /// </summary>
     [XmlRoot("Retarders")]
-    public class RetarderModelList : ModelCollection<RetarderModel>
+    public class RetarderModelList : Collection<RetarderModel>
     {
         public RetarderModelList() { }
     }

@@ -11,7 +11,7 @@ namespace tdjWpfClassLibrary
     /// 模型列表类模板。要求模型类必须有Guid类型的ID属性（或字段）。
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ModelCollection<T> : ObservableCollection<T>
+    public class Collection<T> : ObservableCollection<T>
     {
         public T Find(Guid id)
         {
@@ -27,4 +27,6 @@ namespace tdjWpfClassLibrary
             return default(T);
         }
     }
+
+
 }
