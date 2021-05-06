@@ -9,6 +9,7 @@ namespace tdjWpfClassLibrary
 {
     public class Project
     {
+
         public CutList Cuts
         {
             get { return _cuts; }
@@ -45,10 +46,14 @@ namespace tdjWpfClassLibrary
         [XmlAttribute("Version")]
         public string Version { get; }
 
+        [XmlIgnore]
+        public string Path;
 
         public ProjectFile()
         {
             Version = "0.1";
         }
+
+
     }
 }

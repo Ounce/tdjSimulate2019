@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Simulate"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Closing="Window_Closing">
+        Closing="Window_Closing" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Window.CommandBindings>
         <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="OpenFile_Execute"/>
         <!--
@@ -111,11 +111,30 @@
             </ToolBar>
             -->
         </ToolBarTray>
-        <TreeView x:Name="ProjectTreeView" Grid.Row="2" Grid.Column="0" Margin="1"/>
+        <TreeView x:Name="ProjectTreeView" Grid.Row="2" Grid.Column="0" Margin="1">
+            <TreeViewItem Header="项目名称" IsExpanded="True">
+                <TreeViewItem Header="工况名称" IsExpanded="True">
+                    <TreeViewItem Header="线路" IsExpanded="True">
+                        <TreeViewItem Header="1" IsExpanded="True">
+                            <TreeViewItem Header="纵断面"/>
+                            <TreeViewItem Header="道岔"/>
+                            <TreeViewItem Header="曲线"/>
+                            <TreeViewItem Header="警冲标和尾部停车标"/>
+                            <TreeViewItem Header="减速顶"/>
+                            <TreeViewItem Header="可控顶"/>
+                            <TreeViewItem Header="停车顶"/>
+                            <TreeViewItem Header="减速器"/>
+                            <TreeViewItem Header="停车器"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="车组"/>
+                    <TreeViewItem Header="气象"/>
+                </TreeViewItem>
+            </TreeViewItem>
+        </TreeView>
         <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <TabControl x:Name="WorkTabControl" Grid.Row="2" Grid.Column="2">
             <TabItem Name="ProjectDescriptionTabItem" Margin="1" Width="{Binding ActualWidth, ElementName= WorkTabControl}" Height="{Binding ActualHeight, ElementName=WorkTabControl}"/>
         </TabControl>
-
     </Grid>
 </Window>

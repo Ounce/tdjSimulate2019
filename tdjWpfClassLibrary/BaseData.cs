@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
+using tdjWpfClassLibrary.Layout;
 using tdjWpfClassLibrary.Retarder;
 using tdjWpfClassLibrary.Wagon;
 
@@ -16,6 +17,7 @@ namespace tdjWpfClassLibrary
         public static RetarderModelList Retarders { get => Data.Retarders; set => Data.Retarders = value; }
         public static CtrRetarderModelList CtrRetarders { get => Data.CtrRetarders; set => Data.CtrRetarders = value; }
         public static ArresterModelList Arresters { get => Data.Arresters; set => Data.Arresters = value; }
+        public static SwitchModelList Switches { get => Data.Switches; set => Data.Switches = value; }
 
         public static void WriteXml()
         {
@@ -30,5 +32,6 @@ namespace tdjWpfClassLibrary
         public RetarderModelList Retarders;
         public CtrRetarderModelList CtrRetarders;
         public ArresterModelList Arresters;
+        public SwitchModelList Switches;
     }
 }
