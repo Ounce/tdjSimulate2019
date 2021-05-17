@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using tdjWpfClassLibrary.Draw;
 
 namespace tdjWpfClassLibrary.Profile
@@ -225,11 +226,13 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableBottom;
 
+        [XmlIgnore]
         public Point SlopeTableLeftTop
         {
             get { return new Point(_x1, _slopeTableTop); }
         }
 
+        [XmlIgnore]
         public Point SlopeTableLeftBottom
         {
             get { return new Point(_x1, _slopeTableBottom); }

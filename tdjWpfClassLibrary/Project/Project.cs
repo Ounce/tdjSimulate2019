@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 using tdjWpfClassLibrary.Layout;
+using tdjWpfClassLibrary.Profile;
 using tdjWpfClassLibrary.Retarder;
 using tdjWpfClassLibrary.Wagon;
 
@@ -37,6 +38,8 @@ namespace tdjWpfClassLibrary.Project
             set => _retarders = value;
         }
         private Collection<Retarder.Retarder> _retarders;
+
+        public ProfileViewModel Profile { get; set; }
 
         public Project()
         {

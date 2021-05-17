@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
+using System.Xml.Serialization;
 using tdjWpfClassLibrary.Draw;
 using Point = System.Windows.Point;
 
@@ -22,6 +23,7 @@ namespace tdjWpfClassLibrary.Profile
     /// 提供Polyline和Points。
     /// 需要HorizontalScale和VertialScale。
     /// </summary>
+    [Serializable]
     public class ProfileViewModel : NotifyPropertyChanged, IGraphPosition
     {
         public string Name
@@ -32,6 +34,7 @@ namespace tdjWpfClassLibrary.Profile
 
         public string Title { get; set; }
 
+        [XmlIgnore]
         public HorizontalAlignment HorizontalAlignment
         {
             get => _horizontalAlignment;
@@ -46,6 +49,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private HorizontalAlignment _horizontalAlignment;
 
+        [XmlIgnore]
         public VerticalAlignment VerticalAlignment
         {
             get => _verticalAlignment;
@@ -60,13 +64,16 @@ namespace tdjWpfClassLibrary.Profile
         }
         private VerticalAlignment _verticalAlignment;
 
+        [XmlIgnore]
         public double CanvasActualHeight { get; set; }
         public double CanvasActualWidth { get; set; }
 
+        [XmlIgnore]
         public Point LeftTop { get; set; } = new Point(0, 0);
 
         public ObservableCollection<SlopeViewModel> Slopes;
 
+        [XmlIgnore]
         public SlopeViewModel this[int index]
         {
             get { return Slopes[index]; }
@@ -173,6 +180,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         public double _minAltitude;
 
+        [XmlIgnore]
         public Point FirstPoint
         {
             get { return firstPoint; }
@@ -187,6 +195,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private Point firstPoint;
 
+        [XmlIgnore]
         public ProfileViewModelOption ProfileOption;
 
         public double SlopeTableBorderWidth
@@ -201,7 +210,8 @@ namespace tdjWpfClassLibrary.Profile
                 }
             }
         }
-    
+
+        [XmlIgnore]
         public double SlopeTableTop
         {
             get { return _slopeTableTop; }
@@ -220,6 +230,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableTop;
 
+        [XmlIgnore]
         public double SlopeTableHeight
         {
             get { return _slopeTableHeight; }
@@ -235,6 +246,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableHeight;
 
+        [XmlIgnore]
         public double SlopeTableBottom
         {
             get { return _slopeTableBottom; }
@@ -253,6 +265,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableBottom;
 
+        [XmlIgnore]
         public System.Windows.Shapes.Rectangle SlopeTableRectange;
 
         public ProfileViewModel()
