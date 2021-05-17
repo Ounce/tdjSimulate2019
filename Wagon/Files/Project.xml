@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <Project>
+  <Checks />
   <Cuts>
     <Cut Name="单辆重">
       <WagonModelID>23ba3ce8-3b79-4ccb-97f7-3988b2bc309a</WagonModelID>
@@ -22,4 +23,5 @@
       <RunType>Z</RunType>
     </Cut>
   </Cuts>
+  <Retarders />
 </Project>

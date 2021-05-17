@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Linq;
 using tdjWpfClassLibrary;
+using tdjWpfClassLibrary.Project;
 using tdjWpfClassLibrary.Wagon;
 
 namespace Wagon
@@ -46,9 +47,10 @@ namespace Wagon
             RunTypeComboBox.ItemsSource = RunTypes;
 
             ProjectFile = (ProjectFile)XmlHelper.ReadXML(ProjectFilePath, typeof(ProjectFile));
-            foreach (var w in ProjectFile.Cuts)
-                w.WagonModel = WagonHelper.GetWagonModel(w.WagonModelID);
             Project = (Project)ProjectFile;
+            //ProjectFile.ReadXML();
+            foreach (var w in Project.Cuts)
+                w.WagonModel = WagonHelper.GetWagonModel(w.WagonModelID);
             SelectedCutsDataGrid.ItemsSource = Project.Cuts;
 
             //SelectedCutList = new CutList();

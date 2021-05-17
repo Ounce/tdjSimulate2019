@@ -26,6 +26,23 @@ namespace tdjWpfClassLibrary
             }
             return default(T);
         }
+
+        public Collection<T> Find(ObservableCollection<Guid> ids)
+        {
+            Type type = typeof(T);
+            PropertyInfo proInfo = type.GetProperty("ID");
+            if (proInfo == null) return null;
+            Collection<T> re = new Collection<T>();
+            foreach (T o in this)
+            {
+                Guid i = (Guid)proInfo.GetValue(o);
+                if (ids.Contains(i))
+                {
+                    re.Add(o);
+                }
+            }
+            return re;
+        }
     }
 
 

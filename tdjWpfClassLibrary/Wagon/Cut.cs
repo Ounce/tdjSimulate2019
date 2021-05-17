@@ -140,7 +140,7 @@ namespace tdjWpfClassLibrary.Wagon
     }
 
     [XmlRoot("Cuts")]
-    public class CutList : ObservableCollection<Cut>
+    public class CutList : Collection<Cut>
     {
     }
 

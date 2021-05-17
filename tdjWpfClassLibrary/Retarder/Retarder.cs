@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace tdjWpfClassLibrary.Retarder
 {
-    public class RetarderList : ObservableCollection<Retarder>
+    public class RetarderList : Collection<Retarder>
     {
 
     }

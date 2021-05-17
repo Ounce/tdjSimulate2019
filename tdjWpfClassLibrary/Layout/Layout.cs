@@ -4,7 +4,8 @@ using System.Text;
 
 namespace tdjWpfClassLibrary.Layout
 {
-    class Layout
+    public class Layout
     {
+        public Track Track { get; set; }
     }
 }

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
+using tdjWpfClassLibrary.Layout;
 using tdjWpfClassLibrary.Retarder;
 using tdjWpfClassLibrary.Wagon;
 
-namespace tdjWpfClassLibrary
+namespace tdjWpfClassLibrary.Project
 {
     public class Project
     {
-
+        public CheckList Checks { get; set; }
         public CutList Cuts
         {
             get { return _cuts; }
@@ -23,16 +24,31 @@ namespace tdjWpfClassLibrary
         }
         private CutList _cuts;
 
-        public RetarderList Retarders
+        public TrackList Tracks
+        {
+            get => _tracks;
+            set => _tracks = value;
+        }
+        private TrackList _tracks;
+
+        public Collection<Retarder.Retarder> Retarders
         {
             get => _retarders;
             set => _retarders = value;
         }
-        private RetarderList _retarders;
+        private Collection<Retarder.Retarder> _retarders;
 
         public Project()
         {
             _cuts = new CutList();
+        }
+
+        public void UpdateDataByIDs()
+        {
+            foreach (Track t in Tracks)
+            {
+                t.Retarders = Retarders.Find(t.RetarderIDs);
+            }
         }
     }
 
@@ -54,6 +70,12 @@ namespace tdjWpfClassLibrary
             Version = "0.1";
         }
 
-
+        /*
+        public Project ReadXML()
+        {
+            Project = (Project)XmlHelper.ReadXML(Path, typeof(ProjectFile));
+            return Project;
+        }
+        */
     }
 }
