@@ -24,12 +24,12 @@ namespace tdjWpfClassLibrary.Project
         }
         private CutList _cuts;
 
-        public TrackList Tracks
+        public Collection<Track> Tracks
         {
             get => _tracks;
             set => _tracks = value;
         }
-        private TrackList _tracks;
+        private Collection<Track> _tracks;
 
         public Collection<Retarder.Retarder> Retarders
         {
@@ -43,13 +43,7 @@ namespace tdjWpfClassLibrary.Project
             _cuts = new CutList();
         }
 
-        public void UpdateDataByIDs()
-        {
-            foreach (Track t in Tracks)
-            {
-                t.Retarders = Retarders.Find(t.RetarderIDs);
-            }
-        }
+
     }
 
     //[Serializable]
