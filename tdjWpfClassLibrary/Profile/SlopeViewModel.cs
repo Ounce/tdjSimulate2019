@@ -12,9 +12,11 @@ using tdjWpfClassLibrary.Draw;
 
 namespace tdjWpfClassLibrary.Profile
 {
+    [XmlRoot("Slope")]
     public class SlopeViewModel : NotifyPropertyChanged, ISlope
     {
         private double _length;
+        [XmlAttribute("Length")]
         public double Length
         {
             get { return _length; }
@@ -32,6 +34,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlAttribute("Grade")]
         public double Grade
         {
             get { return _grade * Option.GradeUnit; }
@@ -54,6 +57,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _grade;
 
+        [XmlAttribute("BeginAltitude")]
         public double BeginAltitude
         {
             get { return _beginAltitude; }
@@ -80,6 +84,7 @@ namespace tdjWpfClassLibrary.Profile
             EndAltitude = _beginAltitude - _grade * _length;
         }
 
+        [XmlIgnore]
         public double EndAltitude
         {
             get { return _endAltitude; }
@@ -96,6 +101,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _endAltitude;
 
+        [XmlIgnore]
         public double BeginMileage
         {
             get { return _beginMileage; }
@@ -112,6 +118,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _beginMileage;
 
+        [XmlIgnore]
         public double EndMileage
         {
             get { return _endMileage; }
@@ -127,6 +134,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _endMileage;
 
+        [XmlIgnore]
         public double X1
         {
             get { return _x1; }
@@ -142,6 +150,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _x1;
 
+        [XmlIgnore]
         public double X2
         {
             get { return _x2; }
@@ -159,11 +168,13 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _x2;
 
+        [XmlIgnore]
         public double Y1
         {
             get { return ValueConverter.VerticalValue(BeginAltitude * Scale.Vertical); }
         }
 
+        [XmlIgnore]
         public double Y2
         {
             get { return ValueConverter.VerticalValue(EndAltitude * Scale.Vertical); }
@@ -181,11 +192,13 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 坡度表、高程表的宽度。
         /// </summary>
+        [XmlIgnore]
         public double Width
         {
             get { return _length * Scale.Horizontal; }
         }
 
+        [XmlIgnore]
         public double SlopeTableTop
         {
             get { return _slopeTableTop; }
@@ -206,6 +219,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _slopeTableTop;
 
+        [XmlIgnore]
         public double SlopeTableBottom
         {
             get { return _slopeTableBottom; }
@@ -238,16 +252,19 @@ namespace tdjWpfClassLibrary.Profile
             get { return new Point(_x1, _slopeTableBottom); }
         }
 
+        [XmlIgnore]
         public Point SlopeTableRightTop
         {
             get { return new Point(_x2, _slopeTableTop); }
         }
 
+        [XmlIgnore]
         public Point SlopeTableRightBottom
         {
             get { return new Point(_x2, _slopeTableBottom); }
         }
 
+        [XmlIgnore]
         public Point SlopeTableLeftCenter
         {
             get
@@ -256,6 +273,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlIgnore]
         public Point SlopeTableRightCenter
         {
             get
@@ -264,6 +282,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlIgnore]
         public Point SlopeTableGradeLineStartPoint
         {
             get
@@ -277,6 +296,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlIgnore]
         public Point SlopeTableGradeLineEndPoint
         {
             get
@@ -290,6 +310,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlIgnore]
         public HorizontalAlignment SlopeTableGradeLabelHorizontalAlignment
         {
             get
@@ -303,6 +324,7 @@ namespace tdjWpfClassLibrary.Profile
             }
         }
 
+        [XmlIgnore]
         public HorizontalAlignment SlopeTableLengthLabelHorizontalAlignment
         {
             get

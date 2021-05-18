@@ -66,6 +66,7 @@ namespace tdjWpfClassLibrary.Wagon
             }
         }
         private double _initSpeed;
+
         /// <summary>
         /// 位置（前端）。模糊车钩钩舌内侧与车辆端板之间的空间。
         /// </summary>

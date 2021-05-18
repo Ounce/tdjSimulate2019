@@ -26,12 +26,14 @@ namespace tdjWpfClassLibrary.Profile
     [Serializable]
     public class ProfileViewModel : NotifyPropertyChanged, IGraphPosition
     {
+        [XmlAttribute("Name")]
         public string Name
         {
             get;
             set;
         }
 
+        [XmlAttribute("Title")]
         public string Title { get; set; }
 
         [XmlIgnore]
@@ -83,13 +85,16 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 坡度单位。1000 = ‰；100 = % 。
         /// </summary>
+        [XmlAttribute("GradeUnit")]
         public double GradeUnit { get; set; }
 
+        [XmlIgnore]
         public int Count
         {
             get { return Slopes.Count; }
         }
 
+        [XmlIgnore]
         public bool Updated
         {
             get { return _updated; }
@@ -105,15 +110,18 @@ namespace tdjWpfClassLibrary.Profile
         /// 原始Altitude位置。未设置时此值为-1。
         /// 读取Excel数据时，以第一个非-999高程为FixAltitudePosition。
         /// </summary>
+        [XmlAttribute("FixAltitudePosition")]
         public int FixAltitudePosition { get; set; }
 
         /// <summary>
         /// 原始Altitude。如果原始值为BeginAltitude，则此值为true；如果为EndAltitude时为false。
         /// </summary>
+        [XmlAttribute("FixBeginOrEndAltitude")]
         public bool FixBeginOrEndAltitude { get; set; }
 
         public double BeginAltitude;
 
+        [XmlIgnore]
         public double HumpMileage 
         { 
             get => _humpMileage; 
@@ -129,6 +137,7 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _humpMileage;
 
+        [XmlIgnore]
         public double HumpHeightCalculatePointMileage 
         { 
             get => _humpHeightCalculatePointMileage;
@@ -144,11 +153,13 @@ namespace tdjWpfClassLibrary.Profile
         }
         private double _humpHeightCalculatePointMileage;
 
+        [XmlIgnore]
         public double? HumpHeight { get { return GetAltitude(HumpMileage) - GetAltitude(HumpHeightCalculatePointMileage); } }
 
         /// <summary>
         /// 纵断面全长。
         /// </summary>
+        [XmlIgnore]
         public double Length
         {
             get
@@ -165,6 +176,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 最大高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
+        [XmlIgnore]
         public double MaxAltitude
         {
             get { return _maxAltitude; }
@@ -174,6 +186,7 @@ namespace tdjWpfClassLibrary.Profile
         /// <summary>
         /// 最小高程。由Slopes各项变化通过SlopePropertyChanged调用UpdateMaxMinAltitude计算。
         /// </summary>
+        [XmlIgnore]
         public double MinAltitude
         {
             get { return _minAltitude; }
@@ -198,6 +211,7 @@ namespace tdjWpfClassLibrary.Profile
         [XmlIgnore]
         public ProfileViewModelOption ProfileOption;
 
+        [XmlIgnore]
         public double SlopeTableBorderWidth
         {
             get { return ProfileOption.SlopeTableBorderWidth; }
@@ -629,7 +643,6 @@ namespace tdjWpfClassLibrary.Profile
             //OnPropertyChanged("Count");
             // Slopes.Add会改变profile.FixAltitudePosition。
         }
-
 
         public void WriteXML(XmlElement xmlElement)
         {
