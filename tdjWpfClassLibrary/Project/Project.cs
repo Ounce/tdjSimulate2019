@@ -21,6 +21,7 @@ namespace tdjWpfClassLibrary.Project
                 if (value != _name)
                 {
                     _name = value;
+                    _node.Name = value;
                     OnPropertyChanged("Node");
                     OnPropertyChanged("Name");
                 }
@@ -64,7 +65,11 @@ namespace tdjWpfClassLibrary.Project
 
         public Collection<ProfileViewModel> Profiles { get; set; }
 
-        public TreeViewNode Node { get { return GetTreeViewNode(); } }
+        public TreeViewNode Node 
+        {
+            get => _node;
+        }
+        private TreeViewNode _node;
 
         public Project()
         {
@@ -73,6 +78,8 @@ namespace tdjWpfClassLibrary.Project
             check.Name = "ceshi";
             Checks.Add(check);
             _cuts = new CutList();
+            _node = new TreeViewNode();
+            SetTreeViewNode();
         }
 
         private TreeViewNode GetTreeViewNode()
@@ -82,6 +89,13 @@ namespace tdjWpfClassLibrary.Project
             tv.PageType = PageType.Project;
             tv.Children = Checks.Nodes;
             return tv;
+        }
+
+        private void SetTreeViewNode()
+        {
+            _node.Name = Name;
+            _node.PageType = PageType.Project;
+            _node.Children = Checks.Nodes;
         }
     }
 

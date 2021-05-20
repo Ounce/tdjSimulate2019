@@ -154,7 +154,7 @@
             <TabItem Name="ProjectTabItem" Margin="0" Visibility="Collapsed">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center" Margin="0" Text="项目" TextWrapping="Wrap" VerticalAlignment="Top" Height="50"/>
-                    <TextBox x:Name="NameTextBox" Text="{Binding Name}" />
+                    <TextBox x:Name="NameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </TabItem>
         </TabControl>

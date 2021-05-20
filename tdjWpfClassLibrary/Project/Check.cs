@@ -63,9 +63,21 @@ namespace tdjWpfClassLibrary.Project
         }
     }
 
-    public class TreeViewNode
+    public class TreeViewNode : NotifyPropertyChanged
     {
-        public string Name { get; set; }
+        public string Name 
+        { 
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
 
         /// <summary>
         /// 对应编辑页面编号。
