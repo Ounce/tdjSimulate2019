@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tdjWpfClassLibrary\tdjWpfClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\AbstractAssociation_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text;
+using System.Xml.Serialization;
+using tdjWpfClassLibrary.Project;
 using tdjWpfClassLibrary.Wagon;
 
 namespace tdjWpfClassLibrary
@@ -13,6 +15,11 @@ namespace tdjWpfClassLibrary
     /// <typeparam name="T"></typeparam>
     public class Collection<T> : ObservableCollection<T>
     {
+        /// <summary>
+        /// 用于TreeView控件的显示。
+        /// </summary>
+        public ObservableCollection<TreeViewNode> Nodes { get { return GetTreeViewNodes(); } }
+
         public T Find(Guid id)
         {
             Type type = typeof(T);
@@ -42,6 +49,21 @@ namespace tdjWpfClassLibrary
                 }
             }
             return re;
+        }
+
+        private ObservableCollection<TreeViewNode> GetTreeViewNodes()
+        {
+            if (this.Count < 1) return null;
+            Type type = typeof(T);
+            PropertyInfo proInfo = type.GetProperty("Node");
+            if (proInfo == null) return null;
+            ObservableCollection<TreeViewNode> nodes = new ObservableCollection<TreeViewNode>();
+            foreach (T o in this)
+            {
+                TreeViewNode node = (TreeViewNode)proInfo.GetValue(o);
+                nodes.Add(node);
+            }
+            return nodes;
         }
     }
 

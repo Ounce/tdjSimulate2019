@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml.Serialization;
 using tdjWpfClassLibrary.Layout;
@@ -9,9 +10,18 @@ using tdjWpfClassLibrary.Wagon;
 
 namespace tdjWpfClassLibrary.Project
 {
-    public class Project
+    public class Project : NotifyPropertyChanged
     {
-        public CheckList Checks { get; set; }
+        [XmlAttribute("Name")]
+        public string Name { get; set; }
+
+        [XmlAttribute("Description")]
+        public string Description { get; set; }
+
+        [XmlElement("Checks")]
+        public CheckCollection Checks { get; set; }
+
+        [XmlAttribute("Cuts")]
         public CutList Cuts
         {
             get { return _cuts; }
@@ -39,14 +49,26 @@ namespace tdjWpfClassLibrary.Project
         }
         private Collection<Retarder.Retarder> _retarders;
 
-        public ProfileViewModel Profile { get; set; }
+        public Collection<ProfileViewModel> Profiles { get; set; }
+
+        public TreeViewNode Node { get { return GetTreeViewNode(); } }
 
         public Project()
         {
+            Checks = new CheckCollection();
+            Check check = new Check();
+            check.Name = "ceshi";
+            Checks.Add(check);
             _cuts = new CutList();
         }
 
-
+        private TreeViewNode GetTreeViewNode()
+        {
+            TreeViewNode tv = new TreeViewNode();
+            tv.Name = Name;
+            tv.Children = Checks.Nodes;
+            return tv;
+        }
     }
 
     //[Serializable]
@@ -74,5 +96,10 @@ namespace tdjWpfClassLibrary.Project
             return Project;
         }
         */
+    }
+
+    public class ProjectCollection : Collection<Project>
+    {
+
     }
 }

@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simulate"
+        xmlns:loc1="clr-namespace:tdjWpfClassLibrary.Project;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Closing="Window_Closing" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -111,7 +112,22 @@
             </ToolBar>
             -->
         </ToolBarTray>
-        <TreeView x:Name="ProjectTreeView" Grid.Row="2" Grid.Column="0" Margin="1">
+        <TreeView x:Name="ProjectTreeView" Grid.Row="2" Grid.Column="0" Margin="1" SelectedItemChanged="ProjectTreeView_SelectedItemChanged">
+            <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type loc1:TreeViewNode}" ItemsSource="{Binding Path=Children}">
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                    <Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+                    -->
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
+                    <Image VerticalAlignment="Center" Source="{Binding EditIcon}" Margin="2,0,0,0"></Image>
+                    <StackPanel.ToolTip>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" TextWrapping="Wrap" MaxWidth="200" ></TextBlock>
+                    </StackPanel.ToolTip>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <!--
             <TreeViewItem Header="项目名称" IsExpanded="True">
                 <TreeViewItem Header="工况名称" IsExpanded="True">
                     <TreeViewItem Header="线路" IsExpanded="True">
@@ -131,6 +147,7 @@
                     <TreeViewItem Header="气象"/>
                 </TreeViewItem>
             </TreeViewItem>
+            -->
         </TreeView>
         <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <TabControl x:Name="WorkTabControl" Grid.Row="2" Grid.Column="2">

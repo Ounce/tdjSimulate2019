@@ -68,6 +68,8 @@ namespace tdjWpfClassLibrary.Profile
 
         [XmlIgnore]
         public double CanvasActualHeight { get; set; }
+
+        [XmlIgnore]
         public double CanvasActualWidth { get; set; }
 
         [XmlIgnore]
