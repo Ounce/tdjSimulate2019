@@ -65,13 +65,18 @@ namespace tdjWpfClassLibrary.Project
 
     public class TreeViewNode
     {
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 对应编辑页面编号。
+        /// </summary>
+        public int PageType { get; set;}
         public string Icon { get; set; }
 
         public string EditIcon { get; set; }
 
         public string DisplayName { get; set; }
 
-        public string Name { get; set; }
            
         public ObservableCollection<TreeViewNode> Children { get; set; }
 

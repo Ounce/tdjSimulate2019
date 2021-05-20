@@ -66,6 +66,7 @@ namespace tdjWpfClassLibrary.Project
         {
             TreeViewNode tv = new TreeViewNode();
             tv.Name = Name;
+            tv.PageType = 1;
             tv.Children = Checks.Nodes;
             return tv;
         }

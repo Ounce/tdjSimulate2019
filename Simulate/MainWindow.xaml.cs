@@ -115,17 +115,12 @@ namespace Simulate
 
         private void ProjectTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            /*
-            if (((TreeViewItem)sender).GetType() == typeof(ProfileViewModel))
+            switch (((TreeViewNode)e.NewValue).PageType)
             {
-                switch (((TreeViewItem)sender).PersistId)
-                {
-                    case 1:
-                        break;
-                }
-
+                case 1:
+                    MessageBox.Show("Project");
+                    break;
             }
-            */
         }
     }
 }
