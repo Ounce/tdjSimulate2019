@@ -13,7 +13,20 @@ namespace tdjWpfClassLibrary.Project
     public class Project : NotifyPropertyChanged
     {
         [XmlAttribute("Name")]
-        public string Name { get; set; }
+        public string Name 
+        { 
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Node");
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
 
         [XmlAttribute("Description")]
         public string Description { get; set; }
@@ -66,7 +79,7 @@ namespace tdjWpfClassLibrary.Project
         {
             TreeViewNode tv = new TreeViewNode();
             tv.Name = Name;
-            tv.PageType = 1;
+            tv.PageType = PageType.Project;
             tv.Children = Checks.Nodes;
             return tv;
         }

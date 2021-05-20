@@ -150,8 +150,14 @@
             -->
         </TreeView>
         <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <TabControl x:Name="WorkTabControl" Grid.Row="2" Grid.Column="2">
-            <TabItem Name="ProjectDescriptionTabItem" Margin="1" Width="{Binding ActualWidth, ElementName= WorkTabControl}" Height="{Binding ActualHeight, ElementName=WorkTabControl}"/>
+        <TabControl x:Name="WorkTabControl" Margin="1" Grid.Row="2" Grid.Column="2">
+            <TabItem Name="ProjectTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Margin="0" Text="项目" TextWrapping="Wrap" VerticalAlignment="Top" Height="50"/>
+                    <TextBox x:Name="NameTextBox" Text="{Binding Name}" />
+                </StackPanel>
+            </TabItem>
         </TabControl>
+
     </Grid>
 </Window>

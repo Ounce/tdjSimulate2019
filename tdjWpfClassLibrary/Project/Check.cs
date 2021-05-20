@@ -70,7 +70,7 @@ namespace tdjWpfClassLibrary.Project
         /// <summary>
         /// 对应编辑页面编号。
         /// </summary>
-        public int PageType { get; set;}
+        public PageType PageType { get; set;}
         public string Icon { get; set; }
 
         public string EditIcon { get; set; }

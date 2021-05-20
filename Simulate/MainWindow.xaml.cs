@@ -40,7 +40,10 @@ namespace Simulate
             Nodes = new ObservableCollection<TreeViewNode>();
             Project.Name = "Test";
             Nodes.Add(Project.Node);
+            Project.Name = "SSSSS";
+            Nodes[0] = Project.Node;
             ProjectTreeView.ItemsSource = Nodes;
+            ProjectTabItem.DataContext = Project;
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -117,7 +120,7 @@ namespace Simulate
         {
             switch (((TreeViewNode)e.NewValue).PageType)
             {
-                case 1:
+                case PageType.Project:
                     MessageBox.Show("Project");
                     break;
             }
