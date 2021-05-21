@@ -23,6 +23,8 @@ namespace tdjWpfClassLibrary
         }
         private string _name;
 
+        public Guid DataID { get; set; }
+
         /// <summary>
         /// 对应编辑页面编号。
         /// </summary>

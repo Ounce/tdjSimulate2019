@@ -48,6 +48,7 @@ namespace tdjWpfClassLibrary.Project
             Node = new TreeViewNode();
             Name = "未命名";
             Node.PageType = PageType.Check;
+            Node.DataID = ID;
             TreeViewNode TrackNode = new TreeViewNode();
             TrackNode.Name = "线路";
             TrackNode.PageType = PageType.Tracks;

@@ -122,6 +122,11 @@ namespace Simulate
                 case PageType.Project:
                     
                     break;
+                case PageType.Check:
+                    CheckTabItem.IsSelected = true;
+                    CheckTabItem.DataContext = Project.Checks.Find(((TreeViewNode)e.NewValue).DataID);
+                    
+                    break;
             }
         }
     }

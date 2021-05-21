@@ -154,7 +154,7 @@
             <TabItem Name="ProjectTabItem" Margin="0" Visibility="Collapsed">
                 <StackPanel>
                     <TextBlock Text="项目名称："/>
-                    <TextBox x:Name="NameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Name="ProjectNameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text=""/>
                     <TextBlock Text="工况："/>
                     <DataGrid x:Name="CheckDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding }" SelectionUnit="Cell" CanUserDeleteRows="True">
@@ -163,8 +163,21 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
-                
             </TabItem>
+            <TabItem Name="CheckTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="工况名称："/>
+                    <TextBox x:Name="CheckNameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text=""/>
+                    <TextBlock Text="线路："/>
+                    <DataGrid x:Name="TrackDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Tracks}" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Track.Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+
         </TabControl>
 
     </Grid>
