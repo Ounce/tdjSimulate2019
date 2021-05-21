@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simulate"
-        xmlns:loc1="clr-namespace:tdjWpfClassLibrary.Project;assembly=tdjWpfClassLibrary"
+        xmlns:loc1="clr-namespace:tdjWpfClassLibrary;assembly=tdjWpfClassLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Closing="Window_Closing" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -153,9 +153,17 @@
         <TabControl x:Name="WorkTabControl" Margin="1" Grid.Row="2" Grid.Column="2">
             <TabItem Name="ProjectTabItem" Margin="0" Visibility="Collapsed">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Margin="0" Text="项目" TextWrapping="Wrap" VerticalAlignment="Top" Height="50"/>
+                    <TextBlock Text="项目名称："/>
                     <TextBox x:Name="NameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text=""/>
+                    <TextBlock Text="工况："/>
+                    <DataGrid x:Name="CheckDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding }" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
+                
             </TabItem>
         </TabControl>
 

@@ -26,7 +26,9 @@ namespace tdjWpfClassLibrary.Project
             }
         }
         private string _name;
+
         public ObservableCollection<Guid> CutIDs { get; set; }
+
         public ObservableCollection<Guid> TrackIDs { get; set; }
 
         [XmlIgnore]
@@ -44,62 +46,27 @@ namespace tdjWpfClassLibrary.Project
         public Check()
         {
             Node = new TreeViewNode();
+            Name = "未命名";
+            Node.PageType = PageType.Check;
             TreeViewNode TrackNode = new TreeViewNode();
             TrackNode.Name = "线路";
+            TrackNode.PageType = PageType.Tracks;
             Tracks = new TrackCollection();
             Track track = new Track();
             Tracks.Add(track);
             TrackNode.Children = Tracks.Nodes;
             Node.Children.Add(TrackNode);
-            TreeViewNode rNode = new TreeViewNode();
             TreeViewNode sNode = new TreeViewNode();
+            sNode.PageType = PageType.Cut;
             sNode.Name = "车组";
             sNode.Children = null;
             Node.Children.Add(sNode);
+            TreeViewNode rNode = new TreeViewNode();
+            rNode.PageType = PageType.Resistance;
             rNode.Name = "阻力";
             rNode.Children = null;
             Node.Children.Add(rNode);
-
         }
     }
 
-    public class TreeViewNode : NotifyPropertyChanged
-    {
-        public string Name 
-        { 
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
-        }
-        private string _name;
-
-        /// <summary>
-        /// 对应编辑页面编号。
-        /// </summary>
-        public PageType PageType { get; set;}
-        public string Icon { get; set; }
-
-        public string EditIcon { get; set; }
-
-        public string DisplayName { get; set; }
-
-           
-        public ObservableCollection<TreeViewNode> Children { get; set; }
-
-        public TreeViewNode()
-        {
-            Children = new ObservableCollection<TreeViewNode>();
-        }
-    }
-
-    public class CheckCollection : Collection<Check>
-    {
-
-    }
 }

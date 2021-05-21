@@ -22,7 +22,6 @@ namespace tdjWpfClassLibrary.Project
                 {
                     _name = value;
                     _node.Name = value;
-                    OnPropertyChanged("Node");
                     OnPropertyChanged("Name");
                 }
             }
@@ -33,7 +32,20 @@ namespace tdjWpfClassLibrary.Project
         public string Description { get; set; }
 
         [XmlElement("Checks")]
-        public CheckCollection Checks { get; set; }
+        public CheckCollection Checks 
+        { 
+            get => _checks;
+            set
+            {
+                if (value != _checks)
+                {
+                    _checks = value;
+                    OnPropertyChanged("Nodes");
+                    OnPropertyChanged("Checks");
+                }
+            }
+        }
+        private CheckCollection _checks;
 
         [XmlAttribute("Cuts")]
         public CutList Cuts
@@ -73,13 +85,21 @@ namespace tdjWpfClassLibrary.Project
 
         public Project()
         {
-            Checks = new CheckCollection();
-            Check check = new Check();
-            check.Name = "ceshi";
-            Checks.Add(check);
-            _cuts = new CutList();
             _node = new TreeViewNode();
-            SetTreeViewNode();
+            _name = "未命名";
+            _node.Name = _name;
+            _node.PageType = PageType.Project;
+            _checks = new CheckCollection();
+            Check check = new Check();
+            _checks.Add(check);
+            _node.Children = Checks.Nodes;
+            _cuts = new CutList();
+            Checks.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ChecksCollectionChanged);
+        }
+
+        private void ChecksCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            _node.Children = Checks.Nodes;
         }
 
         private TreeViewNode GetTreeViewNode()
@@ -89,13 +109,6 @@ namespace tdjWpfClassLibrary.Project
             tv.PageType = PageType.Project;
             tv.Children = Checks.Nodes;
             return tv;
-        }
-
-        private void SetTreeViewNode()
-        {
-            _node.Name = Name;
-            _node.PageType = PageType.Project;
-            _node.Children = Checks.Nodes;
         }
     }
 

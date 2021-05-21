@@ -31,6 +31,10 @@ namespace tdjWpfClassLibrary.Project
         CtrRetarder,
         [Description("停车顶")]
         Arrester,
+        [Description("车组")]
+        Cut,
+        [Description("阻力")]
+        Resistance
 
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using tdjWpfClassLibrary;
 using tdjWpfClassLibrary.Profile;
 using tdjWpfClassLibrary.Project;
 
@@ -38,12 +39,10 @@ namespace Simulate
             InitializeComponent();
             Project = new Project();
             Nodes = new ObservableCollection<TreeViewNode>();
-            Project.Name = "Test";
             Nodes.Add(Project.Node);
-            Project.Name = "SSSSS";
-            Nodes[0] = Project.Node;
             ProjectTreeView.ItemsSource = Nodes;
             ProjectTabItem.DataContext = Project;
+            CheckDataGrid.ItemsSource = Project.Checks;
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -121,7 +120,7 @@ namespace Simulate
             switch (((TreeViewNode)e.NewValue).PageType)
             {
                 case PageType.Project:
-                    MessageBox.Show("Project");
+                    
                     break;
             }
         }
