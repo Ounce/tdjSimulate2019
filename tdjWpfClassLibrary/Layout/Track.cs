@@ -5,13 +5,26 @@ using System.Text;
 using System.Xml.Serialization;
 using tdjWpfClassLibrary.Profile;
 using tdjWpfClassLibrary.Project;
-using tdjWpfClassLibrary.Retarder;
+using tdjWpfClassLibrary.Equipment;
 
 namespace tdjWpfClassLibrary.Layout
 {
     public class Track : TrackBase
     {
-        public Guid ID { get; set; }    
+        public Guid ID 
+        { 
+            get => _id;
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                    _node.TrackID = value;
+                }
+            }
+        }
+        private Guid _id;
+
         public string Name { get; set; }    
 
         [XmlIgnore]
@@ -21,20 +34,29 @@ namespace tdjWpfClassLibrary.Layout
         [XmlIgnore]
         public SwitchList Switches { get; set; }
         [XmlIgnore]
-        public Collection<Retarder.Retarder> Retarders { get; set; }
+        public Collection<Retarder> Retarders { get; set; }
 
         [XmlIgnore]
-        public ObservableCollection<TreeViewNode> Nodes
+        public TreeViewNode Node
         {
-            get { return GetTreeViewNodes(); }
+            get => _node;
+            set => _node = value;
+        }
+        private TreeViewNode _node;
+
+        public Track()
+        {
+            _node = new TreeViewNode();
+            _node.PageType = PageType.Track;
+            _node.Children = GetTreeViewNodes();
         }
         
         private ObservableCollection<TreeViewNode> GetTreeViewNodes()
         {
             ObservableCollection<TreeViewNode> nodes = new ObservableCollection<TreeViewNode>()
             {
-                new TreeViewNode() {Name = "纵断面", Children = null },
-                new TreeViewNode() {Name = "道岔", Children = null}
+                new TreeViewNode() {Name = "纵断面", PageType = PageType.Profile, Children = null },
+                new TreeViewNode() {Name = "道岔", PageType = PageType.Switch, Children = null}
             };
             return nodes;
         }

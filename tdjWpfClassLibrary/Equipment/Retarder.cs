@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace tdjWpfClassLibrary.Retarder
+namespace tdjWpfClassLibrary.Equipment
 {
     public class RetarderList : Collection<Retarder>
     {
@@ -71,6 +71,7 @@ namespace tdjWpfClassLibrary.Retarder
             ModelID = model.ID;
             Model = model.Model;
         }
+
     }
 
     public class RetarderModel : NotifyPropertyChanged

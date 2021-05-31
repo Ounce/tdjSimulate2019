@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 using tdjWpfClassLibrary.Layout;
-using tdjWpfClassLibrary.Retarder;
+using tdjWpfClassLibrary.Equipment;
 using tdjWpfClassLibrary.Wagon;
 
 namespace tdjWpfClassLibrary

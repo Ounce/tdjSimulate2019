@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace tdjWpfClassLibrary.Retarder
+namespace tdjWpfClassLibrary.Equipment
 {
     /// <summary>
     /// 减速顶位置。有关减速顶位置，步长内通过数量等计算。

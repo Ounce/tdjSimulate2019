@@ -120,12 +120,24 @@ namespace Simulate
             switch (((TreeViewNode)e.NewValue).PageType)
             {
                 case PageType.Project:
-                    
+                    ProjectTabItem.IsSelected = true;
                     break;
                 case PageType.Check:
                     CheckTabItem.IsSelected = true;
-                    CheckTabItem.DataContext = Project.Checks.Find(((TreeViewNode)e.NewValue).DataID);
-                    
+                    CheckTabItem.DataContext = Project.Checks.Find(((TreeViewNode)e.NewValue).CheckID);
+                    break;
+                case PageType.Tracks:
+                    TracksTabItem.IsSelected = true;
+                    TracksDataGrid.ItemsSource = Project.Checks.Find(((TreeViewNode)e.NewValue).CheckID).Tracks;
+                    break;
+                case PageType.Track:
+                    TrackTabItem.IsSelected = true;
+                    break;
+                case PageType.Resistance:
+                    ResistanceTabItem.IsSelected = true;
+                    break;
+                case PageType.Cut:
+                    CutTabItem.IsSelected = true;
                     break;
             }
         }

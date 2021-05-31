@@ -6,7 +6,6 @@ using tdjWpfClassLibrary.Project;
 
 namespace tdjWpfClassLibrary
 {
-
     public class TreeViewNode : NotifyPropertyChanged
     {
         public string Name
@@ -23,7 +22,39 @@ namespace tdjWpfClassLibrary
         }
         private string _name;
 
-        public Guid DataID { get; set; }
+        public Guid CheckID 
+        { 
+            get => _checkID;
+            set
+            {
+                if (value != _checkID)
+                {
+                    _checkID = value;
+                    foreach (TreeViewNode c in Children)
+                    {
+                        c.CheckID = value;
+                    }
+                }
+            }
+        }
+        private Guid _checkID;
+
+        public Guid TrackID 
+        { 
+            get => _trackID; 
+            set
+            {
+                if (value != _trackID)
+                {
+                    _trackID = value;
+                    foreach (TreeViewNode c in Children)
+                    {
+                        c.TrackID = value;
+                    }
+                }
+            }
+        }
+        private Guid _trackID;
 
         /// <summary>
         /// 对应编辑页面编号。
@@ -53,10 +84,5 @@ namespace tdjWpfClassLibrary
         {
             Children = new ObservableCollection<TreeViewNode>();
         }
-    }
-
-    public class CheckCollection : Collection<Check>
-    {
-
     }
 }

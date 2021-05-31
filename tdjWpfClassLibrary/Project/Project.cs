@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using tdjWpfClassLibrary.Layout;
 using tdjWpfClassLibrary.Profile;
-using tdjWpfClassLibrary.Retarder;
+using tdjWpfClassLibrary.Equipment;
 using tdjWpfClassLibrary.Wagon;
 
 namespace tdjWpfClassLibrary.Project
@@ -32,8 +32,8 @@ namespace tdjWpfClassLibrary.Project
         public string Description { get; set; }
 
         [XmlElement("Checks")]
-        public CheckCollection Checks 
-        { 
+        public CheckCollection Checks
+        {
             get => _checks;
             set
             {
@@ -68,12 +68,12 @@ namespace tdjWpfClassLibrary.Project
         }
         private Collection<Track> _tracks;
 
-        public Collection<Retarder.Retarder> Retarders
+        public Collection<Retarder> Retarders
         {
             get => _retarders;
             set => _retarders = value;
         }
-        private Collection<Retarder.Retarder> _retarders;
+        private Collection<Retarder> _retarders;
 
         public Collection<ProfileViewModel> Profiles { get; set; }
 

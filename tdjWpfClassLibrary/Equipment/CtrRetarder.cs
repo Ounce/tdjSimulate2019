@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace tdjWpfClassLibrary.Retarder
+namespace tdjWpfClassLibrary.Equipment
 {
     public class CtrRetarder : CtrRetarderModel
     {

@@ -177,8 +177,56 @@
                     </DataGrid>
                 </StackPanel>
             </TabItem>
-
+            <TabItem Name="TracksTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="线路"/>
+                    <TextBlock Text=""/>
+                    <DataGrid x:Name="TracksDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Tracks}" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Track.Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="TrackTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="线路"/>
+                    <TextBlock Text=""/>
+                    <!--
+                    <DataGrid x:Name="TracksDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Tracks}" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Track.Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    -->
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="CutTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="线路"/>
+                    <TextBlock Text=""/>
+                    <!--
+                    <DataGrid x:Name="TracksDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Tracks}" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Track.Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    -->
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="ResistanceTabItem" Margin="0" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="线路"/>
+                    <TextBlock Text=""/>
+                    <!--
+                    <DataGrid x:Name="TracksDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Tracks}" SelectionUnit="Cell" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名称" Binding="{Binding Track.Name, Mode=TwoWay, UpdateSourceTrigger=Default}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    -->
+                </StackPanel>
+            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

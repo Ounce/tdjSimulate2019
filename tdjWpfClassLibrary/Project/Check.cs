@@ -48,9 +48,10 @@ namespace tdjWpfClassLibrary.Project
             Node = new TreeViewNode();
             Name = "未命名";
             Node.PageType = PageType.Check;
-            Node.DataID = ID;
+            Node.CheckID = ID;
             TreeViewNode TrackNode = new TreeViewNode();
             TrackNode.Name = "线路";
+            TrackNode.CheckID = ID;
             TrackNode.PageType = PageType.Tracks;
             Tracks = new TrackCollection();
             Track track = new Track();
@@ -69,5 +70,8 @@ namespace tdjWpfClassLibrary.Project
             Node.Children.Add(rNode);
         }
     }
+    public class CheckCollection : Collection<Check>
+    {
 
+    }
 }

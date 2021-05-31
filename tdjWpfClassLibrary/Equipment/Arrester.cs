@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tdjWpfClassLibrary.Retarder
+namespace tdjWpfClassLibrary.Equipment
 {
     public class Arrester : ArresterModel
     {
